@@ -10,4 +10,5 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FxTrading" />
 
+
 </manifest>

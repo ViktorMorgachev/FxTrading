@@ -3,10 +3,11 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
     }
 }
+
 rootProject.name = "FxTrading"
-include ':app'
-include ':app:data'
-include ':app:core'
+include(":app")
+include(":data:")
+include(":core")
+include(":ui")

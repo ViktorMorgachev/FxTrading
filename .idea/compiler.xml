@@ -4,6 +4,10 @@
     <bytecodeTargetLevel target="1.7">
       <module name="FxTrading.app" target="11" />
       <module name="FxTrading.app.data" target="11" />
+      <module name="FxTrading.app.ui" target="11" />
+      <module name="FxTrading.buildSrc" target="11" />
+      <module name="FxTrading.data" target="11" />
+      <module name="FxTrading.ui" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
