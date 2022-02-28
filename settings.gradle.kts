@@ -8,6 +8,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "FxTrading"
 include(":app")
-include(":data:")
 include(":core")
 include(":ui")
+include(":core:data")
+include(":core:domain")

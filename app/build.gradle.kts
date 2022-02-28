@@ -35,9 +35,15 @@ android {
 dependencies {
 
     implementation(project(":core"))
-    implementation(project(":data"))
     implementation(project(":ui"))
+
+
+
+    implementation(platform("com.google.firebase:firebase-bom:29.0.0"))
+    implementation("com.google.firebase:firebase-common-ktx:20.0.0")
+    implementation("com.google.firebase:firebase-firestore-ktx:24.0.1")
 
     implementation(Deps.dagger_android)
     kapt(KaptDeps.dagger_android_processor)
+    kapt(KaptDeps.dagger_android_compiler)
 }
