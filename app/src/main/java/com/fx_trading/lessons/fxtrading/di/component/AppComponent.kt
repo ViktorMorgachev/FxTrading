@@ -16,12 +16,12 @@ import javax.inject.Singleton
     ActivityModule::class,
     AndroidSupportInjectionModule::class
 ])
-interface AppComponent: AndroidInjector<App> {
+interface AppComponent: AndroidInjector<Application> {
 
     @Component.Factory
     interface Factory {
         fun create(@BindsInstance application: App): AppComponent
     }
 
-    override fun inject(app: App) // Let Dagger know your Application class with root dispatching injector
+    override fun inject(app: Application) // Let Dagger know your Application class with root dispatching injector
 }
