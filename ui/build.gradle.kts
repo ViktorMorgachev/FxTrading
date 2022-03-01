@@ -5,6 +5,7 @@ plugins {
     id("com.android.library")
     id("kotlin-android")
     id("kotlin-kapt")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -45,6 +46,8 @@ dependencies {
     implementation("com.google.dagger:dagger-android-support:2.35.1")
     api(com.viktor.buildsrc.app.Dependency.dagger_android)
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
+
     kapt(KaptDependency.dagger_android_processor)
     kapt(KaptDependency.dagger_android_compiler)
 
