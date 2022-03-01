@@ -44,6 +44,7 @@ dependencies {
     implementation("com.google.dagger:dagger:2.35.1")
     implementation("com.google.dagger:dagger-android-support:2.35.1")
     api(com.viktor.buildsrc.app.Dependency.dagger_android)
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
     kapt(KaptDependency.dagger_android_processor)
     kapt(KaptDependency.dagger_android_compiler)
 
