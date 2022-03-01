@@ -1,12 +1,12 @@
 package com.fx_trading.lessons.core
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import dagger.android.AndroidInjection
+import dagger.android.HasAndroidInjector
 import dagger.android.support.DaggerAppCompatActivity
 
 
-abstract class BaseActivity : DaggerAppCompatActivity(){
+abstract class BaseActivity : DaggerAppCompatActivity(), HasAndroidInjector{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
