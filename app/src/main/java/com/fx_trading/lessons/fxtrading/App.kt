@@ -2,7 +2,7 @@ package com.fx_trading.lessons.fxtrading
 
 import android.app.Application
 import android.content.Context
-import com.fx_trading.lessons.fxtrading.di.AppComponent
+import com.fx_trading.lessons.fxtrading.di.component.AppComponent
 import com.fx_trading.lessons.fxtrading.di.DaggerAppComponent
 
 class App : Application() {

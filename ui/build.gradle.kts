@@ -1,16 +1,18 @@
+import com.viktor.buildsrc.app.KaptDependency
 import com.viktor.buildsrc.ui.Dependency as Deps
 
 plugins {
     id("com.android.library")
     id("kotlin-android")
+    id("kotlin-kapt")
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 31
 
     defaultConfig {
         minSdk = 21
-        targetSdk = 32
+        targetSdk = 31
     }
 
     buildTypes {
@@ -28,6 +30,9 @@ android {
 }
 
 dependencies {
+
+    api(project(":core"))
+
     implementation(Deps.core_ktx)
     implementation(Deps.appCompat)
     implementation(Deps.constraintlayout)
@@ -35,4 +40,11 @@ dependencies {
     implementation(Deps.navigation_ui_ktx)
     implementation(Deps.navigation_fragment_ktx)
     implementation(Deps.navigation_fragment)
+
+    implementation("com.google.dagger:dagger:2.35.1")
+    implementation("com.google.dagger:dagger-android-support:2.35.1")
+    api(com.viktor.buildsrc.app.Dependency.dagger_android)
+    kapt(KaptDependency.dagger_android_processor)
+    kapt(KaptDependency.dagger_android_compiler)
+
 }

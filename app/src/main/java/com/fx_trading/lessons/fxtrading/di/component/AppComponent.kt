@@ -1,13 +1,19 @@
-package com.fx_trading.lessons.fxtrading.di
+package com.fx_trading.lessons.fxtrading.di.component
 
 import android.app.Application
 import com.fx_trading.lessons.fxtrading.di.module.AppModule
+import com.fx_trading.lessons.fxtrading.di.module.uiBuilder.ActivityBuilder
 import dagger.BindsInstance
 import dagger.Component
-import javax.inject.Scope
+import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
-@[AppScope Component(modules = [AppModule::class])]
+@Singleton
+@Component(modules = [
+    AppModule::class,
+    ActivityBuilder::class,
+    AndroidSupportInjectionModule::class
+])
 interface AppComponent {
     @Component.Builder
     interface Builder{
@@ -18,6 +24,3 @@ interface AppComponent {
         fun build(): AppComponent
     }
 }
-
-@Scope
-annotation class AppScope

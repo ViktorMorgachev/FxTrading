@@ -2,11 +2,12 @@ package com.fx_trading.lessons.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.fx_trading.lessons.core.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+    override fun initLayout() {
+        setContentView(R.layout.activity_main)
     }
+
 }

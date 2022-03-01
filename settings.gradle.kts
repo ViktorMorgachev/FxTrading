@@ -10,5 +10,4 @@ rootProject.name = "FxTrading"
 include(":app")
 include(":core")
 include(":ui")
-include(":core:data")
-include(":core:domain")
+include(":domain")

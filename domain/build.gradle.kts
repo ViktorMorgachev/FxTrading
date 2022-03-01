@@ -19,7 +19,7 @@ dependencies {
     implementation("com.google.firebase:firebase-common-ktx:20.0.0")
     implementation("com.google.firebase:firebase-firestore-ktx:24.0.1")
 
-    implementation(Deps.dagger_android)
+    api(Deps.dagger_android)
     kapt(KaptDeps.dagger_android_processor)
     kapt(KaptDeps.dagger_android_compiler)
 }

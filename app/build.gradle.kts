@@ -8,12 +8,12 @@ plugins {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 31
 
     defaultConfig {
         applicationId = "com.fx_trading.lessons.fxtrading"
         minSdk = 21
-        targetSdk = 32
+        targetSdk = 31
         versionCode =  1
         versionName = "1.0"
     }
@@ -37,13 +37,12 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":ui"))
 
-
+    implementation("com.google.dagger:dagger-android-support:2.35.1")
 
     implementation(platform("com.google.firebase:firebase-bom:29.0.0"))
     implementation("com.google.firebase:firebase-common-ktx:20.0.0")
     implementation("com.google.firebase:firebase-firestore-ktx:24.0.1")
 
-    implementation(Deps.dagger_android)
     kapt(KaptDeps.dagger_android_processor)
     kapt(KaptDeps.dagger_android_compiler)
 }
