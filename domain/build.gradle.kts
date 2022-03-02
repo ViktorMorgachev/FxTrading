@@ -21,6 +21,7 @@ dependencies {
     implementation("com.google.firebase:firebase-common-ktx:20.0.0")
     implementation("com.google.firebase:firebase-firestore-ktx:24.0.1")
 
+    implementation("com.google.dagger:dagger:2.35.1")
     api(Deps.dagger_android)
     kapt(KaptDeps.dagger_android_processor)
     kapt(KaptDeps.dagger_android_compiler)
