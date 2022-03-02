@@ -7,30 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.findNavController
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.fx_trading.lessons.ui.R
+import com.fx_trading.lessons.ui.databinding.FragmentOnBoardingFourBinding
+import com.fx_trading.lessons.ui.databinding.FragmentOnBoardingThirdBinding
 
 
-class OnBoardingFragmentFour : Fragment() {
+class OnBoardingFragmentFour : Fragment(R.layout.fragment_on_boarding_four) {
 
-    private var button: Button? = null
+    private val viewBinding: FragmentOnBoardingFourBinding by viewBinding(FragmentOnBoardingFourBinding::bind)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view  =  inflater.inflate(R.layout.fragment_on_boarding_four, container, false)
-        button =  view.findViewById<Button>(R.id.button)
-        return view
-    }
-
-    override fun onResume() {
-        super.onResume()
-        button?.setOnClickListener {
-            requireView().findNavController().navigate(OnBoardingFragmentFourDirections.actionOnBoardingFragmentFourToOnBoardingFragmentFive())
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        with(viewBinding){
+            buttonNext.setOnClickListener {
+                requireView().findNavController().navigate(OnBoardingFragmentFourDirections.actionOnBoardingFragmentFourToOnBoardingFragmentFive())
+            }
         }
     }
 }

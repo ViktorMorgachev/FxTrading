@@ -1,5 +1,6 @@
 import com.viktor.buildsrc.app.KaptDependency
-import com.viktor.buildsrc.ui.Dependency as Deps
+import com.viktor.buildsrc.ui.UIDeps
+import com.viktor.buildsrc.app.AppDeps
 
 plugins {
     id("com.android.library")
@@ -14,6 +15,11 @@ android {
     defaultConfig {
         minSdk = 21
         targetSdk = 31
+    }
+
+    buildFeatures {
+        viewBinding  = true
+        dataBinding = true
     }
 
     buildTypes {
@@ -34,17 +40,18 @@ dependencies {
 
     api(project(":core"))
 
-    implementation(Deps.core_ktx)
-    implementation(Deps.appCompat)
-    implementation(Deps.constraintlayout)
-    implementation(Deps.android_material)
-    implementation(Deps.navigation_ui_ktx)
-    implementation(Deps.navigation_fragment_ktx)
-    implementation(Deps.navigation_fragment)
+    implementation(UIDeps.core_ktx)
+    implementation(UIDeps.appCompat)
+    implementation(UIDeps.constraintlayout)
+    implementation(UIDeps.android_material)
+    implementation(UIDeps.navigation_ui_ktx)
+    implementation(UIDeps.navigation_fragment_ktx)
+    implementation(UIDeps.navigation_fragment)
+    implementation(UIDeps.viewbindingpropertydelegate)
 
-    implementation("com.google.dagger:dagger:2.35.1")
-    implementation("com.google.dagger:dagger-android-support:2.35.1")
-    api(com.viktor.buildsrc.app.Dependency.dagger_android)
+    implementation(AppDeps.dagger)
+    implementation(AppDeps.dagger_android_support)
+    api(AppDeps.dagger_android)
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 

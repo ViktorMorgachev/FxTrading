@@ -5,6 +5,7 @@
     <application>
         <activity
             android:name="com.fx_trading.lessons.ui.MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

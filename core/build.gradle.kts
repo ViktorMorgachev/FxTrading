@@ -1,6 +1,4 @@
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
-import com.viktor.buildsrc.app.Dependency as Deps
-import com.viktor.buildsrc.app.KaptDependency as KaptDeps
+import com.viktor.buildsrc.app.AppDeps as Deps
 
 plugins {
     id("com.android.library")

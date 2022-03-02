@@ -36,7 +36,7 @@ dependencies{
 
     implementation("com.google.dagger:dagger:2.35.1")
     implementation("com.google.dagger:dagger-android-support:2.35.1")
-    implementation(com.viktor.buildsrc.app.Dependency.dagger_android)
+    implementation(com.viktor.buildsrc.app.AppDeps.dagger_android)
     kapt(KaptDependency.dagger_android_processor)
     kapt(KaptDependency.dagger_android_compiler)
 

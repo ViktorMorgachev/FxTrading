@@ -8,8 +8,10 @@ object Version {
     const val dagger_android_processor = dagger_android
 }
 
-object Dependency {
+object AppDeps {
+    val dagger = "com.google.dagger:dagger:2.35.1"
     val dagger_android = "com.google.dagger:dagger-android:${Version.dagger_android}"
+    val dagger_android_support = "com.google.dagger:dagger-android-support:2.35.1"
 
 }
 

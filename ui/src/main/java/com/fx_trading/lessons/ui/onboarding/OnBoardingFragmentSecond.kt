@@ -7,31 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.findNavController
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.fx_trading.lessons.ui.R
+import com.fx_trading.lessons.ui.databinding.FragmentOnBoardingFirstBinding
+import com.fx_trading.lessons.ui.databinding.FragmentOnBoardingFirstBindingImpl
+import com.fx_trading.lessons.ui.databinding.FragmentOnBoardingSecondBinding
 
 
-class OnBoardingFragmentSecond : Fragment() {
+class OnBoardingFragmentSecond : Fragment(R.layout.fragment_on_boarding_second) {
+    private val viewBinding: FragmentOnBoardingSecondBinding by viewBinding(FragmentOnBoardingSecondBinding::bind)
 
-    private var button: Button? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view =  inflater.inflate(R.layout.fragment_on_boarding_second, container, false)
-        button =  view.findViewById<Button>(R.id.button)
-        return view
-    }
-
-    override fun onResume() {
-        super.onResume()
-        button?.setOnClickListener {
-            requireView().findNavController().navigate(OnBoardingFragmentSecondDirections.actionOnBoardingFragmentSecondtoOnBoardingFragmentThird())
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        with(viewBinding){
+            buttonNext.setOnClickListener {
+                requireView().findNavController().navigate(OnBoardingFragmentSecondDirections.actionOnBoardingFragmentSecondtoOnBoardingFragmentThird())
+            }
         }
     }
 }

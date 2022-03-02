@@ -7,30 +7,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.findNavController
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.fx_trading.lessons.ui.R
+import com.fx_trading.lessons.ui.databinding.FragmentOnBoardingFiveBinding
+import com.fx_trading.lessons.ui.databinding.FragmentOnBoardingFourBinding
 
 
-class OnBoardingFragmentFive : Fragment() {
+class OnBoardingFragmentFive : Fragment(R.layout.fragment_on_boarding_five) {
 
-    private var button: Button? = null
+    private val viewBinding: FragmentOnBoardingFiveBinding by viewBinding(FragmentOnBoardingFiveBinding::bind)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view  =  inflater.inflate(R.layout.fragment_on_boarding_five, container, false)
-        button =  view.findViewById<Button>(R.id.button)
-        return view
-    }
-
-    override fun onResume() {
-        super.onResume()
-        button?.setOnClickListener {
-            requireView().findNavController().navigate(OnBoardingFragmentFiveDirections.actionOnBoardingFragmentFiveToWelcomeFragment())
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        with(viewBinding){
+            buttonNext.setOnClickListener {
+                // тут уже запускать активность для первого quiz и у него уже отдельный navigation host будет
+                requireView().findNavController().navigate(OnBoardingFragmentFiveDirections.actionOnBoardingFragmentFiveToWelcomeFragment())
+            }
         }
     }
 }
