@@ -20,7 +20,7 @@ class SplashFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_splash, container, false)
-        requireView().findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToOnBoardingFragment())
+        requireView().findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToOnBoardingFragmentFirst())
         return view
     }
 }

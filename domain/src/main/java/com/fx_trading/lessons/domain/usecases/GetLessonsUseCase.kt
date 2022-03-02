@@ -1,7 +1,9 @@
 package com.fx_trading.lessons.domain.usecases
 
-import com.fx_trading.lessons.domain.entities.lesson.Lesson
+import com.fx_trading.lessons.domain.repositories.lessons.GetLessons
+import javax.inject.Inject
 
-interface GetLessonsUseCase {
-    fun fetchLessons(): List<Lesson>
+
+class GetLessonsUseCase @Inject constructor(private val getLessons: GetLessons){
+
 }

@@ -36,6 +36,8 @@ dependencies {
 
     implementation(project(":core"))
     implementation(project(":ui"))
+    implementation(project(":domain"))
+    implementation(project(":data"))
 
     implementation("com.google.dagger:dagger-android-support:2.35.1")
 
