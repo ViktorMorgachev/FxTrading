@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="quiz"
+            type="com.fx_trading.lessons.domain.entities.quiz.Questions" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/quiz_default_background">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/quiz_toolbar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:fitsSystemWindows="true"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/arrow_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:src="@drawable/arrow_left"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ProgressBar
+                    android:id="@+id/pb_horizontal"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="16dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:max="100"
+                    android:progress="50"
+                    android:progressBackgroundTint="#DFE4E7"
+                    android:progressTint="#01AC48"
+                    app:layout_constraintBottom_toBottomOf="@id/arrow_left"
+                    app:layout_constraintLeft_toRightOf="@id/arrow_left"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/progress_step"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@id/pb_horizontal"
+                    app:layout_constraintRight_toRightOf="@id/pb_horizontal"
+                    app:layout_constraintTop_toTopOf="@id/pb_horizontal"
+                    tools:text="1/2" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/quiz_describe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toTopOf="@id/quiz_image"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/quiz_toolbar"
+                tools:text="First question text here, big and bold with or without illustration - question?" />
+
+            <ImageView
+                android:id="@+id/quiz_image"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:src="@drawable/broken_image"
+                app:layout_constraintBottom_toTopOf="@id/quiz_question"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/quiz_describe"/>
+
+            <TextView
+                android:id="@+id/quiz_question"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toTopOf="@id/recycler_answers"
+                app:layout_constraintLeft_toLeftOf="@id/recycler_answers"
+                app:layout_constraintTop_toBottomOf="@id/quiz_image"
+                tools:text="Выберите что считаете нужным" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_answers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/bottom_panel"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/quiz_question"
+                tools:itemCount="2"
+                tools:listitem="@layout/quiz_item_answer" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/bottom_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recycler_answers">
+
+                <TextView
+                    tools:visibility="gone"
+                    android:id="@+id/text_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toTopOf="@id/check_buton"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Amazing! :)">
+
+                </TextView>
+
+                <Button
+                    android:id="@+id/skip_button"
+                    style="@style/quiz_bottom_button_light_blue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    app:layout_constraintBottom_toBottomOf="@id/check_buton"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/check_buton"
+                    app:layout_constraintTop_toTopOf="@id/check_buton"
+                    tools:text="Skip"
+                    tools:visibility="visible" />
+
+                <Button
+                    android:id="@+id/check_buton"
+                    style="@style/quiz_bottom_button_blue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    app:layout_constraintBottom_toBottomOf="@id/skip_button"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintLeft_toRightOf="@id/skip_button"
+                    app:layout_constraintRight_toRightOf="parent"
+                    tools:text="Check" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</layout>

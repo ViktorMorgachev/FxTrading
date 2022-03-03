@@ -1,7 +1,7 @@
 package com.fx_trading.lessons.domain.usecases
 
 import com.fx_trading.lessons.domain.entities.lesson.Lesson
-import com.fx_trading.lessons.domain.repositories.lessons.LessonRepository
+import com.fx_trading.lessons.domain.repositories.LessonRepository
 import javax.inject.Inject
 
 

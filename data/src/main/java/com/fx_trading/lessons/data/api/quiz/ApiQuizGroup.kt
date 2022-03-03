@@ -1,8 +1,6 @@
 package com.fx_trading.lessons.data.api.quiz
 
-import com.fx_trading.lessons.data.api.quiz.Quiz
-
-data class QuizGroup(
+data class ApiQuizGroup(
     val available_attempts: Int,
     val correct_for_success: Int,
     val id: Int,
@@ -10,6 +8,6 @@ data class QuizGroup(
     val language: String,
     val name: String,
     val parent_id: Int,
-    val quizzes: List<Quiz>,
+    val quizzes: List<ApiQuiz>,
     val region: String
 )

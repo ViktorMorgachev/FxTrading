@@ -1,8 +1,6 @@
-package com.fx_trading.lessons.data.api.quiz
+package com.fx_trading.lessons.domain.entities.quiz
 
-import com.fx_trading.lessons.data.api.quiz.Answer
-
-data class Quiz(
+data class Question(
     val answers: List<Answer>,
     val description: String,
     val difficulty: String,

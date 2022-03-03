@@ -1,5 +1,5 @@
 package com.fx_trading.lessons.domain.entities.lesson
 
-data class QuizGroup(
+data class Questions(
     val quiz_id: String
 )

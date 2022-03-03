@@ -15,7 +15,7 @@ data class Lesson(
     val likes: Int,
     val marketing_title: String,
     val promo_image_url: String,
-    val quiz_group: List<QuizGroup>,
+    val questions: List<Questions>,
     val region: String,
     val sort_order: Int,
     val speaker_name: String,
