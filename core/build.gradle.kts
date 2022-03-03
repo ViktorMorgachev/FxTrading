@@ -1,4 +1,4 @@
-import com.viktor.buildsrc.app.AppDeps as Deps
+import com.viktor.buildsrc.app.AppDeps
 
 plugins {
     id("com.android.library")
@@ -40,9 +40,11 @@ dependencies{
     api("com.google.firebase:firebase-common-ktx:20.0.0")
     api("com.google.firebase:firebase-firestore-ktx:24.0.1")
 
-    implementation("com.google.dagger:dagger:2.35.1")
-    implementation("com.google.dagger:dagger-android-support:2.35.1")
-    api(Deps.dagger_android)
+
+    api(AppDeps.dagger)
+    api(AppDeps.dagger_android_support)
+    api(AppDeps.dagger_android)
+
     kapt(com.viktor.buildsrc.app.KaptDependency.dagger_android_processor)
     kapt(com.viktor.buildsrc.app.KaptDependency.dagger_android_compiler)
 

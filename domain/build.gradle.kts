@@ -1,4 +1,4 @@
-import com.viktor.buildsrc.app.AppDeps as Deps
+import com.viktor.buildsrc.app.AppDeps
 import com.viktor.buildsrc.app.KaptDependency as KaptDeps
 
 plugins {
@@ -21,7 +21,11 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx:24.0.1")
 
     implementation("com.google.dagger:dagger:2.35.1")
-    api(Deps.dagger_android)
+
+    api(AppDeps.kotlin_coroutunes_core)
+    api(AppDeps.kotlin_coroutunes_android)
+
+    api(AppDeps.dagger_android)
     kapt(KaptDeps.dagger_android_processor)
     kapt(KaptDeps.dagger_android_compiler)
 }

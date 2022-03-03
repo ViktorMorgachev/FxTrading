@@ -39,6 +39,7 @@ android {
 dependencies {
 
     api(project(":core"))
+    implementation(project(":domain"))
 
     implementation(UIDeps.core_ktx)
     implementation(UIDeps.appCompat)
@@ -49,13 +50,15 @@ dependencies {
     implementation(UIDeps.navigation_fragment)
     implementation(UIDeps.viewbindingpropertydelegate)
 
-    implementation(AppDeps.dagger)
-    implementation(AppDeps.dagger_android_support)
-    api(AppDeps.dagger_android)
+    implementation("com.github.moxy-community:moxy:2.2.2")
+    kapt("com.github.moxy-community:moxy-compiler:2.2.2")
+    implementation("com.github.moxy-community:moxy-androidx:2.2.2")
+
+
+
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 
     kapt(KaptDependency.dagger_android_processor)
     kapt(KaptDependency.dagger_android_compiler)
-
 }

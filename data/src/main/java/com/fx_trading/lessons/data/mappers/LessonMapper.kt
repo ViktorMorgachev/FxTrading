@@ -1,20 +1,20 @@
 package com.fx_trading.lessons.data.mappers
 
 import com.fx_trading.lessons.domain.entities.common.Timecode
-import com.fx_trading.lessons.data.api.common.Timecode as ApiTimeCode
+import com.fx_trading.lessons.data.api.common.ApiTimeCode
 import com.fx_trading.lessons.domain.entities.lesson.Category
 import com.fx_trading.lessons.domain.entities.lesson.Comment
-import com.fx_trading.lessons.data.api.lesson.Category as ApiCategory
+import com.fx_trading.lessons.data.api.lesson.ApiCategory
 import com.fx_trading.lessons.domain.entities.lesson.Lesson
 import com.fx_trading.lessons.domain.entities.lesson.QuizGroup
-import com.fx_trading.lessons.data.api.lesson.QuizGroup as ApiQuizGroup
-import com.fx_trading.lessons.data.api.lesson.Lesson as ApiLesson
-import com.fx_trading.lessons.data.api.lesson.Comment as ApiComment
+import com.fx_trading.lessons.data.api.lesson.ApiQuizGroup
+import com.fx_trading.lessons.data.api.lesson.ApiLesson
+import com.fx_trading.lessons.data.api.lesson.ApiComment
 
 
 fun ApiLesson.toLesson(): Lesson{
     return Lesson(categories = this.categories.map { it.toCategory() },
-        comments = this.comments.map { it.toComment() },
+        comments = this.apiComments.map { it.toComment() },
         description = this.description,
         difficulty = this.difficulty,
         dislikes = this.dislikes,
@@ -31,7 +31,7 @@ fun ApiLesson.toLesson(): Lesson{
         speaker_name = this.speaker_name,
         tags = this.tags,
         text_version_link = this.text_version_link,
-        timecodes = this.timecodes.map { it.toTimeCode() },
+        timecodes = this.timeCodes.map { it.toTimeCode() },
         title = this.title,
         type = this.type,
         video_url = this.video_url,

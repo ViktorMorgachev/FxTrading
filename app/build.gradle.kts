@@ -46,11 +46,6 @@ dependencies {
 
     implementation(UIDeps.android_material)
 
-    implementation(platform("com.google.firebase:firebase-bom:29.0.0"))
-    implementation("com.google.firebase:firebase-common-ktx:20.0.0")
-    implementation("com.google.firebase:firebase-firestore-ktx:24.0.1")
-
-    implementation(AppDeps.dagger_android_support)
     kapt(KaptDeps.dagger_android_processor)
     kapt(KaptDeps.dagger_android_compiler)
 }
