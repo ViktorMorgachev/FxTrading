@@ -39,12 +39,11 @@ android {
 dependencies {
 
     implementation(project(":core"))
-    implementation(project(":feature_onboarding"))
-    implementation(project(":feature_questions"))
-    implementation(project(":feature_lesson"))
-    implementation(project(":feature_resources"))
+    implementation(project(":resources"))
     implementation(project(":domain"))
     implementation(project(":data"))
+    implementation(project(":feature_binder_module"))
+    api(project(":feature_onboarding"))
 
     implementation(UIDeps.android_material)
 

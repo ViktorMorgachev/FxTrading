@@ -1,6 +1,6 @@
 package com.fx_trading.lessons.fxtrading.di.module.uiBuilder
 
-import com.fx_trading.lessons.feature_onboarding.MainActivity
+import com.fx_trading.lessons.feature_onboarding.OnBoardingActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -8,7 +8,7 @@ import dagger.android.ContributesAndroidInjector
 interface ActivityModule {
 
     @ContributesAndroidInjector(modules = [FragmentBuilderModule::class])
-    abstract fun contributeMainActivity(): MainActivity
+    abstract fun contributeMainActivity(): OnBoardingActivity
 
 
 }

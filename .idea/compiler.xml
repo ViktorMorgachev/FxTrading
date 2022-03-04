@@ -7,10 +7,11 @@
       <module name="FxTrading.app.ui" target="11" />
       <module name="FxTrading.buildSrc" target="11" />
       <module name="FxTrading.data" target="11" />
-      <module name="FxTrading.feature_lesson" target="11" />
+      <module name="FxTrading.feature_binder_module" target="11" />
+      <module name="FxTrading.feature_main" target="11" />
       <module name="FxTrading.feature_onboarding" target="11" />
       <module name="FxTrading.feature_questions" target="11" />
-      <module name="FxTrading.feature_resources" target="11" />
+      <module name="FxTrading.resources" target="11" />
       <module name="FxTrading.ui" target="11" />
     </bytecodeTargetLevel>
   </component>

@@ -40,6 +40,8 @@ dependencies {
 
     api(project(":core"))
     implementation(project(":domain"))
+    implementation(project(":resources"))
+
 
     implementation(UIDeps.core_ktx)
     implementation(UIDeps.appCompat)

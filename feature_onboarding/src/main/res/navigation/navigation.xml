@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigation_graph"
+    android:id="@+id/navigation_graph_onboarding"
     app:startDestination="@id/splashFragment">
 
     <fragment
@@ -96,7 +96,7 @@
         android:label="fragment_on_boarding_five"
         tools:layout="@layout/fragment_on_boarding_four">
         <action
-            android:id="@+id/action_onBoardingFragmentFive_to_WelcomeFragment"
+            android:id="@+id/action_onBoardingFragmentFive_to_StartTestFragment"
             app:destination="@id/test_skils_fragment"
             app:popUpTo="@id/onBoardingFragmentFive"
             app:popUpToInclusive="true"/>
@@ -105,7 +105,7 @@
     <fragment
         android:id="@+id/test_skils_fragment"
         android:name="com.fx_trading.lessons.feature_onboarding.start_test.StartTestFragment"
-        android:label="fragment_welcome"
+        android:label="fragment_test"
         tools:layout="@layout/fragment_start_test" />
 
 

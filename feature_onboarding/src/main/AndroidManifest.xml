@@ -4,7 +4,7 @@
 
     <application>
         <activity
-            android:name="com.fx_trading.lessons.feature_onboarding.MainActivity"
+            android:name="com.fx_trading.lessons.feature_onboarding.OnBoardingActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="true">
             <intent-filter>

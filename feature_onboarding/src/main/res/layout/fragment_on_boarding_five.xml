@@ -10,7 +10,7 @@
         tools:context="com.fx_trading.lessons.feature_onboarding.ui.OnBoardingFragmentFive">
 
         <Button
-            android:id="@+id/button_next"
+            android:id="@+id/button_finish"
             style="@style/onboarding_button_green"
             android:text="@string/finish"
             app:layout_constraintBottom_toBottomOf="parent"
