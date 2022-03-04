@@ -4,6 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/app/ui/src/main/res/layout/activity_main.xml" value="0.3484375" />
+        <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_onboarding/src/main/res/layout/activity_main.xml" value="0.2546875" />
+        <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_onboarding/src/main/res/layout/fragment_on_boarding_third.xml" value="0.203125" />
+        <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_onboarding/src/main/res/layout/fragment_splash.xml" value="0.30572916666666666" />
+        <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_onboarding/src/main/res/layout/fragment_welcome.xml" value="0.33229166666666665" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/ui/src/main/res/drawable/button_drawable_behaviour.xml" value="1.2535714285714286" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/ui/src/main/res/drawable/gradient_progress.xml" value="0.3030769230769231" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/ui/src/main/res/drawable/ic_arrow.xml" value="0.29010416666666666" />

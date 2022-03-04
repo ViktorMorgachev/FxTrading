@@ -7,6 +7,7 @@
       <module name="FxTrading.app.ui" target="11" />
       <module name="FxTrading.buildSrc" target="11" />
       <module name="FxTrading.data" target="11" />
+      <module name="FxTrading.feature_onboarding" target="11" />
       <module name="FxTrading.ui" target="11" />
     </bytecodeTargetLevel>
   </component>

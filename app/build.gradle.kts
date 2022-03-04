@@ -41,6 +41,7 @@ dependencies {
 
     implementation(project(":core"))
     implementation(project(":ui"))
+    implementation(project(":feature_onboarding"))
     implementation(project(":domain"))
     implementation(project(":data"))
 

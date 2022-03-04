@@ -1,16 +1,12 @@
-package com.fx_trading.lessons.ui.onboarding
+package com.fx_trading.lessons.feature_onboarding.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
 import androidx.navigation.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.fx_trading.lessons.ui.R
-import com.fx_trading.lessons.ui.databinding.FragmentOnBoardingFirstBinding
-import com.fx_trading.lessons.ui.databinding.FragmentOnBoardingFirstBindingImpl
+import com.fx_trading.lessons.feature_onboarding.R
+import com.fx_trading.lessons.feature_onboarding.databinding.FragmentOnBoardingFirstBinding
 
 
 class OnBoardingFragmentFirst : Fragment(R.layout.fragment_on_boarding_first) {
