@@ -15,8 +15,10 @@
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/domain" />
+            <option value="$PROJECT_DIR$/feature_lesson" />
             <option value="$PROJECT_DIR$/feature_onboarding" />
-            <option value="$PROJECT_DIR$/ui" />
+            <option value="$PROJECT_DIR$/feature_questions" />
+            <option value="$PROJECT_DIR$/feature_resources" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

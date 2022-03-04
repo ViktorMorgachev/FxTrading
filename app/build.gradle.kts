@@ -1,6 +1,5 @@
 import com.viktor.buildsrc.app.KaptDependency as KaptDeps
 import com.viktor.buildsrc.ui.UIDeps
-import com.viktor.buildsrc.app.AppDeps
 
 plugins {
     id("com.android.application")
@@ -40,8 +39,10 @@ android {
 dependencies {
 
     implementation(project(":core"))
-    implementation(project(":ui"))
     implementation(project(":feature_onboarding"))
+    implementation(project(":feature_questions"))
+    implementation(project(":feature_lesson"))
+    implementation(project(":feature_resources"))
     implementation(project(":domain"))
     implementation(project(":data"))
 
