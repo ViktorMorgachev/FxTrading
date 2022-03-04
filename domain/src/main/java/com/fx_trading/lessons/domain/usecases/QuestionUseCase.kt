@@ -6,10 +6,10 @@ import javax.inject.Inject
 
 class QuestionUseCase @Inject constructor(private val questionRepository: QuestionRepository) {
 
-    suspend fun getQuizById(quizID: Int): Questions {
+    suspend fun getQuestionsById(quizID: Int): Questions {
         return questionRepository.getQuestionsByID(quizID)
     }
-    suspend fun getQuizzes(): List<Questions>{
-        return questionRepository.getQuestions()
+    suspend fun getQuestionsGroup(): List<Questions>{
+        return questionRepository.getQuestionGroups()
     }
 }

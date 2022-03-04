@@ -30,6 +30,7 @@ android {
 }
 dependencies{
     implementation(project(":domain"))
+    implementation(project(":core"))
 
     implementation(platform("com.google.firebase:firebase-bom:29.0.0"))
     implementation("com.google.firebase:firebase-common-ktx:20.0.0")

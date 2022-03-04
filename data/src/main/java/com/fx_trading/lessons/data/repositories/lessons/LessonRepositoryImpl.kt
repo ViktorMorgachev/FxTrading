@@ -12,6 +12,6 @@ class LessonRepositoryImpl(private val lessonsRemoteRepository: LessonsRemoteRep
     }
 
     override suspend fun getLessonByID(id: Int): Lesson {
-        return lessonsRemoteRepository.getRemoteLessonByID().toLesson()
+        return lessonsRemoteRepository.getRemoteLessonByID(id).toLesson()
     }
 }

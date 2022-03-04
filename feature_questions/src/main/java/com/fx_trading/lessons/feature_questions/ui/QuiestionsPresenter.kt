@@ -15,7 +15,7 @@ class QuiestionsPresenter @Inject constructor(val questionUseCase: QuestionUseCa
 
     fun getLesson(id: Int) {
         CoroutineScope(Dispatchers.IO).launch {
-            val lesson = questionUseCase.getQuizzes()
+            val lesson = questionUseCase.getQuestionsGroup()
             viewState.showQuestion(lesson.first().questions.first())
         }
     }
