@@ -13,10 +13,14 @@ import javax.inject.Inject
 class QuiestionsPresenter @Inject constructor(val questionUseCase: QuestionUseCase) :
     MvpPresenter<QuiestionsView>() {
 
-    fun getLesson(id: Int) {
+    fun fetchFirstQuestions() {
         CoroutineScope(Dispatchers.IO).launch {
             val lesson = questionUseCase.getQuestionsGroup()
             viewState.showQuestion(lesson.first().questions.first())
         }
+    }
+
+    fun nextQuestion(){
+
     }
 }

@@ -98,15 +98,17 @@
         <action
             android:id="@+id/action_onBoardingFragmentFive_to_StartTestFragment"
             app:destination="@id/test_skils_fragment"
-            app:popUpTo="@id/onBoardingFragmentFive"
-            app:popUpToInclusive="true"/>
+            app:popUpTo="@id/onBoardingFragmentFive"/>
     </fragment>
 
     <fragment
         android:id="@+id/test_skils_fragment"
         android:name="com.fx_trading.lessons.feature_onboarding.start_test.StartTestFragment"
         android:label="fragment_test"
-        tools:layout="@layout/fragment_start_test" />
+        tools:layout="@layout/fragment_start_test">
+
+    </fragment>
+
 
 
 </navigation>

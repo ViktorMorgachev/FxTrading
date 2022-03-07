@@ -41,6 +41,7 @@ dependencies {
     api(project(":core"))
     implementation(project(":domain"))
     implementation(project(":resources"))
+    implementation(project(":feature_binder_module"))
 
     implementation(UIDeps.core_ktx)
     implementation(UIDeps.appCompat)
@@ -55,7 +56,6 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.4.1")
     implementation("com.google.android.material:material:1.5.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.3")
-    implementation(project(mapOf("path" to ":feature_binder_module")))
     kapt("com.github.moxy-community:moxy-compiler:2.2.2")
     implementation("com.github.moxy-community:moxy-androidx:2.2.2")
 

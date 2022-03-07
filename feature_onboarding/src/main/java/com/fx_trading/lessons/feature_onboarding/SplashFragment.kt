@@ -1,8 +1,12 @@
 package com.fx_trading.lessons.feature_onboarding
 
+import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.fx_trading.lessons.feature_binder_module.Module
+import com.fx_trading.lessons.feature_binder_module.ModuleBinder
 import com.fx_trading.lessons.feature_onboarding.databinding.FragmentSplashBinding
 
 

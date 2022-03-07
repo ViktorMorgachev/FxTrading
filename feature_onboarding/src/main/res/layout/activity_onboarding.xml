@@ -7,15 +7,14 @@
     tools:context=".OnBoardingActivity">
 
     <fragment
-        android:id="@+id/main_nav_fragment"
+        android:id="@+id/nav_host_fragment_onboarding"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/navigation" />
+        app:navGraph="@navigation/onboarding_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

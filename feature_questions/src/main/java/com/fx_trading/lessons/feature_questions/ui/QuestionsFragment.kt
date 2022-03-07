@@ -14,10 +14,9 @@ class QuestionsFragment : MvpAppCompatFragment(R.layout.fragment_questions), Qui
 
     private val binding : FragmentQuestionsBinding by viewBinding(FragmentQuestionsBinding::bind)
 
-
     override fun onResume() {
         super.onResume()
-        quiestionsPresenter.getLesson(1)
+        quiestionsPresenter.fetchFirstQuestions()
     }
 
     override fun showQuestion(quiestion: Question) {

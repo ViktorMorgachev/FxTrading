@@ -5,10 +5,8 @@
     <application>
         <activity
             android:name="com.fx_trading.lessons.feature_main.MainActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:exported="true">
-        </activity>
-
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
+            android:exported="false"/>
     </application>
 
 </manifest>
