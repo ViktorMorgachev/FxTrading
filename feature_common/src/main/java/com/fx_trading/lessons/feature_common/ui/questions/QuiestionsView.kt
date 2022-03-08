@@ -8,6 +8,5 @@ import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface QuiestionsView: MvpView {
-    fun showQuestion(quiestion: Question)
-    fun showCheckResult()
+    fun showQuestion(quiestion: Question, questionSize: Int, step: Int, succesCount: Int)
 }

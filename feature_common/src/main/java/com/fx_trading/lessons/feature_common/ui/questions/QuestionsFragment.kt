@@ -1,5 +1,6 @@
 package com.fx_trading.lessons.feature_common.ui.questions
 
+import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.fx_trading.lessons.domain.entities.quiz.Question
 import com.fx_trading.lessons.feature_common.R
@@ -8,7 +9,6 @@ import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
-
 
 class QuestionsFragment : MvpAppCompatFragment(R.layout.fragment_questions), QuiestionsView {
 
@@ -21,20 +21,19 @@ class QuestionsFragment : MvpAppCompatFragment(R.layout.fragment_questions), Qui
 
     private val binding : FragmentQuestionsBinding by viewBinding(FragmentQuestionsBinding::bind)
 
-
     override fun onResume() {
         super.onResume()
         questionsPresenter.fetchFirstQuestions()
-    }
-
-    override fun showQuestion(quiestion: Question) {
         with(binding){
-            quizDescribe.text = quiestion.description
-            progressStep.text = ""
+            recyclerAnswers.layoutManager = LinearLayoutManager(requireContext())
         }
     }
 
-    override fun showCheckResult() {
-        TODO("Not yet implemented")
+    override fun showQuestion(quiestion: Question, questionSize: Int, step: Int, succesCount: Int) {
+        with(binding){
+            quizDescribe.text = quiestion.description
+            progressStep.text = "${step/questionSize}"
+            recyclerAnswers.adapter = AnswersAdapter(answers = quiestion.answers)
+        }
     }
 }

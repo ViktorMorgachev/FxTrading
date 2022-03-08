@@ -111,7 +111,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/quiz_question"
                 tools:itemCount="2"
-                tools:listitem="@layout/questions_item_answer" />
+                tools:listitem="@layout/item_answer" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/bottom_panel"
