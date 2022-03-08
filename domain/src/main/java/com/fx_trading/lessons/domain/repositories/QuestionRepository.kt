@@ -1,9 +1,9 @@
 package com.fx_trading.lessons.domain.repositories
 
-import com.fx_trading.lessons.domain.entities.quiz.Question
-import com.fx_trading.lessons.domain.entities.quiz.Questions
+import com.fx_trading.lessons.domain.entities.quiz.QuestionsGroup
+
 
 interface QuestionRepository {
-    suspend fun getQuestions(): List<Question>
-    suspend fun getQuestionsByID(id: Int): Questions
+    suspend fun getQuestionGroups(): List<QuestionsGroup>
+    suspend fun getQuestionsGroup(id: Int): QuestionsGroup
 }

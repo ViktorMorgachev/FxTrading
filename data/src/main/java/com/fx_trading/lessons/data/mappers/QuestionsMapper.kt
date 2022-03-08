@@ -6,10 +6,10 @@ import com.fx_trading.lessons.data.api.question_group.ApiQuestion
 import com.fx_trading.lessons.data.api.question_group.ApiQuestionGroup
 import com.fx_trading.lessons.domain.entities.quiz.Answer
 import com.fx_trading.lessons.domain.entities.quiz.Question
-import com.fx_trading.lessons.domain.entities.quiz.Questions
+import com.fx_trading.lessons.domain.entities.quiz.QuestionsGroup
 
-fun ApiQuestionGroup.toQuestionGroup(): Questions {
-    return Questions(
+fun ApiQuestionGroup.toQuestionGroup(): QuestionsGroup {
+    return QuestionsGroup(
         available_attempts = this.available_attempts,
         correct_for_success = this.correct_for_success,
         id = this.id,

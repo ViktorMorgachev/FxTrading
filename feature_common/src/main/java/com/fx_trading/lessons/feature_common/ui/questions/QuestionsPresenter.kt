@@ -16,8 +16,8 @@ class QuestionsPresenter @Inject constructor(var questionUseCase: QuestionUseCas
 
     fun fetchFirstQuestions() {
         CoroutineScope(Dispatchers.IO).launch {
-           val lesson = questionUseCase.getQuestionsGroup()
-            viewState.showQuestion(lesson.first().questions.first())
+           val questionGroup = questionUseCase.getQuestionStartExamQuestionGroup()
+            viewState.showQuestion(questionGroup.questions.first())
         }
     }
 

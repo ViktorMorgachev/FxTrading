@@ -1,6 +1,6 @@
 package com.fx_trading.lessons.domain.entities.quiz
 
-data class Questions(
+data class QuestionsGroup(
     val available_attempts: Int,
     val correct_for_success: Int,
     val id: Int,
