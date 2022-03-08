@@ -31,8 +31,8 @@ class RouterImpl @Inject constructor(
         actionResolver.registerResultListener(activity)
     }
 
-    override fun bind(activity: Activity) {
-        this.navController = activity.findNavController(R.id.container)
+    override fun bind(activity: Activity, containerID: Int) {
+        this.navController = activity.findNavController(containerID)
         this.activity = activity
     }
 

@@ -9,7 +9,4 @@ interface ActionResolver {
     fun registerResultListener(activity: ComponentActivity)
 
     fun execute(activity: Activity?, data: ActionParams)
-
-    fun startActivity(from: Activity, activity: Activity?)
-
 }

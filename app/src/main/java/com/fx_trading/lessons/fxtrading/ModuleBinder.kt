@@ -2,8 +2,8 @@ package com.fx_trading.lessons.fxtrading
 
 import android.app.Activity
 import android.content.Intent
-import com.fx_trading.lessons.feature_common.QuestionActivity
-import com.fx_trading.lessons.feature_main.MainActivity
+import com.fx_trading.navigation.activities.QuestionActivity
+import com.fx_trading.navigation.activities.MainActivity
 
 
 enum class Module {

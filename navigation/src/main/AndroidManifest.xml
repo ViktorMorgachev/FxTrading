@@ -1,2 +1,16 @@
-<manifest
-    package="com.fx_trading.navigation"/>
+<manifest package="com.fx_trading.navigation"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <activity
+            android:name=".activities.QuestionActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".activities.MainActivity"
+            android:theme="@style/Theme.MaterialComponents.NoActionBar"
+            android:exported="true">
+        </activity>
+    </application>
+
+</manifest>

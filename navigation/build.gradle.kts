@@ -38,6 +38,8 @@ dependencies {
     api(UIDeps.navigation_fragment_ktx)
     api(UIDeps.navigation_ui_ktx)
 
+    implementation(project(":resources"))
+
     api(AppDeps.dagger)
     api(AppDeps.dagger_android_support)
     api(AppDeps.dagger_android)

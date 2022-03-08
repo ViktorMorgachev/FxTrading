@@ -12,7 +12,7 @@ interface Router {
 
     fun onCreate(activity: ComponentActivity)
 
-    fun bind(activity: Activity)
+    fun bind(activity: Activity, containerID: Int)
 
     fun bind(controller: NavHostController, activity: Activity)
 

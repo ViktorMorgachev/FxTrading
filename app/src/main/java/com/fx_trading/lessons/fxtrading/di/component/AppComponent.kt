@@ -1,7 +1,6 @@
 package com.fx_trading.lessons.fxtrading.di.component
 
 import android.app.Application
-import com.fx_trading.lessons.feature_main.MainActivity
 import com.fx_trading.lessons.fxtrading.App
 import com.fx_trading.lessons.fxtrading.di.module.AppModule
 import com.fx_trading.lessons.fxtrading.di.module.RepositoryBindModule
@@ -11,7 +10,6 @@ import com.fx_trading.lessons.fxtrading.di.module.navigation.NavigationScreenMap
 import com.fx_trading.lessons.fxtrading.di.module.uiBuilder.ActivityModule
 import dagger.BindsInstance
 import dagger.Component
-import dagger.Provides
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton

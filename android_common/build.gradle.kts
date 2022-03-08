@@ -57,9 +57,6 @@ dependencies {
     api("com.google.android.material:material:1.5.0")
     api("androidx.constraintlayout:constraintlayout:2.1.3")
 
-    kapt("com.github.moxy-community:moxy-compiler:2.2.2")
-    api("com.github.moxy-community:moxy-androidx:2.2.2")
-
     api("androidx.legacy:legacy-support-v4:1.0.0")
 
     kapt(KaptDependency.dagger_android_processor)
