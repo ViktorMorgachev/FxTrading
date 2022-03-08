@@ -12,4 +12,8 @@ class QuestionUseCase @Inject constructor(private val questionRepository: Questi
     suspend fun getQuestionsGroup(): List<Questions>{
         return questionRepository.getQuestionGroups()
     }
+
+    fun test(){
+
+    }
 }

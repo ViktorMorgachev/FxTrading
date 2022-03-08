@@ -4,6 +4,7 @@ import com.fx_trading.lessons.fxtrading.App
 import com.fx_trading.lessons.fxtrading.di.module.AppModule
 import com.fx_trading.lessons.fxtrading.di.module.RepositoryBindModule
 import com.fx_trading.lessons.fxtrading.di.module.RepositoryProvidesModule
+import com.fx_trading.lessons.fxtrading.di.module.UseCaseProvidesModule
 import com.fx_trading.lessons.fxtrading.di.module.uiBuilder.ActivityModule
 import dagger.BindsInstance
 import dagger.Component
@@ -11,12 +12,16 @@ import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
+
 @Singleton
 @Component(
     modules = [
         AppModule::class,
         ActivityModule::class,
         AndroidSupportInjectionModule::class,
+        RepositoryBindModule::class,
+        RepositoryProvidesModule::class,
+        UseCaseProvidesModule::class
     ]
 )
 interface AppComponent : AndroidInjector<App> {

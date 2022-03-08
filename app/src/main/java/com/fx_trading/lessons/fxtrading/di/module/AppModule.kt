@@ -4,9 +4,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 
-@Module(includes = [
-    RepositoryBindModule::class,
-    RepositoryProvidesModule::class])
+@Module
 class AppModule() {
 
     @Provides

@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation_graph_questions"
-    app:startDestination="@id/questionsFragment">
+    app:startDestination="@id/testFragment">
 
     <fragment
         android:id="@+id/questionsFragment"
@@ -10,7 +10,7 @@
         android:label="QuestionsFragment" />
     <fragment
         android:id="@+id/testFragment"
-        android:name="com.fx_trading.lessons.feature_common.ui.test.TestFragment"
+        android:name="com.fx_trading.lessons.feature_onboarding.test.TestFragment"
         android:label="TestFragment" />
 
 </navigation>

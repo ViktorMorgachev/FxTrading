@@ -24,4 +24,6 @@ class RepositoryProvidesModule() {
     fun provideQuestionRepositoryImpl(questionRemoteRepository: QuestionRemoteRepository): QuestionRepository {
         return QuestionRepositoryImpl(questionRemoteRepository)
     }
+
+
 }

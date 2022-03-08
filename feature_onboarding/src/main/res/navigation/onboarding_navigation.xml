@@ -108,7 +108,10 @@
         tools:layout="@layout/fragment_start_test">
 
     </fragment>
-
+    <fragment
+        android:id="@+id/testFragment"
+        android:name="com.fx_trading.lessons.feature_onboarding.test.TestFragment"
+        android:label="TestFragment" />
 
 
 </navigation>
