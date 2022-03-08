@@ -26,17 +26,29 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>(), QuiestionsVi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.data.observe(viewLifecycleOwner, {
-            if (it != null){
-                showQuestion(it, questionSize = viewModel.questionsSize, step = viewModel.step, succesCount = viewModel.successCount)
+        viewModel.uiData.observe(viewLifecycleOwner, {
+            when (it) {
+                is QuestionAction.ShowLoadingAction -> {
+
+                }
+                is QuestionAction.ShowLastScreenAction -> {
+
+                }
+                is QuestionAction.ShowResultAction -> {
+
+                }
+                is QuestionAction.ShowQuestionAction -> {
+                    showQuestion(it.quiestion, questionSize = it.questionSize, step = it.step, succesCount = it.succesCount)
+                }
             }
         })
     }
 
     override fun showQuestion(quiestion: Question, questionSize: Int, step: Int, succesCount: Int) {
-        with(binding){
+        with(binding) {
+            pbHorizontal.progress = step / questionSize * 100
             quizDescribe.text = quiestion.description
-            progressStep.text = "${step/questionSize}"
+            progressStep.text = "${step / questionSize}"
             recyclerAnswers.adapter = AnswersAdapter(answers = quiestion.answers)
         }
     }

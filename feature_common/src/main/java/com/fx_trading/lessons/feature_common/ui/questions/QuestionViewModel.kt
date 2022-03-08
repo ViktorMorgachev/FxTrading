@@ -1,6 +1,5 @@
 package com.fx_trading.lessons.feature_common.ui.questions
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,21 +12,31 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+sealed class QuestionAction {
+    data class ShowQuestionAction(
+        val quiestion: Question,
+        val questionSize: Int,
+        val step: Int,
+        val succesCount: Int
+    ) : QuestionAction()
+
+    object ShowLastScreenAction : QuestionAction()
+    object ShowLoadingAction : QuestionAction()
+    object ShowResultAction : QuestionAction()
+}
+
 class QuestionViewModel @Inject constructor(
     private val router: Router,
     var questionUseCase: QuestionUseCase
 ) : ViewModel() {
 
-     var successCount = 0
-     var questionsSize = 0
-     var step = 1
+    private var successCount = 0
+    private var questionsSize = 0
+    private var step = 1
 
-    private val questionGroup: QuestionsGroup?  = null
+    private val questionGroup: QuestionsGroup? = null
 
-    private val _data = MutableLiveData<Question?>()
-
-    val data: LiveData<Question?>
-        get() = _data
+    val uiData = MutableLiveData<QuestionAction>(QuestionAction.ShowLoadingAction)
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -43,32 +52,40 @@ class QuestionViewModel @Inject constructor(
         successCount++
     }
 
-    fun checkForCorrect(answers: List<Answer>){
+    fun checkForCorrect(answers: List<Answer>) {
         val correctAnswers = questionGroup?.questions?.first()?.answers?.filter { it.is_correct }
-        if (correctAnswers!!.size == answers.filter { it.is_correct }.size ){
+        if (correctAnswers!!.size == answers.filter { it.is_correct }.size) {
             increaseSuccess()
         } else {
-           if(answers.count { it.is_correct } != 0 && answers.count { !it.is_correct } != 0){
-               // Show Case If correct
-           } else{
-               // Show Wrong Information
-           }
+            if (answers.count { it.is_correct } != 0 && answers.count { !it.is_correct } != 0) {
+                // Show Case If correct
+            } else {
+                // Show Wrong Information
+            }
         }
         nextQuestion()
-    }
-
-    private fun showSuccessOrInvalid() {
-        TODO("Not yet implemented")
     }
 
     private fun nextQuestion() {
         questionGroup?.let {
             step++
-            _data.postValue(it.questions.last())
+            questionGroup.questions.removeFirst()
+            val lastQuestion = questionGroup.questions.firstOrNull()
+            if (lastQuestion == null) {
+                uiData.postValue(QuestionAction.ShowLastScreenAction)
+            } else uiData.postValue(
+                QuestionAction.ShowQuestionAction(
+                    quiestion = lastQuestion,
+                    questionsSize,
+                    step,
+                    successCount
+                )
+            )
             removeLastQuestion()
         }
     }
-    private fun removeLastQuestion(){
+
+    private fun removeLastQuestion() {
         questionGroup?.questions?.remove(questionGroup.questions.last())
     }
 
