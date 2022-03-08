@@ -12,8 +12,7 @@ import javax.inject.Inject
 
 // По завершению каждой фичи модуля, котрые основываются на новых активностях, переходить к предыдущей активности
 
-class App : Application(), HasAndroidInjector {
-
+class App : Application() {
 
     lateinit var appComponent: AppComponent
 
@@ -24,10 +23,8 @@ class App : Application(), HasAndroidInjector {
     override fun onCreate() {
         super.onCreate()
         appComponent = DaggerAppComponent.builder().application(this).build()
-        appComponent.inject(this)
     }
 
-    override fun androidInjector(): AndroidInjector<Any> = androidInjector
 
 }
 

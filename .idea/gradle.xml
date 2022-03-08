@@ -15,7 +15,6 @@
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/domain" />
-            <option value="$PROJECT_DIR$/feature_binder_module" />
             <option value="$PROJECT_DIR$/feature_common" />
             <option value="$PROJECT_DIR$/feature_main" />
             <option value="$PROJECT_DIR$/feature_onboarding" />

@@ -1,4 +1,4 @@
-package com.fx_trading.lessons.feature_binder_module
+package com.fx_trading.lessons.fxtrading
 
 import android.app.Activity
 import android.content.Intent

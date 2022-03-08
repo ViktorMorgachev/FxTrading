@@ -42,8 +42,9 @@ dependencies {
     implementation(project(":resources"))
     implementation(project(":domain"))
     implementation(project(":data"))
-    implementation(project(":feature_binder_module"))
     implementation(project(":feature_onboarding"))
+    implementation(project(":feature_main"))
+    implementation(project(":feature_common"))
 
     implementation(UIDeps.android_material)
 

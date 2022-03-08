@@ -5,8 +5,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.fx_trading.lessons.core.utils.Logger
-import com.fx_trading.lessons.feature_binder_module.Module
-import com.fx_trading.lessons.feature_binder_module.ModuleBinder
 import com.fx_trading.lessons.feature_onboarding.R
 import com.fx_trading.lessons.feature_onboarding.databinding.FragmentStartTestBinding
 

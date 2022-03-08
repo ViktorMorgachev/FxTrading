@@ -41,7 +41,6 @@ dependencies {
     api(project(":core"))
     implementation(project(":domain"))
     implementation(project(":resources"))
-    implementation(project(":feature_binder_module"))
 
     implementation(UIDeps.core_ktx)
     implementation(UIDeps.appCompat)

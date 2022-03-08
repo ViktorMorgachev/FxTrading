@@ -1,15 +1,13 @@
 package com.fx_trading.lessons.fxtrading.di.component
 
+import com.fx_trading.lessons.feature_common.di.deps.FeatureCommonDeps
 import com.fx_trading.lessons.fxtrading.App
 import com.fx_trading.lessons.fxtrading.di.module.AppModule
 import com.fx_trading.lessons.fxtrading.di.module.RepositoryBindModule
 import com.fx_trading.lessons.fxtrading.di.module.RepositoryProvidesModule
 import com.fx_trading.lessons.fxtrading.di.module.UseCaseProvidesModule
-import com.fx_trading.lessons.fxtrading.di.module.uiBuilder.ActivityModule
 import dagger.BindsInstance
 import dagger.Component
-import dagger.android.AndroidInjector
-import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 
@@ -17,14 +15,12 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AppModule::class,
-        ActivityModule::class,
-        AndroidSupportInjectionModule::class,
         RepositoryBindModule::class,
         RepositoryProvidesModule::class,
         UseCaseProvidesModule::class
     ]
 )
-interface AppComponent : AndroidInjector<App> {
+interface AppComponent: FeatureCommonDeps {
 
     @Component.Builder
     interface Builder {
@@ -32,5 +28,4 @@ interface AppComponent : AndroidInjector<App> {
         fun build(): AppComponent
     }
 
-    override fun inject(app: App) // Let Dagger know your Application class with root dispatching injector
 }
