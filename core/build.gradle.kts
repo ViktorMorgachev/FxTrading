@@ -31,10 +31,15 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies{
     api(project(":domain"))
+    api(project(":navigation"))
 
     api(platform("com.google.firebase:firebase-bom:29.0.0"))
     api("com.google.firebase:firebase-common-ktx:20.0.0")

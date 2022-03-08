@@ -16,10 +16,10 @@ class StartTestFragment : Fragment(R.layout.fragment_start_test) {
         super.onViewCreated(view, savedInstanceState)
         with(viewBinding){
             skipButton.setOnClickListener {
-                ModuleBinder.gotoToModule(module = Module.Main, activity = this@StartTestFragment.requireActivity())
+//                ModuleBinder.gotoToModule(module = Module.Main, activity = this@StartTestFragment.requireActivity())
             }
             startTest.setOnClickListener {
-                ModuleBinder.gotoToModule(module = Module.Questions, activity = this@StartTestFragment.requireActivity())
+//                ModuleBinder.gotoToModule(module = Module.Questions, activity = this@StartTestFragment.requireActivity())
             }
         }
     }

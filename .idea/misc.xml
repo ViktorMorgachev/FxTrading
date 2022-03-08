@@ -3,6 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Nikitka/AndroidStudioProjects/FxTrading2/feature_common/src/main/res/layout/activity_question.xml" value="0.25729166666666664" />
+        <entry key="..\:/Users/Nikitka/AndroidStudioProjects/FxTrading2/feature_common/src/main/res/layout/fragment_questions.xml" value="0.25729166666666664" />
+        <entry key="..\:/Users/Nikitka/AndroidStudioProjects/FxTrading2/feature_common/src/main/res/layout/fragment_test.xml" value="0.25729166666666664" />
+        <entry key="..\:/Users/Nikitka/AndroidStudioProjects/FxTrading2/feature_common/src/main/res/layout/item_answer.xml" value="0.25729166666666664" />
+        <entry key="..\:/Users/Nikitka/AndroidStudioProjects/FxTrading2/feature_main/src/main/res/layout/fragment_courses.xml" value="0.25729166666666664" />
+        <entry key="..\:/Users/Nikitka/AndroidStudioProjects/FxTrading2/feature_main/src/main/res/layout/fragment_different.xml" value="0.25729166666666664" />
+        <entry key="..\:/Users/Nikitka/AndroidStudioProjects/FxTrading2/feature_main/src/main/res/layout/fragment_lesson.xml" value="0.25729166666666664" />
+        <entry key="..\:/Users/Nikitka/AndroidStudioProjects/FxTrading2/feature_main/src/main/res/layout/fragment_lessons.xml" value="0.25729166666666664" />
+        <entry key="..\:/Users/Nikitka/AndroidStudioProjects/FxTrading2/feature_onboarding/src/main/res/layout/activity_onboarding.xml" value="0.24739583333333334" />
+        <entry key="..\:/Users/Nikitka/AndroidStudioProjects/FxTrading2/feature_onboarding/src/main/res/layout/fragment_on_boarding_four.xml" value="0.24739583333333334" />
+        <entry key="..\:/Users/Nikitka/AndroidStudioProjects/FxTrading2/feature_onboarding/src/main/res/layout/fragment_on_boarding_second.xml" value="0.24739583333333334" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/app/ui/src/main/res/layout/activity_main.xml" value="0.3484375" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_common/src/main/res/layout/activity_question.xml" value="0.31023550724637683" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_common/src/main/res/layout/fragment_questions.xml" value="0.33" />

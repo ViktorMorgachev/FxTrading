@@ -7,8 +7,8 @@ import dagger.android.ContributesAndroidInjector
 @Module
 interface ActivityModule {
 
-    @ContributesAndroidInjector(modules = [FragmentBuilderModule::class])
-    abstract fun contributeMainActivity(): OnBoardingActivity
+    @ContributesAndroidInjector(modules = [OnBoardingBuilderProvider::class])
+    fun contributeMainActivity(): OnBoardingActivity
 
 
 }

@@ -1,13 +1,19 @@
 package com.fx_trading.lessons.fxtrading.di.component
 
+import android.app.Application
 import com.fx_trading.lessons.feature_common.di.deps.FeatureCommonDeps
 import com.fx_trading.lessons.fxtrading.App
 import com.fx_trading.lessons.fxtrading.di.module.AppModule
 import com.fx_trading.lessons.fxtrading.di.module.RepositoryBindModule
 import com.fx_trading.lessons.fxtrading.di.module.RepositoryProvidesModule
 import com.fx_trading.lessons.fxtrading.di.module.UseCaseProvidesModule
+import com.fx_trading.lessons.fxtrading.di.module.navigation.NavigationModule
+import com.fx_trading.lessons.fxtrading.di.module.navigation.NavigationScreenMapModule
+import com.fx_trading.lessons.fxtrading.di.module.uiBuilder.ActivityModule
 import dagger.BindsInstance
 import dagger.Component
+import dagger.android.AndroidInjector
+import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 
@@ -15,17 +21,20 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AppModule::class,
-        RepositoryBindModule::class,
-        RepositoryProvidesModule::class,
-        UseCaseProvidesModule::class
+        ActivityModule::class,
+        NavigationModule::class,
+        NavigationScreenMapModule::class,
+        AndroidSupportInjectionModule::class
+//        RepositoryBindModule::class,
+//        RepositoryProvidesModule::class,
+//        UseCaseProvidesModule::class
     ]
 )
-interface AppComponent: FeatureCommonDeps {
+interface AppComponent: AndroidInjector<App> {
 
-    @Component.Builder
-    interface Builder {
-        fun application(@BindsInstance application: App): Builder
-        fun build(): AppComponent
+    @Component.Factory
+    interface Factory {
+        fun create(@BindsInstance application: Application): AppComponent
     }
 
 }

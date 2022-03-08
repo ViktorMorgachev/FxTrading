@@ -22,4 +22,5 @@ object UIDeps {
     const val navigation_ui_ktx = "androidx.navigation:navigation-ui-ktx:${Version.navigation_ui_ktx}"
     const val navigation_fragment =  "androidx.navigation:navigation-fragment:${Version.navigation_fragment}"
     const val viewbindingpropertydelegate = "com.github.kirich1409:viewbindingpropertydelegate-noreflection:${Version.viewbindingpropertydelegate_version}"
+
 }
