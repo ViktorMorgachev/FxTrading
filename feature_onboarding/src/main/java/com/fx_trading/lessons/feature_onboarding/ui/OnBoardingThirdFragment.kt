@@ -10,12 +10,12 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.fx_trading.lessons.core.BaseFragment
 import com.fx_trading.lessons.feature_onboarding.R
 import com.fx_trading.navigation.Router
-import com.fx_trading.navigation.params.screens.onboarding.SecondThirdScreenParams
+import com.fx_trading.navigation.params.screens.onboarding.ThirdFourScreenParams
 import javax.inject.Inject
-import com.fx_trading.lessons.feature_onboarding.databinding.FragmentOnBoardingSecondBinding as Binding
+import com.fx_trading.lessons.feature_onboarding.databinding.FragmentOnBoardingThirdBinding as Binding
 
 
-class OnBoardingFragmentSecond : BaseFragment<Binding>() {
+class OnBoardingThirdFragment : BaseFragment<Binding>() {
 
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> Binding =
         Binding::inflate
@@ -27,7 +27,7 @@ class OnBoardingFragmentSecond : BaseFragment<Binding>() {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
             buttonNext.setOnClickListener {
-                router.navigate(SecondThirdScreenParams)
+                router.navigate(ThirdFourScreenParams)
             }
         }
     }

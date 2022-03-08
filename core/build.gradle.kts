@@ -40,7 +40,6 @@ android {
 dependencies{
     api(project(":domain"))
     api(project(":navigation"))
-
     api(project(":data"))
 
     api(com.viktor.buildsrc.ui.UIDeps.core_ktx)

@@ -10,19 +10,19 @@ import dagger.android.ContributesAndroidInjector
 interface OnBoardingBuilderProvider {
 
     @ContributesAndroidInjector
-    fun onBoardingFragmentFirst() : OnBoardingFragmentFirst
+    fun onBoardingFragmentFirst() : OnBoardingFirstFragment
 
     @ContributesAndroidInjector
-    fun onBoardingFragmentSecond() : OnBoardingFragmentSecond
+    fun onBoardingFragmentSecond() : OnBoardingSecondFragment
 
     @ContributesAndroidInjector
-    fun onBoardingFragmentThird() : OnBoardingFragmentThird
+    fun onBoardingFragmentThird() : OnBoardingThirdFragment
 
     @ContributesAndroidInjector
-    fun onBoardingFragmentFour() : OnBoardingFragmentFour
+    fun onBoardingFragmentFour() : OnBoardingFourFragment
 
     @ContributesAndroidInjector
-    fun onBoardingFragmentFive() : OnBoardingFragmentFive
+    fun onBoardingFragmentFive() : OnBoardingFiveFragment
 
     @ContributesAndroidInjector
     fun splashFragment() : SplashFragment

@@ -26,6 +26,4 @@ abstract class RepositoryBindModule() {
 
     @Binds
     abstract fun bindQuestionRepository(questionRepositoryImpl: QuestionRepositoryImpl): QuestionRepository
-
-
 }

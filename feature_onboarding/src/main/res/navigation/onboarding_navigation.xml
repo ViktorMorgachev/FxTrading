@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/onBoardingFragmentFirst"
-        android:name="com.fx_trading.lessons.feature_onboarding.ui.OnBoardingFragmentFirst"
+        android:name="com.fx_trading.lessons.feature_onboarding.ui.OnBoardingFirstFragment"
         android:label="fragment_on_boarding_first"
         tools:layout="@layout/fragment_on_boarding_first">
         <action
@@ -41,7 +41,7 @@
 
     <fragment
         android:id="@+id/onBoardingFragmentSecond"
-        android:name="com.fx_trading.lessons.feature_onboarding.ui.OnBoardingFragmentSecond"
+        android:name="com.fx_trading.lessons.feature_onboarding.ui.OnBoardingSecondFragment"
         android:label="fragment_on_boarding_second"
         tools:layout="@layout/fragment_on_boarding_second">
         <action
@@ -58,7 +58,7 @@
 
     <fragment
         android:id="@+id/onBoardingFragmentThird"
-        android:name="com.fx_trading.lessons.feature_onboarding.ui.OnBoardingFragmentThird"
+        android:name="com.fx_trading.lessons.feature_onboarding.ui.OnBoardingThirdFragment"
         android:label="fragment_on_boarding_third"
         tools:layout="@layout/fragment_on_boarding_third">
         <action
@@ -75,7 +75,7 @@
 
     <fragment
         android:id="@+id/onBoardingFragmentFour"
-        android:name="com.fx_trading.lessons.feature_onboarding.ui.OnBoardingFragmentFour"
+        android:name="com.fx_trading.lessons.feature_onboarding.ui.OnBoardingFourFragment"
         android:label="fragment_on_boarding_four"
         tools:layout="@layout/fragment_on_boarding_four">
         <action
@@ -92,7 +92,7 @@
 
     <fragment
         android:id="@+id/onBoardingFragmentFive"
-        android:name="com.fx_trading.lessons.feature_onboarding.ui.OnBoardingFragmentFive"
+        android:name="com.fx_trading.lessons.feature_onboarding.ui.OnBoardingFiveFragment"
         android:label="fragment_on_boarding_five"
         tools:layout="@layout/fragment_on_boarding_four">
         <action

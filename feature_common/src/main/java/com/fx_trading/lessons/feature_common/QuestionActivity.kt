@@ -1,14 +1,10 @@
 package com.fx_trading.lessons.feature_common
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import dagger.android.AndroidInjection
+import com.fx_trading.lessons.core.BaseActivity
 
-class QuestionActivity : AppCompatActivity() {
+class QuestionActivity : BaseActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun initLayout() {
         setContentView(R.layout.activity_question)
     }
-
 }

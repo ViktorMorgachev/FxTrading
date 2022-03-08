@@ -1,12 +1,8 @@
 package com.fx_trading.lessons.fxtrading.di.component
 
 import android.app.Application
-import com.fx_trading.lessons.feature_common.di.deps.FeatureCommonDeps
 import com.fx_trading.lessons.fxtrading.App
 import com.fx_trading.lessons.fxtrading.di.module.AppModule
-import com.fx_trading.lessons.fxtrading.di.module.RepositoryBindModule
-import com.fx_trading.lessons.fxtrading.di.module.RepositoryProvidesModule
-import com.fx_trading.lessons.fxtrading.di.module.UseCaseProvidesModule
 import com.fx_trading.lessons.fxtrading.di.module.navigation.NavigationModule
 import com.fx_trading.lessons.fxtrading.di.module.navigation.NavigationScreenMapModule
 import com.fx_trading.lessons.fxtrading.di.module.uiBuilder.ActivityModule

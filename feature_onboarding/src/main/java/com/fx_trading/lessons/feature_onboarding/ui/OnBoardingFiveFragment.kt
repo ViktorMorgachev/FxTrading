@@ -10,12 +10,12 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.fx_trading.lessons.core.BaseFragment
 import com.fx_trading.lessons.feature_onboarding.R
 import com.fx_trading.navigation.Router
-import com.fx_trading.navigation.params.screens.onboarding.FitstSecondScreenParams
+import com.fx_trading.navigation.params.screens.onboarding.FiveStartTestScreenParams
 import javax.inject.Inject
-import com.fx_trading.lessons.feature_onboarding.databinding.FragmentOnBoardingFirstBinding as Binding
+import com.fx_trading.lessons.feature_onboarding.databinding.FragmentOnBoardingFiveBinding as Binding
 
 
-class OnBoardingFragmentFirst : BaseFragment<Binding>() {
+class OnBoardingFiveFragment : BaseFragment<Binding>() {
 
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> Binding =
         Binding::inflate
@@ -25,9 +25,11 @@ class OnBoardingFragmentFirst : BaseFragment<Binding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        with(binding) {
-            buttonNext.setOnClickListener {
-                router.navigate(FitstSecondScreenParams)
+        with(binding){
+            buttonFinish.setOnClickListener {
+                router.navigate(FiveStartTestScreenParams)
+//                requireView().findNavController().navigate(OnBoardingFragmentFiveDirections.actionOnBoardingFragmentFiveToStartTestFragment())
+              //  ModuleBinder.gotoToModule(module = Module.Main, activity = this@OnBoardingFragmentFive.requireActivity())
             }
         }
     }

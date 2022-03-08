@@ -15,6 +15,7 @@
       <module name="FxTrading.feature_questions" target="11" />
       <module name="FxTrading.resources" target="11" />
       <module name="FxTrading.ui" target="11" />
+      <module name="FxTrading.utils" target="11" />
       <module name="FxTrading2.buildSrc" target="11" />
     </bytecodeTargetLevel>
   </component>

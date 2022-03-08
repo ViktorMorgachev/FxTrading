@@ -25,5 +25,4 @@ class RepositoryProvidesModule() {
         return QuestionRepositoryImpl(questionRemoteRepository)
     }
 
-
 }
