@@ -1,7 +1,7 @@
-package com.fx_trading.lessons.domain.entities.quiz
+package com.fx_trading.lessons.data.api.question_group
 
-data class Question(
-    val answers: List<Answer>,
+data class ApiQuestion(
+    val apiAnswers: List<ApiAnswer>,
     val description: String,
     val difficulty: Int,
     val is_active: Boolean,

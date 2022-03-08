@@ -28,7 +28,10 @@ class QuestionsFragment : MvpAppCompatFragment(R.layout.fragment_questions), Qui
     }
 
     override fun showQuestion(quiestion: Question) {
-        TODO("Not yet implemented")
+        with(binding){
+            quizDescribe.text = quiestion.description
+            progressStep.text = ""
+        }
     }
 
     override fun showCheckResult() {

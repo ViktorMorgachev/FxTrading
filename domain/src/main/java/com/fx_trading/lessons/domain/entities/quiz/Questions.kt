@@ -9,5 +9,6 @@ data class Questions(
     val name: String,
     val parent_id: Int,
     val questions: List<Question>,
-    val region: String
+    val region: String,
+    val isStartExam: Boolean
 )

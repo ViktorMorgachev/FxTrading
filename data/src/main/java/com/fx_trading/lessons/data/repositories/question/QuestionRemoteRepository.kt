@@ -1,10 +1,9 @@
 package com.fx_trading.lessons.data.repositories.question
 
-import com.fx_trading.lessons.data.api.quiz.ApiQuizGroup
-import com.fx_trading.lessons.domain.entities.quiz.Questions
+import com.fx_trading.lessons.data.api.question_group.ApiQuestionGroup
 
 
 interface QuestionRemoteRepository {
-    suspend fun getRemoteQuestions(): List<ApiQuizGroup>
-    suspend fun getRemoteQuestionsByID(id: Int): Questions
+    suspend fun getRemoteQuestionGroups(): List<ApiQuestionGroup>
+    suspend fun getRemoteQuestionGroup(id: Int): ApiQuestionGroup
 }

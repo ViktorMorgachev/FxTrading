@@ -1,4 +1,4 @@
-package com.fx_trading.lessons.data.api.quiz
+package com.fx_trading.lessons.data.api.question_group
 
 data class ApiAnswer(
     val is_active: Boolean,

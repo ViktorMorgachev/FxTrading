@@ -43,7 +43,7 @@
                     android:layout_margin="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/cancel_button"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -54,6 +54,17 @@
                     app:layout_constraintRight_toRightOf="@id/pb_horizontal"
                     app:layout_constraintTop_toTopOf="@id/pb_horizontal"
                     tools:text="1/2" />
+
+                <ImageView
+                    android:id="@+id/cancel_button"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/cancel"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:padding="16dp"
+                    app:layout_constraintLeft_toRightOf="@id/pb_horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_height="wrap_content"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -126,19 +137,6 @@
 
                 </TextView>
 
-                <Button
-                    android:id="@+id/skip_button"
-                    style="@style/quiz_bottom_button_light_blue"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    app:layout_constraintBottom_toBottomOf="@id/check_buton"
-                    app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toLeftOf="@id/check_buton"
-                    app:layout_constraintTop_toTopOf="@id/check_buton"
-                    tools:text="Skip"
-                    tools:visibility="visible" />
 
                 <Button
                     android:id="@+id/check_buton"
@@ -146,9 +144,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
-                    app:layout_constraintBottom_toBottomOf="@id/skip_button"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintLeft_toRightOf="@id/skip_button"
+                    app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     tools:text="Check" />
 
