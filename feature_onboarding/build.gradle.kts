@@ -43,6 +43,8 @@ dependencies {
     implementation(project(":utils"))
     api(project(":resources"))
 
+    implementation(project(":feature_main"))
+    implementation(project(":feature_common"))
 
     kapt(KaptDependency.dagger_android_processor)
     kapt(KaptDependency.dagger_android_compiler)

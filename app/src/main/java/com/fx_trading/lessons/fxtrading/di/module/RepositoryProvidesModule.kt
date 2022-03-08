@@ -1,11 +1,11 @@
 package com.fx_trading.lessons.fxtrading.di.module
 
-import com.fx_trading.lessons.data.repositories.lessons.LessonRepositoryImpl
+import com.fx_trading.lessons.data.repositories.lessons.LessonProvider
 import com.fx_trading.lessons.data.repositories.lessons.LessonsRemoteRepository
+import com.fx_trading.lessons.data.repositories.question.QuestionProvider
 import com.fx_trading.lessons.data.repositories.question.QuestionRemoteRepository
-import com.fx_trading.lessons.data.repositories.question.QuestionRepositoryImpl
-import com.fx_trading.lessons.domain.repositories.LessonRepository
-import com.fx_trading.lessons.domain.repositories.QuestionRepository
+import com.fx_trading.lessons.data.store.LessonsDataSource
+import com.fx_trading.lessons.data.store.QuestionsDataSource
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -15,14 +15,14 @@ class RepositoryProvidesModule() {
 
     @Provides
     @Singleton
-    fun provideLessonRepositoryImpl(lessonsRemoteRepository: LessonsRemoteRepository): LessonRepository {
-        return LessonRepositoryImpl(lessonsRemoteRepository)
+    fun provideLessonProvider(lessonsRemoteRepository: LessonsRemoteRepository): LessonProvider {
+        return LessonProvider(LessonsDataSource(lessonsRemoteRepository))
     }
 
     @Provides
     @Singleton
-    fun provideQuestionRepositoryImpl(questionRemoteRepository: QuestionRemoteRepository): QuestionRepository {
-        return QuestionRepositoryImpl(questionRemoteRepository)
+    fun provideQuestionProvider(questionRemoteRepository: QuestionRemoteRepository): QuestionProvider {
+        return QuestionProvider(QuestionsDataSource(questionRemoteRepository))
     }
 
 }

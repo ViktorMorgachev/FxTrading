@@ -10,4 +10,6 @@ interface ActionResolver {
 
     fun execute(activity: Activity?, data: ActionParams)
 
+    fun startActivity(from: Activity, activity: Activity?)
+
 }

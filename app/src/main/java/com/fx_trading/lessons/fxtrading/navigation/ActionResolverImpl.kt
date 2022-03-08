@@ -21,5 +21,9 @@ class ActionResolverImpl @Inject constructor(
 
     }
 
+    override fun startActivity(from: Activity, activity: Activity?) {
+
+    }
+
 
 }

@@ -13,8 +13,7 @@ import com.fx_trading.lessons.feature_onboarding.databinding.FragmentOnBoardingF
 
 class OnBoardingFirstFragment : BaseFragment<Binding>() {
 
-    override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> Binding =
-        Binding::inflate
+    override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> Binding = Binding::inflate
 
     @Inject
     lateinit var router: Router

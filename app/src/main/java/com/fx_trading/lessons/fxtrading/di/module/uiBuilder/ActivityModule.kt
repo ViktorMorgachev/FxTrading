@@ -1,5 +1,6 @@
 package com.fx_trading.lessons.fxtrading.di.module.uiBuilder
 
+import com.fx_trading.lessons.feature_common.QuestionActivity
 import com.fx_trading.lessons.feature_onboarding.OnBoardingActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -8,7 +9,10 @@ import dagger.android.ContributesAndroidInjector
 interface ActivityModule {
 
     @ContributesAndroidInjector(modules = [OnBoardingBuilderProvider::class])
-    fun contributeMainActivity(): OnBoardingActivity
+    fun contributeOnBoardingActivity(): OnBoardingActivity
+
+    @ContributesAndroidInjector(modules = [QuestionBuilderProvider::class])
+    fun contributeQuestionActivity(): QuestionActivity
 
 
 }
