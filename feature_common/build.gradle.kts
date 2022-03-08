@@ -42,7 +42,6 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":resources"))
 
-
     implementation(UIDeps.core_ktx)
     implementation(UIDeps.appCompat)
     implementation(UIDeps.constraintlayout)
@@ -52,14 +51,14 @@ dependencies {
     implementation(UIDeps.navigation_fragment)
     implementation(UIDeps.viewbindingpropertydelegate)
 
+    implementation("androidx.navigation:navigation-fragment-ktx:2.4.1")
+    implementation("androidx.navigation:navigation-ui-ktx:2.4.1")
     implementation("com.github.moxy-community:moxy:2.2.2")
     implementation("androidx.appcompat:appcompat:1.4.1")
     implementation("com.google.android.material:material:1.5.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.3")
     kapt("com.github.moxy-community:moxy-compiler:2.2.2")
     implementation("com.github.moxy-community:moxy-androidx:2.2.2")
-
-
 
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.viewpager2:viewpager2:1.0.0")

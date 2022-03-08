@@ -1,4 +1,4 @@
-package com.fx_trading.lessons.feature_questions.ui
+package com.fx_trading.lessons.feature_common.ui.questions
 
 import com.fx_trading.lessons.domain.entities.quiz.Question
 import moxy.MvpView

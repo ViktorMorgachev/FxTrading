@@ -9,6 +9,7 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
+// По завершению каждой фичи модуля, котрые основываются на новых активностях, переходить к предыдущей активности
 class App : Application(), HasAndroidInjector {
 
 

@@ -38,15 +38,12 @@ android {
 
 dependencies {
 
+    implementation(project(":feature_main"))
 
     implementation(UIDeps.core_ktx)
     implementation(UIDeps.appCompat)
     implementation(UIDeps.constraintlayout)
     implementation(UIDeps.android_material)
-
-    implementation(project(":feature_questions"))
-    implementation(project(":feature_main"))
-
 
     kapt(KaptDependency.dagger_android_processor)
     kapt(KaptDependency.dagger_android_compiler)

@@ -1,11 +1,12 @@
-package com.fx_trading.lessons.feature_questions.ui
+package com.fx_trading.lessons.feature_common.ui.questions
 
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.fx_trading.lessons.domain.entities.quiz.Question
-import com.fx_trading.lessons.feature_questions.R
-import com.fx_trading.lessons.feature_questions.databinding.FragmentQuestionsBinding
+import com.fx_trading.lessons.feature_common.R
+import com.fx_trading.lessons.feature_common.databinding.FragmentQuestionsBinding
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
+
 
 class QuestionsFragment : MvpAppCompatFragment(R.layout.fragment_questions), QuiestionsView {
 

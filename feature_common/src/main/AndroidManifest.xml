@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.fx_trading.lessons.feature_questions">
-
+    package="com.fx_trading.lessons.feature_common">
     <application>
         <activity
-            android:name="com.fx_trading.lessons.feature_questions.QuestionActivity"
+            android:name="com.fx_trading.lessons.feature_common.QuestionActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="true">
         </activity>
-
     </application>
 
 </manifest>
