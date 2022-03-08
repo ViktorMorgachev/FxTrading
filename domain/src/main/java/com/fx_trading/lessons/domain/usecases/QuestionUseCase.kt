@@ -9,10 +9,6 @@ class QuestionUseCase @Inject constructor(private val questionRepository: Questi
     suspend fun getQuestionsById(quizID: Int): Questions {
         return questionRepository.getQuestionsByID(quizID)
     }
-    suspend fun getQuestionsGroup(): List<Questions>{
-        return questionRepository.getQuestionGroups()
-    }
-
     fun test(){
 
     }

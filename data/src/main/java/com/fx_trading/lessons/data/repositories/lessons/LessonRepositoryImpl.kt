@@ -3,8 +3,9 @@ package com.fx_trading.lessons.data.repositories.lessons
 import com.fx_trading.lessons.data.mappers.toLesson
 import com.fx_trading.lessons.domain.entities.lesson.Lesson
 import com.fx_trading.lessons.domain.repositories.LessonRepository
+import javax.inject.Inject
 
-class LessonRepositoryImpl(private val lessonsRemoteRepository: LessonsRemoteRepository):
+class LessonRepositoryImpl @Inject constructor(private val lessonsRemoteRepository: LessonsRemoteRepository):
     LessonRepository {
 
     override suspend fun getLessons(author: String?): List<Lesson> {
