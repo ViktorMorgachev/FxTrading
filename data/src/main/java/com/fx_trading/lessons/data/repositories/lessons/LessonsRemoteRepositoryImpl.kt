@@ -1,7 +1,7 @@
 package com.fx_trading.lessons.data.repositories.lessons
 
-import com.fx_trading.lessons.core.utils.Logger
 import com.fx_trading.lessons.data.api.lesson.ApiLesson
+import com.fx_trading.lessons.utils.utils.Logger
 import com.google.firebase.firestore.FirebaseFirestore
 import javax.inject.Inject
 

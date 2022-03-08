@@ -38,13 +38,11 @@ android {
 
 dependencies {
 
-    implementation(project(":core"))
-    implementation(project(":resources"))
-    implementation(project(":domain"))
-    implementation(project(":data"))
+
     implementation(project(":feature_onboarding"))
     implementation(project(":feature_main"))
     implementation(project(":feature_common"))
+    implementation(project(":utils"))
 
     implementation(UIDeps.android_material)
 

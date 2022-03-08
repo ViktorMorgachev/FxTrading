@@ -1,16 +1,12 @@
 package com.fx_trading.lessons.feature_onboarding
 
-import com.fx_trading.lessons.core.BaseActivity
-import com.fx_trading.lessons.core.utils.Logger
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 
-class OnBoardingActivity : BaseActivity() {
+class OnBoardingActivity : AppCompatActivity() {
 
-    override fun initLayout() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_onboarding)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Logger.log("OnBoardingActivity", "onDestroy()")
     }
 }

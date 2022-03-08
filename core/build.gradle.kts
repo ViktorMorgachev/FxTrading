@@ -34,12 +34,17 @@ android {
 }
 
 dependencies{
-    api(project(":domain"))
 
-    api(platform("com.google.firebase:firebase-bom:29.0.0"))
-    api("com.google.firebase:firebase-common-ktx:20.0.0")
-    api("com.google.firebase:firebase-firestore-ktx:24.0.1")
+    api(project(":data"))
 
+    api(com.viktor.buildsrc.ui.UIDeps.core_ktx)
+    api(com.viktor.buildsrc.ui.UIDeps.appCompat)
+    api(com.viktor.buildsrc.ui.UIDeps.constraintlayout)
+    api(com.viktor.buildsrc.ui.UIDeps.android_material)
+    api(com.viktor.buildsrc.ui.UIDeps.navigation_ui_ktx)
+    api(com.viktor.buildsrc.ui.UIDeps.navigation_fragment_ktx)
+    api(com.viktor.buildsrc.ui.UIDeps.navigation_fragment)
+    api(com.viktor.buildsrc.ui.UIDeps.viewbindingpropertydelegate)
 
     api(AppDeps.dagger)
     api(AppDeps.dagger_android_support)

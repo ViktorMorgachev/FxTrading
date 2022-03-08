@@ -29,16 +29,14 @@ android {
     }
 }
 dependencies{
-    implementation(project(":domain"))
-    implementation(project(":core"))
 
-    implementation(platform("com.google.firebase:firebase-bom:29.0.0"))
-    implementation("com.google.firebase:firebase-common-ktx:20.0.0")
-    implementation("com.google.firebase:firebase-firestore-ktx:24.0.1")
+    api(project(":domain"))
+    implementation(project(":utils"))
 
-    implementation(AppDeps.dagger)
-    implementation(AppDeps.dagger_android_support)
-    implementation(AppDeps.dagger_android)
+    api(platform("com.google.firebase:firebase-bom:29.0.0"))
+    api("com.google.firebase:firebase-common-ktx:20.0.0")
+    api("com.google.firebase:firebase-firestore-ktx:24.0.1")
+
     kapt(KaptDependency.dagger_android_processor)
     kapt(KaptDependency.dagger_android_compiler)
 
