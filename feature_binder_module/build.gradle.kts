@@ -39,6 +39,7 @@ android {
 dependencies {
 
     implementation(project(":feature_main"))
+    implementation(project(":feature_common"))
 
     implementation(UIDeps.core_ktx)
     implementation(UIDeps.appCompat)

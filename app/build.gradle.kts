@@ -43,7 +43,7 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
     implementation(project(":feature_binder_module"))
-    api(project(":feature_onboarding"))
+    implementation(project(":feature_onboarding"))
 
     implementation(UIDeps.android_material)
 

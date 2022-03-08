@@ -8,5 +8,9 @@
         android:id="@+id/questionsFragment"
         android:name="com.fx_trading.lessons.feature_common.ui.questions.QuestionsFragment"
         android:label="QuestionsFragment" />
+    <fragment
+        android:id="@+id/testFragment"
+        android:name="com.fx_trading.lessons.feature_common.ui.test.TestFragment"
+        android:label="TestFragment" />
 
 </navigation>

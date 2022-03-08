@@ -20,7 +20,9 @@ class StartTestFragment : Fragment(R.layout.fragment_start_test) {
             skipButton.setOnClickListener {
                 ModuleBinder.gotoToModule(module = Module.Main, activity = this@StartTestFragment.requireActivity())
             }
-
+            startTest.setOnClickListener {
+                ModuleBinder.gotoToModule(module = Module.Questions, activity = this@StartTestFragment.requireActivity())
+            }
         }
     }
 

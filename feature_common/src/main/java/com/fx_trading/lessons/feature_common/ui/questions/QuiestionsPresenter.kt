@@ -10,8 +10,10 @@ import moxy.MvpPresenter
 import javax.inject.Inject
 
 @InjectViewState
-class QuiestionsPresenter @Inject constructor(val questionUseCase: QuestionUseCase) :
-    MvpPresenter<QuiestionsView>() {
+class QuiestionsPresenter @Inject constructor() : MvpPresenter<QuiestionsView>() {
+
+    @Inject
+    lateinit var questionUseCase: QuestionUseCase
 
     fun fetchFirstQuestions() {
         CoroutineScope(Dispatchers.IO).launch {

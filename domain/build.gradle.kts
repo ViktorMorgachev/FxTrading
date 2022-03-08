@@ -24,8 +24,8 @@ dependencies {
 
     api(AppDeps.kotlin_coroutunes_core)
     api(AppDeps.kotlin_coroutunes_android)
-
     api(AppDeps.dagger_android)
+
     kapt(KaptDeps.dagger_android_processor)
     kapt(KaptDeps.dagger_android_compiler)
 }

@@ -2,11 +2,12 @@ package com.fx_trading.lessons.feature_binder_module
 
 import android.app.Activity
 import android.content.Intent
+import com.fx_trading.lessons.feature_common.QuestionActivity
 import com.fx_trading.lessons.feature_main.MainActivity
 
 
 enum class Module {
-    Onboarding, Main
+    Onboarding, Main, Questions
 }
 
 object ModuleBinder {
@@ -14,6 +15,9 @@ object ModuleBinder {
         when (module) {
             Module.Main -> {
                 activity.startActivity(Intent(activity, MainActivity::class.java))
+            }
+            Module.Questions ->{
+                activity.startActivity(Intent(activity, QuestionActivity::class.java))
             }
         }
 
