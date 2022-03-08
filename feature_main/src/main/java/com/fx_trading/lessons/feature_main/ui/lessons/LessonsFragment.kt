@@ -1,7 +1,15 @@
 package com.fx_trading.lessons.feature_main.ui.lessons
 
-import com.fx_trading.lessons.feature_main.R
-import moxy.MvpAppCompatFragment
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import com.fx_trading.lessons.core.BaseFragment
+import com.fx_trading.lessons.feature_main.databinding.FragmentLessonsBinding
+import com.fx_trading.navigation.Router
+import javax.inject.Inject
 
-class LessonsFragment: MvpAppCompatFragment(R.layout.fragment_lessons), LessonsView {
+class LessonsFragment:  BaseFragment<FragmentLessonsBinding>() {
+    @Inject
+    lateinit var router: Router
+    override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentLessonsBinding = FragmentLessonsBinding::inflate
+
 }

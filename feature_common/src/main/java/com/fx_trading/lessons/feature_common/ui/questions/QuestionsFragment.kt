@@ -27,7 +27,9 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>(), QuiestionsVi
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.data.observe(viewLifecycleOwner, {
-            showQuestion()
+            if (it != null){
+                showQuestion(it, questionSize = viewModel.questionsSize, step = viewModel.step, succesCount = viewModel.successCount)
+            }
         })
     }
 

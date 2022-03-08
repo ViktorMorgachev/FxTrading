@@ -2,9 +2,11 @@ package com.fx_trading.lessons.data.repositories.question
 
 import com.fx_trading.lessons.data.api.question_group.ApiQuestionGroup
 import com.fx_trading.lessons.utils.utils.Logger
+import com.google.firebase.firestore.BuildConfig
 import com.google.firebase.firestore.FirebaseFirestore
 import javax.inject.Inject
 
+val documentPath = if (BuildConfig.DEBUG) "dev" else "prod"
 
 class QuestionRemoteRepositoryImpl @Inject constructor() : QuestionRemoteRepository {
 
@@ -12,19 +14,16 @@ class QuestionRemoteRepositoryImpl @Inject constructor() : QuestionRemoteReposit
     lateinit var firebaseFireStore: FirebaseFirestore
 
     override suspend fun getRemoteQuestionGroups(): List<ApiQuestionGroup> {
-        firebaseFireStore.collection("quiz_group")
+        firebaseFireStore.collection("exams").document(documentPath)
             .get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     task.result?.let { result ->
-                        for (document in result) {
-                            Logger.log(
-                                "QuestionRemoteRepository",
-                                "Data ${document.id + " => " + document.data}"
-                            )
-                        }
+                        Logger.log(
+                            "QuestionRemoteRepository",
+                            "Data ${result.id + " => " + result.data}"
+                        )
                     }
-
                 } else {
                     Logger.log(
                         "QuestionRemoteRepository",
@@ -39,7 +38,7 @@ class QuestionRemoteRepositoryImpl @Inject constructor() : QuestionRemoteReposit
     }
 
     override suspend fun getRemoteQuestionGroup(id: Int): ApiQuestionGroup {
-        firebaseFireStore.collection("quiz_group").document("/${id}")
+        firebaseFireStore.collection("exams").document("/${id}")
             .get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {

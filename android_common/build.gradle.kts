@@ -52,7 +52,6 @@ dependencies {
 
     api("androidx.navigation:navigation-fragment-ktx:2.4.1")
     api("androidx.navigation:navigation-ui-ktx:2.4.1")
-    api("com.github.moxy-community:moxy:2.2.2")
     api("androidx.appcompat:appcompat:1.4.1")
     api("com.google.android.material:material:1.5.0")
     api("androidx.constraintlayout:constraintlayout:2.1.3")

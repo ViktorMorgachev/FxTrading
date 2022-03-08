@@ -1,7 +1,10 @@
 package com.fx_trading.lessons.feature_main.ui.webinars
 
-import com.fx_trading.lessons.feature_main.R
-import moxy.MvpAppCompatFragment
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import com.fx_trading.lessons.core.BaseFragment
+import com.fx_trading.lessons.feature_main.databinding.FragmentWebinarsBinding
 
-class WebinarsFragment: MvpAppCompatFragment(R.layout.fragment_webinars), WebinarsView {
+class WebinarsFragment:  BaseFragment<FragmentWebinarsBinding>(), WebinarsView {
+    override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentWebinarsBinding = FragmentWebinarsBinding::inflate
 }

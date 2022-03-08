@@ -17,12 +17,12 @@ fun ApiQuestionGroup.toQuestionGroup(): QuestionsGroup {
         language = this.language,
         name = this.name,
         parent_id = this.parent_id,
-        questions = this.apiQuestions.map { it.toQuestion() },
+        questions = this.apiQuestions.map { it.toQuestion() }.toMutableList(),
         region = this.region,
         isStartExam = this.isStartExam
     )
 }
 
 fun ApiQuestion.toQuestion(): Question = Question(answers = this.apiAnswers.map { it.toAnswer() }, description, difficulty, is_active, optional_image_url, title)
-fun ApiAnswer.toAnswer(): Answer = Answer(is_active, is_correct, optional_image_url, text)
+fun ApiAnswer.toAnswer(): Answer = Answer(is_active, is_correct == 1, optional_image_url, text)
 

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "532358415345",
+    "firebase_url": "https://fx-trading-lessons-default-rtdb.firebaseio.com",
+    "project_id": "fx-trading-lessons",
+    "storage_bucket": "fx-trading-lessons.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:532358415345:android:7825c3fe76810598fe3a50",
+        "android_client_info": {
+          "package_name": "com.fx_trading.lessons.fxtrading"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "532358415345-lde21sktl8a4ndhop81ar9d07i8ibuv7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCtFblAp52bEmqbWTNEN55-Ne6g9efgM4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "532358415345-lde21sktl8a4ndhop81ar9d07i8ibuv7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,25 +1,21 @@
 package com.fx_trading.lessons.feature_main.ui.lesson
 
-import by.kirich1409.viewbindingdelegate.viewBinding
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import com.fx_trading.lessons.core.BaseFragment
 import com.fx_trading.lessons.domain.entities.lesson.Lesson
-import com.fx_trading.lessons.feature_main.R
 import com.fx_trading.lessons.feature_main.databinding.FragmentLessonBinding
-import moxy.MvpAppCompatFragment
-import moxy.presenter.InjectPresenter
+import com.fx_trading.navigation.Router
+import javax.inject.Inject
 
-class LessonFragment : MvpAppCompatFragment(R.layout.fragment_lesson), LessonView {
+class LessonFragment : BaseFragment<FragmentLessonBinding>(), LessonView {
 
-    @InjectPresenter
-    lateinit var lessonPresenter: LessonPresenter
+    @Inject
+    lateinit var router: Router
 
-    private val binding : FragmentLessonBinding by viewBinding(FragmentLessonBinding::bind)
+    override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentLessonBinding = FragmentLessonBinding::inflate
 
     override fun showLesson(lesson: Lesson) {
 
-    }
-
-    override fun onResume() {
-        super.onResume()
-        lessonPresenter.getLesson(1)
     }
 }

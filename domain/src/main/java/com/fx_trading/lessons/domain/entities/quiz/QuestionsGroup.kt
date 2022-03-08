@@ -8,7 +8,7 @@ data class QuestionsGroup(
     val language: String,
     val name: String,
     val parent_id: Int,
-    val questions: List<Question>,
+    val questions: MutableList<Question>,
     val region: String,
     val isStartExam: Boolean
 )
