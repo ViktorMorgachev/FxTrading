@@ -1,14 +1,19 @@
 package com.fx_trading.lessons.domain.usecases
 
-import com.fx_trading.lessons.domain.entities.quiz.Questions
+import com.fx_trading.lessons.domain.entities.quiz.QuestionsGroup
 import com.fx_trading.lessons.domain.repositories.QuestionRepository
 import javax.inject.Inject
 
 class QuestionUseCase @Inject constructor(private val questionRepository: QuestionRepository) {
 
-    suspend fun getQuestionsById(quizID: Int): Questions {
-        return questionRepository.getQuestionsByID(quizID)
+    suspend fun getQuestionGroupById(quizID: Int): QuestionsGroup {
+        return questionRepository.getQuestionsGroup(quizID)
     }
+
+    suspend fun getQuestionStartExamQuestionGroup(): QuestionsGroup {
+        return questionRepository.getQuestionGroups().first { it.isStartExam }
+    }
+
     fun test(){
 
     }

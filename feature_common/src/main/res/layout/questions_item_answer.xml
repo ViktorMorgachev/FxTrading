@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Button xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:text="First answer"
-    android:layout_marginVertical="8dp"
-    android:layout_marginHorizontal="16dp"
-    style="@style/quiz_button_correct" />
