@@ -38,9 +38,29 @@ android {
 
 dependencies {
 
+    api(project(":resources"))
     api(project(":core"))
-    api(project(":android_common"))
-    implementation(project(":utils"))
+
+    api(UIDeps.core_ktx)
+    api(UIDeps.appCompat)
+    api(UIDeps.constraintlayout)
+    api(UIDeps.android_material)
+    api(UIDeps.navigation_ui_ktx)
+    api(UIDeps.navigation_fragment_ktx)
+    api(UIDeps.navigation_fragment)
+    api(UIDeps.viewbindingpropertydelegate)
+
+    api("androidx.navigation:navigation-fragment-ktx:2.4.1")
+    api("androidx.navigation:navigation-ui-ktx:2.4.1")
+    api("com.github.moxy-community:moxy:2.2.2")
+    api("androidx.appcompat:appcompat:1.4.1")
+    api("com.google.android.material:material:1.5.0")
+    api("androidx.constraintlayout:constraintlayout:2.1.3")
+
+    kapt("com.github.moxy-community:moxy-compiler:2.2.2")
+    api("com.github.moxy-community:moxy-androidx:2.2.2")
+
+    api("androidx.legacy:legacy-support-v4:1.0.0")
 
     kapt(KaptDependency.dagger_android_processor)
     kapt(KaptDependency.dagger_android_compiler)

@@ -6,7 +6,6 @@ plugins {
     id("com.android.library")
     id("kotlin-android")
     id("kotlin-kapt")
-    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -37,27 +36,6 @@ android {
 }
 
 dependencies {
-
-    api(project(":core"))
-    implementation(project(":domain"))
-
-    implementation(UIDeps.core_ktx)
-    implementation(UIDeps.appCompat)
-    implementation(UIDeps.constraintlayout)
-    implementation(UIDeps.android_material)
-    implementation(UIDeps.navigation_ui_ktx)
-    implementation(UIDeps.navigation_fragment_ktx)
-    implementation(UIDeps.navigation_fragment)
-    implementation(UIDeps.viewbindingpropertydelegate)
-
-    implementation("com.github.moxy-community:moxy:2.2.2")
-    kapt("com.github.moxy-community:moxy-compiler:2.2.2")
-    implementation("com.github.moxy-community:moxy-androidx:2.2.2")
-
-
-
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.viewpager2:viewpager2:1.0.0")
 
     kapt(KaptDependency.dagger_android_processor)
     kapt(KaptDependency.dagger_android_compiler)

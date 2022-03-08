@@ -1,7 +1,7 @@
 package com.fx_trading.lessons.data.repositories.question
 
-import com.fx_trading.lessons.core.utils.Logger
 import com.fx_trading.lessons.data.api.question_group.ApiQuestionGroup
+import com.fx_trading.lessons.utils.utils.Logger
 import com.google.firebase.firestore.FirebaseFirestore
 import javax.inject.Inject
 
