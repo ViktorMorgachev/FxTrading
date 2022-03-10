@@ -12,4 +12,11 @@
     <string name="motivation_success">Keep it up, champ!</string>
     <string name="your_score">Your score:</string>
     <string name="total_questions">Total questions</string>
+    <string name="your_level">Your level:</string>
+    <string name="beginner">Beginner</string>
+    <string name="intermediate">Intermediate</string>
+    <string name="experienced">Experienced</string>
+    <string name="defeult_info_level_top">We strongly recommend that you first</string>
+    <string name="explore_the">explore the</string>
+    <string name="material">material</string>
 </resources>

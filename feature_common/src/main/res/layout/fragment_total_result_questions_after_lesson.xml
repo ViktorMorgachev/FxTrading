@@ -84,7 +84,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="4"
-            app:layout_constraintRight_toLeftOf="count_result_answers"
+            android:textStyle="bold"
+            android:gravity="center"
+            app:layout_constraintRight_toLeftOf="@id/count_result_answers"
             android:textSize="48sp"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -95,7 +97,10 @@
         <TextView
             android:id="@+id/default_total_questions"
             android:layout_width="0dp"
+            app:layout_constraintRight_toRightOf="@id/count_total_questions"
             android:layout_height="wrap_content"
+
+            android:gravity="center"
             android:text="@string/total_questions"
             android:textSize="14sp"
             app:layout_constraintHorizontal_weight="1"
@@ -124,11 +129,57 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="3"
+            android:textStyle="bold"
             android:textSize="48sp"
+            android:gravity="center"
             app:layout_constraintTop_toBottomOf="@id/percent_result"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/level_image_result"
             app:layout_constraintLeft_toRightOf="@id/count_total_questions"
             app:layout_constraintHorizontal_weight="1">
+
+        </TextView>
+
+        <ImageView
+            android:id="@+id/level_image_result"
+            android:layout_width="0dp"
+            android:src="@drawable/level_image_result"
+            android:layout_height="0dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/percent_result"
+            app:layout_constraintRight_toRightOf="parent"
+            android:paddingVertical="4dp"
+            app:layout_constraintBottom_toBottomOf="@id/count_total_questions"
+            app:layout_constraintLeft_toRightOf="@id/count_result_answers"
+            app:layout_constraintHorizontal_weight="1">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/level_lesson_info"
+            android:layout_width="0dp"
+            app:layout_constraintRight_toRightOf="@id/level_image_result"
+            android:layout_height="wrap_content"
+            android:text="@string/total_questions"
+            android:textSize="14sp"
+            android:gravity="center"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toLeftOf="@id/level_image_result"
+            app:layout_constraintTop_toBottomOf="@id/level_image_result">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/default_count_success_answers"
+            android:layout_width="0dp"
+            app:layout_constraintRight_toRightOf="@id/count_result_answers"
+            android:layout_height="wrap_content"
+            android:text="@string/total_questions"
+            android:textSize="14sp"
+            android:gravity="center"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toLeftOf="@id/count_result_answers"
+            app:layout_constraintTop_toBottomOf="@id/count_result_answers">
 
         </TextView>
 
@@ -140,7 +191,9 @@
             android:layout_margin="16dp"
             android:layout_marginHorizontal="16dp"
             android:text="@string/finish"
+            app:layout_constraintTop_toBottomOf="@id/default_count_success_answers"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="1"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
