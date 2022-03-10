@@ -25,14 +25,12 @@
         <item name="android:background">@drawable/quiz_answer_button_selected</item>
         <item name="android:gravity">start|center</item>
         <item name="android:padding">8dp</item>
-        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="quiz_button_default">
         <item name="android:background">@drawable/quiz_answer_button_default</item>
         <item name="android:gravity">start|center</item>
         <item name="android:padding">8dp</item>
-        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="quiz_button_correct">
@@ -40,7 +38,6 @@
         <item name="android:gravity">start|center</item>
         <item name="android:drawableEnd">@drawable/correct</item>
         <item name="android:padding">8dp</item>
-        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="quiz_button_incorrect">
@@ -48,7 +45,6 @@
         <item name="android:gravity">start|center</item>
         <item name="android:drawableEnd">@drawable/incorrect</item>
         <item name="android:padding">8dp</item>
-        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="quiz_bottom_button_light_blue">
@@ -62,7 +58,6 @@
         <item name="android:background">@drawable/quiz_bottom_button_blue</item>
         <item name="android:padding">8dp</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:layout_height">wrap_content</item>
     </style>
 
 

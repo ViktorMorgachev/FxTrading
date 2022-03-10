@@ -19,6 +19,13 @@ android {
         release {
             isMinifyEnabled = false
         }
+        debug {
+            isMinifyEnabled = false
+        }
+        defaultConfig {
+            buildConfigField(type = "Boolean", name = "USE_MOCK_DATA", value = "true")
+            buildConfigField(type = "String", name = "DOCUMENT_DB_PATH", value = "\"dev\"")
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -37,6 +44,7 @@ dependencies{
     api("com.google.firebase:firebase-common-ktx:20.0.0")
     api("com.google.firebase:firebase-firestore-ktx:24.0.1")
     api("com.google.firebase:firebase-analytics-ktx")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.4.1")
 
 
     kapt(KaptDependency.dagger_android_processor)

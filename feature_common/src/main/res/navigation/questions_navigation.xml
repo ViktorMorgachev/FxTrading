@@ -7,10 +7,34 @@
     <fragment
         android:id="@+id/questionsFragment"
         android:name="com.fx_trading.lessons.feature_common.ui.questions.QuestionsFragment"
-        android:label="QuestionsFragment" />
-<!--    <fragment-->
-<!--        android:id="@+id/testFragment"-->
-<!--        android:name="com.fx_trading.lessons.feature_onboarding.test.TestFragment"-->
-<!--        android:label="TestFragment" />-->
+        android:label="QuestionsFragment">
+        <action
+            android:id="@+id/action_questionsFragment_to_lastQuestionAnsweredFragment"
+            app:destination="@id/lastQuestionAnsweredFragment">
+            <argument
+                android:name="questionGroupID"
+                app:argType="integer"
+                app:nullable="false"/>
+            <argument
+                android:name="successAnswers"
+                app:argType="integer"
+                app:nullable="false"/>
+            <argument
+                android:name="totalAnswers"
+                app:argType="integer"
+                app:nullable="false"/>
+            <argument
+                android:name="totalQuestions"
+                app:argType="integer"
+                app:nullable="false"/>
+
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/lastQuestionAnsweredFragment"
+        android:name="com.fx_trading.lessons.feature_common.ui.questions.pre_result.LastQuestionAnsweredFragment"
+        android:label="LastQuestionAnsweredFragment" />
+
 
 </navigation>

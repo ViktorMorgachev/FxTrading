@@ -1,7 +1,15 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="next">Next</string>
     <string name="finish">Finish</string>
     <string name="skip">Skip</string>
+    <string name="continues">Continue</string>
     <string name="lesson_start_quiz">Done watching the video? Start the quiz!</string>
     <string name="start">Start</string>
+    <string name="check">Check</string>
+    <string name="select_right_answers">Выберите что считаете нужным</string>
+    <string name="last_question_answered">Last question answered</string>
+    <string name="great_job">Great job!</string>
+    <string name="motivation_success">Keep it up, champ!</string>
+    <string name="your_score">Your score:</string>
+    <string name="total_questions">Total questions</string>
 </resources>

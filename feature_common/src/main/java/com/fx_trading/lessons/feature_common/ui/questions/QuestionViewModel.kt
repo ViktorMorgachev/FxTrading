@@ -7,10 +7,16 @@ import com.fx_trading.lessons.domain.entities.quiz.Answer
 import com.fx_trading.lessons.domain.entities.quiz.Question
 import com.fx_trading.lessons.domain.entities.quiz.QuestionsGroup
 import com.fx_trading.lessons.domain.usecases.QuestionUseCase
+import com.fx_trading.lessons.utils.utils.Logger
 import com.fx_trading.navigation.Router
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+enum class ResultChoices{
+    AlmostSuccess, Wrong, Success
+}
 
 sealed class QuestionAction {
     data class ShowQuestionAction(
@@ -19,7 +25,7 @@ sealed class QuestionAction {
         val step: Int,
         val succesCount: Int
     ) : QuestionAction()
-
+    data class ShowUserChoicesInfo(val result: ResultChoices,val userChoices: List<Answer>, val allAnswers: List<Answer>): QuestionAction()
     object ShowLastScreenAction : QuestionAction()
     object ShowLoadingAction : QuestionAction()
     object ShowResultAction : QuestionAction()
@@ -31,17 +37,18 @@ class QuestionViewModel @Inject constructor(
 ) : ViewModel() {
 
     private var successCount = 0
+    private var errorCount = 0
     private var questionsSize = 0
-    private var step = 1
+    private var step = 0
 
-    private val questionGroup: QuestionsGroup? = null
+    private var questionGroup: QuestionsGroup? = null
 
     val uiData = MutableLiveData<QuestionAction>(QuestionAction.ShowLoadingAction)
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = questionUseCase.getQuestionStartExamQuestionGroup()
-            result.let {
+            questionUseCase.getQuestionStartExamQuestionGroup().collect {
+                questionGroup = it
                 questionsSize = it.questions.size
                 nextQuestion()
             }
@@ -50,27 +57,33 @@ class QuestionViewModel @Inject constructor(
 
     fun increaseSuccess() {
         successCount++
+        Logger.log("QuestionViewModel", "SuccessCount $successCount ErrorCount $errorCount")
+    }
+
+    fun increaseError(){
+        errorCount++
+        Logger.log("QuestionViewModel", "SuccessCount $successCount ErrorCount $errorCount")
     }
 
     fun checkForCorrect(answers: List<Answer>) {
-        val correctAnswers = questionGroup?.questions?.first()?.answers?.filter { it.is_correct }
+        val correctAnswers = questionGroup?.questions?.firstOrNull()?.answers?.filter { it.is_correct }
         if (correctAnswers!!.size == answers.filter { it.is_correct }.size) {
             increaseSuccess()
+            uiData.postValue(QuestionAction.ShowUserChoicesInfo(result = ResultChoices.Success, userChoices = answers, allAnswers = questionGroup?.questions?.first()!!.answers))
         } else {
             if (answers.count { it.is_correct } != 0 && answers.count { !it.is_correct } != 0) {
-                // Show Case If correct
+                uiData.postValue(QuestionAction.ShowUserChoicesInfo(result = ResultChoices.AlmostSuccess, userChoices = answers, allAnswers = questionGroup?.questions?.first()!!.answers))
             } else {
-                // Show Wrong Information
+                uiData.postValue(QuestionAction.ShowUserChoicesInfo(result = ResultChoices.Wrong, userChoices = answers, allAnswers = questionGroup?.questions?.first()!!.answers))
             }
         }
-        nextQuestion()
+        removeLastQuestion()
     }
 
-    private fun nextQuestion() {
+    fun nextQuestion() {
         questionGroup?.let {
             step++
-            questionGroup.questions.removeFirst()
-            val lastQuestion = questionGroup.questions.firstOrNull()
+            val lastQuestion = it.questions.firstOrNull()
             if (lastQuestion == null) {
                 uiData.postValue(QuestionAction.ShowLastScreenAction)
             } else uiData.postValue(
@@ -81,12 +94,11 @@ class QuestionViewModel @Inject constructor(
                     successCount
                 )
             )
-            removeLastQuestion()
         }
     }
 
     private fun removeLastQuestion() {
-        questionGroup?.questions?.remove(questionGroup.questions.last())
+        questionGroup?.questions?.remove(questionGroup!!.questions.last())
     }
 
 }

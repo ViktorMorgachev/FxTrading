@@ -42,6 +42,9 @@ dependencies {
     api(project(":android_common"))
     implementation(project(":utils"))
 
+    implementation("com.airbnb.android:paris:2.0.0")
+
+    kapt("com.airbnb.android:paris-processor:2.0.0")
     kapt(KaptDependency.dagger_android_processor)
     kapt(KaptDependency.dagger_android_compiler)
 }
