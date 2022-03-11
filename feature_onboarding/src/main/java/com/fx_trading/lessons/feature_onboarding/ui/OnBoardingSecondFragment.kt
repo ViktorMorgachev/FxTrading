@@ -9,6 +9,8 @@ import androidx.navigation.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.fx_trading.lessons.core.BaseFragment
 import com.fx_trading.lessons.feature_onboarding.R
+import com.fx_trading.navigation.Module
+import com.fx_trading.navigation.ModuleBinder
 import com.fx_trading.navigation.Router
 import com.fx_trading.navigation.params.screens.onboarding.SecondThirdScreenParams
 import javax.inject.Inject
@@ -27,6 +29,7 @@ class OnBoardingSecondFragment : BaseFragment<Binding>() {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
             buttonNext.setOnClickListener {
+                ModuleBinder.gotoToModule(Module.Questions, requireActivity())
                 router.navigate(SecondThirdScreenParams)
             }
         }

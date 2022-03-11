@@ -19,4 +19,15 @@
     <string name="defeult_info_level_top">We strongly recommend that you first</string>
     <string name="explore_the">explore the</string>
     <string name="material">material</string>
+    <string name="title_onboarding_first">Learn \nto earn</string>
+    <string name="more_than">More than</string>
+    <string name="webinar_participants">webinar participants</string>
+    <string name="lessons_made_by">Lessons made by</string>
+    <string name="youtobe_subsribers">YouTube subscribers</string>
+    <string name="top_experts">Top experts</string>
+    <string name="in_trading_and_economy">in trading and economy</string>
+    <string name="lets_test_your_skills">Let\'s test your skills</string>
+    <string name="onboarding_text_bottom">Please answer a few questions to better understand what content you should pick :)</string>
+    <string name="right_answers_count">Right answers</string>
+    <string name="lesson_easy">Easy lesson</string>
 </resources>

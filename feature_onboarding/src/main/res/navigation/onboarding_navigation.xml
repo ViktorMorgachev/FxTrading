@@ -45,61 +45,32 @@
         android:label="fragment_on_boarding_second"
         tools:layout="@layout/fragment_on_boarding_second">
         <action
-            android:id="@+id/action_onBoardingFragmentSecondto_OnBoardingFragmentThird"
-            app:destination="@id/onBoardingFragmentThird"
-            app:popUpTo="@id/onBoardingFragmentSecond"
-            app:popUpToInclusive="true"/>
-        <action
             android:id="@+id/action_onBoardingFragmentSecond_to_WelcomeFragment"
             app:destination="@id/test_skils_fragment"
             app:popUpTo="@id/onBoardingFragmentFirst"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_onBoardingFragmentSecond_to_test_skils_fragment"
+            app:destination="@id/test_skils_fragment" />
     </fragment>
 
     <fragment
         android:id="@+id/onBoardingFragmentThird"
         android:name="com.fx_trading.lessons.feature_onboarding.ui.OnBoardingThirdFragment"
         android:label="fragment_on_boarding_third"
-        tools:layout="@layout/fragment_on_boarding_third">
-        <action
-            android:id="@+id/action_onBoardingFragmentThird_to_OnBoardingFragmentFour"
-            app:destination="@id/onBoardingFragmentFour"
-            app:popUpTo="@id/onBoardingFragmentThird"
-            app:popUpToInclusive="true"/>
-        <action
-            android:id="@+id/action_onBoardingFragmentThird_to_WelcomeFragment"
-            app:destination="@id/test_skils_fragment"
-            app:popUpTo="@id/onBoardingFragmentThird"
-            app:popUpToInclusive="true"/>
-    </fragment>
+        tools:layout="@layout/fragment_on_boarding_third"/>
 
     <fragment
         android:id="@+id/onBoardingFragmentFour"
         android:name="com.fx_trading.lessons.feature_onboarding.ui.OnBoardingFourFragment"
         android:label="fragment_on_boarding_four"
-        tools:layout="@layout/fragment_on_boarding_four">
-        <action
-            android:id="@+id/action_onBoardingFragmentFour_to_OnBoardingFragmentFive"
-            app:destination="@id/onBoardingFragmentFive"
-            app:popUpTo="@id/onBoardingFragmentFour"
-            app:popUpToInclusive="true"/>
-        <action
-            android:id="@+id/action_onBoardingFragmentFour_to_WelcomeFragment"
-            app:destination="@id/test_skils_fragment"
-            app:popUpTo="@id/onBoardingFragmentFour"
-            app:popUpToInclusive="true"/>
-    </fragment>
+        tools:layout="@layout/fragment_on_boarding_four"/>
 
     <fragment
         android:id="@+id/onBoardingFragmentFive"
         android:name="com.fx_trading.lessons.feature_onboarding.ui.OnBoardingFiveFragment"
         android:label="fragment_on_boarding_five"
-        tools:layout="@layout/fragment_on_boarding_four">
-        <action
-            android:id="@+id/action_onBoardingFragmentFive_to_StartTestFragment"
-            app:destination="@id/test_skils_fragment"
-            app:popUpTo="@id/onBoardingFragmentFive"/>
-    </fragment>
+        tools:layout="@layout/fragment_on_boarding_four"/>
 
     <fragment
         android:id="@+id/test_skils_fragment"

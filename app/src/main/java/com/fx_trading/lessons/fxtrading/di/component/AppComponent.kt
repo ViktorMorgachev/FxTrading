@@ -6,7 +6,8 @@ import com.fx_trading.lessons.fxtrading.di.module.AppModule
 import com.fx_trading.lessons.fxtrading.di.module.RepositoryBindModule
 import com.fx_trading.lessons.fxtrading.di.module.RepositoryProvidesModule
 import com.fx_trading.lessons.fxtrading.di.module.navigation.NavigationModule
-import com.fx_trading.lessons.fxtrading.di.module.navigation.NavigationScreenMapModule
+import com.fx_trading.lessons.fxtrading.di.module.navigation.screen_modules.OnboardingScreenMapModule
+import com.fx_trading.lessons.fxtrading.di.module.navigation.screen_modules.QuestionsScreenMapModule
 import com.fx_trading.lessons.fxtrading.di.module.uiBuilder.ActivityModule
 import dagger.BindsInstance
 import dagger.Component
@@ -21,7 +22,8 @@ import javax.inject.Singleton
         AppModule::class,
         ActivityModule::class,
         NavigationModule::class,
-        NavigationScreenMapModule::class,
+        OnboardingScreenMapModule::class,
+        QuestionsScreenMapModule::class,
         AndroidSupportInjectionModule::class,
         RepositoryBindModule::class,
         RepositoryProvidesModule::class

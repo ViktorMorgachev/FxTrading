@@ -108,7 +108,7 @@ class QuestionRemoteRepositoryImpl @Inject constructor() : QuestionRemoteReposit
                 return@flow
             } else {
                 val firebaseQuestionGroup = result.data!!.entries
-                var Result: ArrayList<ApiQuestionGroup> = arrayListOf(apiQuestionGroupDefault)
+                val Result: ArrayList<ApiQuestionGroup> = arrayListOf(apiQuestionGroupDefault)
                 var data: ApiQuestionGroup = apiQuestionGroupDefault
                 firebaseQuestionGroup.forEach {
                     Logger.log("getFirstExamRemoteQuestionGroup", "Data: $it")

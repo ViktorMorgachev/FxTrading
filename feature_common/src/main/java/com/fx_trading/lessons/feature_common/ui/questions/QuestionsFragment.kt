@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.paris.Paris
 import com.fx_trading.lessons.core.BaseFragment
@@ -15,7 +17,9 @@ import com.fx_trading.lessons.domain.entities.quiz.Answer
 import com.fx_trading.lessons.domain.entities.quiz.Question
 import com.fx_trading.lessons.feature_common.R
 import com.fx_trading.lessons.feature_common.databinding.FragmentQuestionsBinding
+import com.fx_trading.lessons.feature_common.ui.questions.pre_result.LastQuestionAnsweredFragmentDirections
 import javax.inject.Inject
+import kotlin.math.roundToInt
 
 class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>(), QuiestionsView {
 
@@ -40,7 +44,8 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>(), QuiestionsVi
 
                 }
                 is QuestionAction.ShowLastScreenAction -> {
-
+                    val action = QuestionsFragmentDirections.actionQuestionsFragmentToLastQuestionAnsweredFragment(firstQuestion = it.first_question, questionGroupID = it.questionGroupID, successAnswers = it.successAnswers, totalAnswers = it.totalAnswers, successQuestions = it.successQuestions, totalQuestions = it.totalQuestions)
+                    view.findNavController().navigate(action)
                 }
                 is QuestionAction.ShowResultAction -> {
 
@@ -85,10 +90,6 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>(), QuiestionsVi
         }
     }
 
-    private fun showPreResultScreen(){
-
-    }
-
     @SuppressLint("SetTextI18n")
     override fun showQuestion(quiestion: Question, questionSize: Int, step: Int, succesCount: Int) {
         with(binding) {
@@ -96,7 +97,7 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>(), QuiestionsVi
             Paris.style(checkButon).apply(R.style.button_blue)
             textResult.visibility = View.GONE
             checkButon.isEnabled = false
-            pbHorizontal.progress = step / questionSize * 100
+            pbHorizontal.progress = ((step / questionSize.toFloat()) * 100).roundToInt()
             quizTitle.text = quiestion.title
             progressStep.text = "${step}/${questionSize}"
             val userChoices = mutableListOf<Answer>()

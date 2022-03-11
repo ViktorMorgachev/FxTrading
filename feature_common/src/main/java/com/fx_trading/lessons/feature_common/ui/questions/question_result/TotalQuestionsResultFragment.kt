@@ -1,22 +1,20 @@
-package com.fx_trading.lessons.feature_common.ui.questions.pre_result
+package com.fx_trading.lessons.feature_common.ui.questions.question_result
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.fx_trading.lessons.core.BaseFragment
 import com.fx_trading.lessons.core.BaseViewModelFactory
-import com.fx_trading.lessons.feature_common.databinding.FragmentLastQuestionAnsweredBinding
+import com.fx_trading.lessons.feature_common.databinding.FragmentTotalResultQuestionsAfterLessonBinding
 import com.fx_trading.lessons.feature_common.ui.questions.*
-import com.fx_trading.lessons.utils.utils.Logger
 import javax.inject.Inject
 
-class LastQuestionAnsweredFragment : BaseFragment<FragmentLastQuestionAnsweredBinding>() {
+class TotalQuestionsResultFragment : BaseFragment<FragmentTotalResultQuestionsAfterLessonBinding>() {
 
-    override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentLastQuestionAnsweredBinding =
-        FragmentLastQuestionAnsweredBinding::inflate
+    override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentTotalResultQuestionsAfterLessonBinding =
+        FragmentTotalResultQuestionsAfterLessonBinding::inflate
 
     @Inject
     lateinit var viewModelFactory: BaseViewModelFactory<QuestionViewModel>
@@ -27,11 +25,6 @@ class LastQuestionAnsweredFragment : BaseFragment<FragmentLastQuestionAnsweredBi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        with(binding){
-            Logger.log("LastQuestionAnsweredFragment", "Bundle result ${arguments}")
-            arguments?.getString("amount")
-        }
 
     }
 

@@ -26,7 +26,7 @@ sealed class QuestionAction {
         val succesCount: Int
     ) : QuestionAction()
     data class ShowUserChoicesInfo(val result: ResultChoices,val userChoices: List<Answer>, val allAnswers: List<Answer>): QuestionAction()
-    object ShowLastScreenAction : QuestionAction()
+    data class ShowLastScreenAction(val first_question: Boolean = false, val questionGroupID: Int,val  successAnswers: Int, val totalAnswers: Int, val totalQuestions: Int,val  successQuestions: Int) : QuestionAction()
     object ShowLoadingAction : QuestionAction()
     object ShowResultAction : QuestionAction()
 }
@@ -39,7 +39,10 @@ class QuestionViewModel @Inject constructor(
     private var successCount = 0
     private var errorCount = 0
     private var questionsSize = 0
+    private val totalAnswers = 0
     private var step = 0
+    private var questions = mutableListOf<Question>()
+    private val successAnswers = 0
 
     private var questionGroup: QuestionsGroup? = null
 
@@ -50,6 +53,7 @@ class QuestionViewModel @Inject constructor(
             questionUseCase.getQuestionStartExamQuestionGroup().collect {
                 questionGroup = it
                 questionsSize = it.questions.size
+                questions = it.questions
                 nextQuestion()
             }
         }
@@ -76,16 +80,20 @@ class QuestionViewModel @Inject constructor(
             } else {
                 uiData.postValue(QuestionAction.ShowUserChoicesInfo(result = ResultChoices.Wrong, userChoices = answers, allAnswers = questionGroup?.questions?.first()!!.answers))
             }
+            increaseError()
         }
         removeLastQuestion()
     }
 
     fun nextQuestion() {
         questionGroup?.let {
+            val lastQuestion = questions.getOrNull(step)
             step++
-            val lastQuestion = it.questions.firstOrNull()
             if (lastQuestion == null) {
-                uiData.postValue(QuestionAction.ShowLastScreenAction)
+                questionGroup?.let { group->
+                    uiData.postValue(QuestionAction.ShowLastScreenAction(first_question = true, questionGroupID = group.id, successQuestions = successCount, totalQuestions =  questionsSize, totalAnswers = totalAnswers, successAnswers = successAnswers))
+                }
+
             } else uiData.postValue(
                 QuestionAction.ShowQuestionAction(
                     quiestion = lastQuestion,
@@ -98,7 +106,6 @@ class QuestionViewModel @Inject constructor(
     }
 
     private fun removeLastQuestion() {
-        questionGroup?.questions?.remove(questionGroup!!.questions.last())
     }
 
 }

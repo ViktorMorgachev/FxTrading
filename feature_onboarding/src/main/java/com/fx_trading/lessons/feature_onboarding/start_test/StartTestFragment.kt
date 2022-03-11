@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.fx_trading.lessons.core.BaseFragment
 import com.fx_trading.lessons.feature_onboarding.databinding.FragmentStartTestBinding
+import com.fx_trading.navigation.Module
+import com.fx_trading.navigation.ModuleBinder
 import com.fx_trading.navigation.Router
 import com.fx_trading.navigation.activities.MainActivity
 import com.fx_trading.navigation.activities.QuestionActivity
@@ -24,10 +26,10 @@ class StartTestFragment() : BaseFragment<FragmentStartTestBinding>() {
         super.onViewCreated(view, savedInstanceState)
         with(binding){
             skipButton.setOnClickListener {
-               startActivity(Intent(requireActivity(), MainActivity::class.java))
+                ModuleBinder.gotoToModule(Module.Main, requireActivity())
             }
             startTest.setOnClickListener {
-                startActivity(Intent(requireActivity(), QuestionActivity::class.java))
+                ModuleBinder.gotoToModule(Module.Questions, requireActivity())
             }
         }
     }

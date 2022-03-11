@@ -1,4 +1,4 @@
-package com.fx_trading.lessons.fxtrading
+package com.fx_trading.navigation
 
 import android.app.Activity
 import android.content.Intent

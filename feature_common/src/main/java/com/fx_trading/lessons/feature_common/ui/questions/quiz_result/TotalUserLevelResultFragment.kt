@@ -1,4 +1,4 @@
-package com.fx_trading.lessons.feature_common.ui.questions
+package com.fx_trading.lessons.feature_common.ui.questions.quiz_result
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,13 +8,14 @@ import androidx.fragment.app.viewModels
 import com.fx_trading.lessons.core.BaseFragment
 import com.fx_trading.lessons.core.BaseViewModelFactory
 import com.fx_trading.lessons.feature_common.databinding.FragmentLastQuestionAnsweredBinding
+import com.fx_trading.lessons.feature_common.databinding.FragmentTotalResultQuestionsAfterLessonBinding
 import com.fx_trading.lessons.feature_common.ui.questions.*
 import javax.inject.Inject
 
-class TotalResultQuestions : BaseFragment<FragmentLastQuestionAnsweredBinding>() {
+class TotalUserLevelResultFragment : BaseFragment<FragmentTotalResultQuestionsAfterLessonBinding>() {
 
-    override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentLastQuestionAnsweredBinding =
-        FragmentLastQuestionAnsweredBinding::inflate
+    override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentTotalResultQuestionsAfterLessonBinding =
+        FragmentTotalResultQuestionsAfterLessonBinding::inflate
 
     @Inject
     lateinit var viewModelFactory: BaseViewModelFactory<QuestionViewModel>
