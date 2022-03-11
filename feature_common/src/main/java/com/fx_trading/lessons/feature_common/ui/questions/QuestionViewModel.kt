@@ -71,7 +71,7 @@ class QuestionViewModel @Inject constructor(
 
     fun checkForCorrect(answers: List<Answer>) {
         val correctAnswers = questions.getOrNull(step-1)?.answers?.filter { it.is_correct }
-        if (answers!!.size == correctAnswers?.size) {
+        if (answers.size == correctAnswers?.size && answers.map { it.text }.containsAll(correctAnswers.map{it.text})) {
             increaseSuccess()
             uiData.postValue(QuestionAction.ShowUserChoicesInfo(result = ResultChoices.Success, userChoices = answers, allAnswers = questionGroup?.questions?.first()!!.answers))
         } else {

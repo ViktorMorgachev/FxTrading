@@ -52,7 +52,8 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>(), QuiestionsVi
 
                 }
                 is QuestionAction.ShowLastScreenAction -> {
-                    val action = QuestionsFragmentDirections.actionQuestionsFragmentToLastQuestionAnsweredFragment(firstQuestion = it.first_question, questionGroupID = it.questionGroupID, successAnswers = it.successAnswers, totalAnswers = it.totalAnswers, successQuestions = it.successQuestions, totalQuestions = it.totalQuestions)
+                    val action = QuestionsFragmentDirections.actionQuestionsFragmentToLastQuestionAnsweredFragment(firstQuestion = it.first_question, questionGroupID = it.questionGroupID, successAnswers = it.successAnswers,
+                        totalAnswers = it.totalAnswers, successQuestions = it.successQuestions, totalQuestions = it.totalQuestions)
                     view.findNavController().navigate(action)
                 }
                 is QuestionAction.ShowResultAction -> {

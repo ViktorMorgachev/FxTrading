@@ -30,4 +30,5 @@
     <string name="onboarding_text_bottom">Please answer a few questions to better understand what content you should pick :)</string>
     <string name="right_answers_count">Right answers</string>
     <string name="lesson_easy">Easy lesson</string>
+    <string name="results">Results</string>
 </resources>
