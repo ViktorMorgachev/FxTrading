@@ -15,8 +15,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
-            android:layout_marginTop="94dp"
+            android:layout_marginTop="94sp"
             android:text="@string/title_onboarding_first"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toTopOf="@id/onboarding_wallet"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -26,6 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/onboarding_wallet"
+            app:layout_constraintBottom_toTopOf="@id/wallet_bottom_barriew"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title_onboarding_first" />
@@ -33,51 +36,60 @@
         <TextView
             android:id="@+id/more_than_left"
             style="@style/onboarding_small_text"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/more_than"
+            app:layout_constraintBottom_toTopOf="@id/webinars_parcipicans_value"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/more_than_right"
-            app:layout_constraintTop_toBottomOf="@id/onboarding_wallet" />
+            app:layout_constraintTop_toBottomOf="@id/wallet_bottom_barriew" />
 
         <TextView
             android:id="@+id/webinars_parcipicans_value"
             style="@style/onboarding_medium_text"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="120 000"
+            app:layout_constraintBottom_toTopOf="@id/webinars_parcipicans"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/more_than_right"
+            app:layout_constraintRight_toLeftOf="@id/youtobe_subscribers_value"
             app:layout_constraintTop_toBottomOf="@id/more_than_left" />
 
         <TextView
             android:id="@+id/youtobe_subscribers_value"
             style="@style/onboarding_medium_text"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="100 000"
+            app:layout_constraintBottom_toTopOf="@id/youtobe_subscribers"
             app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintLeft_toLeftOf="@id/more_than_right"
-            app:layout_constraintRight_toRightOf="@id/more_than_right"
+            app:layout_constraintLeft_toRightOf="@id/webinars_parcipicans_value"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/more_than_right" />
 
         <TextView
             android:id="@+id/webinars_parcipicans"
             style="@style/onboarding_small_text"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/webinar_participants"
-            app:layout_constraintLeft_toLeftOf="@id/more_than_left"
-            app:layout_constraintRight_toRightOf="@id/more_than_left"
+            app:layout_constraintBottom_toTopOf="@id/bottom_barriew"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/youtobe_subscribers"
             app:layout_constraintTop_toBottomOf="@id/webinars_parcipicans_value" />
 
         <TextView
             android:id="@+id/youtobe_subscribers"
             style="@style/onboarding_small_text"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/youtobe_subsribers"
             app:layout_constraintLeft_toLeftOf="@id/more_than_right"
             app:layout_constraintRight_toRightOf="@id/more_than_right"
@@ -85,10 +97,18 @@
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/bottom_barriew"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:layout_height="0dp"
             app:barrierDirection="bottom"
             app:constraint_referenced_ids="youtobe_subscribers,webinars_parcipicans" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/wallet_bottom_barriew"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:barrierDirection="top"
+            app:constraint_referenced_ids="more_than_left, more_than_right"/>
 
         <TextView
             android:id="@+id/lesson_made_by"
@@ -100,7 +120,8 @@
             android:text="@string/lessons_made_by"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bottom_barriew"/>
+            app:layout_constraintBottom_toTopOf="@id/top_experts"
+            app:layout_constraintTop_toBottomOf="@id/bottom_barriew" />
 
         <TextView
             android:id="@+id/top_experts"
@@ -108,6 +129,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/top_experts"
+            app:layout_constraintBottom_toTopOf="@id/in_trading_and_economy"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lesson_made_by" />
@@ -119,20 +141,23 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/in_trading_and_economy"
+            app:layout_constraintBottom_toTopOf="@id/button_next"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/top_experts"/>
+            app:layout_constraintTop_toBottomOf="@id/top_experts" />
 
         <TextView
             android:id="@+id/more_than_right"
             style="@style/onboarding_small_text"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/more_than"
+            app:layout_constraintBottom_toTopOf="@id/youtobe_subscribers_value"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintLeft_toRightOf="@id/more_than_left"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/onboarding_wallet" />
+            app:layout_constraintTop_toBottomOf="@id/wallet_bottom_barriew" />
 
         <Button
             android:id="@+id/button_next"
@@ -140,7 +165,11 @@
             android:text="@string/next"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/in_trading_and_economy"
+            app:layout_constraintVertical_bias="0.1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </layout>

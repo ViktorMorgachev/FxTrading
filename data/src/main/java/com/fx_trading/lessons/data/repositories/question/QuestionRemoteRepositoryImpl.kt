@@ -163,7 +163,7 @@ class QuestionRemoteRepositoryImpl @Inject constructor() : QuestionRemoteReposit
             }
         } catch (e: Exception) {
             Logger.log("QuestionRemoteRepository", "Error getting documents.", e)
-
+            emit(apiQuestionGroup)
         }
     }
 }

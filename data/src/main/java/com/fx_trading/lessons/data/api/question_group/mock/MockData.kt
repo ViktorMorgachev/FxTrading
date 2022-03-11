@@ -46,15 +46,15 @@ class MockData {
             description = "Вопрос связаный с материками",
             difficulty = 1,
             is_active = true,
-            optional_image_url = "",
-            title = "Какой материк самы большой"
+            optional_image_url = "https://i.sunhome.ru/journal/67/skorost-sveta-v2.xxl.jpg",
+            title = "Какой материк самый большой"
         )
         private val apiQuestion2 = ApiQuestion(
             apiAnswers = apiAnswers2,
             description = "Вопросы по физике",
             difficulty = 2,
             is_active = true,
-            optional_image_url = "",
+            optional_image_url = "gs://fx-trading-lessons.appspot.com/images/skorost-sveta-v2.xxl.jpg",
             title = "Выберите что относится к физической реакции"
         )
 

@@ -4,7 +4,7 @@
 
     <application>
         <activity
-            android:name="com.fx_trading.lessons.feature_main.com.fx_trading.navigation.activities.MainActivity"
+            android:name="com.fx_trading.navigation.activities.MainActivity"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
             android:exported="false"/>
     </application>

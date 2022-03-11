@@ -11,13 +11,18 @@ import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.paris.Paris
+import com.bumptech.glide.Glide
 import com.fx_trading.lessons.core.BaseFragment
 import com.fx_trading.lessons.core.BaseViewModelFactory
 import com.fx_trading.lessons.domain.entities.quiz.Answer
 import com.fx_trading.lessons.domain.entities.quiz.Question
+import com.fx_trading.lessons.feature_common.FirebaseUtil
 import com.fx_trading.lessons.feature_common.R
 import com.fx_trading.lessons.feature_common.databinding.FragmentQuestionsBinding
+import com.fx_trading.lessons.feature_common.loadImage
 import com.fx_trading.lessons.feature_common.ui.questions.pre_result.LastQuestionAnsweredFragmentDirections
+import com.fx_trading.lessons.utils.utils.gone
+import com.fx_trading.lessons.utils.utils.visibleOrGone
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
@@ -28,6 +33,9 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>(), QuiestionsVi
 
     @Inject
     lateinit var viewModelFactory: BaseViewModelFactory<QuestionViewModel>
+
+    @Inject
+    lateinit var firebaseUtil: FirebaseUtil
 
     private val viewModel: QuestionViewModel by viewModels(
         factoryProducer = { viewModelFactory }
@@ -79,6 +87,13 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>(), QuiestionsVi
                      val tempData = (recyclerAnswers.adapter as AnswersAdapter).answers
                      recyclerAnswers.adapter = AnswersAdapter(answers = tempData, userAnswers)
                  }
+                ResultChoices.AlmostSuccess ->{
+                    bottomPanel.setBackgroundColor(Color.parseColor("#ffb703"))
+                    textResult.setTextColor(Color.WHITE)
+                    textResult.text = "Almost done"
+                    val tempData = (recyclerAnswers.adapter as AnswersAdapter).answers
+                    recyclerAnswers.adapter = AnswersAdapter(answers = tempData)
+                }
                 else -> {
                     bottomPanel.setBackgroundColor(Color.RED)
                     textResult.setTextColor(Color.WHITE)
@@ -105,6 +120,19 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>(), QuiestionsVi
                 checkButon.isEnabled = true
                 userChoices.add(it)
             }
+
+            if (quiestion.optional_image_url.isNotEmpty()){
+                if (quiestion.optional_image_url.startsWith("gs:")){
+                    firebaseUtil.loadImage(quizImage, requireContext(), quiestion.optional_image_url)
+                } else{
+                    quizImage.loadImage(imageUrl = quiestion.optional_image_url, context = requireContext()){
+                        quizImage.gone()
+                    }
+                }
+            } else{
+                quizImage.gone()
+            }
+            quizImage.visibleOrGone(!quiestion.optional_image_url.isEmpty())
             checkButon.text = getString(R.string.check)
             checkButon.setOnClickListener {
                 viewModel.checkForCorrect(userChoices)

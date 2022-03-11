@@ -1,15 +1,14 @@
 <manifest package="com.fx_trading.navigation"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
     <application>
         <activity
             android:name=".activities.QuestionActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:exported="true">
+            android:exported="false">
         </activity>
         <activity
             android:name=".activities.MainActivity"
-            android:theme="@style/Theme.MaterialComponents.NoActionBar"
-            android:exported="true">
+            android:exported="false">
         </activity>
     </application>
 

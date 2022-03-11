@@ -1,6 +1,5 @@
 package com.fx_trading.lessons.feature_onboarding.start_test
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,12 +9,10 @@ import com.fx_trading.lessons.feature_onboarding.databinding.FragmentStartTestBi
 import com.fx_trading.navigation.Module
 import com.fx_trading.navigation.ModuleBinder
 import com.fx_trading.navigation.Router
-import com.fx_trading.navigation.activities.MainActivity
-import com.fx_trading.navigation.activities.QuestionActivity
 import javax.inject.Inject
 
 
-class StartTestFragment() : BaseFragment<FragmentStartTestBinding>() {
+class StartTestFragment : BaseFragment<FragmentStartTestBinding>() {
 
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentStartTestBinding = FragmentStartTestBinding::inflate
 

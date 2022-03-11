@@ -9,7 +9,6 @@ enum class Type {
 
 object Logger {
     fun log(tag: String, message: String, type: Type = Type.Debug) {
-
         when (type) {
             Type.Debug -> Log.d(tag, message)
             Type.Error -> Log.e(tag, message)

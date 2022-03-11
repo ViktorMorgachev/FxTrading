@@ -68,12 +68,17 @@
     </style>
 
     <style name="onboarding_small_text">
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">13sp</item>
     </style>
 
 
     <style name="onboarding_medium_text">
+
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">32sp</item>
         <item name="android:textStyle">bold</item>
