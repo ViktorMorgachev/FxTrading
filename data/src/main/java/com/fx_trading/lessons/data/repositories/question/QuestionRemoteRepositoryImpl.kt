@@ -108,53 +108,57 @@ class QuestionRemoteRepositoryImpl @Inject constructor() : QuestionRemoteReposit
                 return@flow
             } else {
                 val firebaseQuestionGroup = result.data!!.entries
-                val Result: ArrayList<ApiQuestionGroup> = arrayListOf(apiQuestionGroupDefault)
+                val Result: ArrayList<ApiQuestionGroup> = arrayListOf()
                 var data: ApiQuestionGroup = apiQuestionGroupDefault
+
                 firebaseQuestionGroup.forEach {
                     Logger.log("getFirstExamRemoteQuestionGroup", "Data: $it")
                     val hashMap = it.value as HashMap<String, Any?>
                     val apiQuestions = ArrayList<ApiQuestion>()
-                    hashMap.getField<ArrayList<*>>("questions", arrayListOf<String>())
-                        .forEach { questionsMap ->
+                    // Получаем списое всех вопросов
+                    hashMap.getField<ArrayList<*>>("questions", arrayListOf<String>()).forEach { questionsMap ->
                             val questionsHashMap = questionsMap as HashMap<String, Any?>
                             val questionAnswers = ArrayList<ApiAnswer>()
                             // Init answers list
-                            questionsHashMap.getField<ArrayList<*>>("answers", arrayListOf<String>()).forEach {
+                           // Получаем списое всех ответов
+                            questionsHashMap.getField<ArrayList<*>>("answers", arrayListOf<String>()).forEach { answers->
+                                val answerHashMap = answers as HashMap<String, Any?>
                                 questionAnswers.add(
                                     apiAnswerDefault.copy(
-                                        is_active = questionsHashMap.getField<Boolean>("is_active", false),
-                                        optional_image_url = questionsHashMap.getField<String>("optional_image_url", ""),
-                                        text = questionsHashMap.getField<String>("text", ""),
-                                        is_correct = questionsHashMap.getField<Long>("is_correct", 0),
+                                        is_active = answerHashMap.getField("is_active", false),
+                                        optional_image_url = answerHashMap.getField("optional_image_url", ""),
+                                        text = answerHashMap.getField("text", ""),
+                                        is_correct = answerHashMap.getField("is_correct", 0),
                                     )
                                 )
+
                             }
                             apiQuestions.add(
                                 apiQuestionDefault.copy(
-                                    description = questionsHashMap.getField<String>("description", ""),
-                                    is_active = questionsHashMap.getField<Boolean>("is_active", false),
-                                    optional_image_url = questionsHashMap.getField<String>("optional_image_url", ""),
-                                    difficulty = questionsHashMap.getField<Long>("difficulty", 0),
-                                    title = questionsHashMap.getField<String>("title", ""),
+                                    description = questionsHashMap.getField("description", ""),
+                                    is_active = questionsHashMap.getField("is_active", false),
+                                    optional_image_url = questionsHashMap.getField("optional_image_url", ""),
+                                    difficulty = questionsHashMap.getField("difficulty", 0),
+                                    title = questionsHashMap.getField("title", ""),
                                     apiAnswers = questionAnswers
                                 )
                             )
                         }
                     data = data.copy(
-                        is_active = hashMap.getField<Boolean>("is_active", false),
-                        parent_id = hashMap.getField<Long>("parent_id", 0),
-                        name = hashMap.getField<String>("name", ""),
-                        language = hashMap.getField<String>("language", ""),
-                        id = hashMap.getField<Long>("id", 0),
-                        region = hashMap.getField<String>("region", ""),
-                        correct_for_success = hashMap.getField<Long>("correct_for_success", 0),
-                        available_attempts = hashMap.getField<Long>("available_attempts", 0),
+                        is_active = hashMap.getField("is_active", false),
+                        parent_id = hashMap.getField("parent_id", 0),
+                        name = hashMap.getField("name", ""),
+                        language = hashMap.getField("language", ""),
+                        id = hashMap.getField("id", 0),
+                        region = hashMap.getField("region", ""),
+                        correct_for_success = hashMap.getField("correct_for_success", 0),
+                        available_attempts = hashMap.getField("available_attempts", 0),
                         isStartExam = hashMap.containsKey("is_start_exam"),
                         apiQuestions = apiQuestions
                     )
                     Result.add(data)
                 }
-
+                Logger.log("getFirstExamRemoteQuestionGroup", "AllData: ${Result.map { it.toString() }}")
                 if (use_mock_data) {
                     emit(apiQuestionGroup)
                 } else {
