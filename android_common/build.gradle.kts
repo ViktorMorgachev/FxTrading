@@ -56,6 +56,8 @@ dependencies {
     api("com.google.android.material:material:1.5.0")
     api("androidx.constraintlayout:constraintlayout:2.1.3")
 
+
+
     api("androidx.legacy:legacy-support-v4:1.0.0")
 
     kapt(KaptDependency.dagger_android_processor)

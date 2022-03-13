@@ -16,7 +16,7 @@ object Logger {
         }
     }
 
-    fun log(tag: String,  message: String?, exception: Throwable?) {
+    fun log(tag: String,  message: String? = null, exception: Throwable?) {
         Log.e(tag, message, exception)
     }
 

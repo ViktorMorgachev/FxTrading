@@ -46,8 +46,10 @@ dependencies{
     api("com.google.firebase:firebase-analytics-ktx")
     api("com.google.firebase:firebase-storage-ktx")
     api("com.firebaseui:firebase-ui-storage:7.2.0")
+    api("com.google.firebase:firebase-database-ktx")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.4.1")
 
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 
     kapt(KaptDependency.dagger_android_processor)
     kapt(KaptDependency.dagger_android_compiler)

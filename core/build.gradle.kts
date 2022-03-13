@@ -51,6 +51,8 @@ dependencies{
     api(com.viktor.buildsrc.ui.UIDeps.navigation_fragment)
     api(com.viktor.buildsrc.ui.UIDeps.viewbindingpropertydelegate)
 
+    api("androidx.datastore:datastore-preferences:1.0.0")
+
     api(AppDeps.dagger)
     api(AppDeps.dagger_android_support)
     api(AppDeps.dagger_android)

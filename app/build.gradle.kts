@@ -49,6 +49,8 @@ dependencies {
     implementation(project(":feature_common"))
     implementation(project(":utils"))
 
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
     implementation(UIDeps.android_material)
 
     kapt(KaptDeps.dagger_android_processor)

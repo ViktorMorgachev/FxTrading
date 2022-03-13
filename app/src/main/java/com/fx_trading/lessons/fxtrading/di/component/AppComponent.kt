@@ -3,6 +3,7 @@ package com.fx_trading.lessons.fxtrading.di.component
 import android.app.Application
 import com.fx_trading.lessons.fxtrading.App
 import com.fx_trading.lessons.fxtrading.di.module.AppModule
+import com.fx_trading.lessons.fxtrading.di.module.FireBaseModule
 import com.fx_trading.lessons.fxtrading.di.module.RepositoryBindModule
 import com.fx_trading.lessons.fxtrading.di.module.RepositoryProvidesModule
 import com.fx_trading.lessons.fxtrading.di.module.navigation.NavigationModule
@@ -20,6 +21,7 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AppModule::class,
+        FireBaseModule::class,
         ActivityModule::class,
         NavigationModule::class,
         OnboardingScreenMapModule::class,

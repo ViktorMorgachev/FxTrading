@@ -1,5 +1,6 @@
 package com.fx_trading.lessons.feature_common.ui.questions
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
@@ -43,16 +44,19 @@ class AnswersAdapter(val answers: List<Answer>, val userAnswers: List<Answer> = 
                 if (userAnswers.contains(answer)){
                     if (answer.is_correct){
                         Paris.style(answerButton).apply(R.style.quiz_button_correct)
+                        answerButton.setTextColor(Color.BLACK)
                         answerButton.text = answer.text
                         applyCorrectStyle(answerButton)
                     } else {
                         Paris.style(answerButton).apply(R.style.quiz_button_incorrect)
                         answerButton.text = answer.text
+                        answerButton.setTextColor(Color.BLACK)
                         applyIncorrectStyle(answerButton)
                     }
                 } else {
                     Paris.style(answerButton).applyDefault()
                     answerButton.text = answer.text
+                    answerButton.setTextColor(Color.BLACK)
                     applyDefaultStyle(answerButton)
                 }
             }

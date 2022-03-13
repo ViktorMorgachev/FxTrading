@@ -47,14 +47,15 @@ class LastQuestionAnsweredFragment : BaseFragment<FragmentLastQuestionAnsweredBi
                     successQuestions.toFloat() / totalQuestions.toFloat() * 100
 
                 if (arguments?.getBoolean("first_question") == true){
+
+
+
                     bottomPanel.setBackgroundColor(Color.GREEN)
                     progressStep.text = "${totalQuestions}/${totalQuestions}"
                     buttonResults.setOnClickListener {
                         val  action = openTotalUserLevelResult(questionGroupID = questionGroupID, successAnswers = successAnswers, totalAnswers = totalAnswers, totalQuestions = totalQuestions, successQuestions = successQuestions)
                         view.findNavController().navigate(action)
                     }
-                } else {
-
                 }
 
             }

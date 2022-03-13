@@ -24,8 +24,6 @@ class OnBoardingFiveFragment : BaseFragment<Binding>() {
         with(binding){
             buttonFinish.setOnClickListener {
                 router.navigate(FiveStartTestScreenParams)
-//                requireView().findNavController().navigate(OnBoardingFragmentFiveDirections.actionOnBoardingFragmentFiveToStartTestFragment())
-              //  ModuleBinder.gotoToModule(module = Module.Main, activity = this@OnBoardingFragmentFive.requireActivity())
             }
         }
     }

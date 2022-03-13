@@ -44,7 +44,7 @@
 
     <style name="quiz_button_incorrect">
         <item name="android:textColor">@color/black</item>
-        <item name="android:foreground">@drawable/quiz_answer_button_error</item>
+        <item name="android:background">@drawable/quiz_answer_button_error</item>
         <item name="android:gravity">start|center</item>
         <item name="android:drawableEnd">@drawable/incorrect</item>
         <item name="android:padding">8dp</item>

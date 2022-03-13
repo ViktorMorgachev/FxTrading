@@ -16,13 +16,6 @@ class TotalQuestionsResultFragment : BaseFragment<FragmentTotalResultQuestionsAf
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentTotalResultQuestionsAfterLessonBinding =
         FragmentTotalResultQuestionsAfterLessonBinding::inflate
 
-    @Inject
-    lateinit var viewModelFactory: BaseViewModelFactory<QuestionViewModel>
-
-    private val viewModel: QuestionViewModel by viewModels(
-        factoryProducer = { viewModelFactory }
-    )
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

@@ -24,12 +24,9 @@ val documentPath = BuildConfig.DOCUMENT_DB_PATH
 val use_mock_data = BuildConfig.USE_MOCK_DATA
 
 @Singleton
-class QuestionRemoteRepositoryImpl @Inject constructor() : QuestionRemoteRepository {
+class QuestionRemoteRepositoryImpl @Inject constructor(var firebaseFireStore: FirebaseFirestore) : QuestionRemoteRepository {
 
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
-
-    @Inject
-    lateinit var firebaseFireStore: FirebaseFirestore
 
     override suspend fun getRemoteQuestionGroups() = flow<List<ApiQuestionGroup>> {
 
