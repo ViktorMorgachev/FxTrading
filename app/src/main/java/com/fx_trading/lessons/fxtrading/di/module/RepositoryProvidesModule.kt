@@ -9,6 +9,8 @@ import com.fx_trading.lessons.data.repositories.user.UsersProvider
 import com.fx_trading.lessons.data.store.LessonsDataSource
 import com.fx_trading.lessons.data.store.QuestionsDataSource
 import com.fx_trading.lessons.data.store.UserDataSource
+import com.fx_trading.lessons.domain.repositories.UserRepository
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

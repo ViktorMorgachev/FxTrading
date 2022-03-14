@@ -11,6 +11,8 @@ import com.fx_trading.lessons.feature_common.R
 import com.fx_trading.lessons.feature_common.databinding.FragmentTotalQuizResultBinding
 import com.fx_trading.lessons.utils.utils.Logger
 import com.fx_trading.lessons.utils.utils.visible
+import com.fx_trading.navigation.Module
+import com.fx_trading.navigation.ModuleBinder
 import javax.inject.Inject
 
 class TotalUserLevelResultFragment : BaseFragment<FragmentTotalQuizResultBinding>() {
@@ -27,6 +29,17 @@ class TotalUserLevelResultFragment : BaseFragment<FragmentTotalQuizResultBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.uiData.observe(viewLifecycleOwner, {
+            if (it is TotalResultAction.EnableMainButton){
+                with(binding){
+                    finishButton.setOnClickListener {
+                        ModuleBinder.gotoToModule(Module.Main, requireActivity())
+                    }
+                    finishButton.isEnabled = true
+                }
+            }
+        })
 
         with(binding) {
             Logger.log("TotalUserLevelResultFragment", "Bundle result ${arguments}")

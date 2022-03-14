@@ -1,14 +1,14 @@
 package data
 
 import android.content.Context
+import android.util.Log
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
+import data.PreferencesKeys.DEVICE_ID
 import data.PreferencesKeys.INTRO_WAS_PASSED
 import data.PreferencesKeys.PRE_TEST_PASSED
+import data.PreferencesKeys.USER_ID
 import kotlinx.coroutines.flow.map
 import java.util.concurrent.Flow
 import javax.inject.Inject
@@ -17,7 +17,8 @@ import javax.inject.Singleton
 object PreferencesKeys {
     val PRE_TEST_PASSED = booleanPreferencesKey("pre_test_passed")
     val INTRO_WAS_PASSED = booleanPreferencesKey("intro_was_passed")
-    val USER_ID = intPreferencesKey("user_id")
+    val USER_ID = longPreferencesKey("user_id")
+    val DEVICE_ID = stringPreferencesKey("devices_id")
 }
 
 @Singleton
@@ -37,6 +38,18 @@ class DataStoreHelper @Inject constructor(val context: Context) {
     suspend fun introWasPassed(wasPassed: Boolean){
         context.dataPreferences.edit { preferences->
             preferences[INTRO_WAS_PASSED] = wasPassed
+        }
+    }
+
+    suspend fun saveUserID(userID: Long){
+        context.dataPreferences.edit { preferences->
+            preferences[USER_ID] = userID
+        }
+    }
+
+    suspend fun saveDeviceID(deviceID: String){
+        context.dataPreferences.edit { preferences->
+            preferences[DEVICE_ID] = deviceID
         }
     }
 

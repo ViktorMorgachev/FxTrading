@@ -1,4 +1,5 @@
 package com.fx_trading.lessons.feature_onboarding
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.fx_trading.lessons.core.BaseFragment
@@ -25,29 +26,26 @@ class SplashFragment : BaseFragment<Binding>() {
     @Inject
     lateinit var dataStoreHelper: DataStoreHelper
 
-    override fun onResume() {
-        super.onResume()
-
+    override fun onAttach(activity: Activity) {
+        super.onAttach(activity)
         CoroutineScope(Dispatchers.IO).launch {
-                dataStoreHelper.wasPassedIntro().collect { wasPassedIntro->
-                   if(!this@SplashFragment.isResumed) return@collect
-                    if (wasPassedIntro){
-                        dataStoreHelper.wasPassedExam().collect { wasPasedExam->
-                            if (wasPasedExam){
-                                ModuleBinder.gotoToModule(Module.Main, requireActivity())
-                            } else {
-                                ModuleBinder.gotoToModule(Module.Questions, requireActivity())
-                            }
+            dataStoreHelper.wasPassedIntro().collect { wasPassedIntro->
+                if(!this@SplashFragment.isResumed) return@collect
+                if (wasPassedIntro){
+                    dataStoreHelper.wasPassedExam().collect { wasPasedExam->
+                        if (wasPasedExam){
+                            ModuleBinder.gotoToModule(Module.Main, requireActivity())
+                        } else {
+                            ModuleBinder.gotoToModule(Module.Questions, requireActivity())
                         }
-                    } else{
-                        withContext(Dispatchers.Main){
-                            router.navigate(SplashFirstScreenParams)
-                        }
-
                     }
+                } else{
+                    withContext(Dispatchers.Main){
+                        router.navigate(SplashFirstScreenParams)
+                    }
+
                 }
+            }
         }
-
-
     }
 }
