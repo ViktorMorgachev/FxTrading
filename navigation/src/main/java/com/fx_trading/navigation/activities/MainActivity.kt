@@ -1,18 +1,17 @@
 package com.fx_trading.navigation.activities
 
-import androidx.navigation.findNavController
-import androidx.navigation.ui.setupWithNavController
+import androidx.viewpager.widget.ViewPager
 import com.fx_trading.navigation.BaseActivity
 import com.fx_trading.navigation.R
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.fx_trading.navigation.viewPagerAdapter.DemoCollectionPagerAdapter
 
 class MainActivity : BaseActivity(R.id.nav_host_fragment_main) {
 
     override fun initLayout() {
         setContentView(R.layout.activity_main)
-        val navController = this.findNavController(R.id.nav_host_fragment_main)
-        val navView: BottomNavigationView = findViewById(R.id.bottom_nav_view)
-        navView.setupWithNavController(navController)
+        val demoCollectionPagerAdapter = DemoCollectionPagerAdapter(supportFragmentManager)
+        val viewPager = findViewById<ViewPager>(R.id.view_pager)
+        viewPager.adapter = demoCollectionPagerAdapter
     }
 
 }

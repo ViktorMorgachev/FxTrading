@@ -3,6 +3,18 @@
     <color name="quiz_default_background">#ECEFF1</color>
     <color name="onboarding_button_text_color_default">#2962FF</color>
     <color name="question_bottom_green">#00C853</color>
+
+    <color name="primaryColor">#194CC1</color>
+    <color name="primaryLightColor">#6177A5</color>
+    <color name="primaryDarkColor">#002590</color>
+
+    <color name="secondaryColor">#82B1FF</color>
+    <color name="secondaryLightColor">#b6E3FF</color>
+    <color name="secondaryDarkColor">#4D82CB</color>
+
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#000000</color>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>
