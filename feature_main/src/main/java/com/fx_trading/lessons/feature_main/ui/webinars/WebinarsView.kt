@@ -1,4 +1,4 @@
-package com.fx_trading.lessons.feature_main.ui.webinars
+package com.fx_trading.lessons.features.ui.webinars
 
 interface WebinarsView {
 }

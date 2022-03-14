@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_graph_questions"
+    app:startDestination="@id/questionsFragment">
+
+    <fragment
+        android:id="@+id/questionsFragment"
+        android:name="com.fx_trading.lessons.feature_main.feature_common.questions.QuestionsFragment"
+        android:label="QuestionsFragment">
+        <action
+            android:id="@+id/action_questionsFragment_to_lastQuestionAnsweredFragment"
+            app:destination="@id/lastQuestionAnsweredFragment">
+            <argument
+                android:name="first_question"
+                app:argType="boolean"
+                app:nullable="false"/>
+            <argument
+                android:name="questionGroupID"
+                app:argType="integer"
+                app:nullable="false"/>
+            <argument
+                android:name="successAnswers"
+                app:argType="integer"
+                app:nullable="false"/>
+            <argument
+                android:name="totalAnswers"
+                app:argType="integer"
+                app:nullable="false"/>
+            <argument
+                android:name="totalQuestions"
+                app:argType="integer"
+                app:nullable="false"/>
+            <argument
+                android:name="successQuestions"
+                app:argType="integer"
+                app:nullable="false"/>
+
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/lastQuestionAnsweredFragment"
+        android:name="com.fx_trading.lessons.feature_main.feature_common.questions.pre_result.LastQuestionAnsweredFragment"
+        android:label="LastQuestionAnsweredFragment">
+        <action
+            android:id="@+id/action_lastQuestionAnsweredFragment_to_totalQuestionsResult"
+            app:destination="@id/totalQuestionsResult">
+            <argument
+                android:name="questionGroupID"
+                app:argType="integer"
+                app:nullable="false"/>
+            <argument
+                android:name="successAnswers"
+                app:argType="integer"
+                app:nullable="false"/>
+            <argument
+                android:name="totalAnswers"
+                app:argType="integer"
+                app:nullable="false"/>
+            <argument
+                android:name="totalQuestions"
+                app:argType="integer"
+                app:nullable="false"/>
+            <argument
+                android:name="successQuestions"
+                app:argType="integer"
+                app:nullable="false"/>
+
+        </action>
+
+        <action
+            android:id="@+id/action_lastQuestionAnsweredFragment_to_totalUserLevelResultFragment"
+            app:destination="@id/totalUserLevelResultFragment">
+            <argument
+                android:name="questionGroupID"
+                app:argType="integer"
+                app:nullable="false"/>
+            <argument
+                android:name="successAnswers"
+                app:argType="integer"
+                app:nullable="false"/>
+            <argument
+                android:name="totalAnswers"
+                app:argType="integer"
+                app:nullable="false"/>
+            <argument
+                android:name="totalQuestions"
+                app:argType="integer"
+                app:nullable="false"/>
+            <argument
+                android:name="successQuestions"
+                app:argType="integer"
+                app:nullable="false"/>
+        </action>
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/totalQuestionsResult"
+        android:name="com.fx_trading.lessons.feature_main.feature_common.questions.question_result.TotalQuestionsResultFragment"
+        android:label="TotalQuestionsResult">
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/totalUserLevelResultFragment"
+        android:name="com.fx_trading.lessons.feature_main.feature_common.questions.quiz_result.TotalUserLevelResultFragment"
+        android:label="TotalUserLevelResultFragment" />
+
+
+</navigation>

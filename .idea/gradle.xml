@@ -16,9 +16,7 @@
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/domain" />
-            <option value="$PROJECT_DIR$/feature_common" />
             <option value="$PROJECT_DIR$/feature_main" />
-            <option value="$PROJECT_DIR$/feature_onboarding" />
             <option value="$PROJECT_DIR$/navigation" />
             <option value="$PROJECT_DIR$/resources" />
             <option value="$PROJECT_DIR$/utils" />

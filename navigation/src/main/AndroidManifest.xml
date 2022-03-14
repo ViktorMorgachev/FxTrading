@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools">
     <application>
         <activity
-            android:name=".activities.QuestionActivity"
+            android:name="com.fx_trading.lessons.features.ui.activities.QuestionActivity"
             android:exported="false">
         </activity>
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.fx_trading.lessons.features.ui.activities.MainActivity"
             android:exported="false">
         </activity>
     </application>

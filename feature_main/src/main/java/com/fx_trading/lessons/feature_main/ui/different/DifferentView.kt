@@ -1,4 +1,4 @@
-package com.fx_trading.lessons.feature_main.ui.different
+package com.fx_trading.lessons.features.ui.different
 
 interface DifferentView {
 }

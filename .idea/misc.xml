@@ -23,11 +23,18 @@
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_lesson/src/main/res/layout/activity_main.xml" value="0.25052083333333336" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_lesson/src/main/res/layout/fragment_lesson.xml" value="0.26458333333333334" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_main/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_main/src/main/res/layout/beginner_item.xml" value="0.197265625" />
+        <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_main/src/main/res/layout/expert_level_item.xml" value="0.197265625" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_main/src/main/res/layout/fragment_courses.xml" value="0.31875" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_main/src/main/res/layout/fragment_different.xml" value="0.31875" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_main/src/main/res/layout/fragment_lesson.xml" value="0.28177083333333336" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_main/src/main/res/layout/fragment_lessons.xml" value="0.3072916666666667" />
+        <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_main/src/main/res/layout/fragment_questions.xml" value="0.140625" />
+        <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_main/src/main/res/layout/fragment_test.xml" value="0.16484375" />
+        <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_main/src/main/res/layout/fragment_total_quiz_result.xml" value="0.118359375" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_main/src/main/res/layout/fragment_webinars.xml" value="0.31875" />
+        <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_main/src/main/res/layout/intermediate_item.xml" value="0.197265625" />
+        <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_main/src/main/res/layout/item_answer.xml" value="0.16484375" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_main/src/main/res/layout/menu_bottom_nav.xml" value="0.3072916666666667" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_main/src/main/res/menu/menu_bottom_nav.xml" value="0.2" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_onboarding/src/main/res/drawable/gradient_progress.xml" value="0.32871794871794874" />

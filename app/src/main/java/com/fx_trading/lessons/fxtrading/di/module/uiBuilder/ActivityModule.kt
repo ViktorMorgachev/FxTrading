@@ -1,8 +1,8 @@
 package com.fx_trading.lessons.fxtrading.di.module.uiBuilder
 
-import com.fx_trading.navigation.activities.QuestionActivity
-import com.fx_trading.lessons.feature_onboarding.OnBoardingActivity
-import com.fx_trading.navigation.activities.MainActivity
+import com.fx_trading.lessons.feature_main.activities.MainActivity
+import com.fx_trading.lessons.feature_main.activities.OnBoardingActivity
+import com.fx_trading.lessons.feature_main.activities.QuestionActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

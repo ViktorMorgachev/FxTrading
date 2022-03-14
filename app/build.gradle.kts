@@ -43,10 +43,7 @@ android {
 
 dependencies {
 
-
-    implementation(project(":feature_onboarding"))
     implementation(project(":feature_main"))
-    implementation(project(":feature_common"))
     implementation(project(":utils"))
 
     implementation("androidx.datastore:datastore-preferences:1.0.0")

@@ -42,6 +42,18 @@ dependencies {
     api(project(":android_common"))
     implementation(project(":utils"))
 
+    implementation("com.airbnb.android:paris:2.0.0")
+
+    implementation ("com.github.bumptech.glide:glide:4.11.0") {
+        exclude(group = "com.android.support")
+    }
+    implementation ("com.github.bumptech.glide:glide:4.11.0@aar") {
+        isTransitive = true
+    }
+
+    kapt("com.github.bumptech.glide:compiler:4.11.0")
+    kapt("com.airbnb.android:paris-processor:2.0.0")
+
     kapt(KaptDependency.dagger_android_processor)
     kapt(KaptDependency.dagger_android_compiler)
 }

@@ -1,4 +1,4 @@
-package com.fx_trading.lessons.feature_main.ui.lesson
+package com.fx_trading.lessons.features.ui.lesson
 
 import com.fx_trading.lessons.domain.entities.lesson.Lesson
 

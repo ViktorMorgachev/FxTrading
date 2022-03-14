@@ -1,8 +1,8 @@
 package com.fx_trading.lessons.fxtrading.di.module.uiBuilder
 
-import com.fx_trading.lessons.feature_onboarding.SplashFragment
-import com.fx_trading.lessons.feature_onboarding.start_test.StartTestFragment
-import com.fx_trading.lessons.feature_onboarding.ui.*
+import com.fx_trading.lessons.feature_main.feature_onboarding.main.*
+import com.fx_trading.lessons.feature_main.ui.splash.SplashFragment
+import com.fx_trading.lessons.feature_main.feature_onboarding.start_test.StartTestFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

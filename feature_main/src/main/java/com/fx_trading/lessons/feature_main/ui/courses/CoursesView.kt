@@ -1,4 +1,4 @@
-package com.fx_trading.lessons.feature_main.ui.courses
+package com.fx_trading.lessons.features.ui.courses
 
 interface CoursesView {
 }

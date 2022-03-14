@@ -1,7 +1,7 @@
 package com.fx_trading.lessons.fxtrading.di.module
 
 import android.content.Context
-import com.fx_trading.lessons.feature_common.FirebaseUtil
+import com.fx_trading.common.FirebaseUtil
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
