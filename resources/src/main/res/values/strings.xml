@@ -34,4 +34,6 @@
     <string name="lessons">Lessons</string>
     <string name="courses">Courses</string>
     <string name="webinars">Webinars</string>
+    <string name="so_long_text">Max 3 line trunkated title in horizontal card... Max 3 line trunkated title in horizontal card...</string>
+    <string name="long_text">Max 3 line trunkated title in horizontal card...</string>
 </resources>
