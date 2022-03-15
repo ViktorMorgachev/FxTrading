@@ -46,7 +46,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="0dp"
         tools:itemCount="3"
-        android:visibility="visible"
+        android:visibility="gone"
         android:id="@+id/recyclerView"
         tools:listitem="@layout/accordeon_item"
         app:layout_constraintLeft_toLeftOf="parent"
