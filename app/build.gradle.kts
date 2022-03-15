@@ -2,10 +2,10 @@ import com.viktor.buildsrc.app.KaptDependency as KaptDeps
 import com.viktor.buildsrc.ui.UIDeps
 
 plugins {
-    id("com.google.gms.google-services")
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-kapt")
+    id("com.google.gms.google-services")
 }
 
 android {

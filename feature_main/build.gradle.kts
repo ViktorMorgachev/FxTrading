@@ -42,6 +42,7 @@ dependencies {
     api(project(":android_common"))
     implementation(project(":utils"))
 
+    implementation("androidx.viewpager2:viewpager2:1.1.0-beta01")
     implementation("com.airbnb.android:paris:2.0.0")
 
     implementation ("com.github.bumptech.glide:glide:4.11.0") {

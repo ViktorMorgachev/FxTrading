@@ -31,4 +31,7 @@
     <string name="right_answers_count">Right answers</string>
     <string name="lesson_easy">Easy lesson</string>
     <string name="results">Results</string>
+    <string name="lessons">Lessons</string>
+    <string name="courses">Courses</string>
+    <string name="webinars">Webinars</string>
 </resources>

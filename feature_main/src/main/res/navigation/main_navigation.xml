@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/coursesFragment"
-        android:name="com.fx_trading.lessons.features.ui.courses.CoursesFragment"
+        android:name="com.fx_trading.lessons.feature_main.ui.courses.CoursesFragment"
         android:label="CoursesFragment" />
 
     <fragment
@@ -16,12 +16,12 @@
 
     <fragment
         android:id="@+id/webinarsFragment"
-        android:name="com.fx_trading.lessons.features.ui.webinars.WebinarsFragment"
+        android:name="com.fx_trading.lessons.feature_main.ui.webinars.WebinarsFragment"
         android:label="WebinarsFragment" />
 
     <fragment
         android:id="@+id/lessonsFragment"
-        android:name="com.fx_trading.lessons.features.ui.lessons.LessonsFragment"
+        android:name="com.fx_trading.lessons.feature_main.ui.lessons.LessonsFragment"
         android:label="LessonsFragment" />
 
 

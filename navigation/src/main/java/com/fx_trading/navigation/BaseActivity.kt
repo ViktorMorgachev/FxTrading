@@ -1,12 +1,11 @@
 package com.fx_trading.navigation
 
 import android.os.Bundle
-import com.fx_trading.navigation.Router
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
 
-abstract class BaseActivity(protected val fragmentContainerID: Int) : DaggerAppCompatActivity() {
+abstract class BaseActivity(private val fragmentContainerID: Int) : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var router: Router
