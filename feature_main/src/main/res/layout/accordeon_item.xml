@@ -41,12 +41,13 @@
             android:layout_marginHorizontal="16sp"
             android:textColor="@color/secondaryTextColor"
             android:textSize="14sp"
+            app:layout_constraintVertical_bias="0"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/iv_like"
             app:layout_constraintLeft_toRightOf="@id/iv_promo_lesson"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/iv_promo_lesson"
-            tools:text="@string/so_long_text">
+            tools:text="@string/long_text">
         </TextView>
 
         <ImageView
