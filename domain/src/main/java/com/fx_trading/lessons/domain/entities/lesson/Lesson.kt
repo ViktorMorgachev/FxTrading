@@ -13,7 +13,6 @@ data class Lesson(
     val is_active: Boolean,
     val language: String,
     val likes: Int,
-    val marketing_title: String,
     val promo_image_url: String,
     val questions: List<Questions>,
     val region: String,
@@ -23,6 +22,9 @@ data class Lesson(
     val text_version_link: String,
     val timecodes: List<Timecode>,
     val title: String,
-    val type: String,
     val video_url: String
 )
+
+fun Lesson.hasCategory(category: Category): Boolean{
+    return categories.contains(category)
+}

@@ -1,57 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#ECEFF1"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ECEFF1">
 
     <TextView
         android:id="@+id/tv_category"
         android:layout_width="0dp"
-        android:textColor="#263238"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Candles"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintHorizontal_bias="0"
-        android:textSize="24sp"
-        android:layout_marginVertical="16sp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="16sp"
+        android:layout_marginVertical="16sp"
+        android:textColor="#263238"
+        android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintHorizontal_weight="1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/iv_arrow"
-        android:layout_height="wrap_content" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Candles" />
 
     <ImageView
         android:id="@+id/iv_arrow"
         android:layout_width="wrap_content"
-        android:paddingVertical="16sp"
-        app:layout_constraintHorizontal_weight="0.5"
+        android:layout_height="wrap_content"
         android:paddingHorizontal="16sp"
+        android:paddingVertical="16sp"
         android:src="@drawable/arrow_accordeon"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_weight="0.5"
         app:layout_constraintLeft_toRightOf="@id/tv_category"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_height="wrap_content" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/bottom_bariew"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="iv_arrow, tv_category"
-        android:layout_height="wrap_content">
-    </androidx.constraintlayout.widget.Barrier>
+        app:constraint_referenced_ids="iv_arrow, tv_category" />
 
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/accordions_recycler_view"
         android:layout_width="0dp"
-        tools:itemCount="3"
+        android:layout_height="wrap_content"
         android:visibility="gone"
-        android:id="@+id/recyclerView"
-        tools:listitem="@layout/accordeon_item"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bottom_bariew"
-        android:layout_height="wrap_content" />
+        tools:itemCount="3"
+        tools:listitem="@layout/accordeon_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

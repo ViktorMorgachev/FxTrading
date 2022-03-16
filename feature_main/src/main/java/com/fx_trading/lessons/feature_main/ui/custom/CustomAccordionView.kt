@@ -1,16 +1,16 @@
 package com.fx_trading.lessons.feature_main.ui.custom
 
 import android.content.Context
-import android.content.res.TypedArray
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.fx_trading.lessons.features.R
 import com.fx_trading.lessons.features.databinding.AccordionViewBinding
 import com.fx_trading.lessons.utils.utils.gone
-import com.fx_trading.lessons.utils.utils.visible
 
 
 class CustomAccordionView @JvmOverloads constructor(
@@ -19,34 +19,45 @@ class CustomAccordionView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    private val accordionNameFromView: String?
+    private var collapsed: Boolean = false
 
     private val binding = AccordionViewBinding.inflate(LayoutInflater.from(context))
 
+    val constraintLayoutParams =  ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+    val linearLayoutParams = LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams.MATCH_PARENT,
+        LinearLayout.LayoutParams.WRAP_CONTENT
+    )
     init {
-        inflate(context, R.layout.accordion_view, this)
-        val ta: TypedArray =
-            context.theme.obtainStyledAttributes(attrs, R.styleable.CustomAccordionView, 0, 0)
-        accordionNameFromView = ta.getString(R.styleable.CustomAccordionView_accordionName)
-        with(binding) {
-            tvCategory.text = accordionNameFromView ?: ""
-        }
-        ta.recycle()
+        addView(binding.root, constraintLayoutParams)
     }
 
-    @SuppressWarnings("unchecked")
-    fun initData(recyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
+    fun initData(recyclerAdapter: RecyclerView.Adapter<*>, accordionTittle: String) {
         with(binding) {
-            recyclerView.layoutManager = LinearLayoutManager(this.root.context)
-            recyclerView.adapter = recyclerAdapter
+            this.tvCategory.text = "Test"
+            this.tvCategory.setTextColor(Color.BLACK)
+            this.ivArrow.setOnClickListener {
+                if (collapsed) {
+                    expandView()
+                } else expandView()
+            }
+            accordionsRecyclerView.layoutManager = LinearLayoutManager(this.root.context)
+            accordionsRecyclerView.adapter = recyclerAdapter
         }
 
+    }
+
+    fun setTittle(accordionTittle: String) {
+        with(binding) {
+            tvCategory.text = accordionTittle
+        }
     }
 
     fun expandView() {
         with(binding) {
             ivArrow.rotation = 180F
-            recyclerView.visible()
+            accordionsRecyclerView.gone()
+            collapsed = true
         }
 
     }
@@ -54,9 +65,11 @@ class CustomAccordionView @JvmOverloads constructor(
     fun collapseView() {
         with(binding) {
             ivArrow.rotation = 0F
-            recyclerView.gone()
+            accordionsRecyclerView.gone()
+            collapsed = false
         }
 
     }
+
 
 }

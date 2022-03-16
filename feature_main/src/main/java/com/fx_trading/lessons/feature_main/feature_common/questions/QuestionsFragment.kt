@@ -24,7 +24,7 @@ import com.fx_trading.lessons.utils.utils.visibleOrGone
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
-class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>(), QuiestionsView {
+class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>() {
 
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentQuestionsBinding =
         FragmentQuestionsBinding::inflate
@@ -105,7 +105,7 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>(), QuiestionsVi
     }
 
     @SuppressLint("SetTextI18n")
-    override fun showQuestion(quiestion: Question, questionSize: Int, step: Int, succesCount: Int) {
+    private fun showQuestion(quiestion: Question, questionSize: Int, step: Int, succesCount: Int) {
         with(binding) {
             bottomPanel.setBackgroundColor(Color.WHITE)
             Paris.style(checkButon).apply(R.style.button_blue)
@@ -119,7 +119,6 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>(), QuiestionsVi
                 checkButon.isEnabled = true
                 userChoices.add(it)
             }
-
             if (quiestion.optional_image_url.isNotEmpty()){
                 if (quiestion.optional_image_url.startsWith("gs:")){
                     firebaseUtil.loadImage(quizImage, requireContext(), quiestion.optional_image_url)

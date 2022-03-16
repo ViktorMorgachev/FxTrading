@@ -10,11 +10,7 @@ import javax.inject.Singleton
 @Singleton
 class LessonProvider @Inject constructor(private val lessonsDataSource: LessonsDataSource): LessonRepository {
 
-     override suspend fun getLessons(author: String?): List<Lesson> {
+    override suspend fun getLessons(): List<Lesson> {
          return lessonsDataSource.getLessons().map { it.toLesson() }
-    }
-
-     override suspend fun getLessonByID(id: Int): Lesson {
-         return lessonsDataSource.getLessonsByID(id).toLesson()
     }
 }

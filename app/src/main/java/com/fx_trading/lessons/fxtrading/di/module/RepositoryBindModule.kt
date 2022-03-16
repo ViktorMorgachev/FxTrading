@@ -1,8 +1,6 @@
 package com.fx_trading.lessons.fxtrading.di.module
 
-import com.fx_trading.lessons.data.repositories.lessons.LessonProvider
-import com.fx_trading.lessons.data.repositories.lessons.LessonsRemoteRepository
-import com.fx_trading.lessons.data.repositories.lessons.LessonsRemoteRepositoryImpl
+import com.fx_trading.lessons.data.repositories.lessons.*
 import com.fx_trading.lessons.data.repositories.question.QuestionProvider
 import com.fx_trading.lessons.data.repositories.question.QuestionRemoteRepository
 import com.fx_trading.lessons.data.repositories.question.QuestionRemoteRepositoryImpl
@@ -20,14 +18,22 @@ abstract class RepositoryBindModule() {
 
     @Binds
     abstract fun bindLessonRemoteRepository(lessonsRemoteRepositoryImpl: LessonsRemoteRepositoryImpl): LessonsRemoteRepository
+
+    @Binds
+    abstract fun bindLessonMockRepository(lessonsMockRepositoryImpl: LessonsMockRepositoryImpl): LessonsMockRepository
+
+    @Binds
+    abstract fun bindLessonBaseRepository(lessonProvider: LessonProvider): LessonRepository
+
+
+
     @Binds
     abstract fun bindQuestionsRemoteRepository(questionRemoteRepositoryImpl: QuestionRemoteRepositoryImpl): QuestionRemoteRepository
 
     @Binds
     abstract fun bindUserRemoteRepository(userRemoteRepositoryImpl: UserRemoteRepositoryImpl): UserRemoteRepository
 
-    @Binds
-    abstract fun bindLessonRepository(lessonProvider: LessonProvider): LessonRepository
+
 
     @Binds
     abstract fun bindQuestionRepository(questionProvider: QuestionProvider): QuestionRepository

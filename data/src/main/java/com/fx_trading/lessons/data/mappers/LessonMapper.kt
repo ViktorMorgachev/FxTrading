@@ -23,7 +23,6 @@ fun ApiLesson.toLesson(): Lesson{
         is_active = this.is_active,
         language = this.language,
         likes = this.likes,
-        marketing_title = this.marketing_title,
         promo_image_url = this.promo_image_url,
         questions = this.quiz_group.map { it.toQuizGroup() },
         region = this.region,
@@ -33,7 +32,6 @@ fun ApiLesson.toLesson(): Lesson{
         text_version_link = this.text_version_link,
         timecodes = this.timeCodes.map { it.toTimeCode() },
         title = this.title,
-        type = this.type,
         video_url = this.video_url,
     )
 }

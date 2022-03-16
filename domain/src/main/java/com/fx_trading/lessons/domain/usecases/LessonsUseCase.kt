@@ -6,10 +6,7 @@ import javax.inject.Inject
 
 
 class LessonsUseCase @Inject constructor(private val lessonRepository: LessonRepository){
-
-    suspend fun getLessonById(lessonID: Int): Lesson{
-        return lessonRepository.getLessonByID(lessonID)
-    }
+    
    suspend fun getLessons(): List<Lesson>{
         return lessonRepository.getLessons()
     }

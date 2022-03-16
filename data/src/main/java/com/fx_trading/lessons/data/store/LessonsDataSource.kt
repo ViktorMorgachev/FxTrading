@@ -1,30 +1,22 @@
 package com.fx_trading.lessons.data.store
 
+import com.fx_trading.lessons.data.BuildConfig
 import com.fx_trading.lessons.data.api.lesson.ApiLesson
-import com.fx_trading.lessons.data.api.question_group.ApiQuestionGroup
-import com.fx_trading.lessons.data.mappers.toLesson
+import com.fx_trading.lessons.data.repositories.lessons.LessonsMockRepository
 import com.fx_trading.lessons.data.repositories.lessons.LessonsRemoteRepository
-import com.fx_trading.lessons.data.repositories.question.QuestionRemoteRepository
 import javax.inject.Inject
 import javax.inject.Singleton
 
+val useMockData = BuildConfig.USE_MOCK_DATA
+
+
 @Singleton
-class LessonsDataSource @Inject constructor(protected val lessonsRemoteRepository: LessonsRemoteRepository): LessonsRemoteRepository {
-
-    override suspend fun getRemoteLessons(): List<ApiLesson> {
-       return lessonsRemoteRepository.getRemoteLessons()
+class LessonsDataSource @Inject constructor(
+    private val lessonsRemoteRepository: LessonsRemoteRepository,
+    private val lessonsMockRepository: LessonsMockRepository
+) {
+    suspend fun getLessons(): List<ApiLesson> {
+        return if (useMockData) lessonsMockRepository.getMockLessons()
+        else lessonsRemoteRepository.getRemoteLessons()
     }
-
-    override suspend fun getRemoteLessonByID(id: Int): ApiLesson {
-       return lessonsRemoteRepository.getRemoteLessonByID(id)
-    }
-
-    suspend fun getLessons(): List<ApiLesson>{
-        return getRemoteLessons()
-    }
-
-    suspend fun getLessonsByID(id: Int): ApiLesson{
-        return getRemoteLessonByID(id)
-    }
-
 }

@@ -1,6 +1,7 @@
 package com.fx_trading.lessons.fxtrading.di.module
 
 import com.fx_trading.lessons.data.repositories.lessons.LessonProvider
+import com.fx_trading.lessons.data.repositories.lessons.LessonsMockRepository
 import com.fx_trading.lessons.data.repositories.lessons.LessonsRemoteRepository
 import com.fx_trading.lessons.data.repositories.question.QuestionProvider
 import com.fx_trading.lessons.data.repositories.question.QuestionRemoteRepository
@@ -18,11 +19,21 @@ import javax.inject.Singleton
 @Module
 class RepositoryProvidesModule() {
 
+    // Это нормально, так и надо делать
+
     @Provides
     @Singleton
-    fun provideLessonProvider(lessonsRemoteRepository: LessonsRemoteRepository): LessonProvider {
-        return LessonProvider(LessonsDataSource(lessonsRemoteRepository))
+    fun provideLessonProvider(lessonsDataSource: LessonsDataSource): LessonProvider {
+        return LessonProvider(lessonsDataSource)
     }
+
+    @Provides
+    @Singleton
+    fun provideLessonDataSource(lessonsMockRepository: LessonsMockRepository, lessonsRemoteRepository: LessonsRemoteRepository): LessonsDataSource{
+        return LessonsDataSource(lessonsRemoteRepository, lessonsMockRepository)
+    }
+
+    // TODO тут бы надо привести к правильному виду
 
     @Provides
     @Singleton
@@ -35,5 +46,7 @@ class RepositoryProvidesModule() {
     fun provideUsersProvider(userRemoteRepository: UserRemoteRepository): UsersProvider {
         return UsersProvider(UserDataSource(userRemoteRepository))
     }
+
+
 
 }

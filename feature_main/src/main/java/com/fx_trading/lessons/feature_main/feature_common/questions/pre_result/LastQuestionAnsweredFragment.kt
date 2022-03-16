@@ -12,7 +12,7 @@ import com.fx_trading.common.openTotalUserLevelResult
 import com.fx_trading.lessons.core.BaseFragment
 import com.fx_trading.lessons.core.BaseViewModelFactory
 import com.fx_trading.lessons.features.databinding.FragmentLastQuestionAnsweredBinding
-import com.fx_trading.lessons.features.feature_common.questions.QuestionViewModel
+import com.fx_trading.lessons.feature_main.feature_common.questions.QuestionViewModel
 import com.fx_trading.lessons.utils.utils.Logger
 import javax.inject.Inject
 
