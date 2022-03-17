@@ -15,15 +15,24 @@ class LessonsDataSource @Inject constructor(
     private val lessonsRemoteRepository: LessonsRemoteRepository,
     private val lessonsMockRepository: LessonsMockRepository
 ) {
-    private var cache: List<ApiLesson> = listOf()
+    companion object{
+        var cache: MutableList<ApiLesson> = mutableListOf()
+    }
 
     suspend fun getLessons(): List<ApiLesson> {
+        if (cache.isNotEmpty()) return  cache
         val lessons = when {
             useMockData -> lessonsMockRepository.getMockLessons()
-            cache.isNotEmpty() -> return cache
-            else -> return lessonsRemoteRepository.getRemoteLessons()
+            else ->  lessonsRemoteRepository.getRemoteLessons()
         }
-        cache = lessons
+        cache = lessons.toMutableList()
         return lessons
+    }
+
+    suspend fun setLikeoLesson(lessonID: Long): Boolean{
+        val lessonForUpdate = cache.firstOrNull() { it.id == lessonID.toInt() }
+        if (lessonForUpdate != null){
+            return lessonsRemoteRepository.updateLesson(lessonForUpdate.copy(likes = lessonForUpdate.likes + 1))
+        } else return false
     }
 }

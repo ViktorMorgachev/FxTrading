@@ -3,6 +3,7 @@ package com.fx_trading.lessons.data.repositories.user
 import com.fx_trading.lessons.data.pseudoDeviceID
 import com.fx_trading.lessons.data.store.UserDataSource
 import com.fx_trading.lessons.domain.entities.user.User
+import com.fx_trading.lessons.domain.entities.users_info.UserInfo
 import com.fx_trading.lessons.domain.repositories.UserRepository
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -36,6 +37,14 @@ class UsersProvider @Inject constructor(private val userDataSource: UserDataSour
 
     override suspend fun saveDeviceIDAndUserID(userId: Long): Boolean {
         return userDataSource.saveDeviceAndUserID(userId, pseudoDeviceID)
+    }
+
+    override suspend fun getUserInfoByUserID(userID: Long): UserInfo? {
+        return userDataSource.getUserInfoByUserID(userID)
+    }
+
+    override suspend fun updateUserInfoLessonLike(lessonID: Long): Boolean {
+      return userDataSource.updateUserInfoLessonLike(lessonID)
     }
 
 }

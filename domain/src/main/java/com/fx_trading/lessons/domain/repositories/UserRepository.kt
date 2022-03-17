@@ -1,6 +1,7 @@
 package com.fx_trading.lessons.domain.repositories
 
 import com.fx_trading.lessons.domain.entities.user.User
+import com.fx_trading.lessons.domain.entities.users_info.UserInfo
 
 interface UserRepository {
     suspend fun getUserByUserID(userID: Long): User?
@@ -10,4 +11,6 @@ interface UserRepository {
     suspend fun createNewUser(): User?
     suspend fun saveResultTesting(userID: Long, quizGroupID: Int, status: Int): Boolean
     suspend fun saveDeviceIDAndUserID(userId: Long): Boolean
+    suspend fun getUserInfoByUserID(userID: Long): UserInfo?
+    suspend fun updateUserInfoLessonLike(lessonID: Long): Boolean
 }

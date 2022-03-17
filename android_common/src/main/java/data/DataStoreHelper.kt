@@ -57,4 +57,6 @@ class DataStoreHelper @Inject constructor(val context: Context) {
 
     suspend fun wasPassedExam() = context.dataPreferences.data.map { it[PRE_TEST_PASSED] ?: false }
 
+    suspend fun userID() = context.dataPreferences.data.map { it[USER_ID] ?: -1 }
+
 }

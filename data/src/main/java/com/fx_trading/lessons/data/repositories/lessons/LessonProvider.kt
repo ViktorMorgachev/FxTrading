@@ -13,4 +13,8 @@ class LessonProvider @Inject constructor(private val lessonsDataSource: LessonsD
     override suspend fun getLessons(): List<Lesson> {
          return lessonsDataSource.getLessons().map { it.toLesson() }
     }
+
+    override suspend fun setLikeToLesson(lessonID: Long): Boolean {
+        return lessonsDataSource.setLikeoLesson(lessonID)
+    }
 }

@@ -32,7 +32,28 @@ class LessonsRemoteRepositoryImpl @Inject constructor(private val firebaseFirest
         }
     }
 
-    override suspend fun getRemoteLessonByID(id: Int): ApiLesson {
-        TODO("Not yet implemented")
+    override suspend fun getRemoteLessonByID(id: Int): ApiLesson? {
+        try {
+            val firebaseDocument = firebaseFirestore.collection("${documentPath}Lessons").document("$id").get().await()
+            if (firebaseDocument != null && !firebaseDocument.data.isNullOrEmpty()) {
+                return  firebaseDocument.toObject(ApiLesson::class.java)
+            } else {
+                Logger.log("LessonsRemoteRepository", "Error getting documents.")
+                return null
+            }
+        } catch (e: Exception) {
+            Logger.log("LessonsRemoteRepository", "Error getting documents.", exception = e)
+            return null
+        }
+    }
+
+    override suspend fun updateLesson(lesson: ApiLesson): Boolean {
+        try {
+            firebaseFirestore.collection("${documentPath}Lessons").document("${lesson.id}").set(lesson).await()
+            return true
+        } catch (e: Exception) {
+            Logger.log("LessonsRemoteRepository", "Error getting documents.", exception = e)
+            return false
+        }
     }
 }

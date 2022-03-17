@@ -3,6 +3,7 @@ package com.fx_trading.lessons.data.repositories.user
 import com.fx_trading.lessons.data.BuildConfig
 import com.fx_trading.lessons.data.api.user.ApiUser
 import com.fx_trading.lessons.data.api.user.mock.MockData.Companion.defaultUser
+import com.fx_trading.lessons.data.api.user_info.ApiUserInfo
 import com.fx_trading.lessons.data.extentions.await
 import com.fx_trading.lessons.data.extentions.getField
 import com.fx_trading.lessons.data.repositories.question.documentPath
@@ -179,6 +180,30 @@ class UserRemoteRepositoryImpl @Inject constructor(
             return true
         } catch (e: Exception) {
             Logger.log("UserRemoteRepository", exception = e)
+            return false
+        }
+    }
+
+    override suspend fun getUserInfoByUserID(userId: Long): ApiUserInfo? {
+        try {
+            val firebaseDocument = firebaseFirestore.collection("${documentPath}UsersInfo").document("$userId").get().await()
+            if (firebaseDocument != null  && firebaseDocument.data != null){
+                val userInfo = firebaseDocument.toObject(ApiUserInfo::class.java)
+                return userInfo
+            } else
+            return null
+        } catch (e: Exception) {
+            Logger.log("UserRemoteRepository", exception = e)
+            return null
+        }
+    }
+
+    override suspend fun updateUserInfo(userInfo: ApiUserInfo): Boolean {
+        try {
+            firebaseFirestore.collection("${com.fx_trading.lessons.data.repositories.lessons.documentPath}Lessons").document("${userInfo.user_id}").set(userInfo).await()
+            return true
+        } catch (e: Exception) {
+            Logger.log("LessonsRemoteRepository", "Error getting documents.", exception = e)
             return false
         }
     }

@@ -6,17 +6,22 @@ import androidx.lifecycle.viewModelScope
 import com.fx_trading.common.State
 import com.fx_trading.lessons.domain.entities.lesson.Lesson
 import com.fx_trading.lessons.domain.usecases.LessonsUseCase
+import com.fx_trading.lessons.domain.usecases.UserUseCase
 import com.fx_trading.lessons.utils.utils.Logger
 import com.fx_trading.navigation.Router
+import data.DataStoreHelper
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LessonsViewModel @Inject constructor(
     private val router: Router,
-    private val lessonsUseCase: LessonsUseCase
+    private val lessonsUseCase: LessonsUseCase,
+    private val usersUseCase: UserUseCase,
+    private var dataStoreHelper: DataStoreHelper
 ) : ViewModel() {
 
     val likedLesson: MutableLiveData<Lesson?> = MutableLiveData(null)
@@ -37,8 +42,17 @@ class LessonsViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 delay(500)
-                val lesson = lessonsUseCase.getLessons().firstOrNull { it.id == lessonID }
-                likedLesson.postValue(lesson?.copy(likes = lesson.likes + 1))
+                // Проверить в UsersInfo лайкал ли он урок
+                // Поставить лайк уроку, проверить что всё ок
+                // Либо ничего не делать
+                dataStoreHelper.userID().collect { userID->
+                    val success =  usersUseCase.setLikeToLesson(lessonID.toLong(), 1)
+                    if (success){
+                        // Получаем урок по айди из базы и обновляем
+                    }
+                }
+                //val lesson = lessonsUseCase.getLessons().firstOrNull { it.id == lessonID }
+                //likedLesson.postValue(lesson?.copy(likes = lesson.likes + 1))
             } catch (e: Exception) {
                 Logger.log("ExampleViewModel", exception = e)
             }
