@@ -1,18 +1,18 @@
 package com.fx_trading.lessons.feature_main.ui.lessons
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.fx_trading.common.State
 import com.fx_trading.lessons.core.BaseFragment
 import com.fx_trading.lessons.core.BaseViewModelFactory
-import com.fx_trading.lessons.domain.entities.lesson.Category
 import com.fx_trading.lessons.domain.entities.lesson.Lesson
 import com.fx_trading.lessons.domain.entities.lesson.hasCategory
-import com.fx_trading.lessons.feature_main.ui.custom.CustomAccordionView
 import com.fx_trading.lessons.feature_main.ui.custom.LessonAccordionData
 import com.fx_trading.lessons.features.databinding.FragmentLessonsBinding
 import com.fx_trading.navigation.Router
@@ -37,10 +37,11 @@ class LessonsFragment : BaseFragment<FragmentLessonsBinding>() {
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentLessonsBinding =
         FragmentLessonsBinding::inflate
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lifecycleScope.launch {
+        lifecycleScope.launchWhenResumed {
             viewModel.getData().collect {
                 when (it) {
                     is State.LoadingState -> {
@@ -52,16 +53,15 @@ class LessonsFragment : BaseFragment<FragmentLessonsBinding>() {
                     is State.DataState -> {
                         CoroutineScope(Dispatchers.IO).launch {
                             val allLessons = it.data
-                            val categories = mutableListOf<Category>()
+                            val categories = mutableListOf<String>()
                             allLessons.map { it.categories }.forEach { allCategories ->
                                 allCategories.forEach { category->
                                     if (!categories.contains(category))
                                         categories.add(category)
                                 }
                             }
-                            val accordionDataViewMap = mutableMapOf<LessonAccordionData, CustomAccordionView>()
+                            val accordionDataList = mutableListOf<LessonAccordionData>()
                             categories.forEach { category ->
-                                val accordionView = CustomAccordionView(requireContext())
                                 val actualLessons = mutableListOf<Lesson>()
                                 allLessons.forEach { lesson->
                                     if (lesson.hasCategory(category)) {
@@ -70,27 +70,33 @@ class LessonsFragment : BaseFragment<FragmentLessonsBinding>() {
                                 }
                                 val lessonAdapter = LessonsAdapter(
                                     data = actualLessons,
-                                    openLessonAction = {},
-                                    likeLessonAction = {},
-                                    completedLessonIDs = listOf()
+                                    openLessonAction = { lesson->{
+
+                                    }},
+                                    likeLessonAction = {
+                                        viewModel.likeLesson(it)
+                                    },
+                                    completedLessonIDs = listOf(),
                                 )
-                                accordionDataViewMap.put(
-                                    LessonAccordionData(
-                                        accordionTittle = category.name,
-                                        accordionListAdapter = lessonAdapter
-                                    ), accordionView
-                                )
+                                accordionDataList.add(LessonAccordionData(
+                                    accordionTittle = category,
+                                    accordionListAdapter = lessonAdapter
+                                ))
                             }
                             CoroutineScope(Dispatchers.Main).launch {
                                 with(binding) {
-                                    customAccordionList.setLessonData<LessonAccordionData>(
-                                        data = accordionDataViewMap.keys.toList(),
-                                        accordionCollapsedAction = {},
-                                        accordionExpandedAction = {},
-                                        accordionOnItemClickAction = {})
+                                    customAccordionList.setData(data = accordionDataList)
                                 }
                             }
                         }
+                    }
+                }
+            }
+            viewModel.likedLesson.observe(viewLifecycleOwner) { lesson->
+                lesson?.let {
+                    with(binding){
+                        LessonsAdapter.actualLessons.add(lesson)
+                        customAccordionList.updateData<LessonsAdapter, Lesson>(lesson)
                     }
                 }
             }

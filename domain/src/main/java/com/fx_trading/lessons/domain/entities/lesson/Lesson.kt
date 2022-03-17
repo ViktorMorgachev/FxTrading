@@ -3,7 +3,7 @@ package com.fx_trading.lessons.domain.entities.lesson
 import com.fx_trading.lessons.domain.entities.common.Timecode
 
 data class Lesson(
-    val categories: List<Category>,
+    val categories: List<String>,
     val comments: List<Comment>,
     val description: String,
     val difficulty: String,
@@ -25,6 +25,6 @@ data class Lesson(
     val video_url: String
 )
 
-fun Lesson.hasCategory(category: Category): Boolean{
+fun Lesson.hasCategory(category: String): Boolean{
     return categories.contains(category)
 }

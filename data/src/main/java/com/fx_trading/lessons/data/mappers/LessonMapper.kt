@@ -7,13 +7,13 @@ import com.fx_trading.lessons.domain.entities.lesson.Comment
 import com.fx_trading.lessons.data.api.lesson.ApiCategory
 import com.fx_trading.lessons.domain.entities.lesson.Lesson
 import com.fx_trading.lessons.domain.entities.lesson.Questions
-import com.fx_trading.lessons.data.api.lesson.ApiQuizGroup
+import com.fx_trading.lessons.data.api.lesson.ApiQuestionGroupID
 import com.fx_trading.lessons.data.api.lesson.ApiLesson
 import com.fx_trading.lessons.data.api.lesson.ApiComment
 
 
 fun ApiLesson.toLesson(): Lesson{
-    return Lesson(categories = this.categories.map { it.toCategory() },
+    return Lesson(categories = this.categories,
         comments = this.apiComments.map { it.toComment() },
         description = this.description,
         difficulty = this.difficulty,
@@ -24,7 +24,7 @@ fun ApiLesson.toLesson(): Lesson{
         language = this.language,
         likes = this.likes,
         promo_image_url = this.promo_image_url,
-        questions = this.quiz_group.map { it.toQuizGroup() },
+        questions = this.question_groups.map { it.toQuestionGroupID() },
         region = this.region,
         sort_order = this.sort_order,
         speaker_name = this.speaker_name,
@@ -35,10 +35,9 @@ fun ApiLesson.toLesson(): Lesson{
         video_url = this.video_url,
     )
 }
-
-fun ApiCategory.toCategory() : Category = Category(name = this.name)
 fun ApiComment.toComment(): Comment =  Comment(id = this.id)
-fun ApiQuizGroup.toQuizGroup(): Questions = Questions(quiz_id = this.quiz_id)
+fun ApiQuestionGroupID.toQuestionGroupID(): Questions = Questions(quiz_id = this.id)
+
 fun ApiTimeCode.toTimeCode(): Timecode {
     return Timecode(is_active = this.is_active, time_length = this.time_length, time_seconds = this.time_seconds, title = this.title)
 }

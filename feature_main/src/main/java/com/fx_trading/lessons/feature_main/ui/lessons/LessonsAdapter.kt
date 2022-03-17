@@ -9,45 +9,44 @@ import com.fx_trading.lessons.domain.entities.lesson.Lesson
 import com.fx_trading.lessons.features.R
 import com.fx_trading.lessons.features.databinding.AccordeonItemBinding
 
-class LessonsAdapter(
-    val data: List<Lesson>,
-    val openLessonAction: (Lesson) -> Unit,
-    val likeLessonAction: (Int) -> Unit,
-    val completedLessonIDs: List<Int>
-) : RecyclerView.Adapter<LessonsAdapter.LessonsHolder>() {
+class LessonsAdapter(var data: List<Lesson>, val openLessonAction: (Lesson)->Unit, val likeLessonAction: (Int)->Unit, val completedLessonIDs: List<Int>):  RecyclerView.Adapter<LessonsAdapter.LessonsHolder>() {
 
-    class LessonsHolder(
-        private val itemBinding: AccordeonItemBinding,
-        val openLessonAction: (Lesson) -> Unit,
-        val likeLessonAction: (Int) -> Unit,
-        val completedLessonIDs: List<Int>
-    ) : RecyclerView.ViewHolder(itemBinding.root) {
+    init {
+        data = data.sortedBy { it.id }
+    }
+
+    // TODO грязный подход, нужно будет потом обязательно переделать
+    companion object{
+        val actualLessons = mutableSetOf<Lesson>()
+    }
+
+    class LessonsHolder(private val itemBinding: AccordeonItemBinding, val openLessonAction: (Lesson)->Unit, val likeLessonAction: (Int)->Unit, val completedLessonIDs: List<Int>) : RecyclerView.ViewHolder(itemBinding.root) {
 
         fun bind(lesson: Lesson) {
-            with(itemBinding) {
-                countOfLikes.text = "${lesson.likes}"
+            val actualLesson = actualLessons.firstOrNull { it.id == lesson.id } ?: lesson
+            with(itemBinding){
+                countOfLikes.text = "${actualLesson.likes}"
                 Glide.with(itemView.context)
-                    .load(lesson.promo_image_url).error(R.drawable.mock_video_image)
+                    .load(actualLesson.promo_image_url).error(R.drawable.mock_video_image)
                     .into(ivPromoLesson)
-                tvVideoDuration.text = lesson.duration
-                title.text = lesson.title
-                if (completedLessonIDs.contains(lesson.id)) {
+                tvVideoDuration.text = actualLesson.duration
+                title.text  = actualLesson.title
+                if (completedLessonIDs.contains(actualLesson.id)){
                     lessonItemRoot.setBackgroundColor(Color.parseColor("#C8E6C9"))
                 }
                 lessonItemRoot.setOnClickListener {
-                    openLessonAction(lesson)
+                    openLessonAction(actualLesson)
                 }
                 lessonItemRoot.setOnClickListener {
-                    likeLessonAction(lesson.id)
+                    likeLessonAction(actualLesson.id)
                 }
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LessonsHolder {
-        val itemBinding =
-            AccordeonItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return LessonsHolder(itemBinding, openLessonAction, likeLessonAction, completedLessonIDs)
+        val itemBinding = AccordeonItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return LessonsHolder(itemBinding,openLessonAction, likeLessonAction, completedLessonIDs)
     }
 
     override fun onBindViewHolder(holder: LessonsHolder, position: Int) {
@@ -56,6 +55,6 @@ class LessonsAdapter(
     }
 
     override fun getItemCount(): Int {
-        return data.size
+       return data.size
     }
 }

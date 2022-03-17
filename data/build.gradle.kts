@@ -23,7 +23,7 @@ android {
             isMinifyEnabled = false
         }
         defaultConfig {
-            buildConfigField(type = "Boolean", name = "USE_MOCK_DATA", value = "true")
+            buildConfigField(type = "Boolean", name = "USE_MOCK_DATA", value = "false")
             buildConfigField(type = "String", name = "DOCUMENT_DB_PATH", value = "\"dev\"")
         }
     }

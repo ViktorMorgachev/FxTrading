@@ -107,8 +107,6 @@ class UserRemoteRepositoryImpl @Inject constructor(
                 Logger.log("QuestionRemoteRepository", "Error getting documents.")
                 return null
             } else {
-                var data: ApiUser = defaultUser
-                val hashMapFromFirebase = firebaseData.data as HashMap<String, Any?>
                 return firebaseData.toObject(ApiUser::class.java)
             }
             return null

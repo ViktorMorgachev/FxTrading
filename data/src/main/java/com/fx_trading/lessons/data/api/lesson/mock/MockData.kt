@@ -9,7 +9,7 @@ class MockData {
         // описание внутри урока/курса ниже идет
         // заголовок урока выше
         val mockApiLesson = ApiLesson(
-            categories = listOf(ApiCategory("Figures"), ApiCategory("Candles")),
+            categories = listOf("Figures","Candles"),
             description = "Base Description",
             difficulty = "Beginner",
             dislikes = 100,
@@ -28,19 +28,19 @@ class MockData {
             video_url = "https://www.youtube.com/watch?v=dpy0_b9oxpM&list=RDMM&start_radio=1&rv=Py5dTPmlNhI")
 
         val mockApiLessons = listOf<ApiLesson>(mockApiLesson,
-            mockApiLesson.copy(categories = listOf(ApiCategory("Currencies"), ApiCategory("ForexBasics")),
+            mockApiLesson.copy(categories = listOf("Currencies", "ForexBasics"),
                 duration = "16:20",
                 title = "It's second testing video",
                 likes = 160),
-            mockApiLesson.copy(categories = listOf(ApiCategory("Figures"), ApiCategory("Indicators")),
+            mockApiLesson.copy(categories = listOf("Figures","Indicators"),
                 duration = "12:40",
                 title = "It's third testing video",
                 likes = 10),
-            mockApiLesson.copy(categories = listOf(ApiCategory("Candles"), ApiCategory("ForexBasics")),
+            mockApiLesson.copy(categories = listOf("Candles","ForexBasics"),
                 duration = "22:01",
                 title = "It's four testing video",
                 likes = 54),
-            mockApiLesson.copy(categories = listOf(ApiCategory("Figures"), ApiCategory("Indicators"), ApiCategory("Currencies")),
+            mockApiLesson.copy(categories = listOf("Figures","Indicators","Currencies"),
                 duration = "54:30",
                 title = "It's five testing video",
                 likes = 12))

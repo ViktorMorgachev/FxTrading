@@ -3,6 +3,6 @@ package com.fx_trading.lessons.feature_main.ui.custom
 import androidx.recyclerview.widget.RecyclerView
 import com.fx_trading.lessons.feature_main.ui.lessons.LessonsAdapter
 
-open  class AccordionData<out T>(val accordionTittle: String, val accordionListAdapter: T, var expanded: Boolean = false)
+open class AccordionData<T: RecyclerView.Adapter<*>>(val accordionTittle: String, var accordionListAdapter: RecyclerView.Adapter<*>, var recyclerView: RecyclerView? = null, position: Int = 0)
 
-class LessonAccordionData(accordionTittle: String, accordionListAdapter: LessonsAdapter, expanded: Boolean = false): AccordionData<LessonsAdapter>(accordionTittle, accordionListAdapter, expanded)
+class LessonAccordionData(accordionTittle: String, accordionListAdapter: LessonsAdapter, recyclerView: RecyclerView? = null): AccordionData<LessonsAdapter>(accordionTittle, accordionListAdapter, recyclerView)

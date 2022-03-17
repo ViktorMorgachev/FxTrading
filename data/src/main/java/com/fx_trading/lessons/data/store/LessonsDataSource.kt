@@ -15,8 +15,15 @@ class LessonsDataSource @Inject constructor(
     private val lessonsRemoteRepository: LessonsRemoteRepository,
     private val lessonsMockRepository: LessonsMockRepository
 ) {
+    private var cache: List<ApiLesson> = listOf()
+
     suspend fun getLessons(): List<ApiLesson> {
-        return if (useMockData) lessonsMockRepository.getMockLessons()
-        else lessonsRemoteRepository.getRemoteLessons()
+        val lessons = when {
+            useMockData -> lessonsMockRepository.getMockLessons()
+            cache.isNotEmpty() -> return cache
+            else -> return lessonsRemoteRepository.getRemoteLessons()
+        }
+        cache = lessons
+        return lessons
     }
 }
