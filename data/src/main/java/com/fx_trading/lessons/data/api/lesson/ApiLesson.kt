@@ -4,7 +4,7 @@ import com.fx_trading.lessons.data.api.common.ApiTimeCode
 
 data class ApiLesson(
     val categories: List<String> = listOf(),
-    val apiComments: List<ApiComment> = listOf(),
+    val comments: List<ApiComment> = listOf(),
     val description: String = "",
     val difficulty: String = "",
     val dislikes: Int = 0,

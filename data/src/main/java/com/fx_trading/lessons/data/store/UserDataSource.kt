@@ -18,10 +18,6 @@ class UserDataSource @Inject constructor(private val userRemoteRepository: UserR
 
     private val useMockData = BuildConfig.USE_MOCK_DATA
 
-    companion object{
-        private var userInfo: UserInfo? = null
-    }
-
     suspend fun checkUserByDeviceIDInDatabase(deviceID: String): Boolean {
         return userRemoteRepository.checkUserByDeviceIDInDatabase(deviceID = deviceID)
     }
@@ -51,22 +47,18 @@ class UserDataSource @Inject constructor(private val userRemoteRepository: UserR
     }
 
     suspend fun getUserInfoByUserID(userId: Long): UserInfo? {
-        if (userInfo != null) return userInfo
         if (useMockData) {
             return MockData.mockApiUserInfo.toUserInfo()
         } else {
-            val data = userRemoteRepository.getUserInfoByUserID(userId)?.toUserInfo()
-            data?.let {
-                userInfo = it
-            }
-            return userInfo
+            return userRemoteRepository.getUserInfoByUserID(userId)?.toUserInfo()
         }
     }
 
-    suspend fun updateUserInfoLessonLike(lessonID: Long): Boolean {
-        if (userInfo != null){
-            return userRemoteRepository.updateUserInfo(userInfo!!.toApiUserInfo())
-        } else return false
+    suspend fun updateUserInfoLessonLike(lessonID: Long, userId: Long): Boolean {
+        val userInfo = userRemoteRepository.getUserInfoByUserID(userId)
+        return if (userInfo != null){
+            userRemoteRepository.updateUserInfo(userInfo.copy(likes_info_lessons_ids = userInfo.likes_info_lessons_ids.plus(lessonID)))
+        } else false
     }
 
 }

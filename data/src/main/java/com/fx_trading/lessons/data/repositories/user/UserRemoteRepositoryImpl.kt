@@ -187,7 +187,7 @@ class UserRemoteRepositoryImpl @Inject constructor(
     override suspend fun getUserInfoByUserID(userId: Long): ApiUserInfo? {
         try {
             val firebaseDocument = firebaseFirestore.collection("${documentPath}UsersInfo").document("$userId").get().await()
-            if (firebaseDocument != null  && firebaseDocument.data != null){
+            if (firebaseDocument != null && firebaseDocument.data != null){
                 val userInfo = firebaseDocument.toObject(ApiUserInfo::class.java)
                 return userInfo
             } else
@@ -200,7 +200,7 @@ class UserRemoteRepositoryImpl @Inject constructor(
 
     override suspend fun updateUserInfo(userInfo: ApiUserInfo): Boolean {
         try {
-            firebaseFirestore.collection("${com.fx_trading.lessons.data.repositories.lessons.documentPath}Lessons").document("${userInfo.user_id}").set(userInfo).await()
+            firebaseFirestore.collection("${com.fx_trading.lessons.data.repositories.lessons.documentPath}UsersInfo").document("${userInfo.user_id}").set(userInfo).await()
             return true
         } catch (e: Exception) {
             Logger.log("LessonsRemoteRepository", "Error getting documents.", exception = e)

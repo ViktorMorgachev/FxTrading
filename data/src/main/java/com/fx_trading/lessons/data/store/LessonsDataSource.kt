@@ -29,10 +29,27 @@ class LessonsDataSource @Inject constructor(
         return lessons
     }
 
-    suspend fun setLikeoLesson(lessonID: Long): Boolean{
+    suspend fun setLikesLesson(lessonID: Long): Boolean{
         val lessonForUpdate = cache.firstOrNull() { it.id == lessonID.toInt() }
         if (lessonForUpdate != null){
-            return lessonsRemoteRepository.updateLesson(lessonForUpdate.copy(likes = lessonForUpdate.likes + 1))
+            val success =  lessonsRemoteRepository.updateLesson(lessonForUpdate.copy(likes = lessonForUpdate.likes + 1))
+            if (success){
+                updateCache(lessonForUpdate, lessonForUpdate.copy(likes = lessonForUpdate.likes + 1))
+            }
+            return true
         } else return false
+    }
+
+    private fun updateCache(lessonOld: ApiLesson, lessonNew: ApiLesson){
+        cache.remove(lessonOld)
+        cache.add(lessonNew)
+    }
+
+    suspend fun getLessonByID(lessonID: Long): ApiLesson? {
+        if (cache.map { it.id }.contains(lessonID.toInt())){
+            return cache.first { it.id == lessonID.toInt() }
+        } else {
+          return  lessonsRemoteRepository.getRemoteLessonByID(lessonID)
+        }
     }
 }

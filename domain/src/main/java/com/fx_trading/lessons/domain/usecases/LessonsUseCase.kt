@@ -10,4 +10,8 @@ class LessonsUseCase @Inject constructor(private val lessonRepository: LessonRep
    suspend fun getLessons(): List<Lesson>{
         return lessonRepository.getLessons()
     }
+
+    suspend fun getLessonsByID(lessonID: Long): Lesson? {
+        return lessonRepository.getLessonByID(lessonID)
+    }
 }

@@ -32,7 +32,7 @@ class LessonsRemoteRepositoryImpl @Inject constructor(private val firebaseFirest
         }
     }
 
-    override suspend fun getRemoteLessonByID(id: Int): ApiLesson? {
+    override suspend fun getRemoteLessonByID(id: Long): ApiLesson? {
         try {
             val firebaseDocument = firebaseFirestore.collection("${documentPath}Lessons").document("$id").get().await()
             if (firebaseDocument != null && !firebaseDocument.data.isNullOrEmpty()) {

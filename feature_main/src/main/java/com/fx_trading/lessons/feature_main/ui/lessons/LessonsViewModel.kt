@@ -46,9 +46,12 @@ class LessonsViewModel @Inject constructor(
                 // Поставить лайк уроку, проверить что всё ок
                 // Либо ничего не делать
                 dataStoreHelper.userID().collect { userID->
-                    val success =  usersUseCase.setLikeToLesson(lessonID.toLong(), 1)
+                    val success = usersUseCase.setLikeToLesson(lessonID.toLong(), 1)
                     if (success){
-                        // Получаем урок по айди из базы и обновляем
+                       val lesson = lessonsUseCase.getLessonsByID(lessonID.toLong())
+                        lesson?.let {
+                            likedLesson.postValue(it)
+                        }
                     }
                 }
                 //val lesson = lessonsUseCase.getLessons().firstOrNull { it.id == lessonID }
