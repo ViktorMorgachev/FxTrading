@@ -14,7 +14,7 @@ import com.fx_trading.lessons.data.api.lesson.ApiComment
 
 fun ApiLesson.toLesson(): Lesson{
     return Lesson(categories = this.categories,
-        comments = this.apiComments.map { it.toComment() },
+        comments = this.comments.map { it.toComment() },
         description = this.description,
         difficulty = this.difficulty,
         dislikes = this.dislikes,
