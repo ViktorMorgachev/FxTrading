@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
+import com.fx_trading.lessons.utils.utils.Logger
 import data.PreferencesKeys.DEVICE_ID
 import data.PreferencesKeys.INTRO_WAS_PASSED
 import data.PreferencesKeys.PRE_TEST_PASSED
@@ -31,24 +32,28 @@ class DataStoreHelper @Inject constructor(val context: Context) {
 
     suspend fun examWasPassed(wasPassed: Boolean) {
         context.dataPreferences.edit { preferences->
+            Logger.log("DataStoreHelper", "examWasPassed $wasPassed")
             preferences[PRE_TEST_PASSED] = wasPassed
         }
     }
 
     suspend fun introWasPassed(wasPassed: Boolean){
         context.dataPreferences.edit { preferences->
+            Logger.log("DataStoreHelper", "introWasPassed $wasPassed")
             preferences[INTRO_WAS_PASSED] = wasPassed
         }
     }
 
     suspend fun saveUserID(userID: Long){
         context.dataPreferences.edit { preferences->
+            Logger.log("DataStoreHelper", "saveUserID $userID")
             preferences[USER_ID] = userID
         }
     }
 
     suspend fun saveDeviceID(deviceID: String){
         context.dataPreferences.edit { preferences->
+            Logger.log("DataStoreHelper", "saveDeviceID $deviceID")
             preferences[DEVICE_ID] = deviceID
         }
     }

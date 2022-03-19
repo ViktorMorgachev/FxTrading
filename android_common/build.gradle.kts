@@ -40,6 +40,7 @@ dependencies {
 
     api(project(":resources"))
     api(project(":core"))
+    api(project(":utils"))
 
     api(UIDeps.core_ktx)
     api(UIDeps.appCompat)
@@ -50,6 +51,8 @@ dependencies {
     api(UIDeps.navigation_fragment)
     api(UIDeps.viewbindingpropertydelegate)
 
+
+    api("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
     api("androidx.navigation:navigation-fragment-ktx:2.4.1")
     api("androidx.navigation:navigation-ui-ktx:2.4.1")
     api("androidx.appcompat:appcompat:1.4.1")

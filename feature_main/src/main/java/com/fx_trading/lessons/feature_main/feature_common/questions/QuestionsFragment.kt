@@ -55,7 +55,7 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>() {
                     view.findNavController().navigate(action)
                 }
                 is QuestionAction.ShowResultAction -> {
-
+                    
                 }
                 is QuestionAction.ShowQuestionAction -> {
                     showQuestion(it.quiestion, questionSize = it.questionSize, step = it.step, succesCount = it.succesCount)
