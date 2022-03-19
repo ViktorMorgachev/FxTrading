@@ -14,8 +14,9 @@
             android:id="@+id/title_onboarding_first"
             style="@style/onboarding_large_text"
             android:layout_width="match_parent"
-            android:paddingTop="98sp"
-            android:layout_height="wrap_content"
+            android:paddingTop="48sp"
+            app:layout_constraintHeight_percent="0.3"
+            android:layout_height="0dp"
             android:layout_marginHorizontal="8dp"
             android:text="@string/title_onboarding_first"
             app:layout_constraintBottom_toTopOf="@id/onboarding_wallet"
@@ -112,38 +113,55 @@
             app:barrierDirection="bottom"
             app:constraint_referenced_ids="onboarding_wallet"/>
 
-        <TextView
-            android:id="@+id/lesson_made_by"
-            style="@style/onboarding_small_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:id="@+id/bottom_block"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
             android:layout_marginTop="32dp"
-            android:gravity="center"
-            android:text="@string/lessons_made_by"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bottom_barriew" />
+            app:layout_constraintHeight_percent="0.2"
+            app:layout_constraintTop_toBottomOf="@id/wallet_bottom_barriew"
+            app:layout_constraintBottom_toTopOf="@id/button_next"
+            android:layout_height="0dp">
 
-        <TextView
-            android:id="@+id/top_experts"
-            style="@style/onboarding_medium_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/top_experts"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lesson_made_by" />
+            <TextView
+                android:id="@+id/lesson_made_by"
+                style="@style/onboarding_small_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:gravity="center"
+                app:layout_constraintVertical_bias="1"
+                app:layout_constraintBottom_toTopOf="@id/top_experts"
+                android:text="@string/lessons_made_by"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bottom_barriew" />
 
-        <TextView
-            android:id="@+id/in_trading_and_economy"
-            style="@style/onboarding_small_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/in_trading_and_economy"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/top_experts" />
+            <TextView
+                android:id="@+id/top_experts"
+                style="@style/onboarding_medium_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/top_experts"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lesson_made_by" />
+
+            <TextView
+                android:id="@+id/in_trading_and_economy"
+                style="@style/onboarding_small_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:layout_constraintVertical_bias="1"
+                android:text="@string/in_trading_and_economy"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/top_experts" />
+
+        </LinearLayout>
+
+
 
         <TextView
             android:id="@+id/more_than_right"
