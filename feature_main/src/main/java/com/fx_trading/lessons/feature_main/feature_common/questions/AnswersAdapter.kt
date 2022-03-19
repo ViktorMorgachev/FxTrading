@@ -34,48 +34,24 @@ class AnswersAdapter(val answers: List<Answer>, val userAnswers: List<Answer> = 
                 if (userAnswers.isEmpty()){
                     answerButton.isEnabled = true
                     itemBinding.answerButton.setOnClickListener {
-
-                        Paris.style(it).apply(R.style.quiz_button_selected)
-                        applySelectedStyle(answerButton)
+                        answerButton.answerSetSelected()
                         onSelectedAction?.invoke(answer)
                     }
                     return@with
                 }
                 if (userAnswers.contains(answer)){
                     if (answer.is_correct){
-                        Paris.style(answerButton).apply(R.style.quiz_button_correct)
-                        answerButton.setTextColor(Color.BLACK)
+                        answerButton.answerSetCorrect()
                         answerButton.text = answer.text
-                        applyCorrectStyle(answerButton)
                     } else {
-                        Paris.style(answerButton).apply(R.style.quiz_button_incorrect)
+                        answerButton.answerSetIncorrect()
                         answerButton.text = answer.text
-                        answerButton.setTextColor(Color.BLACK)
-                        applyIncorrectStyle(answerButton)
                     }
                 } else {
-                    Paris.style(answerButton).applyDefault()
+                    answerButton.answerSetDefault()
                     answerButton.text = answer.text
-                    answerButton.setTextColor(Color.BLACK)
-                    applyDefaultStyle(answerButton)
                 }
             }
-        }
-
-        private fun applyDefaultStyle(imageButton: Button){
-            imageButton.setCompoundDrawables(null, null,null, null)
-        }
-
-        private fun applySelectedStyle(imageButton: Button){
-            imageButton.setCompoundDrawables(null, null,null, null)
-        }
-
-        private fun applyCorrectStyle(imageButton: Button){
-            imageButton.setCompoundDrawables(null, null, imageButton.resources.getDrawable(R.drawable.correct), null)
-        }
-
-        private fun applyIncorrectStyle(imageButton: Button){
-            imageButton.setCompoundDrawables(null, null, imageButton.resources.getDrawable(R.drawable.incorrect), null)
         }
     }
 }

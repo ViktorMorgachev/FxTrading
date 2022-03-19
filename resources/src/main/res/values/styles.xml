@@ -37,7 +37,7 @@
         <item name="android:padding">8dp</item>
     </style>
 
-    <style name="quiz_button_default">
+    <style name="quiz_button_default" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:background">@drawable/quiz_answer_button_default</item>
         <item name="android:gravity">start|center</item>
         <item name="android:padding">8dp</item>
@@ -67,7 +67,7 @@
     </style>
 
     <style name="button_blue">
-        <item name="android:background">@drawable/quiz_bottom_button_blue</item>
+        <item name="android:background">@drawable/question_enabled_disabled_check_button</item>
         <item name="android:padding">8dp</item>
         <item name="android:textColor">@color/white</item>
     </style>

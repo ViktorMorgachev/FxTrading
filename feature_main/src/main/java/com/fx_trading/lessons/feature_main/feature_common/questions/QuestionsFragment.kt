@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,11 +20,48 @@ import com.fx_trading.lessons.domain.entities.quiz.Answer
 import com.fx_trading.lessons.domain.entities.quiz.Question
 import com.fx_trading.lessons.features.R
 import com.fx_trading.lessons.features.databinding.FragmentQuestionsBinding
-import com.fx_trading.lessons.features.feature_common.questions.*
 import com.fx_trading.lessons.utils.utils.gone
+import com.fx_trading.lessons.utils.utils.setCompoundDrawables
 import com.fx_trading.lessons.utils.utils.visibleOrGone
 import javax.inject.Inject
 import kotlin.math.roundToInt
+
+
+fun Button.setEnabled(){
+    this.background =  ResourcesCompat.getDrawable(resources, R.drawable.quiz_bottom_button_blue, null)
+    this.setTextColor(Color.parseColor("#FFFFFF"))
+}
+
+fun Button.setDisabled(){
+    this.background =  ResourcesCompat.getDrawable(resources, R.drawable.quiz_bottom_button_gray, null)
+    this.setTextColor(Color.parseColor("#FFFFFF"))
+}
+fun Button.setDefault(){
+    this.background = resources.getDrawable(R.drawable.quiz_answer_button_default, null)
+    this.setTextColor(resources.getColor(R.color.primaryColor))
+}
+
+
+fun Button.answerSetCorrect(){
+    this.background = ResourcesCompat.getDrawable(resources, R.drawable.quiz_answer_button_correct, null)
+    this.setTextColor(Color.parseColor("#FFFFFF"))
+    this.setCompoundDrawables(right = ResourcesCompat.getDrawable(resources, R.drawable.correct, null))
+}
+fun Button.answerSetIncorrect(){
+    this.background = ResourcesCompat.getDrawable(resources, R.drawable.quiz_answer_button_error, null)
+    this.setTextColor(Color.parseColor("#FFFFFF"))
+    this.setCompoundDrawables(right = ResourcesCompat.getDrawable(resources, R.drawable.incorrect, null))
+}
+
+fun Button.answerSetDefault(){
+    this.background = resources.getDrawable(R.drawable.quiz_answer_button_default)
+    this.setTextColor(Color.BLACK)
+}
+
+fun Button.answerSetSelected(){
+    this.background = ResourcesCompat.getDrawable(resources, R.drawable.quiz_answer_button_selected, null)
+    this.setTextColor(Color.BLACK)
+}
 
 class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>() {
 
@@ -73,14 +112,14 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>() {
     ) {
         with(binding){
             textResult.visibility = View.VISIBLE
-            Paris.style(checkButon).apply(R.style.button_default)
+            checkButon.setDefault()
             checkButon.text = getString(R.string.continues)
             checkButon.setOnClickListener {
                 viewModel.nextQuestion()
             }
             when(result){
                  ResultChoices.Success -> {
-                     bottomPanel.setBackgroundColor(Color.GREEN)
+                     bottomPanel.setBackgroundColor(Color.parseColor("#00C853"))
                      textResult.setTextColor(Color.WHITE)
                      textResult.text = "You’re amazing! :)"
                      val tempData = (recyclerAnswers.adapter as AnswersAdapter).answers
@@ -108,9 +147,8 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>() {
     private fun showQuestion(quiestion: Question, questionSize: Int, step: Int, succesCount: Int) {
         with(binding) {
             bottomPanel.setBackgroundColor(Color.WHITE)
-            Paris.style(checkButon).apply(R.style.button_blue)
+            checkButon.setDisabled()
             textResult.visibility = View.GONE
-            checkButon.isEnabled = false
             pbHorizontal.progress = ((step / questionSize.toFloat()) * 100).roundToInt()
             quizTitle.text = quiestion.title
             progressStep.text = "${step}/${questionSize}"

@@ -47,9 +47,7 @@ class LastQuestionAnsweredFragment : BaseFragment<FragmentLastQuestionAnsweredBi
 
                 if (arguments?.getBoolean("first_question") == true){
 
-
-
-                    bottomPanel.setBackgroundColor(Color.GREEN)
+                    bottomPanel.setBackgroundColor(Color.parseColor("#00C853"))
                     progressStep.text = "${totalQuestions}/${totalQuestions}"
                     buttonResults.setOnClickListener {
                         val  action = openTotalUserLevelResult(questionGroupID = questionGroupID, successAnswers = successAnswers, totalAnswers = totalAnswers, totalQuestions = totalQuestions, successQuestions = successQuestions)

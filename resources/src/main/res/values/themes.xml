@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.FxTrading" parent="@style/Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.FxTrading" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryVariant">@color/primaryLightColor</item>
@@ -14,6 +14,5 @@
         <item name="android:navigationBarColor">@color/primaryColor</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-
     </style>
 </resources>

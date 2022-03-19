@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:text="First answer">
-
+    xmlns:tools="http://schemas.android.com/tools">
     <Button
         android:id="@+id/answer_button"
         style="@style/quiz_button_default"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        tools:text="First answer"
         android:layout_width="match_parent"
         android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="8dp" />

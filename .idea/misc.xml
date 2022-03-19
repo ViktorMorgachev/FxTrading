@@ -46,7 +46,7 @@
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_main/src/main/res/layout/fragment_total_quiz_result.xml" value="0.118359375" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_main/src/main/res/layout/fragment_webinars.xml" value="0.31875" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_main/src/main/res/layout/intermediate_item.xml" value="0.197265625" />
-        <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_main/src/main/res/layout/item_answer.xml" value="0.16484375" />
+        <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_main/src/main/res/layout/item_answer.xml" value="0.33" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_main/src/main/res/layout/like_dislike_item.xml" value="0.208984375" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_main/src/main/res/layout/menu_bottom_nav.xml" value="0.3072916666666667" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/feature_main/src/main/res/layout/video_times_item.xml" value="0.183984375" />
@@ -92,9 +92,12 @@
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/resources/src/main/res/drawable/ic_wallet_dynamic.xml" value="0.16328125" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/resources/src/main/res/drawable/onboarding_button_default.xml" value="0.230859375" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/resources/src/main/res/drawable/onboarding_button_green.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/resources/src/main/res/drawable/question_enabled_disabled_check_button.xml" value="0.275" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/resources/src/main/res/drawable/quiz_answer_button_correct.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/resources/src/main/res/drawable/quiz_answer_button_default.xml" value="0.35989583333333336" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/resources/src/main/res/drawable/quiz_answer_button_error.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/resources/src/main/res/drawable/quiz_bottom_button_blue.xml" value="0.24427083333333333" />
+        <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/resources/src/main/res/drawable/quiz_bottom_button_gray.xml" value="0.275" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/resources/src/main/res/drawable/skip_first_test_button_background.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/resources/src/main/res/drawable/start_test_background.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Viktor/AndroidStudioProjects/FxTrading/resources/src/main/res/drawable/tab_color_backgrouns.xml" value="0.13984375" />

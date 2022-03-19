@@ -32,9 +32,7 @@ class UserRemoteRepositoryImpl @Inject constructor(
         try {
             val fieldToUpdate = HashMap<String, Any?>()
             fieldToUpdate.put("rank", user.rank)
-            val firebaseData =
-                firebaseFirestore.collection("${documentPath}Users").document("${user.user_id}")
-                    .update(fieldToUpdate)
+            val firebaseData = firebaseFirestore.collection("${documentPath}Users").document("${user.user_id}").update(fieldToUpdate)
             Logger.log("UserRemoteRepository", "updateUserData $firebaseData, user $user")
             return true
         } catch (e: Exception) {
@@ -170,8 +168,15 @@ class UserRemoteRepositoryImpl @Inject constructor(
 
     override suspend fun saveDeviceAndUserID(userId: Long, deviceID: String): Boolean {
         try {
-            val myRef: DatabaseReference = firebaseDatabase.getReference("${pathPreferences}UsersDeviceID")
             val dataForSaving = ArrayList<HashMap<String, Any?>>()
+            val myRef: DatabaseReference = firebaseDatabase.getReference("${pathPreferences}UsersDeviceID")
+            val dataFromMyRef = firebaseDatabase.getReference("${pathPreferences}UsersDeviceID").get().await()
+            dataFromMyRef?.value?.let { value ->
+                val data = value as ArrayList<HashMap<String, Any?>>
+                data.forEach {
+                    dataForSaving.add(it)
+                }
+            }
             val hashMap = HashMap<String, Any?>()
             hashMap.put("deviceID", deviceID)
             hashMap.put("userID", userId)

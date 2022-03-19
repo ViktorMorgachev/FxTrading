@@ -1,4 +1,4 @@
-package com.fx_trading.lessons.features.feature_common.questions.quiz_result
+package com.fx_trading.lessons.feature_main.feature_common.questions.quiz_result
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

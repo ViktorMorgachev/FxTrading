@@ -11,8 +11,6 @@ import com.fx_trading.lessons.core.BaseViewModelFactory
 import com.fx_trading.lessons.feature_main.activities.MainActivity
 import com.fx_trading.lessons.features.R
 import com.fx_trading.lessons.features.databinding.FragmentTotalQuizResultBinding
-import com.fx_trading.lessons.features.feature_common.questions.quiz_result.TotalResultAction
-import com.fx_trading.lessons.features.feature_common.questions.quiz_result.TotalUserLevelResultViewModel
 import com.fx_trading.lessons.utils.utils.Logger
 import javax.inject.Inject
 
