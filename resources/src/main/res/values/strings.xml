@@ -3,7 +3,7 @@
     <string name="finish">Finish</string>
     <string name="skip">Skip</string>
     <string name="continues">Continue</string>
-    <string name="lesson_start_quiz">Done watching the video? Start the quiz!</string>
+    <string name="lesson_start_quiz">Done watching the video? Ready to answer questions?</string>
     <string name="start">Start</string>
     <string name="check">Check</string>
     <string name="select_right_answers">Выберите что считаете нужным</string>
@@ -36,4 +36,5 @@
     <string name="webinars">Webinars</string>
     <string name="so_long_text">Max 3 line trunkated title in horizontal card... Max 3 line trunkated title in horizontal card...</string>
     <string name="long_text">Max 3 line trunkated title in horizontal card...</string>
+    <string name="start_quiz">Start quiz</string>
 </resources>
