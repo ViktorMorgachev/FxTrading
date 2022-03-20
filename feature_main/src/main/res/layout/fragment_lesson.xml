@@ -42,6 +42,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:autoPlay="true"
+                        android:id="@+id/youtube_player_view"
                         app:layout_constraintBottom_toTopOf="@id/tv_video_description"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
@@ -119,7 +120,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/item_timecodes"
-                    tools:itemCount="2"
+                    tools:itemCount="3"
                     tools:listitem="@layout/video_times_item">
 
                 </androidx.recyclerview.widget.RecyclerView>
