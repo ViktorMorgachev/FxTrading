@@ -2,27 +2,27 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation_graph_main"
-    app:startDestination="@id/coursesFragment">
-
-    <fragment
-        android:id="@+id/coursesFragment"
-        android:name="com.fx_trading.lessons.feature_main.ui.courses.CoursesFragment"
-        android:label="CoursesFragment" />
-
-    <fragment
-        android:id="@+id/differentFragment"
-        android:name="com.fx_trading.lessons.features.ui.different.DifferentFragment"
-        android:label="DifferentFragment" />
-
-    <fragment
-        android:id="@+id/webinarsFragment"
-        android:name="com.fx_trading.lessons.feature_main.ui.webinars.WebinarsFragment"
-        android:label="WebinarsFragment" />
+    app:startDestination="@id/mainFragment">
 
     <fragment
         android:id="@+id/lessonsFragment"
         android:name="com.fx_trading.lessons.feature_main.ui.lessons.LessonsFragment"
-        android:label="LessonsFragment" />
+        android:label="LessonsFragment">
+    </fragment>
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.fx_trading.lessons.feature_main.ui.main.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_lessonFragment"
+            app:destination="@id/lessonFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/lessonFragment"
+        android:name="com.fx_trading.lessons.feature_main.ui.lesson.LessonFragment"
+        android:label="LessonFragment" />
 
 
 </navigation>

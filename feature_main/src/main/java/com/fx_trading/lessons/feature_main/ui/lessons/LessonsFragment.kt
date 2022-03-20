@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import com.fx_trading.common.State
 import com.fx_trading.lessons.core.BaseFragment
 import com.fx_trading.lessons.core.BaseViewModelFactory
 import com.fx_trading.lessons.domain.entities.lesson.Lesson
 import com.fx_trading.lessons.domain.entities.lesson.hasCategory
 import com.fx_trading.lessons.feature_main.ui.custom.LessonAccordionData
+import com.fx_trading.lessons.feature_main.ui.main.MainFragmentDirections
 import com.fx_trading.lessons.features.databinding.FragmentLessonsBinding
 import com.fx_trading.navigation.Router
 import kotlinx.coroutines.CoroutineScope
@@ -70,9 +72,9 @@ class LessonsFragment : BaseFragment<FragmentLessonsBinding>() {
                                 }
                                 val lessonAdapter = LessonsAdapter(
                                     data = actualLessons,
-                                    openLessonAction = { lesson->{
-
-                                    }},
+                                    openLessonAction = { lesson->
+                                        findNavController(this@LessonsFragment).navigate(MainFragmentDirections.actionMainFragmentToLessonFragment())
+                                    },
                                     likeLessonAction = {
                                         viewModel.likeLesson(it)
                                     },

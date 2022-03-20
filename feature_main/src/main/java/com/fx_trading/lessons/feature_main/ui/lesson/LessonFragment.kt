@@ -11,14 +11,14 @@ import com.fx_trading.lessons.features.ui.lesson.LessonView
 import com.fx_trading.navigation.Router
 import javax.inject.Inject
 
-class LessonFragment : BaseFragment<FragmentLessonBinding>(), LessonView {
+class LessonFragment : BaseFragment<FragmentLessonBinding>() {
 
     @Inject
     lateinit var router: Router
 
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentLessonBinding = FragmentLessonBinding::inflate
 
-    override fun showLesson(lesson: Lesson) {
+    private fun showLesson(lesson: Lesson) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
