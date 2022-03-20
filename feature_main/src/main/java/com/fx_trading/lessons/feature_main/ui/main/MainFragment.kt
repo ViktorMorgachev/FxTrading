@@ -1,5 +1,7 @@
 package com.fx_trading.lessons.feature_main.ui.main
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,23 +27,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
 
     private val viewPagerAdapter by lazy {
-        object : FragmentStateAdapter(this) {
-            override fun getItemCount() = 3
 
-            override fun createFragment(position: Int): Fragment {
-                return when (position) {
-                    0 -> {
-                        LessonsFragment()
-                    }
-                    1 -> {
-                        CoursesFragment()
-                    }
-                    2 -> WebinarsFragment()
-                    else -> LessonsFragment()
-                }
-            }
-
-        }
     }
 
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMainBinding = FragmentMainBinding::inflate
@@ -50,7 +36,23 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
-            viewPager.adapter = viewPagerAdapter
+            viewPager.adapter = object : FragmentStateAdapter(this@MainFragment) {
+                override fun getItemCount() = 3
+
+                override fun createFragment(position: Int): Fragment {
+                    return when (position) {
+                        0 -> {
+                            LessonsFragment()
+                        }
+                        1 -> {
+                            CoursesFragment()
+                        }
+                        2 -> WebinarsFragment()
+                        else -> LessonsFragment()
+                    }
+                }
+
+            }
             val tabLayoutStrategy = com.google.android.material.tabs.TabLayoutMediator.TabConfigurationStrategy { tab, position ->
                 tab.text = getString(tabsNameRes[position])
             }
@@ -59,4 +61,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+    }
 }
