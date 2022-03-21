@@ -37,4 +37,6 @@
     <string name="so_long_text">Max 3 line trunkated title in horizontal card... Max 3 line trunkated title in horizontal card...</string>
     <string name="long_text">Max 3 line trunkated title in horizontal card...</string>
     <string name="start_quiz">Start quiz</string>
+    <string name="timecodes">Timecodes</string>
+    <string name="lesson_start_quiz_bottom">Answer all questions to complete this lesson</string>
 </resources>

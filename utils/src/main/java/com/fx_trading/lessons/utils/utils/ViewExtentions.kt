@@ -18,6 +18,10 @@ fun View.gone() {
     this.visibility = View.GONE
 }
 
+fun View.isGone(): Boolean{
+    return this.visibility == View.GONE
+}
+
 fun Button.setCompoundDrawables(
     left: Drawable? = null,
     top: Drawable? = null,

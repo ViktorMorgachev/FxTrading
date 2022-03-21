@@ -26,10 +26,6 @@ val tabsNameRes = listOf<Int>(R.string.lessons, R.string.courses, R.string.webin
 class MainFragment : BaseFragment<FragmentMainBinding>() {
 
 
-    private val viewPagerAdapter by lazy {
-
-    }
-
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMainBinding = FragmentMainBinding::inflate
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

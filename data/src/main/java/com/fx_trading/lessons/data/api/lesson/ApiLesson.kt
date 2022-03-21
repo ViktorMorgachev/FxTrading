@@ -10,7 +10,7 @@ data class ApiLesson(
     val dislikes: Int = 0,
     val duration: String = "",
     val id: Int = 0,
-    val is_active: Boolean = false,
+    val active: Boolean = false,
     val language: String = "",
     val likes: Int = 0,
     val promo_image_url: String = "",

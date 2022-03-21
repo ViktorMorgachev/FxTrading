@@ -1,8 +1,8 @@
 package com.fx_trading.lessons.data.api.common
 
 data class ApiTimeCode(
-    val is_active: Boolean = false,
-    val time_length: String = "",
-    val time_seconds: String = "",
+    val active: Boolean = false,
+    val time: String = "",
+    val time_seconds: Long = 0,
     val title: String = ""
 )

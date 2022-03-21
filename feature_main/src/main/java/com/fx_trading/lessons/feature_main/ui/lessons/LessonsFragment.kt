@@ -44,8 +44,8 @@ class LessonsFragment : BaseFragment<FragmentLessonsBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         lifecycleScope.launchWhenResumed {
-            viewModel.getData().collect {
-                when (it) {
+            viewModel.getData().collect { state ->
+                when (state) {
                     is State.LoadingState -> {
 
                     }
@@ -54,7 +54,7 @@ class LessonsFragment : BaseFragment<FragmentLessonsBinding>() {
                     }
                     is State.DataState -> {
                         CoroutineScope(Dispatchers.IO).launch {
-                            val allLessons = it.data
+                            val allLessons = state.data
                             val categories = mutableListOf<String>()
                             allLessons.map { it.categories }.forEach { allCategories ->
                                 allCategories.forEach { category->
@@ -73,7 +73,7 @@ class LessonsFragment : BaseFragment<FragmentLessonsBinding>() {
                                 val lessonAdapter = LessonsAdapter(
                                     data = actualLessons,
                                     openLessonAction = { lesson->
-                                        findNavController(this@LessonsFragment).navigate(MainFragmentDirections.actionMainFragmentToLessonFragment())
+                                        findNavController(this@LessonsFragment).navigate(MainFragmentDirections.actionMainFragmentToLessonFragment(lessonId = lesson.id))
                                     },
                                     likeLessonAction = {
                                         viewModel.likeLesson(it)

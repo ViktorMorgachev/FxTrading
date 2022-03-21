@@ -1,7 +1,5 @@
 package com.fx_trading.lessons.data.api.lesson.mock
 
-import com.fx_trading.lessons.data.api.common.ApiTimeCode
-import com.fx_trading.lessons.data.api.lesson.ApiCategory
 import com.fx_trading.lessons.data.api.lesson.ApiLesson
 
 class MockData {
@@ -16,7 +14,7 @@ class MockData {
             likes = 130,
             duration = "30:02",
             id = 1,
-            is_active = true,
+            active = true,
             language = "RU",
             promo_image_url = "gs://fx-trading-lessons.appspot.com/images/lessons_promo_images/promo_lesson.png",
             region = "RU",

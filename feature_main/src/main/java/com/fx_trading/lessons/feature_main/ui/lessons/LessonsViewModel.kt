@@ -11,7 +11,6 @@ import com.fx_trading.lessons.utils.utils.Logger
 import com.fx_trading.navigation.Router
 import data.DataStoreHelper
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
@@ -48,7 +47,7 @@ class LessonsViewModel @Inject constructor(
                 dataStoreHelper.userID().collect { userID->
                     val success = usersUseCase.setLikeToLesson(lessonID.toLong(), userID)
                     if (success){
-                       val lesson = lessonsUseCase.getLessonsByID(lessonID.toLong())
+                       val lesson = lessonsUseCase.getLessonByID(lessonID.toLong())
                         lesson?.let {
                             likedLesson.postValue(it)
                         }

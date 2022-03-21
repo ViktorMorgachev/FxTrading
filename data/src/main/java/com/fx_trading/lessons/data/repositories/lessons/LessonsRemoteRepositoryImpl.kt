@@ -19,9 +19,18 @@ class LessonsRemoteRepositoryImpl @Inject constructor(private val firebaseFirest
         try {
             val firebaseDocuments = firebaseFirestore.collection("${documentPath}Lessons").get().await()
             if (firebaseDocuments != null && !firebaseDocuments.isEmpty) {
-                val apiLessons = firebaseDocuments.documents.mapNotNull { it.toObject(ApiLesson::class.java) }
+                    val apiLessons = firebaseDocuments.documents.mapNotNull {
+                        try {
+                            it.toObject(ApiLesson::class.java)
+                        } catch (e: Exception){
+                            Logger.log("LessonsRemoteRepository", ".toObject(ApiLesson::class.java)", exception = e)
+                            null
+                        }
+                    }
+
+
                 Logger.log("LessonsRemoteRepository", "Data ${firebaseDocuments.documents}")
-                return apiLessons
+                return apiLessons.filter { it.active }
             } else {
                 Logger.log("LessonsRemoteRepository", "Error getting documents.")
             }
