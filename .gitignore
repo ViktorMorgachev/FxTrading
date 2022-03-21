@@ -258,3 +258,4 @@ local.properties
 /feature_binder_module/build/kotlin/kaptGenerateStubsDebugKotlin/caches-jvm/jvm/kotlin/supertypes.tab_i
 /feature_binder_module/build/kotlin/compileDebugKotlin/caches-jvm/jvm/kotlin/supertypes.tab_i.len
 /feature_binder_module/build/kotlin/kaptGenerateStubsDebugKotlin/caches-jvm/jvm/kotlin/supertypes.tab_i.len
+/.idea/misc.xml
