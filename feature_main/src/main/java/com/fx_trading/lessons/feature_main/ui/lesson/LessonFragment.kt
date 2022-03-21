@@ -13,6 +13,7 @@ import com.fx_trading.common.State
 import com.fx_trading.lessons.core.BaseFragment
 import com.fx_trading.lessons.core.BaseViewModelFactory
 import com.fx_trading.lessons.domain.entities.lesson.Lesson
+import com.fx_trading.lessons.feature_main.ui.lessons.LessonsAdapter
 import com.fx_trading.lessons.features.R
 import com.fx_trading.lessons.features.databinding.FragmentLessonBinding
 import com.fx_trading.lessons.utils.utils.gone
@@ -31,7 +32,6 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
     private val viewModel: LessonViewModel by viewModels(
         factoryProducer = { viewModelFactory }
     )
-
 
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentLessonBinding =
         FragmentLessonBinding::inflate
@@ -62,22 +62,54 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
                         recyclerTimecodes.gone()
                     }
 
-
                 }
             })
+
             toolbar.cancelButton.setOnClickListener {
                 findNavController().popBackStack()
+            }
+            likeDislikeItem.dislikeItem.ivLike.setOnClickListener {
+                lifecycleScope.launchWhenResumed {
+                    viewModel.dislikeLesson(lessonID = lesson.id.toLong()).collect { state ->
+                        when (state) {
+                            is State.DataState -> {
+                                likeDislikeItem.dislikeItem.ivLike.setImageDrawable(
+                                    ResourcesCompat.getDrawable(
+                                        resources,
+                                        R.drawable.ic_dislike_full,
+                                        it.context.theme
+                                    )
+                                )
+                                likeDislikeItem.likeItem.ivLike.setImageDrawable(
+                                    ResourcesCompat.getDrawable(
+                                        resources,
+                                        R.drawable.ic_like_white,
+                                        it.context.theme
+                                    )
+                                )
+
+                            }
+                        }
+                    }
+                }
             }
             likeDislikeItem.likeItem.root.setOnClickListener {
                 lifecycleScope.launchWhenResumed {
                     viewModel.likeLesson(lessonID = lesson.id.toLong()).collect { state ->
                         when (state) {
                             is State.DataState -> {
-                                likeDislikeItem.likeItem.tvLikeText.text = "${(state.data as Lesson).likes}"
+                                likeDislikeItem.likeItem.tvLikeText.text = "${state.data.likes}"
                                 likeDislikeItem.likeItem.ivLike.setImageDrawable(
                                     ResourcesCompat.getDrawable(
                                         resources,
                                         R.drawable.ic_like_full,
+                                        it.context.theme
+                                    )
+                                )
+                                likeDislikeItem.dislikeItem.ivLike.setImageDrawable(
+                                    ResourcesCompat.getDrawable(
+                                        resources,
+                                        R.drawable.ic_dislike,
                                         it.context.theme
                                     )
                                 )
@@ -98,6 +130,7 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
         super.onViewCreated(view, savedInstanceState)
         val lessonID = arguments?.getInt("lesson_id") ?: -1
         with(binding) {
+            recyclerRecommendLessons.layoutManager = LinearLayoutManager(requireContext())
             recyclerTimecodes.layoutManager = LinearLayoutManager(requireContext())
             lifecycle.addObserver(youtubePlayerView)
             recyclerTimecodes.gone()
@@ -108,9 +141,32 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
                 when (it) {
                     is State.DataState -> {
                         showLesson(it.data)
+                        lifecycleScope.launchWhenResumed {
+                            viewModel.getLessonsByTags(it.data.tags).collect {
+                                when(it){
+                                    is State.DataState -> {
+                                        showLessons(it.data)
+                                    }
+                                }
+                            }
+                        }
+
                     }
                 }
             }
+        }
+    }
+
+    private fun showLessons(data: List<Lesson>) {
+        with(binding){
+            val dataForList = if (data.size > 3){
+                data.take(3)
+            } else data
+            showMoreButton.setOnClickListener {
+                recyclerRecommendLessons.adapter = LessonsAdapter(data = data, openLessonAction = {}, likeLessonAction = {}, completedLessonIDs = listOf())
+                showMoreButton.gone()
+            }
+            recyclerRecommendLessons.adapter = LessonsAdapter(data = dataForList, openLessonAction = {}, likeLessonAction = {}, completedLessonIDs = listOf())
         }
     }
 }

@@ -51,6 +51,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bottom_bariew"
         tools:itemCount="3"
-        tools:listitem="@layout/accordeon_item" />
+        tools:listitem="@layout/lesson_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

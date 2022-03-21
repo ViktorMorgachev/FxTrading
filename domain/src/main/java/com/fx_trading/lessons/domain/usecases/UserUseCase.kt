@@ -53,4 +53,18 @@ class UserUseCase @Inject constructor(private val userRepository: UserRepository
         return false
     }
 
+    suspend fun setDisLikeToLesson(lessonID: Long, userID: Long): Boolean {
+        val userInfo = userRepository.getUserInfoByUserID(userID)
+        userInfo?.let {
+            if(it.dislikesLessons.contains(lessonID)) return false
+            else{
+                val success = lessonRepository.setLikeToLesson(lessonID)
+                if (success){
+                    return userRepository.updateUserInfoLessonLike(lessonID, userID)
+                }
+            }
+        }
+        return false
+    }
+
 }

@@ -14,4 +14,8 @@ class LessonsUseCase @Inject constructor(private val lessonRepository: LessonRep
     suspend fun getLessonByID(lessonID: Long): Lesson? {
         return lessonRepository.getLessonByID(lessonID)
     }
+
+   suspend fun getLessonsByTags(tags: List<String>): List<Lesson> {
+        return lessonRepository.getLessonsByTags(tags)
+    }
 }

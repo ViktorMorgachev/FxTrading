@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.fx_trading.lessons.domain.entities.lesson.Lesson
 import com.fx_trading.lessons.features.R
-import com.fx_trading.lessons.features.databinding.AccordeonItemBinding
+import com.fx_trading.lessons.features.databinding.LessonItemBinding
 
 class LessonsAdapter(var data: List<Lesson>, val openLessonAction: (Lesson)->Unit, val likeLessonAction: (Int)->Unit, val completedLessonIDs: List<Int>):  RecyclerView.Adapter<LessonsAdapter.LessonsHolder>() {
 
@@ -20,7 +20,7 @@ class LessonsAdapter(var data: List<Lesson>, val openLessonAction: (Lesson)->Uni
         val actualLessons = mutableSetOf<Lesson>()
     }
 
-    class LessonsHolder(private val itemBinding: AccordeonItemBinding, val openLessonAction: (Lesson)->Unit, val likeLessonAction: (Int)->Unit, val completedLessonIDs: List<Int>) : RecyclerView.ViewHolder(itemBinding.root) {
+    class LessonsHolder(private val itemBinding: LessonItemBinding, val openLessonAction: (Lesson)->Unit, val likeLessonAction: (Int)->Unit, val completedLessonIDs: List<Int>) : RecyclerView.ViewHolder(itemBinding.root) {
 
         fun bind(lesson: Lesson) {
             val actualLesson = actualLessons.firstOrNull { it.id == lesson.id } ?: lesson
@@ -45,7 +45,7 @@ class LessonsAdapter(var data: List<Lesson>, val openLessonAction: (Lesson)->Uni
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LessonsHolder {
-        val itemBinding = AccordeonItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemBinding = LessonItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return LessonsHolder(itemBinding,openLessonAction, likeLessonAction, completedLessonIDs)
     }
 

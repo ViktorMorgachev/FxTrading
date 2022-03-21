@@ -18,7 +18,22 @@ class LessonProvider @Inject constructor(private val lessonsDataSource: LessonsD
         return lessonsDataSource.setLikesLesson(lessonID)
     }
 
+    override suspend fun setDislikeToLesson(lessonID: Long): Boolean {
+        return lessonsDataSource.setDislikeLesson(lessonID)
+    }
+
     override suspend fun getLessonByID(lessonID: Long): Lesson? {
       return  lessonsDataSource.getLessonByID(lessonID)?.toLesson()
+    }
+
+    override suspend fun getLessonsByTags(tags: List<String>): List<Lesson> {
+        return  lessonsDataSource.getLessons().map { it.toLesson() }.filter {
+            it.tags.forEach {
+                if(tags.contains(it)){
+                    return@filter true
+                }
+            }
+            false
+        }
     }
 }

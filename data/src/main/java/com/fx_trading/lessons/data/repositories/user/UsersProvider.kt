@@ -47,4 +47,8 @@ class UsersProvider @Inject constructor(private val userDataSource: UserDataSour
       return userDataSource.updateUserInfoLessonLike(lessonID, userId = userID)
     }
 
+    override suspend fun updateUserInfoLessonDisLike(lessonID: Long, userID: Long): Boolean {
+        return userDataSource.updateUserInfoLessonDislike(lessonID, userId = userID)
+    }
+
 }

@@ -8,5 +8,5 @@ sealed class State<out T> {
 }
 
 fun <T> createState(data: T?): State<T> {
-    return if (data == null) State.EmptyState else State.DataState<T>(data)
+    return if (data == null || (data is List<*> && data.isEmpty())) State.EmptyState else State.DataState<T>(data)
 }

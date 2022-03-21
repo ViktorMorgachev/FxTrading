@@ -39,4 +39,6 @@
     <string name="start_quiz">Start quiz</string>
     <string name="timecodes">Timecodes</string>
     <string name="lesson_start_quiz_bottom">Answer all questions to complete this lesson</string>
+    <string name="recommended_lessons">Recommended lessons</string>
+    <string name="show_more">Show more</string>
 </resources>

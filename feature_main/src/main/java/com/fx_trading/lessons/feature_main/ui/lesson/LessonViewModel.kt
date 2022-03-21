@@ -46,7 +46,24 @@ class LessonViewModel @Inject constructor(val lessonsUseCase: LessonsUseCase,val
     fun dislikeLesson(lessonID: Long)= flow{
         emit(State.LoadingState)
         try {
+            dataStoreHelper.userID().collect {
+                val success = userUseCase.setDisLikeToLesson(lessonID, it)
+                if (success){
+                    val lesson = lessonsUseCase.getLessonByID(lessonID)
+                    emit(createState(lesson))
+                }
+            }
+        } catch (e: Exception){
+            Logger.log("LessonViewModel", exception = e)
+            emit(State.ErrorState(e))
+        }
+    }
 
+    fun getLessonsByTags(tags: List<String>) = flow{
+        emit(State.LoadingState)
+        try {
+           val data = lessonsUseCase.getLessonsByTags(tags)
+            emit(createState(data))
         } catch (e: Exception){
             Logger.log("LessonViewModel", exception = e)
             emit(State.ErrorState(e))

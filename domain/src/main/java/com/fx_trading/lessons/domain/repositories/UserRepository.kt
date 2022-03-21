@@ -13,4 +13,5 @@ interface UserRepository {
     suspend fun saveDeviceIDAndUserID(userId: Long): Boolean
     suspend fun getUserInfoByUserID(userID: Long): UserInfo?
     suspend fun updateUserInfoLessonLike(lessonID: Long, userID: Long): Boolean
+    suspend fun updateUserInfoLessonDisLike(lessonID: Long, userID: Long): Boolean
 }

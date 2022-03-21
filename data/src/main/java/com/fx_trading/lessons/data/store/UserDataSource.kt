@@ -61,4 +61,11 @@ class UserDataSource @Inject constructor(private val userRemoteRepository: UserR
         } else false
     }
 
+    suspend fun updateUserInfoLessonDislike(lessonID: Long, userId: Long): Boolean {
+        val userInfo = userRemoteRepository.getUserInfoByUserID(userId)
+        return if (userInfo != null){
+            userRemoteRepository.updateUserInfo(userInfo.copy(dislikes_info_lessons_ids = userInfo.dislikes_info_lessons_ids.plus(lessonID)))
+        } else false
+    }
+
 }

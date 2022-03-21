@@ -52,4 +52,15 @@ class LessonsDataSource @Inject constructor(
           return  lessonsRemoteRepository.getRemoteLessonByID(lessonID)
         }
     }
+
+   suspend fun setDislikeLesson(lessonID: Long): Boolean {
+       val lessonForUpdate = cache.firstOrNull() { it.id == lessonID.toInt() }
+       if (lessonForUpdate != null){
+           val success =  lessonsRemoteRepository.updateLesson(lessonForUpdate.copy(dislikes = lessonForUpdate.dislikes + 1))
+           if (success){
+               updateCache(lessonForUpdate, lessonForUpdate.copy(dislikes = lessonForUpdate.dislikes + 1))
+           }
+           return true
+       } else return false
+    }
 }
