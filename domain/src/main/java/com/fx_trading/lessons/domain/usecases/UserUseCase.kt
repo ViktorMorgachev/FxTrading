@@ -60,7 +60,7 @@ class UserUseCase @Inject constructor(private val userRepository: UserRepository
             else{
                 val success = lessonRepository.setLikeToLesson(lessonID)
                 if (success){
-                    return userRepository.updateUserInfoLessonLike(lessonID, userID)
+                    return userRepository.updateUserInfoLessonDisLike(lessonID, userID)
                 }
             }
         }
