@@ -1,5 +1,6 @@
 package com.fx_trading.lessons.feature_main.ui.lesson
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.fx_trading.common.State
 import com.fx_trading.lessons.core.BaseFragment
 import com.fx_trading.lessons.core.BaseViewModelFactory
 import com.fx_trading.lessons.domain.entities.lesson.Lesson
+import com.fx_trading.lessons.feature_main.activities.QuestionActivity
 import com.fx_trading.lessons.feature_main.ui.lessons.LessonsAdapter
 import com.fx_trading.lessons.features.R
 import com.fx_trading.lessons.features.databinding.FragmentLessonBinding
@@ -64,7 +66,9 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
 
                 }
             })
-
+            startExam.setOnClickListener {
+                startActivity(Intent(requireActivity(), QuestionActivity::class.java))
+            }
             toolbar.cancelButton.setOnClickListener {
                 findNavController().popBackStack()
             }
@@ -137,21 +141,25 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
             itemTimecodes.gone()
         }
         lifecycleScope.launchWhenResumed {
-            viewModel.getLesson(lessonID = lessonID.toLong()).collect {
-                when (it) {
-                    is State.DataState -> {
-                        showLesson(it.data)
-                        lifecycleScope.launchWhenResumed {
-                            viewModel.getLessonsByTags(it.data.tags).collect {
-                                when(it){
-                                    is State.DataState -> {
-                                        showLessons(it.data)
-                                    }
+            showLessonByLessonID(lessonID = lessonID.toLong())
+        }
+    }
+
+    private suspend fun showLessonByLessonID(lessonID: Long) {
+        viewModel.getLesson(lessonID = lessonID).collect {
+            when (it) {
+                is State.DataState -> {
+                    showLesson(it.data)
+                    lifecycleScope.launchWhenResumed {
+                        viewModel.getLessonsByTags(it.data.tags).collect {
+                            when(it){
+                                is State.DataState -> {
+                                    showLessons(it.data)
                                 }
                             }
                         }
-
                     }
+
                 }
             }
         }
@@ -159,14 +167,35 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
 
     private fun showLessons(data: List<Lesson>) {
         with(binding){
+            val likeLessonAction: (Int)->Unit = { lessonID->
+                lifecycleScope.launchWhenCreated {
+                    viewModel.likeLesson(lessonID = lessonID.toLong()).collect { state ->
+                        when (state) {
+                            is State.DataState -> {
+                                LessonsAdapter.actualLessons.add(state.data)
+
+                            }
+                        }
+                    }
+                }
+            }
+            val openLessonAction: (Lesson)->Unit = { lesson->
+                lifecycleScope.launchWhenResumed {
+                    showLessonByLessonID(lessonID = lesson.id.toLong())
+                    youtubePlayerView.release()
+                    lifecycle.addObserver(youtubePlayerView)
+                }
+            }
             val dataForList = if (data.size > 3){
+                showMoreButton.visible()
                 data.take(3)
             } else data
+
             showMoreButton.setOnClickListener {
-                recyclerRecommendLessons.adapter = LessonsAdapter(data = data, openLessonAction = {}, likeLessonAction = {}, completedLessonIDs = listOf())
+                recyclerRecommendLessons.adapter = LessonsAdapter(data = data, openLessonAction = openLessonAction, likeLessonAction = likeLessonAction, completedLessonIDs = listOf())
                 showMoreButton.gone()
             }
-            recyclerRecommendLessons.adapter = LessonsAdapter(data = dataForList, openLessonAction = {}, likeLessonAction = {}, completedLessonIDs = listOf())
+            recyclerRecommendLessons.adapter = LessonsAdapter(data = dataForList, openLessonAction = openLessonAction, likeLessonAction = likeLessonAction, completedLessonIDs = listOf())
         }
     }
 }

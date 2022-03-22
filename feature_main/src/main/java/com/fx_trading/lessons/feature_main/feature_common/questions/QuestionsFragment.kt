@@ -26,43 +26,6 @@ import com.fx_trading.lessons.utils.utils.visibleOrGone
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
-
-fun Button.setEnabled(){
-    this.background =  ResourcesCompat.getDrawable(resources, R.drawable.quiz_bottom_button_blue, null)
-    this.setTextColor(Color.parseColor("#FFFFFF"))
-}
-
-fun Button.setDisabled(){
-    this.background =  ResourcesCompat.getDrawable(resources, R.drawable.quiz_bottom_button_gray, null)
-    this.setTextColor(Color.parseColor("#FFFFFF"))
-}
-fun Button.setDefault(){
-    this.background = resources.getDrawable(R.drawable.quiz_answer_button_default, null)
-    this.setTextColor(resources.getColor(R.color.primaryColor))
-}
-
-
-fun Button.answerSetCorrect(){
-    this.background = ResourcesCompat.getDrawable(resources, R.drawable.quiz_answer_button_correct, null)
-    this.setTextColor(Color.parseColor("#FFFFFF"))
-    this.setCompoundDrawables(right = ResourcesCompat.getDrawable(resources, R.drawable.correct, null))
-}
-fun Button.answerSetIncorrect(){
-    this.background = ResourcesCompat.getDrawable(resources, R.drawable.quiz_answer_button_error, null)
-    this.setTextColor(Color.parseColor("#FFFFFF"))
-    this.setCompoundDrawables(right = ResourcesCompat.getDrawable(resources, R.drawable.incorrect, null))
-}
-
-fun Button.answerSetDefault(){
-    this.background = resources.getDrawable(R.drawable.quiz_answer_button_default)
-    this.setTextColor(Color.BLACK)
-}
-
-fun Button.answerSetSelected(){
-    this.background = ResourcesCompat.getDrawable(resources, R.drawable.quiz_answer_button_selected, null)
-    this.setTextColor(Color.BLACK)
-}
-
 class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>() {
 
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentQuestionsBinding =
@@ -82,6 +45,7 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>() {
         super.onViewCreated(view, savedInstanceState)
         with(binding){
             recyclerAnswers.layoutManager = LinearLayoutManager(requireContext())
+            // Получаем информацию о том что стартовый экзамен или нет, если да,
         }
         viewModel.uiData.observe(viewLifecycleOwner, {
             when (it) {
@@ -112,7 +76,7 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>() {
     ) {
         with(binding){
             textResult.visibility = View.VISIBLE
-            checkButon.setDefault()
+            Paris.style(checkButon).apply(R.style.button_bottom_light_blue_default)
             checkButon.text = getString(R.string.continues)
             checkButon.setOnClickListener {
                 viewModel.nextQuestion()
@@ -147,13 +111,14 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>() {
     private fun showQuestion(quiestion: Question, questionSize: Int, step: Int, succesCount: Int) {
         with(binding) {
             bottomPanel.setBackgroundColor(Color.WHITE)
-            checkButon.setDisabled()
+            Paris.style(checkButon).apply(R.style.quiz_bottom_button_disabled)
             textResult.visibility = View.GONE
             pbHorizontal.progress = ((step / questionSize.toFloat()) * 100).roundToInt()
             quizTitle.text = quiestion.title
             progressStep.text = "${step}/${questionSize}"
             val userChoices = mutableListOf<Answer>()
             recyclerAnswers.adapter = AnswersAdapter(answers = quiestion.answers){
+                Paris.style(checkButon).apply(R.style.button_bottom_blue_default)
                 checkButon.isEnabled = true
                 userChoices.add(it)
             }

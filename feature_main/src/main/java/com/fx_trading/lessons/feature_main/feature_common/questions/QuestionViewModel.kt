@@ -59,6 +59,8 @@ class QuestionViewModel @Inject constructor(
         }
     }
 
+
+
     fun increaseSuccess() {
         successCount++
         Logger.log("QuestionViewModel", "SuccessCount $successCount ErrorCount $errorCount")

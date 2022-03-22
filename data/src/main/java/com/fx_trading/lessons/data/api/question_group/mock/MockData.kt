@@ -26,7 +26,7 @@ class MockData {
             parent_id = 0,
             apiQuestions = listOf(),
             region = "",
-            isStartExam = false
+            is_start_exam = false
         )
 
         private val apiAnswers1 = listOf<ApiAnswer>(
@@ -68,7 +68,7 @@ class MockData {
             parent_id = 0,
             apiQuestions = listOf(apiQuestion, apiQuestion2),
             region = "RU",
-            isStartExam = true
+            is_start_exam = true
         )
 
 

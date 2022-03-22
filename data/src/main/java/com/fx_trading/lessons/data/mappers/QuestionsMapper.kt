@@ -20,7 +20,7 @@ fun ApiQuestionGroup?.toQuestionGroup(): QuestionsGroup? {
         parent_id = this.parent_id.toInt(),
         questions = this.apiQuestions.map { it.toQuestion() }.toMutableList(),
         region = this.region,
-        isStartExam = this.isStartExam
+        isStartExam = this.is_start_exam
     )
 }
 

@@ -10,5 +10,5 @@ data class ApiQuestionGroup(
     val parent_id: Long,
     val apiQuestions: List<ApiQuestion>,
     val region: String,
-    val isStartExam: Boolean
+    val is_start_exam: Boolean
 )

@@ -151,7 +151,7 @@
             <Button
                 android:id="@+id/check_buton"
                 android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:text="@string/check"

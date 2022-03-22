@@ -150,7 +150,7 @@ class QuestionRemoteRepositoryImpl @Inject constructor(var firebaseFireStore: Fi
                         region = hashMap.getField("region", ""),
                         correct_for_success = hashMap.getField("correct_for_success", 0),
                         available_attempts = hashMap.getField("available_attempts", 0),
-                        isStartExam = hashMap.containsKey("is_start_exam"),
+                        is_start_exam = hashMap.containsKey("is_start_exam"),
                         apiQuestions = apiQuestions
                     )
                     Result.add(data)
@@ -159,7 +159,7 @@ class QuestionRemoteRepositoryImpl @Inject constructor(var firebaseFireStore: Fi
                 if (use_mock_data) {
                     emit(apiQuestionGroup)
                 } else {
-                    emit(Result.firstOrNull { it.isStartExam })
+                    emit(Result.firstOrNull { it.is_start_exam })
                 }
             }
         } catch (e: Exception) {

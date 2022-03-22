@@ -44,6 +44,8 @@ dependencies {
 
     implementation("androidx.viewpager2:viewpager2:1.1.0-beta01")
     implementation("com.airbnb.android:paris:2.0.0")
+
+    // https://github.com/PierfrancescoSoffritti/android-youtube-player
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:11.0.1")
 
     implementation ("com.github.bumptech.glide:glide:4.11.0") {

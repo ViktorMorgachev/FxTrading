@@ -159,6 +159,7 @@
 
                         <Button
                             style="@style/onboarding_button_green"
+                            android:id="@+id/start_exam"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawableEnd="@drawable/arrow_right_white"
@@ -217,7 +218,7 @@
 
                     <Button
                         android:id="@+id/show_more_button"
-                        style="@style/button_blue"
+                        style="@style/button_bottom_blue_default"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"

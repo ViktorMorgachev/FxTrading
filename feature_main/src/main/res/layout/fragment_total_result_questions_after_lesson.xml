@@ -185,7 +185,7 @@
 
         <Button
             android:id="@+id/button"
-            style="@style/button_blue"
+            style="@style/button_bottom_blue_default"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"

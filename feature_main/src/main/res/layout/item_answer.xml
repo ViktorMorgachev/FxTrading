@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <Button
         android:id="@+id/answer_button"
-        style="@style/quiz_button_default"
+        style="@style/answer_button_default"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         tools:text="First answer"

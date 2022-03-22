@@ -1,14 +1,14 @@
 package com.fx_trading.lessons.feature_main.feature_common.questions
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Button
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.paris.Paris
 import com.fx_trading.lessons.domain.entities.quiz.Answer
 import com.fx_trading.lessons.features.R
 import com.fx_trading.lessons.features.databinding.ItemAnswerBinding
+import com.fx_trading.lessons.utils.utils.setCompoundDrawables
 
 class AnswersAdapter(val answers: List<Answer>, val userAnswers: List<Answer> = listOf(), val onSelectedAction: ((Answer) -> Unit)? = null) :
     RecyclerView.Adapter<AnswersAdapter.AnswersHolder>() {
@@ -34,22 +34,22 @@ class AnswersAdapter(val answers: List<Answer>, val userAnswers: List<Answer> = 
                 if (userAnswers.isEmpty()){
                     answerButton.isEnabled = true
                     itemBinding.answerButton.setOnClickListener {
-                        answerButton.answerSetSelected()
+                        Paris.style(answerButton).apply(R.style.answer_button_selected)
                         onSelectedAction?.invoke(answer)
                     }
                     return@with
                 }
                 if (userAnswers.contains(answer)){
                     if (answer.is_correct){
-                        answerButton.answerSetCorrect()
-                        answerButton.text = answer.text
+                        Paris.style(answerButton).apply(R.style.answer_button_correct)
+                        answerButton.setCompoundDrawables(right = ResourcesCompat.getDrawable(answerButton.resources, R.drawable.correct, null))
+
                     } else {
-                        answerButton.answerSetIncorrect()
-                        answerButton.text = answer.text
+                        Paris.style(answerButton).apply(R.style.answer_button_incorrect)
+                        answerButton.setCompoundDrawables(right = ResourcesCompat.getDrawable(answerButton.resources, R.drawable.incorrect, null))
                     }
                 } else {
-                    answerButton.answerSetDefault()
-                    answerButton.text = answer.text
+                    Paris.style(answerButton).apply(R.style.answer_button_default)
                 }
             }
         }
