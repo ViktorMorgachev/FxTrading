@@ -1,19 +1,99 @@
 package com.fx_trading.lessons.feature_main.feature_common.questions.question_result
 
+import android.annotation.SuppressLint
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import com.fx_trading.lessons.core.BaseFragment
+import com.fx_trading.lessons.features.R
 import com.fx_trading.lessons.features.databinding.FragmentTotalResultQuestionsBinding
+import kotlin.math.roundToInt
 
 class QuestionsResultFragment : BaseFragment<FragmentTotalResultQuestionsBinding>() {
 
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentTotalResultQuestionsBinding =
         FragmentTotalResultQuestionsBinding::inflate
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        with(binding) {
+            arguments?.let {
+                val successQuestions = it.getInt("successQuestions")
+                val totalQuestions = it.getInt("totalQuestions")
+                val questionGroupID = it.getInt("questionGroupID")
+                val correctForSucess = it.getInt("correctForSuccess")
+                val lessonDifficulty = it.getInt("lessonDifficulty")
+                val lessonID = it.getInt("lessonID")
+
+                val percentSuccessAnswering =
+                    (successQuestions.toFloat() / totalQuestions.toFloat() * 100).roundToInt()
+
+
+                if (successQuestions < correctForSucess) {
+                    textMainResult.text =  resources.getString(R.string.failed)
+                    progressToolbar.pbHorizontal.progressTintList = ColorStateList.valueOf(Color.parseColor("#FF3D00"))
+                    motivationText.text = resources.getString(R.string.motivation_failed)
+                    progressToolbar.cancelButton.setImageDrawable( ResourcesCompat.getDrawable(resources, R.drawable.cancel_red, null))
+                    resultImage.setImageDrawable( ResourcesCompat.getDrawable(resources, R.drawable.faillure_result, null))
+                } else {
+                    textMainResult.text =  resources.getString(R.string.great_job)
+                    progressToolbar.pbHorizontal.progressTintList = ColorStateList.valueOf(Color.parseColor("#01AC48"))
+                    motivationText.text = resources.getString(R.string.motivation_success)
+                    progressToolbar.cancelButton.setImageDrawable( ResourcesCompat.getDrawable(resources, R.drawable.checked_green, null))
+                    resultImage.setImageDrawable( ResourcesCompat.getDrawable(resources, R.drawable.success_result, null))
+
+                    // Сохранить результат в usersInfo о том что пользователь прошёл тест успешно по уроку, и сохранить в question_list что пользователь прошёл курс
+
+                }
+
+                progressToolbar.pbHorizontal.progress = 100
+                progressToolbar.progressStep.text = "${totalQuestions}/${totalQuestions}"
+                percentResult.text = "${percentSuccessAnswering}%"
+                countTotalQuestions.text = "$totalQuestions"
+                countResultAnswers.text = "$successQuestions"
+
+                when (lessonDifficulty) {
+                    1 -> {
+                        stars.star2.setImageDrawable(
+                            ResourcesCompat.getDrawable(
+                                resources,
+                                R.drawable.star_orange,
+                                null
+                            )
+                        )
+                        lessonDifficultyDescription.text = resources.getString(R.string.lesson_easy)
+                    }
+                    2 -> {
+                        stars.star2.setImageDrawable(
+                            ResourcesCompat.getDrawable(
+                                resources,
+                                R.drawable.star_orange,
+                                null
+                            )
+                        )
+                        stars.star3.setImageDrawable(
+                            ResourcesCompat.getDrawable(
+                                resources,
+                                R.drawable.star_orange,
+                                null
+                            )
+                        )
+                        lessonDifficultyDescription.text = resources.getString(R.string.lesson_hard)
+                    }
+                    3 ->{
+                        lessonDifficultyDescription.text = resources.getString(R.string.lesson_medium)
+                    }
+
+                }
+
+                // viewModel.saveUserResultToDatabase(questionGroupID = questionGroupID, level = level, status = 1, lessonID = )
+            }
+        }
 
     }
 

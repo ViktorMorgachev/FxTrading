@@ -54,7 +54,7 @@
             <ImageView
                 android:id="@+id/cancel_button"
                 android:layout_width="wrap_content"
-                android:src="@drawable/correct"
+                android:src="@drawable/checked_green"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:padding="16dp"

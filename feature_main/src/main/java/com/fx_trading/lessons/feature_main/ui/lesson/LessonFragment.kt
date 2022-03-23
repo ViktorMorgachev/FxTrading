@@ -15,6 +15,8 @@ import com.fx_trading.lessons.core.BaseFragment
 import com.fx_trading.lessons.core.BaseViewModelFactory
 import com.fx_trading.lessons.domain.entities.lesson.Lesson
 import com.fx_trading.lessons.feature_main.activities.QuestionActivity
+import com.fx_trading.lessons.feature_main.activities.QuestionActivity.Companion.key_lesson_difficulty
+import com.fx_trading.lessons.feature_main.activities.QuestionActivity.Companion.key_lesson_id
 import com.fx_trading.lessons.feature_main.activities.QuestionActivity.Companion.key_question_group_id
 import com.fx_trading.lessons.feature_main.ui.lessons.LessonsAdapter
 import com.fx_trading.lessons.features.R
@@ -70,6 +72,8 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
             startExam.setOnClickListener {
                 val intent = Intent(requireActivity(), QuestionActivity::class.java)
                 intent.putExtra(key_question_group_id, lesson.question_group.toInt())
+                intent.putExtra(key_lesson_difficulty, lesson.difficulty)
+                intent.putExtra(key_lesson_id, lesson.id)
                 startActivity(intent)
             }
             toolbar.cancelButton.setOnClickListener {
@@ -195,10 +199,10 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
             } else data
 
             showMoreButton.setOnClickListener {
-                recyclerRecommendLessons.adapter = LessonsAdapter(data = data, openLessonAction = openLessonAction, likeLessonAction = likeLessonAction, completedLessonIDs = listOf())
+                recyclerRecommendLessons.adapter = LessonsAdapter(data = data, openLessonAction = {}, likeLessonAction = likeLessonAction, completedLessonIDs = listOf())
                 showMoreButton.gone()
             }
-            recyclerRecommendLessons.adapter = LessonsAdapter(data = dataForList, openLessonAction = openLessonAction, likeLessonAction = likeLessonAction, completedLessonIDs = listOf())
+            recyclerRecommendLessons.adapter = LessonsAdapter(data = dataForList, openLessonAction = {}, likeLessonAction = likeLessonAction, completedLessonIDs = listOf())
         }
     }
 }

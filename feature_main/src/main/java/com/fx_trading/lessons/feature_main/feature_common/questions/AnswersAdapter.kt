@@ -42,7 +42,7 @@ class AnswersAdapter(val answers: List<Answer>, val userAnswers: List<Answer> = 
                 if (userAnswers.contains(answer)){
                     if (answer.is_correct){
                         Paris.style(answerButton).apply(R.style.answer_button_correct)
-                        answerButton.setCompoundDrawables(right = ResourcesCompat.getDrawable(answerButton.resources, R.drawable.correct, null))
+                        answerButton.setCompoundDrawables(right = ResourcesCompat.getDrawable(answerButton.resources, R.drawable.checked_green, null))
 
                     } else {
                         Paris.style(answerButton).apply(R.style.answer_button_incorrect)

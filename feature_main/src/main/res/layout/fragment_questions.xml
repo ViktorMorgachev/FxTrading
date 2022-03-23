@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <include layout="@layout/progress_toolbar"
             android:id="@+id/quiz_toolbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -19,45 +19,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ProgressBar
-                android:id="@+id/pb_horizontal"
-                style="@android:style/Widget.ProgressBar.Horizontal"
-                android:layout_width="0dp"
-                android:layout_height="16dp"
-                android:layout_alignParentTop="true"
-                android:layout_margin="8dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:max="100"
-                android:progress="1"
-                android:progressBackgroundTint="#DFE4E7"
-                android:progressTint="#01AC48"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/cancel_button"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/progress_step"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@id/pb_horizontal"
-                app:layout_constraintRight_toRightOf="@id/pb_horizontal"
-                app:layout_constraintTop_toTopOf="@id/pb_horizontal"
-                tools:text="1/2" />
-
-            <ImageView
-                android:id="@+id/cancel_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:src="@drawable/cancel_blue"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/pb_horizontal"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </include>
 
         <ScrollView
             android:id="@+id/scroll_view"
@@ -153,7 +115,7 @@
                 android:theme="@style/Theme.AppCompat.Light.NoActionBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
+                android:layout_marginHorizontal="4dp"
                 android:text="@string/check"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_weight="1"

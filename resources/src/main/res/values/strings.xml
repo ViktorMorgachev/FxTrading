@@ -9,7 +9,9 @@
     <string name="select_right_answers">Выберите что считаете нужным</string>
     <string name="last_question_answered">Last question answered</string>
     <string name="great_job">Great job!</string>
+    <string name="failed">Failed :(</string>
     <string name="motivation_success">Keep it up, champ!</string>
+    <string name="motivation_failed">Don’t give up, keep learning!</string>
     <string name="your_score">Your score:</string>
     <string name="total_questions">Total questions</string>
     <string name="your_level">Your level:</string>
@@ -41,4 +43,6 @@
     <string name="lesson_start_quiz_bottom">Answer all questions to complete this lesson</string>
     <string name="recommended_lessons">Recommended lessons</string>
     <string name="show_more">Show more</string>
+    <string name="out_of_hundred">out of 100</string>
+    <string name="lesson_hard">Hard lesson</string>
 </resources>

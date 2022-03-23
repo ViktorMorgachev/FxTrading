@@ -15,19 +15,27 @@
             <argument
                 android:name="questionGroupID"
                 app:argType="integer"
-                app:nullable="false"/>
+                app:nullable="false" />
             <argument
-                android:name="successQuestion"
+                android:name="successQuestions"
                 app:argType="integer"
-                app:nullable="false"/>
+                app:nullable="false" />
             <argument
-                android:name="totalQuestion"
+                android:name="totalQuestions"
                 app:argType="integer"
-                app:nullable="false"/>
+                app:nullable="false" />
             <argument
                 android:name="correctForSuccess"
                 app:argType="integer"
-                app:nullable="false"/>
+                app:nullable="false" />
+            <argument
+                android:name="lessonDifficulty"
+                app:argType="integer"
+                app:nullable="false" />
+            <argument
+                android:name="lessonID"
+                app:argType="integer"
+                app:nullable="false" />
         </action>
         <action
             android:id="@+id/action_questionsFragment_to_firstQuestionsResultFragment"
@@ -35,15 +43,15 @@
             <argument
                 android:name="questionGroupID"
                 app:argType="integer"
-                app:nullable="false"/>
+                app:nullable="false" />
             <argument
                 android:name="successQuestion"
                 app:argType="integer"
-                app:nullable="false"/>
+                app:nullable="false" />
             <argument
                 android:name="totalQuestion"
                 app:argType="integer"
-                app:nullable="false"/>
+                app:nullable="false" />
         </action>
 
     </fragment>
@@ -52,8 +60,7 @@
     <fragment
         android:id="@+id/questionsResultFragment"
         android:name="com.fx_trading.lessons.feature_main.feature_common.questions.question_result.QuestionsResultFragment"
-        android:label="QuestionsResult">
-    </fragment>
+        android:label="QuestionsResult"></fragment>
 
 
     <fragment

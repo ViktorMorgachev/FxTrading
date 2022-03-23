@@ -53,7 +53,7 @@
         <item name="android:textColor">@color/secondaryTextColor</item>
         <item name="android:background">@drawable/quiz_answer_button_correct</item>
         <item name="android:gravity">start|center</item>
-        <item name="android:drawableEnd">@drawable/correct</item>
+        <item name="android:drawableEnd">@drawable/checked_green</item>
         <item name="android:padding">8dp</item>
     </style>
 

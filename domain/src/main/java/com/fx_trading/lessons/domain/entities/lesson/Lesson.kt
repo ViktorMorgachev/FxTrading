@@ -6,7 +6,7 @@ data class Lesson(
     val categories: List<String>,
     val comments: List<Comment>,
     val description: String,
-    val difficulty: String,
+    val difficulty: Int,
     val dislikes: Int,
     val duration: String,
     val id: Int,

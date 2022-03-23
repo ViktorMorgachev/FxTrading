@@ -14,7 +14,7 @@ fun ApiLesson.toLesson(): Lesson{
     return Lesson(categories = this.categories,
         comments = this.comments.map { it.toComment() },
         description = this.description,
-        difficulty = this.difficulty,
+        difficulty = this.difficultyID,
         dislikes = this.dislikes,
         duration = this.duration,
         id = this.id,
