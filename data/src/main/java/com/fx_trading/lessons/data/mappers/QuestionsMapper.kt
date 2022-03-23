@@ -14,16 +14,16 @@ fun ApiQuestionGroup?.toQuestionGroup(): QuestionsGroup? {
         available_attempts = this.available_attempts.toInt(),
         correct_for_success = this.correct_for_success.toInt(),
         id = this.id.toInt(),
-        is_active = this.is_active,
+        is_active = this.active,
         language = this.language,
         name = this.name,
         parent_id = this.parent_id.toInt(),
-        questions = this.apiQuestions.map { it.toQuestion() }.toMutableList(),
+        questions = this.questions.map { it.toQuestion() }.toMutableList(),
         region = this.region,
-        isStartExam = this.is_start_exam
+        isStartExam = this.start_exam
     )
 }
 
-fun ApiQuestion.toQuestion(): Question = Question(answers = this.apiAnswers.map { it.toAnswer() }, description, difficulty.toInt(), is_active, optional_image_url, title)
-fun ApiAnswer.toAnswer(): Answer = Answer(is_active, is_correct.toInt() == 1, optional_image_url, text)
+fun ApiQuestion.toQuestion(): Question = Question(answers = this.answers.map { it.toAnswer() }, description, difficulty.toInt(), active, optional_image_url, title)
+fun ApiAnswer.toAnswer(): Answer = Answer(active, correct.toInt() == 1, optional_image_url, text)
 

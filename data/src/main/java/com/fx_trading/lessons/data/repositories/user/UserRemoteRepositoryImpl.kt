@@ -6,27 +6,20 @@ import com.fx_trading.lessons.data.api.user.mock.MockData.Companion.defaultUser
 import com.fx_trading.lessons.data.api.user_info.ApiUserInfo
 import com.fx_trading.lessons.data.extentions.await
 import com.fx_trading.lessons.data.extentions.getField
-import com.fx_trading.lessons.data.repositories.question.documentPath
 import com.fx_trading.lessons.utils.utils.Logger
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
 
-val pathPreferences = BuildConfig.DOCUMENT_DB_PATH
 
 class UserRemoteRepositoryImpl @Inject constructor(
     var firebaseDatabase: FirebaseDatabase,
     val firebaseFirestore: FirebaseFirestore
 ) : UserRemoteRepository {
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    override suspend fun checkUserByDeviceIDInDatabase(deviceID: String): Boolean {
-
-        return false
-    }
+    private val documentPath = BuildConfig.DOCUMENT_DB_PATH
 
     override suspend fun updateUserData(user: ApiUser): Boolean {
         try {
@@ -43,7 +36,7 @@ class UserRemoteRepositoryImpl @Inject constructor(
 
     override suspend fun getUserIDByDeviceID(deviceID: String): Long? {
         try {
-            val myRef: DatabaseReference = firebaseDatabase.getReference("${pathPreferences}UsersDeviceID")
+            val myRef: DatabaseReference = firebaseDatabase.getReference("${documentPath}UsersDeviceID")
             val result = myRef.get().await()
             result?.value?.let { value ->
                 val data = value as ArrayList<HashMap<String, Any?>>
@@ -63,12 +56,9 @@ class UserRemoteRepositoryImpl @Inject constructor(
 
     override suspend fun createNewUser(): ApiUser? {
         try {
-            val firebaseDocuments =
-                firebaseFirestore.collection("${documentPath}Users").get().await()
+            val firebaseDocuments = firebaseFirestore.collection("${documentPath}Users").get().await()
             if (firebaseDocuments != null && !firebaseDocuments.isEmpty) {
-                val lastDocumentID =
-                    firebaseDocuments.documents.map { it.id.toInt() }.sorted().lastOrNull()
-                        ?.toLong() ?: -1
+                val lastDocumentID = firebaseDocuments.documents.map { it.id.toInt() }.sorted().lastOrNull()?.toLong() ?: -1
                 val newUserID = lastDocumentID + 1
                 val newUser = defaultUser.copy(user_id = newUserID)
                 val hashMap = HashMap<String, Any?>()
@@ -76,9 +66,7 @@ class UserRemoteRepositoryImpl @Inject constructor(
                 hashMap.put("date_created", newUser.date_created)
                 hashMap.put("date_logined", newUser.date_logined)
                 hashMap.put("user_id", newUser.user_id)
-
-                val resulToSet = firebaseFirestore.collection("${documentPath}Users")
-                    .document("${newUser.user_id}").set(hashMap).await()
+                firebaseFirestore.collection("${documentPath}Users").document("${newUser.user_id}").set(hashMap).await()
                 return newUser
             } else {
                 if (firebaseDocuments != null && firebaseDocuments.isEmpty) {
@@ -87,8 +75,7 @@ class UserRemoteRepositoryImpl @Inject constructor(
                     hashMap.put("date_created", newUser.date_created)
                     hashMap.put("date_logined", newUser.date_logined)
                     hashMap.put("user_id", newUser.user_id)
-                    val resulToSet = firebaseFirestore.collection("${documentPath}Users")
-                        .document("${newUser.user_id}").set(hashMap).await()
+                    firebaseFirestore.collection("${documentPath}Users").document("${newUser.user_id}").set(hashMap).await()
                     return newUser
                 }
             }
@@ -100,8 +87,7 @@ class UserRemoteRepositoryImpl @Inject constructor(
 
     override suspend fun getUserByUserID(userID: Long): ApiUser? {
         try {
-            val firebaseData =
-                firebaseFirestore.collection("${documentPath}Users").document("$userID").get().await()
+            val firebaseData = firebaseFirestore.collection("${documentPath}Users").document("$userID").get().await()
             if (firebaseData == null || firebaseData.data == null) {
                 Logger.log("QuestionRemoteRepository", "Error getting documents.")
                 return null
@@ -169,8 +155,8 @@ class UserRemoteRepositoryImpl @Inject constructor(
     override suspend fun saveDeviceAndUserID(userId: Long, deviceID: String): Boolean {
         try {
             val dataForSaving = ArrayList<HashMap<String, Any?>>()
-            val myRef: DatabaseReference = firebaseDatabase.getReference("${pathPreferences}UsersDeviceID")
-            val dataFromMyRef = firebaseDatabase.getReference("${pathPreferences}UsersDeviceID").get().await()
+            val myRef: DatabaseReference = firebaseDatabase.getReference("${documentPath}UsersDeviceID")
+            val dataFromMyRef = firebaseDatabase.getReference("${documentPath}UsersDeviceID").get().await()
             dataFromMyRef?.value?.let { value ->
                 val data = value as ArrayList<HashMap<String, Any?>>
                 data.forEach {
@@ -205,7 +191,7 @@ class UserRemoteRepositoryImpl @Inject constructor(
 
     override suspend fun updateUserInfo(userInfo: ApiUserInfo): Boolean {
         try {
-            firebaseFirestore.collection("${com.fx_trading.lessons.data.repositories.lessons.documentPath}UsersInfo").document("${userInfo.user_id}").set(userInfo).await()
+            firebaseFirestore.collection("${documentPath}UsersInfo").document("${userInfo.user_id}").set(userInfo).await()
             return true
         } catch (e: Exception) {
             Logger.log("LessonsRemoteRepository", "Error getting documents.", exception = e)

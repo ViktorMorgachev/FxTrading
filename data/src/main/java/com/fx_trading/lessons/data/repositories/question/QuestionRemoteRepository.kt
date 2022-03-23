@@ -6,8 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface QuestionRemoteRepository {
-    suspend fun getRemoteQuestionGroups(): Flow<List<ApiQuestionGroup>>
-    suspend fun getRemoteQuestionGroup(id: Int): Flow<ApiQuestionGroup?>
-    @ExperimentalCoroutinesApi
-    suspend fun getFirstExamRemoteQuestionGroup(): Flow<ApiQuestionGroup?>
+    suspend fun getRemoteQuestionGroups(): List<ApiQuestionGroup>
+    suspend fun getRemoteQuestionGroup(id: Int): ApiQuestionGroup?
+    suspend fun getStartQuestionGroup(): ApiQuestionGroup?
 }

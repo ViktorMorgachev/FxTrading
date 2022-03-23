@@ -7,11 +7,12 @@ import javax.inject.Inject
 
 class QuestionUseCase @Inject constructor(private val questionProvider: QuestionRepository) {
 
-    suspend fun getQuestionGroupById(quizID: Int): Flow<QuestionsGroup> {
-        return questionProvider.getQuestionsGroup(quizID)
+    suspend fun getQuestionsGroup(id: Int): QuestionsGroup? {
+        return questionProvider.getQuestionsGroup(id)
     }
 
-    suspend fun getQuestionStartExamQuestionGroup(): Flow<QuestionsGroup> {
-        return questionProvider.getStartExamQuestionsGroup()
+    suspend fun getStartQuestionGroup(): QuestionsGroup?{
+        return questionProvider.getStartQuestionGroup()
     }
+
 }

@@ -12,15 +12,15 @@ import javax.inject.Singleton
 @Singleton
 class QuestionProvider @Inject constructor(private val questionDataSource: QuestionsDataSource): QuestionRepository  {
 
-    override  suspend fun getQuestionsGroups(): Flow<List<QuestionsGroup>> {
-        return questionDataSource.getQuestionGroups().map { it.mapNotNull { it.toQuestionGroup() } }
+    override suspend fun getQuestionsGroups(): List<QuestionsGroup> {
+        return questionDataSource.getQuestionGroups().mapNotNull { it.toQuestionGroup() }
     }
 
-    override suspend fun getQuestionsGroup(id: Int): Flow<QuestionsGroup> {
-        return questionDataSource.getQuestionGroup(id).mapNotNull { it.toQuestionGroup() }
+    override suspend fun getQuestionsGroup(id: Int): QuestionsGroup? {
+        return questionDataSource.getQuestionGroup(id).toQuestionGroup()
     }
 
-    override suspend fun getStartExamQuestionsGroup(): Flow<QuestionsGroup> {
-       return questionDataSource.getFirstExamQuestionGroup().mapNotNull { it.toQuestionGroup() }
+    override suspend fun getStartQuestionGroup(): QuestionsGroup? {
+        return questionDataSource.getStartQuestionGroup().toQuestionGroup()
     }
 }

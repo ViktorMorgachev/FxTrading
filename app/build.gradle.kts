@@ -30,6 +30,9 @@ android {
         debug {
             isMinifyEnabled = false
         }
+        defaultConfig {
+          //  buildConfigField(type = "String", name = "DOCUMENT_DB_PATH", value = "\"dev\"")
+        }
 
     }
     compileOptions {

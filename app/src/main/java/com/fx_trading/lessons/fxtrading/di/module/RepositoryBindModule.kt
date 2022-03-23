@@ -1,5 +1,6 @@
 package com.fx_trading.lessons.fxtrading.di.module
 
+import com.fx_trading.lessons.data.BuildConfig
 import com.fx_trading.lessons.data.repositories.lessons.*
 import com.fx_trading.lessons.data.repositories.question.QuestionProvider
 import com.fx_trading.lessons.data.repositories.question.QuestionRemoteRepository
@@ -24,7 +25,6 @@ abstract class RepositoryBindModule() {
 
     @Binds
     abstract fun bindLessonBaseRepository(lessonProvider: LessonProvider): LessonRepository
-
 
 
     @Binds

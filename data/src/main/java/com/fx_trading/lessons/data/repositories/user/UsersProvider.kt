@@ -23,10 +23,6 @@ class UsersProvider @Inject constructor(private val userDataSource: UserDataSour
         return userDataSource.getUserIDByDeviceID(deviceID = pseudoDeviceID)
     }
 
-    override suspend fun checkUserByDeviceIDInDatabase(): Boolean {
-        return userDataSource.checkUserByDeviceIDInDatabase(deviceID = pseudoDeviceID)
-    }
-
     override suspend fun createNewUser(): User? {
       return userDataSource.createNewUser()
     }

@@ -18,10 +18,6 @@ class UserDataSource @Inject constructor(private val userRemoteRepository: UserR
 
     private val useMockData = BuildConfig.USE_MOCK_DATA
 
-    suspend fun checkUserByDeviceIDInDatabase(deviceID: String): Boolean {
-        return userRemoteRepository.checkUserByDeviceIDInDatabase(deviceID = deviceID)
-    }
-
     suspend fun getUserIDByDeviceID(deviceID: String): Long? {
         return userRemoteRepository.getUserIDByDeviceID(deviceID)
     }

@@ -8,12 +8,9 @@ import com.fx_trading.lessons.utils.utils.Logger
 import com.google.firebase.firestore.FirebaseFirestore
 import javax.inject.Inject
 
-val documentPath = BuildConfig.DOCUMENT_DB_PATH
-
 class LessonsRemoteRepositoryImpl @Inject constructor(private val firebaseFirestore: FirebaseFirestore): LessonsRemoteRepository {
 
-    @Inject
-    lateinit var firebaseFireStore: FirebaseFirestore
+    private val documentPath = BuildConfig.DOCUMENT_DB_PATH
 
     override suspend fun getRemoteLessons(): List<ApiLesson> {
         try {

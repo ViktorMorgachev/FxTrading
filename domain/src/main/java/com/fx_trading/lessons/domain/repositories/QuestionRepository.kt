@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface QuestionRepository {
-    suspend fun getQuestionsGroups(): Flow<List<QuestionsGroup>>
-    suspend fun getQuestionsGroup(id: Int): Flow<QuestionsGroup>
-    suspend fun getStartExamQuestionsGroup(): Flow<QuestionsGroup>
+    suspend fun getQuestionsGroups(): List<QuestionsGroup>
+    suspend fun getQuestionsGroup(id: Int): QuestionsGroup?
+    suspend fun getStartQuestionGroup(): QuestionsGroup?
 }

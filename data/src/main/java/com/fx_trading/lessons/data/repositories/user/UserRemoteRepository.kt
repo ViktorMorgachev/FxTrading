@@ -5,7 +5,6 @@ import com.fx_trading.lessons.data.api.user_info.ApiUserInfo
 import kotlinx.coroutines.flow.Flow
 
 interface UserRemoteRepository {
-    suspend fun checkUserByDeviceIDInDatabase(deviceID: String): Boolean
     suspend fun updateUserData(user: ApiUser): Boolean
     suspend fun getUserIDByDeviceID(deviceID: String): Long?
     suspend fun createNewUser(): ApiUser?

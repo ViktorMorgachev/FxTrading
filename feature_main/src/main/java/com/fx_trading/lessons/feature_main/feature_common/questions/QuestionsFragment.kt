@@ -6,13 +6,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.paris.Paris
 import com.fx_trading.common.FirebaseUtil
+import com.fx_trading.common.State
 import com.fx_trading.common.loadImage
 import com.fx_trading.lessons.core.BaseFragment
 import com.fx_trading.lessons.core.BaseViewModelFactory
@@ -21,8 +21,8 @@ import com.fx_trading.lessons.domain.entities.quiz.Question
 import com.fx_trading.lessons.features.R
 import com.fx_trading.lessons.features.databinding.FragmentQuestionsBinding
 import com.fx_trading.lessons.utils.utils.gone
-import com.fx_trading.lessons.utils.utils.setCompoundDrawables
 import com.fx_trading.lessons.utils.utils.visibleOrGone
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
@@ -43,58 +43,65 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        with(binding){
+        with(binding) {
             recyclerAnswers.layoutManager = LinearLayoutManager(requireContext())
-            // Получаем информацию о том что стартовый экзамен или нет, если да,
         }
-        viewModel.uiData.observe(viewLifecycleOwner, {
-            when (it) {
-                is QuestionAction.ShowLoadingAction -> {
-
-                }
-                is QuestionAction.ShowLastScreenAction -> {
-                    val action = QuestionsFragmentDirections.actionQuestionsFragmentToLastQuestionAnsweredFragment(firstQuestion = it.first_question, questionGroupID = it.questionGroupID, successAnswers = it.successAnswers,
-                        totalAnswers = it.totalAnswers, successQuestions = it.successQuestions, totalQuestions = it.totalQuestions)
-                    view.findNavController().navigate(action)
-                }
-                is QuestionAction.ShowResultAction -> {
-                    
-                }
-                is QuestionAction.ShowQuestionAction -> {
-                    showQuestion(it.quiestion, questionSize = it.questionSize, step = it.step, succesCount = it.succesCount)
-                }
-                is QuestionAction.ShowUserChoicesInfo ->{
-                    showUserChoicesResult(it.result, it.userChoices)
+        lifecycleScope.launchWhenResumed {
+            // Получаем информацию о том что стартовый экзамен или нет, если да,
+            viewModel.getQuestions(null).collect { state ->
+                when (state) {
+                    is State.DataState -> {
+                        nextQuestion()
+                    }
                 }
             }
-        })
+        }
+    }
+
+    private fun nextQuestion() {
+        lifecycleScope.launchWhenResumed {
+            viewModel.nextQuestion().collect {
+                when(it){
+                    is State.DataState->{
+                        val data = it.data
+                        if (data.question != null){
+                            showQuestion(quiestion = data.question, questionSize = data.questionSize, step = data.step, succesCount = data.successCount, errorCount = data.errorCount)
+                        }
+
+                    }
+                }
+
+            }
+        }
+
     }
 
     private fun showUserChoicesResult(
         result: ResultChoices,
-        userAnswers: List<Answer>
+        userAnswers: List<Answer>,
+        lastQuestion: Boolean
     ) {
-        with(binding){
+        with(binding) {
             textResult.visibility = View.VISIBLE
             Paris.style(checkButon).apply(R.style.button_bottom_light_blue_default)
-            checkButon.text = getString(R.string.continues)
-            checkButon.setOnClickListener {
-                viewModel.nextQuestion()
+            if (lastQuestion){
+                checkButon.text = getString(R.string.results)
+                checkButon.setOnClickListener {
+
+                }
+            } else{
+                checkButon.text = getString(R.string.continues)
+                checkButon.setOnClickListener {
+                    nextQuestion()
+                }
             }
-            when(result){
-                 ResultChoices.Success -> {
-                     bottomPanel.setBackgroundColor(Color.parseColor("#00C853"))
-                     textResult.setTextColor(Color.WHITE)
-                     textResult.text = "You’re amazing! :)"
-                     val tempData = (recyclerAnswers.adapter as AnswersAdapter).answers
-                     recyclerAnswers.adapter = AnswersAdapter(answers = tempData, userAnswers)
-                 }
-                ResultChoices.AlmostSuccess ->{
-                    bottomPanel.setBackgroundColor(Color.parseColor("#ffb703"))
+            when (result) {
+                ResultChoices.Success -> {
+                    bottomPanel.setBackgroundColor(Color.parseColor("#00C853"))
                     textResult.setTextColor(Color.WHITE)
-                    textResult.text = "Almost done"
+                    textResult.text = "You’re amazing! :)"
                     val tempData = (recyclerAnswers.adapter as AnswersAdapter).answers
-                    recyclerAnswers.adapter = AnswersAdapter(answers = tempData)
+                    recyclerAnswers.adapter = AnswersAdapter(answers = tempData, userAnswers)
                 }
                 else -> {
                     bottomPanel.setBackgroundColor(Color.RED)
@@ -108,7 +115,7 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun showQuestion(quiestion: Question, questionSize: Int, step: Int, succesCount: Int) {
+    private fun showQuestion(quiestion: Question, questionSize: Int, step: Int, succesCount: Int, errorCount: Int) {
         with(binding) {
             bottomPanel.setBackgroundColor(Color.WHITE)
             Paris.style(checkButon).apply(R.style.quiz_bottom_button_disabled)
@@ -117,26 +124,43 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>() {
             quizTitle.text = quiestion.title
             progressStep.text = "${step}/${questionSize}"
             val userChoices = mutableListOf<Answer>()
-            recyclerAnswers.adapter = AnswersAdapter(answers = quiestion.answers){
+            recyclerAnswers.adapter = AnswersAdapter(answers = quiestion.answers) {
                 Paris.style(checkButon).apply(R.style.button_bottom_blue_default)
                 checkButon.isEnabled = true
                 userChoices.add(it)
             }
-            if (quiestion.optional_image_url.isNotEmpty()){
-                if (quiestion.optional_image_url.startsWith("gs:")){
-                    firebaseUtil.loadImage(quizImage, requireContext(), quiestion.optional_image_url)
-                } else{
-                    quizImage.loadImage(imageUrl = quiestion.optional_image_url, context = requireContext()){
+            if (quiestion.optional_image_url.isNotEmpty()) {
+                if (quiestion.optional_image_url.startsWith("gs:")) {
+                    firebaseUtil.loadImage(
+                        quizImage,
+                        requireContext(),
+                        quiestion.optional_image_url
+                    )
+                } else {
+                    quizImage.loadImage(
+                        imageUrl = quiestion.optional_image_url,
+                        context = requireContext()
+                    ) {
                         quizImage.gone()
                     }
                 }
-            } else{
+            } else {
                 quizImage.gone()
             }
             quizImage.visibleOrGone(!quiestion.optional_image_url.isEmpty())
             checkButon.text = getString(R.string.check)
             checkButon.setOnClickListener {
-                viewModel.checkForCorrect(userChoices)
+                lifecycleScope.launchWhenResumed {
+                    viewModel.checkForCorrect(userChoices).collect { state->
+                        when(state){
+                            is State.DataState->{
+                                val result = state.data
+                                showUserChoicesResult(result = result.result, userAnswers = result.userChoices, result.lastQuestion)
+                            }
+                        }
+                    }
+                }
+
             }
         }
     }
