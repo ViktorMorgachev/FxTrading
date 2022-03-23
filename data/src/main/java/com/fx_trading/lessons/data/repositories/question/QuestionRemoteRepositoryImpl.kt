@@ -55,7 +55,7 @@ class QuestionRemoteRepositoryImpl @Inject constructor(var firebaseFireStore: Fi
 
     override suspend fun getRemoteQuestionGroup(id: Int): ApiQuestionGroup? {
         return try {
-            val firebaseDocument = firebaseFireStore.collection("${documentPath}Lessons").document("$id").get().await()
+            val firebaseDocument = firebaseFireStore.collection("${documentPath}Exams").document("$id").get().await()
             if (firebaseDocument != null && !firebaseDocument.data.isNullOrEmpty()) {
                 firebaseDocument.toObject(ApiQuestionGroup::class.java)
             } else {

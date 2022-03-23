@@ -22,7 +22,7 @@ fun ApiLesson.toLesson(): Lesson{
         language = this.language,
         likes = this.likes,
         promo_image_url = this.promo_image_url,
-        questions = this.questions_group,
+        question_group = this.questions_group,
         region = this.region,
         sort_order = this.sort_order,
         speaker_name = this.speaker_name,

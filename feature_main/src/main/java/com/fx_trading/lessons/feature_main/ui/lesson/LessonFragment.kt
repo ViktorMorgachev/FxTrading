@@ -15,6 +15,7 @@ import com.fx_trading.lessons.core.BaseFragment
 import com.fx_trading.lessons.core.BaseViewModelFactory
 import com.fx_trading.lessons.domain.entities.lesson.Lesson
 import com.fx_trading.lessons.feature_main.activities.QuestionActivity
+import com.fx_trading.lessons.feature_main.activities.QuestionActivity.Companion.key_question_group_id
 import com.fx_trading.lessons.feature_main.ui.lessons.LessonsAdapter
 import com.fx_trading.lessons.features.R
 import com.fx_trading.lessons.features.databinding.FragmentLessonBinding
@@ -67,7 +68,9 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
                 }
             })
             startExam.setOnClickListener {
-                startActivity(Intent(requireActivity(), QuestionActivity::class.java))
+                val intent = Intent(requireActivity(), QuestionActivity::class.java)
+                intent.putExtra(key_question_group_id, lesson.question_group.toInt())
+                startActivity(intent)
             }
             toolbar.cancelButton.setOnClickListener {
                 findNavController().popBackStack()

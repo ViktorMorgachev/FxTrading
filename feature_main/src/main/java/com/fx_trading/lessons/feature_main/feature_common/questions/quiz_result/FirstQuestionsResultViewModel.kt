@@ -14,7 +14,7 @@ sealed class TotalResultAction {
     class EnableMainButton() : TotalResultAction()
 }
 
-class TotalUserLevelResultViewModel @Inject constructor(
+class FirstQuestionsResultViewModel @Inject constructor(
     private val router: Router,
     private var userUseCase: UserUseCase,
     private val dataStoreHelper: DataStoreHelper

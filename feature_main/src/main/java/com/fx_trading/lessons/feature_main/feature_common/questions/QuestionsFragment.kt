@@ -1,6 +1,7 @@
 package com.fx_trading.lessons.feature_main.feature_common.questions
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,16 +9,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.paris.Paris
 import com.fx_trading.common.FirebaseUtil
 import com.fx_trading.common.State
+import com.fx_trading.common.getIntExtra
 import com.fx_trading.common.loadImage
 import com.fx_trading.lessons.core.BaseFragment
 import com.fx_trading.lessons.core.BaseViewModelFactory
 import com.fx_trading.lessons.domain.entities.quiz.Answer
 import com.fx_trading.lessons.domain.entities.quiz.Question
+import com.fx_trading.lessons.feature_main.activities.QuestionActivity.Companion.key_question_group_id
 import com.fx_trading.lessons.features.R
 import com.fx_trading.lessons.features.databinding.FragmentQuestionsBinding
 import com.fx_trading.lessons.utils.utils.gone
@@ -26,7 +29,11 @@ import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
+
+
 class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>() {
+
+
 
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentQuestionsBinding =
         FragmentQuestionsBinding::inflate
@@ -47,8 +54,9 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>() {
             recyclerAnswers.layoutManager = LinearLayoutManager(requireContext())
         }
         lifecycleScope.launchWhenResumed {
+            val questionID = requireActivity().getIntExtra(key_question_group_id, 0) as Int
             // Получаем информацию о том что стартовый экзамен или нет, если да,
-            viewModel.getQuestions(null).collect { state ->
+            viewModel.getQuestions(questionID).collect { state ->
                 when (state) {
                     is State.DataState -> {
                         nextQuestion()
@@ -61,11 +69,11 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>() {
     private fun nextQuestion() {
         lifecycleScope.launchWhenResumed {
             viewModel.nextQuestion().collect {
-                when(it){
-                    is State.DataState->{
+                when (it) {
+                    is State.DataState -> {
                         val data = it.data
-                        if (data.question != null){
-                            showQuestion(quiestion = data.question, questionSize = data.questionSize, step = data.step, succesCount = data.successCount, errorCount = data.errorCount)
+                        if (data != null) {
+                            showQuestion(quiestion = data)
                         }
 
                     }
@@ -79,17 +87,21 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>() {
     private fun showUserChoicesResult(
         result: ResultChoices,
         userAnswers: List<Answer>,
-        lastQuestion: Boolean
+        lastQuestion: Boolean,
     ) {
         with(binding) {
             textResult.visibility = View.VISIBLE
             Paris.style(checkButon).apply(R.style.button_bottom_light_blue_default)
-            if (lastQuestion){
+            if (lastQuestion) {
                 checkButon.text = getString(R.string.results)
                 checkButon.setOnClickListener {
-
+                    if (requireActivity().getIntExtra(key_question_group_id, 0) as Int == 0) {
+                        findNavController().navigate(QuestionsFragmentDirections.actionQuestionsFragmentToFirstQuestionsResultFragment(questionGroupID = viewModel.questionGroupID, successQuestion = viewModel.successAnswers, totalQuestion = viewModel.questionsSize))
+                    } else {
+                        findNavController().navigate(QuestionsFragmentDirections.actionQuestionsFragmentToQuestionsResultFragment(questionGroupID = viewModel.questionGroupID, successQuestion = viewModel.successAnswers, totalQuestion = viewModel.questionsSize, correctForSuccess = viewModel.correctForSuccess))
+                    }
                 }
-            } else{
+            } else {
                 checkButon.text = getString(R.string.continues)
                 checkButon.setOnClickListener {
                     nextQuestion()
@@ -115,14 +127,16 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun showQuestion(quiestion: Question, questionSize: Int, step: Int, succesCount: Int, errorCount: Int) {
+    private fun showQuestion(
+        quiestion: Question
+    ) {
         with(binding) {
             bottomPanel.setBackgroundColor(Color.WHITE)
             Paris.style(checkButon).apply(R.style.quiz_bottom_button_disabled)
             textResult.visibility = View.GONE
-            pbHorizontal.progress = ((step / questionSize.toFloat()) * 100).roundToInt()
+            pbHorizontal.progress = ((viewModel.step / viewModel.questionsSize.toFloat()) * 100).roundToInt()
             quizTitle.text = quiestion.title
-            progressStep.text = "${step}/${questionSize}"
+            progressStep.text = "${viewModel.step}/${viewModel.questionsSize}"
             val userChoices = mutableListOf<Answer>()
             recyclerAnswers.adapter = AnswersAdapter(answers = quiestion.answers) {
                 Paris.style(checkButon).apply(R.style.button_bottom_blue_default)
@@ -151,11 +165,15 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>() {
             checkButon.text = getString(R.string.check)
             checkButon.setOnClickListener {
                 lifecycleScope.launchWhenResumed {
-                    viewModel.checkForCorrect(userChoices).collect { state->
-                        when(state){
-                            is State.DataState->{
+                    viewModel.checkForCorrect(userChoices).collect { state ->
+                        when (state) {
+                            is State.DataState -> {
                                 val result = state.data
-                                showUserChoicesResult(result = result.result, userAnswers = result.userChoices, result.lastQuestion)
+                                showUserChoicesResult(
+                                    result = result.result,
+                                    userAnswers = result.userChoices,
+                                    result.lastQuestion
+                                )
                             }
                         }
                     }

@@ -28,9 +28,6 @@
         android:id="@+id/lessonFragment"
         android:name="com.fx_trading.lessons.feature_main.ui.lesson.LessonFragment"
         android:label="LessonFragment" >
-        <action
-            android:id="@+id/action_lessonFragment_to_nested_question_graph"
-            app:destination="@id/nested_question_graph" />
     </fragment>
 
     <navigation android:id="@+id/nested_question_graph">

@@ -5,6 +5,10 @@ import com.fx_trading.navigation.BaseActivity
 
 class QuestionActivity : BaseActivity(R.id.nav_host_fragment_question) {
 
+    companion object{
+        val key_question_group_id = "question_group_id"
+    }
+
     override fun initLayout() {
         setContentView(R.layout.activity_question)
     }

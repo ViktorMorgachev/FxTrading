@@ -10,19 +10,19 @@ import com.fx_trading.lessons.core.BaseFragment
 import com.fx_trading.lessons.core.BaseViewModelFactory
 import com.fx_trading.lessons.feature_main.activities.MainActivity
 import com.fx_trading.lessons.features.R
-import com.fx_trading.lessons.features.databinding.FragmentTotalQuizResultBinding
+import com.fx_trading.lessons.features.databinding.FragmentFirstResultQuestionsBinding
 import com.fx_trading.lessons.utils.utils.Logger
 import javax.inject.Inject
 
-class TotalUserLevelResultFragment : BaseFragment<FragmentTotalQuizResultBinding>() {
+class FirstQuestionsResultFragment : BaseFragment<FragmentFirstResultQuestionsBinding>() {
 
-    override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentTotalQuizResultBinding =
-        FragmentTotalQuizResultBinding::inflate
+    override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentFirstResultQuestionsBinding =
+        FragmentFirstResultQuestionsBinding::inflate
 
     @Inject
-    lateinit var viewModelFactory: BaseViewModelFactory<TotalUserLevelResultViewModel>
+    lateinit var viewModelFactory: BaseViewModelFactory<FirstQuestionsResultViewModel>
 
-    private val viewModel: TotalUserLevelResultViewModel by viewModels(
+    private val viewModel: FirstQuestionsResultViewModel by viewModels(
         factoryProducer = { viewModelFactory }
     )
 
@@ -45,10 +45,7 @@ class TotalUserLevelResultFragment : BaseFragment<FragmentTotalQuizResultBinding
             arguments?.let {
                 val successQuestions = it.getInt("successQuestions")
                 val totalQuestions = it.getInt("totalQuestions")
-                val totalAnswers = it.getInt("totalAnswers")
-
                 val questionGroupID = it.getInt("questionGroupID")
-                val successAnswers = it.getInt("successAnswers")
                 var level = 1
 
                 val percentSuccessAnswering =

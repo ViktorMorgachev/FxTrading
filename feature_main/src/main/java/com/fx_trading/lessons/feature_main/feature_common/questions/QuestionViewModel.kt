@@ -20,14 +20,6 @@ enum class ResultChoices {
     Wrong, Success
 }
 
-data class QuestionInfo(
-    val question: Question?,
-    val questionSize: Int,
-    val step: Int,
-    val successCount: Int,
-    val errorCount: Int,
-)
-
 data class ShowUserChoicesInfo(
     val result: ResultChoices,
     val lastQuestion: Boolean,
@@ -39,18 +31,27 @@ class QuestionViewModel @Inject constructor(
     var questionUseCase: QuestionUseCase
 ) : ViewModel() {
 
-    private var questionsSize = 0
-    private val totalAnswers = 0
-    private var step = 0
+    var questionsSize = 0
+        private set
+    var step = 0
+        private set
     private var questions = mutableListOf<Question>()
-    private var successAnswers = 0
-    private var errorAnswers = 0
+    var successAnswers = 0
+        private set
+    var errorAnswers = 0
+        private set
+    var questionGroupID = 0
+        private set
+    var correctForSuccess = 0
+    private set
 
     private var questionGroup: QuestionsGroup? = null
         private set(value) {
             value?.let {
                 questionsSize = it.questions.size
                 questions = it.questions
+                questionGroupID = it.id
+                correctForSuccess = it.correct_for_success
                 field = value
             }
         }
@@ -62,11 +63,11 @@ class QuestionViewModel @Inject constructor(
         }
     }
 
-    fun getQuestions(id: Int?) = flow {
+    fun getQuestions(id: Int) = flow {
         emit(State.LoadingState)
         try {
             delay(500)
-            questionGroup = if (id != null) {
+            questionGroup = if (id > 0) {
                 questionUseCase.getQuestionsGroup(id)
             } else questionUseCase.getStartQuestionGroup()
             questionGroup?.let {
@@ -89,51 +90,56 @@ class QuestionViewModel @Inject constructor(
         Logger.log("QuestionViewModel", "SuccessCount $successAnswers ErrorCount $errorAnswers")
     }
 
-   fun checkForCorrect(answers: List<Answer>) = flow<State<ShowUserChoicesInfo>> {
-       try {
-           val correctAnswers = questions.getOrNull(step - 1)?.answers?.filter { it.is_correct }
-           if (answers.size == correctAnswers?.size && answers.map { it.text }.containsAll(correctAnswers.map { it.text })) {
-               increaseSuccess()
-               emit(State.DataState<ShowUserChoicesInfo>(ShowUserChoicesInfo(
-                   result = ResultChoices.Success,
-                   userChoices = answers,
-                   lastQuestion = step == questionsSize
-               )))
-           } else {
-               if (answers.count { it.is_correct } != 0 && answers.count { !it.is_correct } != 0) {
-                   emit(State.DataState<ShowUserChoicesInfo>(ShowUserChoicesInfo(
-                       result = ResultChoices.Wrong,
-                       userChoices = answers,
-                       lastQuestion = step == questionsSize
-                   )))
-               } else {
-                   emit(State.DataState<ShowUserChoicesInfo>(ShowUserChoicesInfo(
-                       result = ResultChoices.Wrong,
-                       userChoices = answers,
-                       lastQuestion = step == questionsSize
-                   )))
-               }
-               increaseError()
-           }
-       } catch (e: Exception){
-           Logger.log("QuestionViewModel", exception = e)
-       }
+    fun checkForCorrect(answers: List<Answer>) = flow<State<ShowUserChoicesInfo>> {
+        try {
+            val correctAnswers = questions.getOrNull(step - 1)?.answers?.filter { it.is_correct }
+            if (answers.size == correctAnswers?.size && answers.map { it.text }
+                    .containsAll(correctAnswers.map { it.text })) {
+                increaseSuccess()
+                emit(
+                    State.DataState<ShowUserChoicesInfo>(
+                        ShowUserChoicesInfo(
+                            result = ResultChoices.Success,
+                            userChoices = answers,
+                            lastQuestion = step == questionsSize
+                        )
+                    )
+                )
+            } else {
+                if (answers.count { it.is_correct } != 0 && answers.count { !it.is_correct } != 0) {
+                    emit(
+                        State.DataState<ShowUserChoicesInfo>(
+                            ShowUserChoicesInfo(
+                                result = ResultChoices.Wrong,
+                                userChoices = answers,
+                                lastQuestion = step == questionsSize,
+                            )
+                        )
+                    )
+                } else {
+                    emit(
+                        State.DataState<ShowUserChoicesInfo>(
+                            ShowUserChoicesInfo(
+                                result = ResultChoices.Wrong,
+                                userChoices = answers,
+                                lastQuestion = step == questionsSize,
+                            )
+                        )
+                    )
+                }
+                increaseError()
+            }
+        } catch (e: Exception) {
+            Logger.log("QuestionViewModel", exception = e)
+        }
 
     }
 
-    fun nextQuestion() = flow<State<QuestionInfo>> {
+    fun nextQuestion() = flow<State<Question?>> {
         try {
             questionGroup?.let {
                 step++
-                emit(State.DataState<QuestionInfo>(QuestionInfo(
-                    question = questions.getOrNull(step-1),
-                    questionSize = questionsSize,
-                    step = step,
-                    successCount = successAnswers,
-                    errorCount = errorAnswers
-                ))
-                )
-
+                emit(createState(questions.getOrNull(step - 1)))
             }
         } catch (e: Exception) {
             Logger.log("ExampleViewModel", exception = e)
