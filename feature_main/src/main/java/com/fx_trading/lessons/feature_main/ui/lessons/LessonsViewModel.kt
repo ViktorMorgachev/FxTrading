@@ -29,8 +29,11 @@ class LessonsViewModel @Inject constructor(
         emit(State.LoadingState)
         try {
             delay(500)
-            val data = lessonsUseCase.getLessons()
-            emit(State.DataState(data))
+            dataStoreHelper.userID().collect {
+                val lessons = lessonsUseCase.getLessons()
+                val completedLessons = usersUseCase.getCompletedLessonIds(it.toInt())
+                emit(State.DataState(Pair(first = lessons, second = completedLessons)))
+            }
         } catch (e: Exception) {
             Logger.log("ExampleViewModel", exception = e)
             emit(State.ErrorState(e))
@@ -44,10 +47,10 @@ class LessonsViewModel @Inject constructor(
                 // Проверить в UsersInfo лайкал ли он урок
                 // Поставить лайк уроку, проверить что всё ок
                 // Либо ничего не делать
-                dataStoreHelper.userID().collect { userID->
+                dataStoreHelper.userID().collect { userID ->
                     val success = usersUseCase.setLikeToLesson(lessonID.toLong(), userID)
-                    if (success){
-                       val lesson = lessonsUseCase.getLessonByID(lessonID.toLong())
+                    if (success) {
+                        val lesson = lessonsUseCase.getLessonByID(lessonID.toLong())
                         lesson?.let {
                             likedLesson.postValue(it)
                         }

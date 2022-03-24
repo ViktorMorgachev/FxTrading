@@ -17,5 +17,5 @@ fun ImageView.loadImage(
 }
 
 fun Activity.getIntExtra(key: String, defaultValue: Int?): Int?{
-    return intent.extras?.get(key) as Int ?: defaultValue
+    return intent.extras?.get(key) as Int? ?: defaultValue
 }

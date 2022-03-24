@@ -6,10 +6,12 @@ import com.fx_trading.lessons.data.api.user.mock.MockData.Companion.defaultUser
 import com.fx_trading.lessons.data.api.user_info.ApiUserInfo
 import com.fx_trading.lessons.data.extentions.await
 import com.fx_trading.lessons.data.extentions.getField
+import com.fx_trading.lessons.domain.entities.users_info.UserInfo
 import com.fx_trading.lessons.utils.utils.Logger
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.auth.User
 import javax.inject.Inject
 
 
@@ -23,10 +25,8 @@ class UserRemoteRepositoryImpl @Inject constructor(
 
     override suspend fun updateUserData(user: ApiUser): Boolean {
         try {
-            val fieldToUpdate = HashMap<String, Any?>()
-            fieldToUpdate.put("rank", user.rank)
-            val firebaseData = firebaseFirestore.collection("${documentPath}Users").document("${user.user_id}").update(fieldToUpdate)
-            Logger.log("UserRemoteRepository", "updateUserData $firebaseData, user $user")
+            firebaseFirestore.collection("${documentPath}Users").document("${user.user_id}").set(user).await()
+            Logger.log("UserRemoteRepository", "user $user")
             return true
         } catch (e: Exception) {
             Logger.log("UserRemoteRepository", exception = e)
@@ -101,57 +101,6 @@ class UserRemoteRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun saveResultToTesting(
-        userID: Long,
-        quizGroupID: Int,
-        status: Int
-    ): Boolean {
-        try {
-            // Сначала получить документ по ИД если не найден то создать новый
-            val firebaseDocument = firebaseFirestore.collection("${documentPath}UsersInfo").document("$userID").get().await()
-            if (firebaseDocument != null && !firebaseDocument.exists()) {
-                val dataToDocument = HashMap<String, Any?>()
-                val quizResultInfo = HashMap<String, Any?>()
-
-                quizResultInfo.put("quiz_group_id", quizGroupID)
-                quizResultInfo.put("status", "Пройден")
-
-                val arrayToDocument = arrayListOf<HashMap<String, Any?>>()
-                arrayToDocument.add(quizResultInfo)
-
-                dataToDocument.put("user_id", userID)
-                dataToDocument.put("quiz_results", arrayToDocument)
-                firebaseFirestore.collection("${documentPath}UsersInfo").document("$userID").set(dataToDocument)
-                return true
-            } else {
-                if (firebaseDocument != null && firebaseDocument.exists()) {
-                    val dataFromDocument = firebaseDocument.data as HashMap<String, Any?>
-                    val fieldFromDocument =  dataFromDocument.getField<ArrayList<HashMap<String, Any?>>>("quiz_results", arrayListOf())
-
-                    fieldFromDocument.forEach {
-                        val quizGroupIDFromFirebase = it.getField<Long>("quiz_group_id", 0).toInt()
-                        if (quizGroupIDFromFirebase == quizGroupID) return true
-                    }
-
-                    val quizResultInfo = HashMap<String, Any?>()
-
-                    quizResultInfo.put("quiz_group_id", quizGroupID)
-                    quizResultInfo.put("status", "Пройден")
-
-                    val arrayToDocument = arrayListOf<HashMap<String, Any?>>()
-                    arrayToDocument.add(quizResultInfo)
-                    dataFromDocument.put("quiz_results", arrayToDocument)
-                    val firebaseData = firebaseFirestore.collection("${documentPath}UsersInfo").document("$userID").update(dataFromDocument)
-                    return true
-                }
-            }
-            return false
-        } catch (e: Exception) {
-            Logger.log("UserRemoteRepository", exception = e)
-            return false
-        }
-    }
-
     override suspend fun saveDeviceAndUserID(userId: Long, deviceID: String): Boolean {
         try {
             val dataForSaving = ArrayList<HashMap<String, Any?>>()
@@ -196,6 +145,22 @@ class UserRemoteRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             Logger.log("LessonsRemoteRepository", "Error getting documents.", exception = e)
             return false
+        }
+    }
+
+    override suspend fun createNewUserInfo(userId: Long): ApiUserInfo? {
+        try {
+            val firebaseDocuments = firebaseFirestore.collection("${documentPath}UsersInfo").get().await()
+            if (firebaseDocuments != null && !firebaseDocuments.isEmpty) {
+                val lastDocumentID = firebaseDocuments.documents.map { it.id.toInt() }.sorted().lastOrNull()?.toLong() ?: -1
+                val newDocumentID = lastDocumentID + 1
+                val newUserInfo = ApiUserInfo(user_id = userId)
+                firebaseFirestore.collection("${documentPath}UsersInfo").document("$newDocumentID").set(newUserInfo).await()
+                return newUserInfo
+            } else
+            return null
+        } catch (e: Exception) {
+            return null
         }
     }
 }

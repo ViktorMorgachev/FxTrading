@@ -62,8 +62,13 @@ class LessonViewModel @Inject constructor(val lessonsUseCase: LessonsUseCase,val
     fun getLessonsByTags(tags: List<String>) = flow{
         emit(State.LoadingState)
         try {
-           val data = lessonsUseCase.getLessonsByTags(tags)
-            emit(createState(data))
+            dataStoreHelper.userID().collect {
+                val lessons = lessonsUseCase.getLessonsByTags(tags)
+                val completedLessons = userUseCase.getCompletedLessonIds(it.toInt())
+                emit(State.DataState(Pair(first = lessons, second = completedLessons)))
+            }
+
+
         } catch (e: Exception){
             Logger.log("LessonViewModel", exception = e)
             emit(State.ErrorState(e))

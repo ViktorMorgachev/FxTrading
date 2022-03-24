@@ -8,15 +8,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import com.airbnb.paris.Paris
 import com.fx_trading.lessons.core.BaseFragment
+import com.fx_trading.lessons.core.BaseViewModelFactory
+import com.fx_trading.lessons.feature_main.example.ExampleViewModel
 import com.fx_trading.lessons.features.R
 import com.fx_trading.lessons.features.databinding.FragmentTotalResultQuestionsBinding
+import kotlinx.coroutines.flow.collect
+import javax.inject.Inject
 import kotlin.math.roundToInt
 
 class QuestionsResultFragment : BaseFragment<FragmentTotalResultQuestionsBinding>() {
 
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentTotalResultQuestionsBinding =
         FragmentTotalResultQuestionsBinding::inflate
+
+    @Inject
+    lateinit var viewModelFactory: BaseViewModelFactory<QuestionResultViewModel>
+
+    private val viewModel: QuestionResultViewModel by viewModels(
+        factoryProducer = { viewModelFactory }
+    )
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,6 +44,7 @@ class QuestionsResultFragment : BaseFragment<FragmentTotalResultQuestionsBinding
                 val lessonDifficulty = it.getInt("lessonDifficulty")
                 val lessonID = it.getInt("lessonID")
 
+                Paris.style(finishButton).apply(R.style.quiz_bottom_button_disabled)
                 val percentSuccessAnswering =
                     (successQuestions.toFloat() / totalQuestions.toFloat() * 100).roundToInt()
 
@@ -90,8 +105,14 @@ class QuestionsResultFragment : BaseFragment<FragmentTotalResultQuestionsBinding
                     }
 
                 }
-
-                // viewModel.saveUserResultToDatabase(questionGroupID = questionGroupID, level = level, status = 1, lessonID = )
+             lifecycleScope.launchWhenResumed {
+                 viewModel.saveExamResult(lessonID = lessonID, questionID = questionGroupID).collect {
+                     Paris.style(finishButton).apply(R.style.button_bottom_blue_default)
+                     finishButton.setOnClickListener {
+                         requireActivity().finish()
+                     }
+                 }
+             }
             }
         }
 

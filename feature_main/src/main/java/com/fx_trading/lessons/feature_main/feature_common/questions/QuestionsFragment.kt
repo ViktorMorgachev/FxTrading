@@ -55,7 +55,7 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>() {
             recyclerAnswers.layoutManager = LinearLayoutManager(requireContext())
         }
         lifecycleScope.launchWhenResumed {
-            val questionID = requireActivity().getIntExtra(key_question_group_id, 0) as Int
+            val questionID = requireActivity().getIntExtra(key_question_group_id, null) as Int?
             // Получаем информацию о том что стартовый экзамен или нет, если да,
             viewModel.getQuestions(questionID).collect { state ->
                 when (state) {

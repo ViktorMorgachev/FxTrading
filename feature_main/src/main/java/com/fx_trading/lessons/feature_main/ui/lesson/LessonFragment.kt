@@ -161,7 +161,7 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
                         viewModel.getLessonsByTags(it.data.tags).collect {
                             when(it){
                                 is State.DataState -> {
-                                    showLessons(it.data)
+                                    showLessons(it.data.first, it.data.second)
                                 }
                             }
                         }
@@ -172,7 +172,7 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
         }
     }
 
-    private fun showLessons(data: List<Lesson>) {
+    private fun showLessons(data: List<Lesson>, completedLessons: List<Int>) {
         with(binding){
             val likeLessonAction: (Int)->Unit = { lessonID->
                 lifecycleScope.launchWhenCreated {
@@ -199,10 +199,10 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
             } else data
 
             showMoreButton.setOnClickListener {
-                recyclerRecommendLessons.adapter = LessonsAdapter(data = data, openLessonAction = {}, likeLessonAction = likeLessonAction, completedLessonIDs = listOf())
+                recyclerRecommendLessons.adapter = LessonsAdapter(data = data, openLessonAction = {}, likeLessonAction = likeLessonAction, completedLessonIDs = completedLessons)
                 showMoreButton.gone()
             }
-            recyclerRecommendLessons.adapter = LessonsAdapter(data = dataForList, openLessonAction = {}, likeLessonAction = likeLessonAction, completedLessonIDs = listOf())
+            recyclerRecommendLessons.adapter = LessonsAdapter(data = dataForList, openLessonAction = {}, likeLessonAction = likeLessonAction, completedLessonIDs = completedLessons)
         }
     }
 }

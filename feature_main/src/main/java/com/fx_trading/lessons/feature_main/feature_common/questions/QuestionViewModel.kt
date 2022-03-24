@@ -63,11 +63,11 @@ class QuestionViewModel @Inject constructor(
         }
     }
 
-    fun getQuestions(id: Int) = flow {
+    fun getQuestions(id: Int?) = flow {
         emit(State.LoadingState)
         try {
             delay(500)
-            questionGroup = if (id > 0) {
+            questionGroup = if (id != null) {
                 questionUseCase.getQuestionsGroup(id)
             } else questionUseCase.getStartQuestionGroup()
             questionGroup?.let {

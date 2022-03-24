@@ -54,7 +54,8 @@ class LessonsFragment : BaseFragment<FragmentLessonsBinding>() {
                     }
                     is State.DataState -> {
                         CoroutineScope(Dispatchers.IO).launch {
-                            val allLessons = state.data
+                            val allLessons = state.data.first
+
                             val categories = mutableListOf<String>()
                             allLessons.map { it.categories }.forEach { allCategories ->
                                 allCategories.forEach { category->
@@ -78,7 +79,7 @@ class LessonsFragment : BaseFragment<FragmentLessonsBinding>() {
                                     likeLessonAction = {
                                         viewModel.likeLesson(it)
                                     },
-                                    completedLessonIDs = listOf(),
+                                    completedLessonIDs = state.data.second,
                                 )
                                 accordionDataList.add(LessonAccordionData(
                                     accordionTittle = category,

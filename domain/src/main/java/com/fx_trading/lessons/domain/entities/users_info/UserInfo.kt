@@ -1,3 +1,9 @@
 package com.fx_trading.lessons.domain.entities.users_info
 
-data class UserInfo(val quiz_results: List<QuizResults>, val likesLessons: List<Long>,val  userID: Long, val dislikesLessons: List<Long>)
+data class UserInfo(
+    val questionsIDs: List<Long> = listOf(),
+    val likesLessons: List<Long> = listOf(),
+    val user_id: Long = 0,
+    val dislikesLessons: List<Long> = listOf(),
+    val passedLessons: List<Long> = listOf()
+)

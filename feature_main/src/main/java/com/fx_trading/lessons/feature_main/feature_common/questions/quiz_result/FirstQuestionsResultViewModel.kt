@@ -22,9 +22,9 @@ class FirstQuestionsResultViewModel @Inject constructor(
 
     val uiData = MutableLiveData<TotalResultAction>()
 
-    fun saveUserResultToDatabase(questionGroupID: Int, level: Int, status: Int) {
+    fun saveUserResultToDatabase(questionGroupID: Int, level: Int) {
         viewModelScope.launch {
-            val success = userUseCase.saveResultToDatabase(questionGroupID, level, status, null)
+            val success = userUseCase.saveFirstResultToDatabase(questionGroupID, level, null)
             if (success) {
                 dataStoreHelper.examWasPassed(true)
                 dataStoreHelper.saveDeviceID(pseudoDeviceID)

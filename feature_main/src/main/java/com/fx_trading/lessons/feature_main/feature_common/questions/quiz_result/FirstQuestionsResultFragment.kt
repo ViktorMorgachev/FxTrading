@@ -65,7 +65,7 @@ class FirstQuestionsResultFragment : BaseFragment<FragmentFirstResultQuestionsBi
                         showExperiencedLevel()
                     }
                 }
-                viewModel.saveUserResultToDatabase(questionGroupID = questionGroupID, level = level, status = 1)
+                viewModel.saveUserResultToDatabase(questionGroupID = questionGroupID, level = level)
             }
 
 

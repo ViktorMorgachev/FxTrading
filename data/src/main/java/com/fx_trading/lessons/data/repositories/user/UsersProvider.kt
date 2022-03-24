@@ -27,8 +27,17 @@ class UsersProvider @Inject constructor(private val userDataSource: UserDataSour
       return userDataSource.createNewUser()
     }
 
-    override suspend fun saveResultTesting(userID: Long, quizGroupID: Int, status: Int): Boolean {
-       return userDataSource.saveResultToTesting(userID, quizGroupID, status)
+    override suspend fun saveLessonPassed(lessonID: Long, userID: Long): Boolean {
+        return userDataSource.saveLessonPassed(lessonID, userID)
+    }
+
+
+    override suspend fun firstSaveQuestionPassed(questionID: Long, userId: Long): Boolean {
+        return userDataSource.updateOrCreateUserInfoQuestionPassed(questionID, userId)
+    }
+
+    override suspend fun saveQuestionPassed(questionID: Long, userId: Long): Boolean {
+        return userDataSource.saveQuestionPassed(questionID = questionID, userID = userId)
     }
 
     override suspend fun saveDeviceIDAndUserID(userId: Long): Boolean {
