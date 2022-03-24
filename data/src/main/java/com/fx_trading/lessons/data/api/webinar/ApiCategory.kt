@@ -1,5 +1,5 @@
 package com.fx_trading.lessons.data.api.webinar
 
-data class Category(
+data class ApiCategory(
     val name: String
 )

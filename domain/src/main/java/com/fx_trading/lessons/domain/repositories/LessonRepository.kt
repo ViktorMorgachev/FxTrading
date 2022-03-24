@@ -7,5 +7,5 @@ interface LessonRepository {
     suspend fun setLikeToLesson(lessonID: Long): Boolean
     suspend fun setDislikeToLesson(lessonID: Long): Boolean
     suspend fun getLessonByID(lessonID: Long): Lesson?
-   suspend  fun getLessonsByTags(tags: List<String>): List<Lesson>
+    suspend  fun getLessonsByTags(tags: List<String>): List<Lesson>
 }

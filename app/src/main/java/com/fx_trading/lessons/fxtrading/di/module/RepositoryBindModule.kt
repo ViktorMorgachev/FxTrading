@@ -8,9 +8,13 @@ import com.fx_trading.lessons.data.repositories.question.QuestionRemoteRepositor
 import com.fx_trading.lessons.data.repositories.user.UserRemoteRepository
 import com.fx_trading.lessons.data.repositories.user.UserRemoteRepositoryImpl
 import com.fx_trading.lessons.data.repositories.user.UsersProvider
+import com.fx_trading.lessons.data.repositories.webinars.WebinarsProvider
+import com.fx_trading.lessons.data.repositories.webinars.WebinarsRemoteRepository
+import com.fx_trading.lessons.data.repositories.webinars.WebinarsRemoteRepositoryImpl
 import com.fx_trading.lessons.domain.repositories.LessonRepository
 import com.fx_trading.lessons.domain.repositories.QuestionRepository
 import com.fx_trading.lessons.domain.repositories.UserRepository
+import com.fx_trading.lessons.domain.repositories.WebinarRepository
 import dagger.Binds
 import dagger.Module
 
@@ -21,10 +25,16 @@ abstract class RepositoryBindModule() {
     abstract fun bindLessonRemoteRepository(lessonsRemoteRepositoryImpl: LessonsRemoteRepositoryImpl): LessonsRemoteRepository
 
     @Binds
+    abstract fun bindWebinarsRemoteRepository(webinarsRemoteRepositoryImpl: WebinarsRemoteRepositoryImpl): WebinarsRemoteRepository
+
+    @Binds
     abstract fun bindLessonMockRepository(lessonsMockRepositoryImpl: LessonsMockRepositoryImpl): LessonsMockRepository
 
     @Binds
     abstract fun bindLessonBaseRepository(lessonProvider: LessonProvider): LessonRepository
+
+    @Binds
+    abstract fun bindWebinarsBaseRepository(webinarsProvider: WebinarsProvider): WebinarRepository
 
 
     @Binds

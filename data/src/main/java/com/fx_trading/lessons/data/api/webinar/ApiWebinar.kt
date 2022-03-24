@@ -1,12 +1,13 @@
 package com.fx_trading.lessons.data.api.webinar
 
-import com.fx_trading.lessons.data.api.common.ApiTimeCode
+import com.fx_trading.lessons.domain.entities.common.Timecode
+import com.fx_trading.lessons.domain.entities.webinar.Category
 
-data class Webinar(
+data class ApiWebinar(
     val calendar_url: String,
     val categories: List<Category>,
     val description: String,
-    val difficulty: String,
+    val difficulty: Int,
     val dislikes: Int,
     val duration: String,
     val id: Int,
@@ -18,7 +19,7 @@ data class Webinar(
     val sort_order: Int,
     val speaker_name: String,
     val tags: List<String>,
-    val apiTimeCodes: List<ApiTimeCode>,
+    val timecodes: List<Timecode>,
     val title: String,
     val video_url: String,
     val webinar_date: String
