@@ -24,10 +24,15 @@ import com.fx_trading.lessons.features.databinding.FragmentLessonBinding
 import com.fx_trading.lessons.utils.utils.gone
 import com.fx_trading.lessons.utils.utils.isGone
 import com.fx_trading.lessons.utils.utils.visible
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
+
+
+
 
 class LessonFragment : BaseFragment<FragmentLessonBinding>() {
 
@@ -38,37 +43,75 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
         factoryProducer = { viewModelFactory }
     )
 
+    var youTubePlayer: YouTubePlayer? = null
+
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentLessonBinding =
         FragmentLessonBinding::inflate
 
     private fun showLesson(lesson: Lesson) {
         with(binding) {
-            youtubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
-                override fun onReady(youTubePlayer: YouTubePlayer) {
-                    val videoId =  lesson.video_url.substringAfter("v=").substringBefore("&")
-                    youTubePlayer.cueVideo(videoId, 0F)
-                    val timecodes = lesson.timecodes.filter { it.is_active && it.timeSeconds > 0 && it.title.isNotEmpty() && it.time.isNotEmpty()}
-                    if (timecodes.isNotEmpty()){
-                        itemTimecodes.visible()
-                        recyclerTimecodes.adapter = TimecodesAdapter(data = timecodes){
-                            youTubePlayer.loadVideo(videoId, it.toFloat())
-                        }
-                        ivArrowTimecodes.setOnClickListener {
-                           if (recyclerTimecodes.isGone()){
-                               recyclerTimecodes.visible()
-                               ivArrowTimecodes.rotation = 0f
-                           } else {
-                               ivArrowTimecodes.rotation = -90f
-                               recyclerTimecodes.gone()
-                           }
-                        }
-                    } else {
-                        itemTimecodes.gone()
-                        recyclerTimecodes.gone()
-                    }
 
+            if (youTubePlayer == null){
+                youtubePlayerView.enableAutomaticInitialization = false
+
+
+                youtubePlayerView.initialize(object : AbstractYouTubePlayerListener() {
+                    override fun onReady(youTubePlayer: YouTubePlayer) {
+                        this@LessonFragment.youTubePlayer = youTubePlayer
+                        val videoId =  lesson.video_url.substringAfter("v=").substringBefore("&")
+                        youTubePlayer.cueVideo(videoId, 0F)
+                        val timecodes = lesson.timecodes.filter { it.is_active && it.timeSeconds > 0 && it.title.isNotEmpty() && it.time.isNotEmpty()}
+                        if (timecodes.isNotEmpty()){
+                            itemTimecodes.visible()
+                            recyclerTimecodes.adapter = TimecodesAdapter(data = timecodes){
+                                youTubePlayer.loadVideo(videoId, it.toFloat())
+                            }
+                            ivArrowTimecodes.setOnClickListener {
+                                if (recyclerTimecodes.isGone()){
+                                    recyclerTimecodes.visible()
+                                    ivArrowTimecodes.rotation = 0f
+                                } else {
+                                    ivArrowTimecodes.rotation = -90f
+                                    recyclerTimecodes.gone()
+                                }
+                            }
+                        } else {
+                            itemTimecodes.gone()
+                            recyclerTimecodes.gone()
+                        }
+
+                    }
+                }, false, IFramePlayerOptions.Builder()
+                    .controls(1)
+                    .rel(0)
+                    .ivLoadPolicy(3)
+                    .ccLoadPolicy(1)
+                    .build())
+
+
+            } else {
+                val videoId = lesson.video_url.substringAfter("v=").substringBefore("&")
+                youTubePlayer?.cueVideo(videoId, 0F)
+                val timecodes = lesson.timecodes.filter { it.is_active && it.timeSeconds > 0 && it.title.isNotEmpty() && it.time.isNotEmpty()}
+                if (timecodes.isNotEmpty()) {
+                    itemTimecodes.visible()
+                    recyclerTimecodes.adapter = TimecodesAdapter(data = timecodes) {
+                        youTubePlayer?.loadVideo(videoId, it.toFloat())
+                    }
+                    ivArrowTimecodes.setOnClickListener {
+                        if (recyclerTimecodes.isGone()) {
+                            recyclerTimecodes.visible()
+                            ivArrowTimecodes.rotation = 0f
+                        } else {
+                            ivArrowTimecodes.rotation = -90f
+                            recyclerTimecodes.gone()
+                        }
+                    }
                 }
-            })
+            }
+
+
+
             startExam.setOnClickListener {
                 val intent = Intent(requireActivity(), QuestionActivity::class.java)
                 intent.putExtra(key_question_group_id, lesson.question_group.toInt())
@@ -131,9 +174,9 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
 
             }
             tvVideoAutor.text = lesson.speaker_name
-            tvVideoDescription.text = lesson.description
+            tvVideoTitle.text = lesson.title
             likeDislikeItem.likeItem.tvLikeText.text = "${lesson.likes}"
-            toolbar.toolbarText.text = lesson.title
+            toolbar.toolbarText.text = toolbar.toolbarText.resources.getString(R.string.lesson)
         }
     }
 
@@ -189,8 +232,6 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
             val openLessonAction: (Lesson)->Unit = { lesson->
                 lifecycleScope.launchWhenResumed {
                     showLessonByLessonID(lessonID = lesson.id)
-                    youtubePlayerView.release()
-                    lifecycle.addObserver(youtubePlayerView)
                 }
             }
             val dataForList = if (data.size > 3){
@@ -199,10 +240,10 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
             } else data
 
             showMoreButton.setOnClickListener {
-                recyclerRecommendLessons.adapter = LessonsAdapter(data = data, openLessonAction = {}, likeLessonAction = likeLessonAction, completedLessonIDs = completedLessons)
+                recyclerRecommendLessons.adapter = LessonsAdapter(data = data, openLessonAction = openLessonAction, likeLessonAction = likeLessonAction, completedLessonIDs = completedLessons)
                 showMoreButton.gone()
             }
-            recyclerRecommendLessons.adapter = LessonsAdapter(data = dataForList, openLessonAction = {}, likeLessonAction = likeLessonAction, completedLessonIDs = completedLessons)
+            recyclerRecommendLessons.adapter = LessonsAdapter(data = dataForList, openLessonAction = openLessonAction, likeLessonAction = likeLessonAction, completedLessonIDs = completedLessons)
         }
     }
 }

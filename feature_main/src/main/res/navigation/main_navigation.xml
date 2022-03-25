@@ -22,6 +22,14 @@
                 app:argType="integer"
                 app:nullable="false"/>
         </action>
+        <action
+            android:id="@+id/action_mainFragment_to_webinarFragment"
+            app:destination="@id/webinarFragment">
+            <argument
+                android:name="webinar_id"
+                app:argType="integer"
+                app:nullable="false"/>
+        </action>
     </fragment>
 
     <fragment
@@ -30,8 +38,10 @@
         android:label="LessonFragment" >
     </fragment>
 
-    <navigation android:id="@+id/nested_question_graph">
-        <include app:graph="@navigation/questions_navigation" />
-    </navigation>
+
+    <fragment
+        android:id="@+id/webinarFragment"
+        android:name="com.fx_trading.lessons.feature_main.ui.webinar.WebinarFragment"
+        android:label="WebinarFragment" />
 
 </navigation>

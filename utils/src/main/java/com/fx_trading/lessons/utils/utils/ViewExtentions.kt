@@ -11,14 +11,16 @@ fun View.visibleOrGone(visible: Boolean) {
 }
 
 fun View.visible() {
+    if (this.visibility != View.VISIBLE)
     this.visibility = View.VISIBLE
 }
 
 fun View.gone() {
-    this.visibility = View.GONE
+    if (this.visibility != View.GONE)
+        this.visibility = View.GONE
 }
 
-fun View.isGone(): Boolean{
+fun View.isGone(): Boolean {
     return this.visibility == View.GONE
 }
 

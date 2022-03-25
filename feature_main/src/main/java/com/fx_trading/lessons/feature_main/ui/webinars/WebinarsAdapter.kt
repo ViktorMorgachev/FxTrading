@@ -71,10 +71,10 @@ class WebinarsAdapter(
                     countOfLikes.setOnClickListener {
                         onLikeWebinarAction.invoke(webinar.id)
                     }
-                    root.setOnClickListener {
-                        openWebinarAction.invoke(webinar.id)
-                    }
                     webinarTopText.text = root.resources.getString(R.string.webinar)
+                }
+                webinarItemRoot.setOnClickListener {
+                    openWebinarAction.invoke(webinar.id)
                 }
                 Glide.with(itemView.context)
                     .load(webinar.promo_image_url).error(R.drawable.mock_video_image)

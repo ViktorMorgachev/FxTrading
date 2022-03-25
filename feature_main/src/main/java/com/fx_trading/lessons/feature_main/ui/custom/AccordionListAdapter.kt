@@ -99,6 +99,7 @@ open class BaseAccordionListAdapter<A : RecyclerView.Adapter<*>>(
 
                 ivArrow.setOnClickListener {
                     if (expandedData == data) {
+                        expandedData = null
                         collapseView()
                     } else {
                         expandedData = data

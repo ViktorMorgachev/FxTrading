@@ -37,6 +37,7 @@ class LessonsAdapter(var data: List<Lesson>, val openLessonAction: (Lesson)->Uni
                 lessonItemRoot.setOnClickListener {
                     openLessonAction(actualLesson)
                 }
+                difficultyItem.setDifficulty(lesson.difficulty)
                 ivLike.setOnClickListener {
                     likeLessonAction(actualLesson.id)
                 }

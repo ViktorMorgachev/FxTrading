@@ -6,7 +6,7 @@
     android:orientation="horizontal"
     android:layout_height="wrap_content">
 
-    <include layout="@layout/button_like_item"
+    <include layout="@layout/button_like_item_purple"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/dislike_item"
@@ -17,7 +17,7 @@
     <include
         android:layout_gravity="center"
         android:layout_marginStart="16dp"
-        layout="@layout/button_dislike_item"
+        layout="@layout/button_dislike_item_purple"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@id/like_item"
         app:layout_constraintRight_toRightOf="parent"

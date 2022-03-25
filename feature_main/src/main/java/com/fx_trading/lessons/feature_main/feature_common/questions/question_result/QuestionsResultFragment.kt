@@ -71,33 +71,14 @@ class QuestionsResultFragment : BaseFragment<FragmentTotalResultQuestionsBinding
                 percentResult.text = "${percentSuccessAnswering}%"
                 countTotalQuestions.text = "$totalQuestions"
                 countResultAnswers.text = "$successQuestions"
+                difficultyItem.setDifficulty(lessonDifficulty)
+
 
                 when (lessonDifficulty) {
                     1 -> {
-                        stars.star2.setImageDrawable(
-                            ResourcesCompat.getDrawable(
-                                resources,
-                                R.drawable.star_orange,
-                                null
-                            )
-                        )
                         lessonDifficultyDescription.text = resources.getString(R.string.lesson_easy)
                     }
                     2 -> {
-                        stars.star2.setImageDrawable(
-                            ResourcesCompat.getDrawable(
-                                resources,
-                                R.drawable.star_orange,
-                                null
-                            )
-                        )
-                        stars.star3.setImageDrawable(
-                            ResourcesCompat.getDrawable(
-                                resources,
-                                R.drawable.star_orange,
-                                null
-                            )
-                        )
                         lessonDifficultyDescription.text = resources.getString(R.string.lesson_hard)
                     }
                     3 ->{

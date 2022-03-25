@@ -30,10 +30,28 @@ fun <T> Flow<T>.launchWhenStarted(lifecycleOwner: LifecycleOwner)= with(lifecycl
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
-fun String.formatDate(pattern: String = "dd MMMM"): String{
-   val instant = Instant.parse(this)
-    val javaDateTime = instant.toLocalDateTime(TimeZone.currentSystemDefault()).toJavaLocalDateTime()
-    return "${javaDateTime.dayOfMonth} ${javaDateTime.month.getDisplayName(TextStyle.FULL, Locale.getDefault())}"
+fun String.formatDate(): String{
+    try {
+        val instant = Instant.parse(this)
+        val javaDateTime = instant.toLocalDateTime(TimeZone.currentSystemDefault()).toJavaLocalDateTime()
+        return "${javaDateTime.dayOfMonth} ${javaDateTime.month.getDisplayName(TextStyle.FULL, Locale.getDefault())}"
+    } catch (e: Exception){
+        Logger.log("formatDate()", exception = e)
+        return this
+    }
+
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
+fun String.formatDateTime(): String {
+    try {
+        val instant = Instant.parse(this)
+        val javaDateTime = instant.toLocalDateTime(TimeZone.currentSystemDefault()).toJavaLocalDateTime()
+        return "${javaDateTime.dayOfMonth} ${javaDateTime.month.getDisplayName(TextStyle.FULL, Locale.getDefault())} @ ${javaDateTime.hour}:${javaDateTime.minute}"
+    } catch (e: Exception){
+        Logger.log("formatDateTime()", exception = e)
+        return this
+    }
 }
 
 fun String.isFuture(): Boolean{
