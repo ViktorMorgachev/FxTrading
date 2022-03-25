@@ -1,5 +1,6 @@
 package com.fx_trading.lessons.data.repositories.user
 
+import com.fx_trading.lessons.data.mappers.toApiUserInfo
 import com.fx_trading.lessons.data.pseudoDeviceID
 import com.fx_trading.lessons.data.store.UserDataSource
 import com.fx_trading.lessons.domain.entities.user.User
@@ -11,7 +12,7 @@ import javax.inject.Singleton
 @Singleton
 class UsersProvider @Inject constructor(private val userDataSource: UserDataSource): UserRepository {
 
-    override suspend fun getUserByUserID(userID: Long): User? {
+    override suspend fun getUserByUserID(userID: Int): User? {
        return userDataSource.getUserByUserID(userID)
     }
 
@@ -19,7 +20,7 @@ class UsersProvider @Inject constructor(private val userDataSource: UserDataSour
       return userDataSource.updateUserData(user)
     }
 
-    override suspend fun getUserIDByDeviceID(): Long? {
+    override suspend fun getUserIDByDeviceID(): Int? {
         return userDataSource.getUserIDByDeviceID(deviceID = pseudoDeviceID)
     }
 
@@ -27,32 +28,36 @@ class UsersProvider @Inject constructor(private val userDataSource: UserDataSour
       return userDataSource.createNewUser()
     }
 
-    override suspend fun saveLessonPassed(lessonID: Long, userID: Long): Boolean {
+    override suspend fun updateUserInfo(userInfo: UserInfo): Boolean {
+        return userDataSource.updateUserInfo(userInfo)
+    }
+
+    override suspend fun saveLessonPassed(lessonID: Int, userID: Int): Boolean {
         return userDataSource.saveLessonPassed(lessonID, userID)
     }
 
 
-    override suspend fun firstSaveQuestionPassed(questionID: Long, userId: Long): Boolean {
+    override suspend fun firstSaveQuestionPassed(questionID: Int, userId: Int): Boolean {
         return userDataSource.updateOrCreateUserInfoQuestionPassed(questionID, userId)
     }
 
-    override suspend fun saveQuestionPassed(questionID: Long, userId: Long): Boolean {
+    override suspend fun saveQuestionPassed(questionID: Int, userId: Int): Boolean {
         return userDataSource.saveQuestionPassed(questionID = questionID, userID = userId)
     }
 
-    override suspend fun saveDeviceIDAndUserID(userId: Long): Boolean {
+    override suspend fun saveDeviceIDAndUserID(userId: Int): Boolean {
         return userDataSource.saveDeviceAndUserID(userId, pseudoDeviceID)
     }
 
-    override suspend fun getUserInfoByUserID(userID: Long): UserInfo? {
+    override suspend fun getUserInfoByUserID(userID: Int): UserInfo? {
         return userDataSource.getUserInfoByUserID(userID)
     }
 
-    override suspend fun updateUserInfoLessonLike(lessonID: Long, userID: Long): Boolean {
+    override suspend fun updateUserInfoLessonLike(lessonID: Int, userID: Int): Boolean {
       return userDataSource.updateUserInfoLessonLike(lessonID, userId = userID)
     }
 
-    override suspend fun updateUserInfoLessonDisLike(lessonID: Long, userID: Long): Boolean {
+    override suspend fun updateUserInfoLessonDisLike(lessonID: Int, userID: Int): Boolean {
         return userDataSource.updateUserInfoLessonDislike(lessonID, userId = userID)
     }
 

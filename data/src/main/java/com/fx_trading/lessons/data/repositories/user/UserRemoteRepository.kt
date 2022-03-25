@@ -7,11 +7,11 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserRemoteRepository {
     suspend fun updateUserData(user: ApiUser): Boolean
-    suspend fun getUserIDByDeviceID(deviceID: String): Long?
+    suspend fun getUserIDByDeviceID(deviceID: String): Int?
     suspend fun createNewUser(): ApiUser?
-    suspend fun getUserByUserID(userID: Long): ApiUser?
-    suspend fun saveDeviceAndUserID(userId: Long, deviceID: String): Boolean
-    suspend fun getUserInfoByUserID(userId: Long): ApiUserInfo?
+    suspend fun getUserByUserID(userID: Int): ApiUser?
+    suspend fun saveDeviceAndUserID(userId: Int, deviceID: String): Boolean
+    suspend fun getUserInfoByUserID(userId: Int): ApiUserInfo?
     suspend fun updateUserInfo(userInfo: ApiUserInfo): Boolean
-    suspend fun createNewUserInfo(userId: Long): ApiUserInfo?
+    suspend fun createNewUserInfo(userId: Int): ApiUserInfo?
 }

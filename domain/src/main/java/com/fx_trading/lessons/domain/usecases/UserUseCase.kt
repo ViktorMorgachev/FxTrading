@@ -14,7 +14,7 @@ class UserUseCase @Inject constructor(private val userRepository: UserRepository
             user?.let {
                 val result = userRepository.updateUserData(user = user.copy(rank = level))
                 if (result){
-                    userRepository.firstSaveQuestionPassed(questionID = questionGroupID.toLong(), userId = it.user_id)
+                    userRepository.firstSaveQuestionPassed(questionID = questionGroupID, userId = it.user_id)
                     return true
                 }
             }
@@ -23,25 +23,25 @@ class UserUseCase @Inject constructor(private val userRepository: UserRepository
             val newUser = userRepository.createNewUser()
             if (newUser != null){
                 userRepository.updateUserData(user = newUser.copy(rank = level))
-                userRepository.firstSaveQuestionPassed(questionID = questionGroupID.toLong(), userId = newUser.user_id)
+                userRepository.firstSaveQuestionPassed(questionID = questionGroupID, userId = newUser.user_id)
                 userRepository.saveDeviceIDAndUserID(newUser.user_id)
                 return true
             } else return false
         }
     }
 
-    suspend fun saveLessonAndQuestionPassedToUserInfo(lessonID: Long, questionGroupID: Int, userID: Long): Boolean{
+    suspend fun saveLessonAndQuestionPassedToUserInfo(lessonID: Int, questionGroupID: Int, userID: Int): Boolean{
         if(userRepository.saveLessonPassed(lessonID, userID)){
-          return  userRepository.saveQuestionPassed(questionID = questionGroupID.toLong(), userId = userID)
+          return  userRepository.saveQuestionPassed(questionID = questionGroupID, userId = userID)
         }
        return false
     }
 
-    suspend fun getUserIDByDeviceID(): Long?{
+    suspend fun getUserIDByDeviceID(): Int?{
         return userRepository.getUserIDByDeviceID()
     }
 
-    suspend fun setLikeToLesson(lessonID: Long, userID: Long): Boolean {
+    suspend fun setLikeToLesson(lessonID: Int, userID: Int): Boolean {
         val userInfo = userRepository.getUserInfoByUserID(userID)
         userInfo?.let {
             if(it.likesLessons.contains(lessonID)) return false
@@ -55,7 +55,7 @@ class UserUseCase @Inject constructor(private val userRepository: UserRepository
         return false
     }
 
-    suspend fun setDisLikeToLesson(lessonID: Long, userID: Long): Boolean {
+    suspend fun setDisLikeToLesson(lessonID: Int, userID: Int): Boolean {
         val userInfo = userRepository.getUserInfoByUserID(userID)
         userInfo?.let {
             if(it.dislikesLessons.contains(lessonID)) return false
@@ -70,9 +70,9 @@ class UserUseCase @Inject constructor(private val userRepository: UserRepository
     }
 
    suspend fun getCompletedLessonIds(userID: Int): List<Int> {
-       val userInfo = userRepository.getUserInfoByUserID(userID.toLong())
+       val userInfo = userRepository.getUserInfoByUserID(userID)
        userInfo?.let {
-           return it.passedLessons.map { it.toInt() }
+           return it.passedLessons
        }
        return emptyList()
     }

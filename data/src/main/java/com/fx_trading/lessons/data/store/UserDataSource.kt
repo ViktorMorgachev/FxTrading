@@ -3,6 +3,7 @@ package com.fx_trading.lessons.data.store
 import com.fx_trading.lessons.data.BuildConfig
 import com.fx_trading.lessons.data.api.user_info.mock.MockData
 import com.fx_trading.lessons.data.mappers.toApiUser
+import com.fx_trading.lessons.data.mappers.toApiUserInfo
 import com.fx_trading.lessons.data.mappers.toUser
 import com.fx_trading.lessons.data.mappers.toUserInfo
 import com.fx_trading.lessons.data.repositories.user.UserRemoteRepository
@@ -15,7 +16,7 @@ import javax.inject.Singleton
 @Singleton
 class UserDataSource @Inject constructor(private val userRemoteRepository: UserRemoteRepository) {
 
-    suspend fun getUserIDByDeviceID(deviceID: String): Long? {
+    suspend fun getUserIDByDeviceID(deviceID: String): Int? {
         return userRemoteRepository.getUserIDByDeviceID(deviceID)
     }
 
@@ -23,38 +24,42 @@ class UserDataSource @Inject constructor(private val userRemoteRepository: UserR
         return userRemoteRepository.createNewUser()?.toUser()
     }
 
+    suspend fun updateUserInfo(userInfo: UserInfo): Boolean{
+        return userRemoteRepository.updateUserInfo(userInfo = userInfo.toApiUserInfo())
+    }
+
     suspend fun updateUserData(user: User): Boolean {
         return userRemoteRepository.updateUserData(user = user.toApiUser())
     }
 
-    suspend fun getUserByUserID(userId: Long): User? {
+    suspend fun getUserByUserID(userId: Int): User? {
         return userRemoteRepository.getUserByUserID(userId)?.toUser()
     }
 
 
-    suspend fun saveDeviceAndUserID(userId: Long, deviceID: String): Boolean {
+    suspend fun saveDeviceAndUserID(userId: Int, deviceID: String): Boolean {
         return userRemoteRepository.saveDeviceAndUserID(userId, deviceID)
     }
 
-    suspend fun getUserInfoByUserID(userId: Long): UserInfo? {
+    suspend fun getUserInfoByUserID(userId: Int): UserInfo? {
         return userRemoteRepository.getUserInfoByUserID(userId)?.toUserInfo()
     }
 
-    suspend fun updateUserInfoLessonLike(lessonID: Long, userId: Long): Boolean {
+    suspend fun updateUserInfoLessonLike(lessonID: Int, userId: Int): Boolean {
         val userInfo = userRemoteRepository.getUserInfoByUserID(userId)
         return if (userInfo != null){
             userRemoteRepository.updateUserInfo(userInfo.copy(likes_lessons_ids = userInfo.likes_lessons_ids.plus(lessonID)))
         } else false
     }
 
-    suspend fun saveQuestionPassed(questionID: Long, userID: Long): Boolean {
+    suspend fun saveQuestionPassed(questionID: Int, userID: Int): Boolean {
         val userInfo = userRemoteRepository.getUserInfoByUserID(userID)
         return if (userInfo != null && !userInfo.questions_ids.contains(questionID)){
             userRemoteRepository.updateUserInfo(userInfo.copy(questions_ids = userInfo.questions_ids.plus(questionID)))
         } else false
     }
 
-    suspend fun updateOrCreateUserInfoQuestionPassed(questionID: Long, userId: Long): Boolean{
+    suspend fun updateOrCreateUserInfoQuestionPassed(questionID: Int, userId: Int): Boolean{
         val userInfo = userRemoteRepository.getUserInfoByUserID(userId)
         return if (userInfo != null){
             if (!userInfo.questions_ids.contains(questionID)){
@@ -73,14 +78,14 @@ class UserDataSource @Inject constructor(private val userRemoteRepository: UserR
         }
     }
 
-    suspend fun updateUserInfoLessonDislike(lessonID: Long, userId: Long): Boolean {
+    suspend fun updateUserInfoLessonDislike(lessonID: Int, userId: Int): Boolean {
         val userInfo = userRemoteRepository.getUserInfoByUserID(userId)
         return if (userInfo != null){
             userRemoteRepository.updateUserInfo(userInfo.copy(dislikes_lessons_ids = userInfo.dislikes_lessons_ids.plus(lessonID)))
         } else false
     }
 
-    suspend fun saveLessonPassed(lessonID: Long, userID: Long): Boolean {
+    suspend fun saveLessonPassed(lessonID: Int, userID: Int): Boolean {
         val userInfo = userRemoteRepository.getUserInfoByUserID(userID)
         return if (userInfo != null && !userInfo.passed_lessons_ids.contains(lessonID)){
             userRemoteRepository.updateUserInfo(userInfo.copy(passed_lessons_ids = userInfo.passed_lessons_ids.plus(lessonID)))

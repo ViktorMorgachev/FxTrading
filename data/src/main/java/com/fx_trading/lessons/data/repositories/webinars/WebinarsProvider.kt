@@ -18,7 +18,11 @@ class WebinarsProvider  @Inject constructor(private val webinarsDataSource: Webi
         return webinarsDataSource.getWebinarByID(id)?.toWebinar()
     }
 
-    override suspend fun updateWebinar(webinarID: Int) {
-        return webinarsDataSource.updateWebinar(webinarID)
+    override suspend fun getWebinarForceByID(id: Int): Webinar? {
+        return webinarsDataSource.getWebinarByID(id, forceUpdate = true)?.toWebinar()
+    }
+
+    override suspend fun updateWebinar(webinar: Webinar): Boolean {
+        return webinarsDataSource.updateWebinar(webinar)
     }
 }

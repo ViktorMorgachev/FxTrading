@@ -12,19 +12,20 @@ import com.fx_trading.lessons.utils.utils.gone
 import com.fx_trading.lessons.utils.utils.visible
 import data.formatDate
 import data.isFuture
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
-import kotlinx.datetime.toInstant
-import kotlinx.datetime.toLocalDateTime
 
-class WebinarsAdapter(var data: List<Webinar>): RecyclerView.Adapter<WebinarsAdapter.WebinarsHolder>() {
+class WebinarsAdapter(
+    var data: MutableList<Webinar>,
+    val openWebinarAction: (Int) -> Unit,
+    val onLikeWebinarAction: (Int) -> Unit
+) : RecyclerView.Adapter<WebinarsAdapter.WebinarsHolder>() {
 
     init {
-        data = data.sortedBy { it.sort_order }
+        data = data.sortedBy { it.sort_order }.toMutableList()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WebinarsHolder {
-        val itemBinding = WebinarItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemBinding =
+            WebinarItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return WebinarsHolder(itemBinding, data = data)
     }
 
@@ -33,35 +34,56 @@ class WebinarsAdapter(var data: List<Webinar>): RecyclerView.Adapter<WebinarsAda
         holder.bind(data)
     }
 
+    fun replaceItem(webinar: Webinar) {
+        val index = data.indexOf(data.first { it.id == webinar.id })
+        data.removeAt(index)
+        data.add(index, webinar)
+        notifyItemInserted(index)
+        notifyItemRangeChanged(index, data.size)
+    }
+
+
+
     override fun getItemCount(): Int = data.size
 
-    class WebinarsHolder(private val itemBinding: WebinarItemBinding, val data: List<Webinar>) : RecyclerView.ViewHolder(itemBinding.root) {
+    inner class WebinarsHolder(
+        private val itemBinding: WebinarItemBinding,
+        val data: List<Webinar>
+    ) : RecyclerView.ViewHolder(itemBinding.root) {
 
-        fun bind(data: Webinar) {
-            with(itemBinding){
+        fun bind(webinar: Webinar) {
+            with(itemBinding) {
 
-                if (data.webinar_date.isFuture()){
+                if (webinar.webinar_date.isFuture()) {
                     dateOfWebinar.visible()
                     likeItemRoot.gone()
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        dateOfWebinar.text = data.webinar_date.formatDate()
+                        dateOfWebinar.text = webinar.webinar_date.formatDate()
                     }
                     webinarTopText.text = root.resources.getString(R.string.webinar_upcoming)
-                } else{
+                } else {
                     likeItemRoot.visible()
                     dateOfWebinar.gone()
-                    countOfLikes.text = "${data.likes}"
+                    countOfLikes.text = "${webinar.likes}"
+                    likeItemRoot.setOnClickListener{
+                        onLikeWebinarAction.invoke(webinar.id)
+                    }
                     countOfLikes.setOnClickListener {
-
+                        onLikeWebinarAction.invoke(webinar.id)
+                    }
+                    root.setOnClickListener {
+                        openWebinarAction.invoke(webinar.id)
                     }
                     webinarTopText.text = root.resources.getString(R.string.webinar)
                 }
                 Glide.with(itemView.context)
-                    .load(data.promo_image_url).error(R.drawable.mock_video_image)
+                    .load(webinar.promo_image_url).error(R.drawable.mock_video_image)
                     .into(ivPromoWebinar)
-                title.text = data.title
+                title.text = webinar.title
             }
         }
+
+
 
     }
 }

@@ -48,9 +48,9 @@ class LessonsViewModel @Inject constructor(
                 // Поставить лайк уроку, проверить что всё ок
                 // Либо ничего не делать
                 dataStoreHelper.userID().collect { userID ->
-                    val success = usersUseCase.setLikeToLesson(lessonID.toLong(), userID)
+                    val success = usersUseCase.setLikeToLesson(lessonID, userID)
                     if (success) {
-                        val lesson = lessonsUseCase.getLessonByID(lessonID.toLong())
+                        val lesson = lessonsUseCase.getLessonByID(lessonID)
                         lesson?.let {
                             likedLesson.postValue(it)
                         }

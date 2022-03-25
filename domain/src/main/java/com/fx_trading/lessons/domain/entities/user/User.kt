@@ -8,6 +8,6 @@ data class User(
     val name: String,
     val rank: Int,
     val region: String,
-    val user_id: Long,
+    val user_id: Int,
     val utm: String
 )

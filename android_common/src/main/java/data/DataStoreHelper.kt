@@ -44,10 +44,10 @@ class DataStoreHelper @Inject constructor(val context: Context) {
         }
     }
 
-    suspend fun saveUserID(userID: Long){
+    suspend fun saveUserID(userID: Int){
         context.dataPreferences.edit { preferences->
             Logger.log("DataStoreHelper", "saveUserID $userID")
-            preferences[USER_ID] = userID
+            preferences[USER_ID] = userID.toLong()
         }
     }
 
@@ -62,6 +62,6 @@ class DataStoreHelper @Inject constructor(val context: Context) {
 
     suspend fun wasPassedExam() = context.dataPreferences.data.map { it[PRE_TEST_PASSED] ?: false }
 
-    suspend fun userID() = context.dataPreferences.data.map { it[USER_ID] ?: -1 }
+    suspend fun userID() = context.dataPreferences.data.map { (it[USER_ID] ?: -1).toInt() }
 
 }

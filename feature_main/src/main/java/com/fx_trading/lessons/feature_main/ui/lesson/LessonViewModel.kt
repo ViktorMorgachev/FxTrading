@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 class LessonViewModel @Inject constructor(val lessonsUseCase: LessonsUseCase,val userUseCase: UserUseCase,val  dataStoreHelper: DataStoreHelper) : ViewModel() {
 
-    fun getLesson(lessonID: Long) = flow {
+    fun getLesson(lessonID: Int) = flow {
         emit(State.LoadingState)
         try {
             delay(500)
@@ -27,7 +27,7 @@ class LessonViewModel @Inject constructor(val lessonsUseCase: LessonsUseCase,val
         }
     }
 
-    fun likeLesson(lessonID: Long)= flow{
+    fun likeLesson(lessonID: Int)= flow{
         emit(State.LoadingState)
         try {
             dataStoreHelper.userID().collect {
@@ -43,7 +43,7 @@ class LessonViewModel @Inject constructor(val lessonsUseCase: LessonsUseCase,val
         }
     }
 
-    fun dislikeLesson(lessonID: Long)= flow{
+    fun dislikeLesson(lessonID: Int)= flow{
         emit(State.LoadingState)
         try {
             dataStoreHelper.userID().collect {

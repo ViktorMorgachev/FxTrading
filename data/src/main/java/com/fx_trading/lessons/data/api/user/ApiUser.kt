@@ -8,6 +8,6 @@ data class ApiUser(
     val name: String = "",
     val rank: Int = 0,
     val region: String = "",
-    val user_id: Long = -1,
+    val user_id: Int = -1,
     val utm: String = ""
 )

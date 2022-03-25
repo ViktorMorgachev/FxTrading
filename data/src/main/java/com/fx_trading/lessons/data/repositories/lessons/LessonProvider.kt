@@ -14,15 +14,15 @@ class LessonProvider @Inject constructor(private val lessonsDataSource: LessonsD
          return lessonsDataSource.getLessons().map { it.toLesson() }
     }
 
-    override suspend fun setLikeToLesson(lessonID: Long): Boolean {
+    override suspend fun setLikeToLesson(lessonID: Int): Boolean {
         return lessonsDataSource.setLikesLesson(lessonID)
     }
 
-    override suspend fun setDislikeToLesson(lessonID: Long): Boolean {
+    override suspend fun setDislikeToLesson(lessonID: Int): Boolean {
         return lessonsDataSource.setDislikeLesson(lessonID)
     }
 
-    override suspend fun getLessonByID(lessonID: Long): Lesson? {
+    override suspend fun getLessonByID(lessonID: Int): Lesson? {
       return  lessonsDataSource.getLessonByID(lessonID)?.toLesson()
     }
 

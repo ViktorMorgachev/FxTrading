@@ -17,7 +17,7 @@ class QuestionResultViewModel @Inject constructor(val userUseCase: UserUseCase, 
         try {
             delay(500)
             dataStoreHelper.userID().collect {
-              emit(State.DataState(userUseCase.saveLessonAndQuestionPassedToUserInfo(lessonID = lessonID.toLong(), questionGroupID = questionID, it)))
+              emit(State.DataState(userUseCase.saveLessonAndQuestionPassedToUserInfo(lessonID = lessonID, questionGroupID = questionID, it)))
             }
         } catch (e: Exception){
             Logger.log("ExampleViewModel", exception = e)

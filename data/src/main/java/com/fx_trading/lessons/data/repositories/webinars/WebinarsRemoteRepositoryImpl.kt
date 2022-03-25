@@ -31,16 +31,37 @@ class WebinarsRemoteRepositoryImpl @Inject constructor(private val firebaseFires
             }
             return listOf()
         } catch (e : Exception){
-            Logger.log("LessonsRemoteRepository", "Error getting documents.", exception = e)
+            Logger.log("WebinarsRemoteRepository", "Error getting documents.", exception = e)
             return listOf()
         }
     }
 
-    override suspend fun getWebinarByID(id: Long): ApiWebinar {
-        TODO("Not yet implemented")
+    override suspend fun getWebinarByID(id: Int): ApiWebinar? {
+        try {
+            val firebaseDocument = firebaseFirestore.collection("${documentPath}Webinars").document("$id").get().await()
+            if (firebaseDocument != null && !firebaseDocument.data.isNullOrEmpty()) {
+                return  firebaseDocument.toObject(ApiWebinar::class.java)
+            } else {
+                Logger.log("WebinarsRemoteRepository", "Error getting documents.")
+                return null
+            }
+        } catch (e: Exception) {
+            Logger.log("WebinarsRemoteRepository", "Error getting documents.", exception = e)
+            return null
+        }
     }
 
-    override suspend fun updateWebinar(webinar: ApiWebinar) {
+    override suspend fun updateWebinar(webinar: ApiWebinar): Boolean {
+        try {
+            firebaseFirestore.collection("${documentPath}Webinars").document("${webinar.id}").set(webinar).await()
+            return true
+        } catch (e: Exception) {
+            Logger.log("WebinarsRemoteRepository", "Error update documents.", exception = e)
+            return false
+        }
+    }
+
+    override suspend fun updateWebinarField(webinarID: Int, fieldValue: Any, field: String) {
         TODO("Not yet implemented")
     }
 }

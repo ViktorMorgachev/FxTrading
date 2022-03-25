@@ -28,19 +28,27 @@ class WebinarsFragment:  BaseFragment<FragmentWebinarsBinding>(), WebinarsView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val likeWebinarsAction: (Int)->Unit = { webinarID->
+            lifecycleScope.launchWhenResumed {
+                viewModel.likeWebinar(webinarID = webinarID).collect { state->
+                    when(state){
+                        is State.DataState ->{
+                            with(binding){
+                                (recyclerWebinars.adapter as WebinarsAdapter).replaceItem(state.data)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         lifecycleScope.launchWhenCreated {
             viewModel.getWebinars().collect {
                 when(it){
-                    is State.LoadingState -> {
-
-                    }
-                    is State.ErrorState -> {
-
-                    }
                     is State.DataState ->{
                         with(binding){
                             recyclerWebinars.layoutManager = LinearLayoutManager(requireContext())
-                            recyclerWebinars.adapter = WebinarsAdapter(it.data)
+                            recyclerWebinars.adapter = WebinarsAdapter(it.data.toMutableList(), openWebinarAction = {}, onLikeWebinarAction = likeWebinarsAction)
                         }
                     }
                 }

@@ -29,7 +29,7 @@ class LessonsDataSource @Inject constructor(
         return lessons
     }
 
-    suspend fun setLikesLesson(lessonID: Long): Boolean{
+    suspend fun setLikesLesson(lessonID: Int): Boolean{
         val lessonForUpdate = cache.firstOrNull() { it.id == lessonID.toInt() }
         if (lessonForUpdate != null){
             val success =  lessonsRemoteRepository.updateLesson(lessonForUpdate.copy(likes = lessonForUpdate.likes + 1))
@@ -45,7 +45,7 @@ class LessonsDataSource @Inject constructor(
         cache.add(lessonNew)
     }
 
-    suspend fun getLessonByID(lessonID: Long): ApiLesson? {
+    suspend fun getLessonByID(lessonID: Int): ApiLesson? {
         if (cache.map { it.id }.contains(lessonID.toInt())){
             return cache.first { it.id == lessonID.toInt() }
         } else {
@@ -53,7 +53,7 @@ class LessonsDataSource @Inject constructor(
         }
     }
 
-   suspend fun setDislikeLesson(lessonID: Long): Boolean {
+   suspend fun setDislikeLesson(lessonID: Int): Boolean {
        val lessonForUpdate = cache.firstOrNull() { it.id == lessonID.toInt() }
        if (lessonForUpdate != null){
            val success =  lessonsRemoteRepository.updateLesson(lessonForUpdate.copy(dislikes = lessonForUpdate.dislikes + 1))

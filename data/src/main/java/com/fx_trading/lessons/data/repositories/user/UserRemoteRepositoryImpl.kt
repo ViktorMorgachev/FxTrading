@@ -34,7 +34,7 @@ class UserRemoteRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getUserIDByDeviceID(deviceID: String): Long? {
+    override suspend fun getUserIDByDeviceID(deviceID: String): Int? {
         try {
             val myRef: DatabaseReference = firebaseDatabase.getReference("${documentPath}UsersDeviceID")
             val result = myRef.get().await()
@@ -42,7 +42,7 @@ class UserRemoteRepositoryImpl @Inject constructor(
                 val data = value as ArrayList<HashMap<String, Any?>>
                 data.forEach {
                     if (it.getField<String>("deviceID", "") == deviceID) {
-                        return it.getField<Long>("userID")
+                        return it.getField<Long>("userID") as Int
                     }
                 }
                 return null
@@ -60,7 +60,7 @@ class UserRemoteRepositoryImpl @Inject constructor(
             if (firebaseDocuments != null && !firebaseDocuments.isEmpty) {
                 val lastDocumentID = firebaseDocuments.documents.map { it.id.toInt() }.sorted().lastOrNull()?.toLong() ?: -1
                 val newUserID = lastDocumentID + 1
-                val newUser = defaultUser.copy(user_id = newUserID)
+                val newUser = defaultUser.copy(user_id = newUserID.toInt())
                 val hashMap = HashMap<String, Any?>()
 
                 hashMap.put("date_created", newUser.date_created)
@@ -85,7 +85,7 @@ class UserRemoteRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getUserByUserID(userID: Long): ApiUser? {
+    override suspend fun getUserByUserID(userID: Int): ApiUser? {
         try {
             val firebaseData = firebaseFirestore.collection("${documentPath}Users").document("$userID").get().await()
             if (firebaseData == null || firebaseData.data == null) {
@@ -101,7 +101,7 @@ class UserRemoteRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun saveDeviceAndUserID(userId: Long, deviceID: String): Boolean {
+    override suspend fun saveDeviceAndUserID(userId: Int, deviceID: String): Boolean {
         try {
             val dataForSaving = ArrayList<HashMap<String, Any?>>()
             val myRef: DatabaseReference = firebaseDatabase.getReference("${documentPath}UsersDeviceID")
@@ -124,7 +124,7 @@ class UserRemoteRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getUserInfoByUserID(userId: Long): ApiUserInfo? {
+    override suspend fun getUserInfoByUserID(userId: Int): ApiUserInfo? {
         try {
             val firebaseDocument = firebaseFirestore.collection("${documentPath}UsersInfo").document("$userId").get().await()
             if (firebaseDocument != null && firebaseDocument.data != null){
@@ -148,13 +148,13 @@ class UserRemoteRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun createNewUserInfo(userId: Long): ApiUserInfo? {
+    override suspend fun createNewUserInfo(userId: Int): ApiUserInfo? {
         try {
             val firebaseDocuments = firebaseFirestore.collection("${documentPath}UsersInfo").get().await()
             if (firebaseDocuments != null && !firebaseDocuments.isEmpty) {
                 val lastDocumentID = firebaseDocuments.documents.map { it.id.toInt() }.sorted().lastOrNull()?.toLong() ?: -1
                 val newDocumentID = lastDocumentID + 1
-                val newUserInfo = ApiUserInfo(user_id = userId)
+                val newUserInfo = ApiUserInfo(user_id = userId.toInt())
                 firebaseFirestore.collection("${documentPath}UsersInfo").document("$newDocumentID").set(newUserInfo).await()
                 return newUserInfo
             } else

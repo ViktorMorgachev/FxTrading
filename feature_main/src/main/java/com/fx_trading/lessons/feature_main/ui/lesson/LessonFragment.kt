@@ -81,7 +81,7 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
             }
             likeDislikeItem.dislikeItem.ivLike.setOnClickListener {
                 lifecycleScope.launchWhenResumed {
-                    viewModel.dislikeLesson(lessonID = lesson.id.toLong()).collect { state ->
+                    viewModel.dislikeLesson(lessonID = lesson.id).collect { state ->
                         when (state) {
                             is State.DataState -> {
                                 likeDislikeItem.dislikeItem.ivLike.setImageDrawable(
@@ -106,7 +106,7 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
             }
             likeDislikeItem.likeItem.root.setOnClickListener {
                 lifecycleScope.launchWhenResumed {
-                    viewModel.likeLesson(lessonID = lesson.id.toLong()).collect { state ->
+                    viewModel.likeLesson(lessonID = lesson.id).collect { state ->
                         when (state) {
                             is State.DataState -> {
                                 likeDislikeItem.likeItem.tvLikeText.text = "${state.data.likes}"
@@ -148,11 +148,11 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
             itemTimecodes.gone()
         }
         lifecycleScope.launchWhenResumed {
-            showLessonByLessonID(lessonID = lessonID.toLong())
+            showLessonByLessonID(lessonID = lessonID)
         }
     }
 
-    private suspend fun showLessonByLessonID(lessonID: Long) {
+    private suspend fun showLessonByLessonID(lessonID: Int) {
         viewModel.getLesson(lessonID = lessonID).collect {
             when (it) {
                 is State.DataState -> {
@@ -176,7 +176,7 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
         with(binding){
             val likeLessonAction: (Int)->Unit = { lessonID->
                 lifecycleScope.launchWhenCreated {
-                    viewModel.likeLesson(lessonID = lessonID.toLong()).collect { state ->
+                    viewModel.likeLesson(lessonID = lessonID).collect { state ->
                         when (state) {
                             is State.DataState -> {
                                 LessonsAdapter.actualLessons.add(state.data)
@@ -188,7 +188,7 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
             }
             val openLessonAction: (Lesson)->Unit = { lesson->
                 lifecycleScope.launchWhenResumed {
-                    showLessonByLessonID(lessonID = lesson.id.toLong())
+                    showLessonByLessonID(lessonID = lesson.id)
                     youtubePlayerView.release()
                     lifecycle.addObserver(youtubePlayerView)
                 }
