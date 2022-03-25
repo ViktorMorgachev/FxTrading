@@ -9,7 +9,7 @@ class MockData {
         val mockApiLesson = ApiLesson(
             categories = listOf("Figures","Candles"),
             description = "Base Description",
-            difficulty = "Beginner",
+            difficulty = "",
             dislikes = 100,
             likes = 130,
             duration = "30:02",

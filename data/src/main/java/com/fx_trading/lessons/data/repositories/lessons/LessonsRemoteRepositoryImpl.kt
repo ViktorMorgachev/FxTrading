@@ -20,7 +20,8 @@ class LessonsRemoteRepositoryImpl @Inject constructor(private val firebaseFirest
                         try {
                             it.toObject(ApiLesson::class.java)
                         } catch (e: Exception){
-                            Logger.log("LessonsRemoteRepository", ".toObject(ApiLesson::class.java)", exception = e)
+                            Logger.log("LessonsRemoteRepository", ".toObject(ApiLesson::class.java) DocumentID ${it.id}")
+                            Logger.log("LessonsRemoteRepository", exception =  e)
                             null
                         }
                     }

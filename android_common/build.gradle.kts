@@ -62,6 +62,7 @@ dependencies {
     api("com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.3")
     api("com.github.kirich1409:viewbindingpropertydelegate:1.5.3")
 
+    api("org.jetbrains.kotlinx:kotlinx-datetime:0.2.0")
     api("androidx.legacy:legacy-support-v4:1.0.0")
 
     kapt(KaptDependency.dagger_android_processor)

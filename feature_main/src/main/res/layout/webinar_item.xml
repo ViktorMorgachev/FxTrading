@@ -26,6 +26,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:padding="4dp"
+            android:id="@+id/webinar_top_text"
             android:background="@drawable/webinar_top_item_background"
             android:text="@string/webinar_upcoming"
             android:textColor="@color/primaryTextColor"
@@ -38,6 +39,7 @@
         <TextView
             android:id="@+id/tv_video_duration"
             tools:text="00:00"
+            android:visibility="gone"
             android:paddingHorizontal="2dp"
             app:layout_constraintRight_toRightOf="@id/iv_promo_webinar"
             app:layout_constraintBottom_toBottomOf="@id/iv_promo_webinar"
@@ -66,7 +68,7 @@
         <LinearLayout
             android:id="@+id/like_item_root"
             android:orientation="horizontal"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/iv_promo_webinar"
             android:layout_width="wrap_content"
@@ -98,6 +100,7 @@
         <TextView
             android:id="@+id/date_of_webinar"
             tools:text="11 May"
+            android:visibility="gone"
             android:paddingStart="10dp"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"

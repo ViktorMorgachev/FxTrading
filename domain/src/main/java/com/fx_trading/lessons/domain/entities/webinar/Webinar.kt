@@ -5,9 +5,9 @@ import com.fx_trading.lessons.domain.entities.webinar.Category
 
 data class Webinar(
     val calendar_url: String,
-    val categories: List<Category>,
+    val categories: List<String>,
     val description: String,
-    val difficulty: Int,
+    val difficultyID: Int,
     val dislikes: Int,
     val duration: String,
     val id: Int,
