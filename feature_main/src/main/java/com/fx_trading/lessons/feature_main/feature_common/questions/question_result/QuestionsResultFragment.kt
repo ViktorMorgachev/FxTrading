@@ -13,7 +13,6 @@ import androidx.lifecycle.lifecycleScope
 import com.airbnb.paris.Paris
 import com.fx_trading.lessons.core.BaseFragment
 import com.fx_trading.lessons.core.BaseViewModelFactory
-import com.fx_trading.lessons.feature_main.example.ExampleViewModel
 import com.fx_trading.lessons.features.R
 import com.fx_trading.lessons.features.databinding.FragmentTotalResultQuestionsBinding
 import kotlinx.coroutines.flow.collect
