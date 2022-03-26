@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fx_trading.common.State
+import com.fx_trading.common.setDifficulty
 import com.fx_trading.lessons.core.BaseFragment
 import com.fx_trading.lessons.core.BaseViewModelFactory
 import com.fx_trading.lessons.domain.entities.lesson.Lesson
@@ -110,11 +111,9 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
                 }
             }
 
-
-
             startExam.setOnClickListener {
                 val intent = Intent(requireActivity(), QuestionActivity::class.java)
-                intent.putExtra(key_question_group_id, lesson.question_group.toInt())
+                intent.putExtra(key_question_group_id, lesson.question_group)
                 intent.putExtra(key_lesson_difficulty, lesson.difficulty)
                 intent.putExtra(key_lesson_id, lesson.id)
                 startActivity(intent)
@@ -175,6 +174,8 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
             }
             tvVideoAutor.text = lesson.speaker_name
             tvVideoTitle.text = lesson.title
+            difficultyItem.setDifficulty(lesson.difficulty)
+            difficultyName.setDifficulty(lesson.difficulty)
             likeDislikeItem.likeItem.tvLikeText.text = "${lesson.likes}"
             toolbar.toolbarText.text = toolbar.toolbarText.resources.getString(R.string.lesson)
         }

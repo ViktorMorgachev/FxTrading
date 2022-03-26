@@ -56,12 +56,15 @@ class WebinarsAdapter(
 
                 if (webinar.webinar_date.isFuture()) {
                     dateOfWebinar.visible()
+                    tvVideoDuration.gone()
                     likeItemRoot.gone()
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         dateOfWebinar.text = webinar.webinar_date.formatDate()
                     }
                     webinarTopText.text = root.resources.getString(R.string.webinar_upcoming)
                 } else {
+                    tvVideoDuration.visible()
+                    tvVideoDuration.text = webinar.duration
                     likeItemRoot.visible()
                     dateOfWebinar.gone()
                     countOfLikes.text = "${webinar.likes}"

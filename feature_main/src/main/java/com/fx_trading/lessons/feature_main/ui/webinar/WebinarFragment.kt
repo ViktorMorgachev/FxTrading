@@ -11,18 +11,22 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.fx_trading.common.State
 import com.fx_trading.lessons.core.BaseFragment
 import com.fx_trading.lessons.core.BaseViewModelFactory
 import com.fx_trading.lessons.domain.entities.webinar.Webinar
+import com.fx_trading.lessons.feature_main.ui.lesson.TimecodesAdapter
 import com.fx_trading.lessons.features.R
 import com.fx_trading.lessons.features.databinding.FragmentWebinarBinding
 import com.fx_trading.lessons.utils.utils.Logger
 import com.fx_trading.lessons.utils.utils.gone
+import com.fx_trading.lessons.utils.utils.isGone
 import com.fx_trading.lessons.utils.utils.visible
 import com.fx_trading.navigation.Router
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
 import data.formatDateTime
 import data.isFuture
 import kotlinx.coroutines.flow.collect
@@ -46,7 +50,10 @@ class WebinarFragment : BaseFragment<FragmentWebinarBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding){
+            recyclerTimecodes.layoutManager = LinearLayoutManager(requireContext())
             lifecycle.addObserver(youtubePlayerView)
+            recyclerTimecodes.gone()
+            itemTimecodes.gone()
         }
         lifecycleScope.launchWhenCreated {
             arguments?.getInt("webinar_id")?.let { webinarID ->
@@ -65,12 +72,39 @@ class WebinarFragment : BaseFragment<FragmentWebinarBinding>() {
 
     private fun showWebinar(webinar: Webinar) {
         with(binding){
-            youtubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+            youtubePlayerView.enableAutomaticInitialization = false
+            youtubePlayerView.initialize(object : AbstractYouTubePlayerListener() {
                 override fun onReady(youTubePlayer: YouTubePlayer) {
-                    val videoId = webinar.video_url.substringAfter("v=").substringBefore("&")
+                    val videoId =  webinar.video_url.substringAfter("v=").substringBefore("&")
                     youTubePlayer.cueVideo(videoId, 0F)
+                    val timecodes = webinar.timecodes.filter { it.is_active && it.timeSeconds > 0 && it.title.isNotEmpty() && it.time.isNotEmpty()}
+                    if (timecodes.isNotEmpty()){
+                        itemTimecodes.visible()
+                        recyclerTimecodes.adapter = TimecodesAdapter(data = timecodes){
+                            youTubePlayer.loadVideo(videoId, it.toFloat())
+                        }
+                        ivArrowTimecodes.setOnClickListener {
+                            if (recyclerTimecodes.isGone()){
+                                recyclerTimecodes.visible()
+                                ivArrowTimecodes.rotation = 0f
+                            } else {
+                                ivArrowTimecodes.rotation = -90f
+                                recyclerTimecodes.gone()
+                            }
+                        }
+                    } else {
+                        itemTimecodes.gone()
+                        recyclerTimecodes.gone()
+                    }
+
                 }
-            })
+            }, false, IFramePlayerOptions.Builder()
+                .controls(1)
+                .rel(0)
+                .ivLoadPolicy(3)
+                .ccLoadPolicy(1)
+                .build())
+
             toolbar.cancelButton.setOnClickListener {
                 findNavController().popBackStack()
             }
@@ -93,6 +127,7 @@ class WebinarFragment : BaseFragment<FragmentWebinarBinding>() {
                 }
 
             } else {
+
                 toolbar.toolbarText.text = toolbar.toolbarText.resources.getString(R.string.webinar)
                 likeDislikeItem.root.visible()
                 signUpBottom.gone()

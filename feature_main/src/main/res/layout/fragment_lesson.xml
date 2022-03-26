@@ -83,9 +83,38 @@
                 <include
                     android:id="@+id/like_dislike_item"
                     layout="@layout/like_dislike_item_default"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/difficultyName"
                     app:layout_constraintTop_toBottomOf="@id/video_player_root" />
+
+                <com.fx_trading.lessons.feature_main.ui.custom.DifficultyView
+                    android:id="@+id/difficultyItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    app:layout_constraintBottom_toBottomOf="@id/like_dislike_item"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/video_player_root" />
+
+                <TextView
+                    android:id="@+id/difficultyName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="8dp"
+                    android:gravity="right"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/item_timecodes"
+                    app:layout_constraintLeft_toRightOf="@id/like_dislike_item"
+                    app:layout_constraintRight_toLeftOf="@id/difficultyItem"
+                    app:layout_constraintTop_toBottomOf="@id/video_player_root"
+                    tools:text="@string/beginner">
+
+                </TextView>
 
                 <LinearLayout
                     android:id="@+id/item_timecodes"
@@ -158,8 +187,8 @@
                             android:textStyle="bold" />
 
                         <Button
-                            style="@style/onboarding_button_green"
                             android:id="@+id/start_exam"
+                            style="@style/onboarding_button_green"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawableEnd="@drawable/arrow_right_white"
