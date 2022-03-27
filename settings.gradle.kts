@@ -6,7 +6,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "FxTrading"
+rootProject.name = "Learning"
 include(":app")
 include(":core")
 include(":domain")

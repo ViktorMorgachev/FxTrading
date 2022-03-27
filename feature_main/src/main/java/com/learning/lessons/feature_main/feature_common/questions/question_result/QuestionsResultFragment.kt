@@ -1,15 +1,23 @@
 package com.learning.lessons.feature_main.feature_common.questions.question_result
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import com.airbnb.paris.Paris
 import com.learning.lessons.core.BaseFragment
 import com.learning.lessons.core.BaseViewModelFactory
+import com.learning.lessons.features.R
 import com.learning.lessons.features.databinding.FragmentTotalResultQuestionsBinding
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
+import kotlin.math.roundToInt
 
 class QuestionsResultFragment : BaseFragment<FragmentTotalResultQuestionsBinding>() {
 
@@ -78,7 +86,7 @@ class QuestionsResultFragment : BaseFragment<FragmentTotalResultQuestionsBinding
 
                 }
              lifecycleScope.launchWhenResumed {
-                 viewModel.saveExamResult(lessonID = lessonID, questionID = questionGroupID).collect {
+                 viewModel.saveExamResult(lessonID = lessonID, questionID = questionGroupID).collect{
                      Paris.style(finishButton).apply(R.style.button_bottom_blue_default)
                      finishButton.setOnClickListener {
                          requireActivity().finish()

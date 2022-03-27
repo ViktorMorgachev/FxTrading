@@ -1,18 +1,34 @@
 package com.learning.lessons.feature_main.ui.lesson
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.learning.common.State
+import com.learning.common.setDifficulty
 import com.learning.lessons.core.BaseFragment
 import com.learning.lessons.core.BaseViewModelFactory
 import com.learning.lessons.domain.entities.lesson.Lesson
+import com.learning.lessons.feature_main.activities.QuestionActivity
+import com.learning.lessons.feature_main.activities.QuestionActivity.Companion.key_lesson_difficulty
+import com.learning.lessons.feature_main.activities.QuestionActivity.Companion.key_lesson_id
+import com.learning.lessons.feature_main.activities.QuestionActivity.Companion.key_question_group_id
+import com.learning.lessons.feature_main.ui.lessons.LessonsAdapter
+import com.learning.lessons.features.R
 import com.learning.lessons.features.databinding.FragmentLessonBinding
+import com.learning.lessons.utils.utils.gone
+import com.learning.lessons.utils.utils.isGone
+import com.learning.lessons.utils.utils.visible
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 

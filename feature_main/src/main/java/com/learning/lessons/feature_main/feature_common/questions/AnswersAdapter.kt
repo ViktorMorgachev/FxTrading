@@ -2,9 +2,13 @@ package com.learning.lessons.feature_main.feature_common.questions
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.paris.Paris
 import com.learning.lessons.domain.entities.quiz.Answer
+import com.learning.lessons.features.R
 import com.learning.lessons.features.databinding.ItemAnswerBinding
+import com.learning.lessons.utils.utils.setCompoundDrawables
 
 class AnswersAdapter(val answers: List<Answer>, val userAnswers: List<Answer> = listOf(), val onSelectedAction: ((Answer) -> Unit)? = null) :
     RecyclerView.Adapter<AnswersAdapter.AnswersHolder>() {

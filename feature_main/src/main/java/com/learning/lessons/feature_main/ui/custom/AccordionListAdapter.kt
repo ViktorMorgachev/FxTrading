@@ -4,10 +4,13 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.learning.lessons.domain.entities.lesson.Lesson
 import com.learning.lessons.feature_main.ui.lessons.LessonsAdapter
 import com.learning.lessons.features.databinding.AccordionViewBinding
+import com.learning.lessons.utils.utils.gone
+import com.learning.lessons.utils.utils.visible
 
 
 open class BaseAccordionListAdapter<A : RecyclerView.Adapter<*>>(

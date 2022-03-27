@@ -12,7 +12,7 @@ android {
     compileSdk = 31
 
     defaultConfig {
-        applicationId = "com.fx_trading.lessons.fxtrading"
+        applicationId = "com.learning.lessons.android"
         minSdk = 21
         targetSdk = 31
         versionCode =  1

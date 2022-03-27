@@ -1,13 +1,16 @@
 package com.learning.lessons.feature_main.ui.custom
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.learning.lessons.features.databinding.AccordionViewBinding
+import com.learning.lessons.utils.utils.gone
 
 
 class CustomAccordionView @JvmOverloads constructor(

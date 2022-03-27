@@ -1,9 +1,12 @@
 package com.learning.lessons.feature_main.ui.lessons
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.learning.lessons.domain.entities.lesson.Lesson
+import com.learning.lessons.features.R
 import com.learning.lessons.features.databinding.LessonItemBinding
 
 class LessonsAdapter(var data: List<Lesson>, val openLessonAction: (Lesson)->Unit, val likeLessonAction: (Int)->Unit, val completedLessonIDs: List<Int>):  RecyclerView.Adapter<LessonsAdapter.LessonsHolder>() {

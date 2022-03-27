@@ -1,23 +1,36 @@
 package com.learning.lessons.feature_main.feature_common.questions
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.airbnb.paris.Paris
 import com.learning.common.FirebaseUtil
 import com.learning.common.State
 import com.learning.common.getIntExtra
+import com.learning.common.loadImage
 import com.learning.lessons.core.BaseFragment
 import com.learning.lessons.core.BaseViewModelFactory
 import com.learning.lessons.domain.entities.quiz.Answer
 import com.learning.lessons.domain.entities.quiz.Question
+import com.learning.lessons.feature_main.activities.QuestionActivity.Companion.key_lesson_difficulty
+import com.learning.lessons.feature_main.activities.QuestionActivity.Companion.key_lesson_id
 import com.learning.lessons.feature_main.activities.QuestionActivity.Companion.key_question_group_id
+import com.learning.lessons.features.R
 import com.learning.lessons.features.databinding.FragmentQuestionsBinding
+import com.learning.lessons.utils.utils.Logger
+import com.learning.lessons.utils.utils.gone
+import com.learning.lessons.utils.utils.visibleOrGone
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
+import kotlin.math.roundToInt
 
 
 class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>() {

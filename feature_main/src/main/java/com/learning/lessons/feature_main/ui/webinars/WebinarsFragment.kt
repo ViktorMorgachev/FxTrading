@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.learning.common.State
 import com.learning.lessons.core.BaseFragment
 import com.learning.lessons.core.BaseViewModelFactory

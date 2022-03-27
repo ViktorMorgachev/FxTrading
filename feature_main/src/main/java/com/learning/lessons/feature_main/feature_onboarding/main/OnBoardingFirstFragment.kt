@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.learning.lessons.core.BaseFragment
 import com.learning.lessons.features.databinding.FragmentOnBoardingFirstBinding
 import com.learning.navigation.Router
+import com.learning.navigation.params.screens.onboarding.FirstSecondScreenParams
 import javax.inject.Inject
 
 

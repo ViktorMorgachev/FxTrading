@@ -17,6 +17,12 @@
       <module name="FxTrading.ui" target="11" />
       <module name="FxTrading.utils" target="11" />
       <module name="FxTrading2.buildSrc" target="11" />
+      <module name="Learning.android_common" target="11" />
+      <module name="Learning.app" target="11" />
+      <module name="Learning.data" target="11" />
+      <module name="Learning.feature_main" target="11" />
+      <module name="Learning.resources" target="11" />
+      <module name="Learning.utils" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

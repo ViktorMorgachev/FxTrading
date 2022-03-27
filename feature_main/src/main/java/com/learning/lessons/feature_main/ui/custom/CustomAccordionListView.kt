@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.learning.lessons.feature_main.ui.lessons.LessonsAdapter
 import com.learning.lessons.features.databinding.AccordionListViewBinding
+import com.learning.lessons.utils.utils.Logger
 
 class CustomAccordionListView @JvmOverloads constructor(
     context: Context,

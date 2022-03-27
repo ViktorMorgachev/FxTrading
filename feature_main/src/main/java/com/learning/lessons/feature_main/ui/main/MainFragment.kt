@@ -7,7 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.material.tabs.TabLayoutMediator
 import com.learning.lessons.core.BaseFragment
+import com.learning.lessons.feature_main.ui.courses.CoursesFragment
+import com.learning.lessons.feature_main.ui.lessons.LessonsFragment
+import com.learning.lessons.feature_main.ui.webinars.WebinarsFragment
 import com.learning.lessons.features.R
 import com.learning.lessons.features.databinding.FragmentMainBinding
 

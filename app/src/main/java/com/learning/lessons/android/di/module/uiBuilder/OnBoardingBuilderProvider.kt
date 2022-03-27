@@ -15,15 +15,6 @@ interface OnBoardingBuilderProvider {
     fun onBoardingFragmentSecond() : OnBoardingSecondFragment
 
     @ContributesAndroidInjector
-    fun onBoardingFragmentThird() : OnBoardingThirdFragment
-
-    @ContributesAndroidInjector
-    fun onBoardingFragmentFour() : OnBoardingFourFragment
-
-    @ContributesAndroidInjector
-    fun onBoardingFragmentFive() : OnBoardingFiveFragment
-
-    @ContributesAndroidInjector
     fun splashFragment() : SplashFragment
 
 }

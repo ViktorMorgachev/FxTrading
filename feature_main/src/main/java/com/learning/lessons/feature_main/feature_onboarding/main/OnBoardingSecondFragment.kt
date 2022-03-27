@@ -1,10 +1,12 @@
 package com.learning.lessons.feature_main.feature_onboarding.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.learning.lessons.core.BaseFragment
+import com.learning.lessons.feature_main.activities.QuestionActivity
 import com.learning.lessons.features.databinding.FragmentOnBoardingSecondBinding
 import com.learning.navigation.Router
 import data.DataStoreHelper

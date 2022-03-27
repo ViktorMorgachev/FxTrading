@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
+import androidx.core.content.res.ResourcesCompat
+import com.learning.lessons.features.R
 import com.learning.lessons.features.databinding.StarsItemBinding
 
 class DifficultyView @JvmOverloads constructor(

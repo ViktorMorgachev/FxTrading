@@ -1,10 +1,15 @@
 package com.learning.lessons.feature_main.ui.webinars
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.learning.lessons.domain.entities.webinar.Webinar
+import com.learning.lessons.features.R
 import com.learning.lessons.features.databinding.WebinarItemBinding
+import com.learning.lessons.utils.utils.gone
+import com.learning.lessons.utils.utils.visible
 import data.formatDate
 import data.isFuture
 

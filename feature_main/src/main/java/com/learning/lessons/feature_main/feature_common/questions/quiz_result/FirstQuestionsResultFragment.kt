@@ -1,5 +1,6 @@
 package com.learning.lessons.feature_main.feature_common.questions.quiz_result
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.learning.lessons.core.BaseFragment
 import com.learning.lessons.core.BaseViewModelFactory
+import com.learning.lessons.feature_main.activities.MainActivity
+import com.learning.lessons.features.R
 import com.learning.lessons.features.databinding.FragmentFirstResultQuestionsBinding
+import com.learning.lessons.utils.utils.Logger
 import javax.inject.Inject
 
 class FirstQuestionsResultFragment : BaseFragment<FragmentFirstResultQuestionsBinding>() {
