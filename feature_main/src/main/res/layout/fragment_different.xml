@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="lesson" type="com.fx_trading.lessons.domain.entities.lesson.Lesson"/>
+        <variable name="lesson" type="com.learning.lessons.domain.entities.lesson.Lesson"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

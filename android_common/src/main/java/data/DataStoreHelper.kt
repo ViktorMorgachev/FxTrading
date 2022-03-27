@@ -1,17 +1,15 @@
 package data
 
 import android.content.Context
-import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
-import com.fx_trading.lessons.utils.utils.Logger
+import com.learning.lessons.utils.utils.Logger
 import data.PreferencesKeys.DEVICE_ID
 import data.PreferencesKeys.INTRO_WAS_PASSED
 import data.PreferencesKeys.PRE_TEST_PASSED
 import data.PreferencesKeys.USER_ID
 import kotlinx.coroutines.flow.map
-import java.util.concurrent.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 

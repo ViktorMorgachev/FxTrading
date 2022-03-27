@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.fx_trading.lessons.features">
+    package="com.learning.lessons.features">
 
     <application>
         <activity
-            android:name="com.fx_trading.lessons.feature_main.activities.MainActivity"
+            android:name="com.learning.lessons.feature_main.activities.MainActivity"
             android:theme="@style/Theme.FxTrading"
             android:exported="false"/>
         <activity
-            android:name="com.fx_trading.lessons.feature_main.activities.QuestionActivity"
+            android:name="com.learning.lessons.feature_main.activities.QuestionActivity"
             android:theme="@style/Theme.FxTrading"
             android:exported="false"/>
         <activity
-            android:name="com.fx_trading.lessons.feature_main.activities.OnBoardingActivity"
+            android:name="com.learning.lessons.feature_main.activities.OnBoardingActivity"
             android:noHistory="true"
             android:theme="@style/Theme.FxTrading"
             tools:replace="android:exported"

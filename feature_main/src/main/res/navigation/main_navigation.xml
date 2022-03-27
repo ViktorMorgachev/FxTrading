@@ -6,13 +6,13 @@
 
     <fragment
         android:id="@+id/lessonsFragment"
-        android:name="com.fx_trading.lessons.feature_main.ui.lessons.LessonsFragment"
+        android:name="com.learning.lessons.feature_main.ui.lessons.LessonsFragment"
         android:label="LessonsFragment">
     </fragment>
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.fx_trading.lessons.feature_main.ui.main.MainFragment"
+        android:name="com.learning.lessons.feature_main.ui.main.MainFragment"
         android:label="MainFragment" >
         <action
             android:id="@+id/action_mainFragment_to_lessonFragment"
@@ -34,14 +34,14 @@
 
     <fragment
         android:id="@+id/lessonFragment"
-        android:name="com.fx_trading.lessons.feature_main.ui.lesson.LessonFragment"
+        android:name="com.learning.lessons.feature_main.ui.lesson.LessonFragment"
         android:label="LessonFragment" >
     </fragment>
 
 
     <fragment
         android:id="@+id/webinarFragment"
-        android:name="com.fx_trading.lessons.feature_main.ui.webinar.WebinarFragment"
+        android:name="com.learning.lessons.feature_main.ui.webinar.WebinarFragment"
         android:label="WebinarFragment" />
 
 </navigation>

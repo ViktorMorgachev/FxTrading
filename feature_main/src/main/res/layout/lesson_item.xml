@@ -51,7 +51,7 @@
             tools:text="@string/long_text">
         </TextView>
 
-        <com.fx_trading.lessons.feature_main.ui.custom.DifficultyView
+        <com.learning.lessons.feature_main.ui.custom.DifficultyView
             android:layout_width="wrap_content"
             android:layout_marginBottom="6dp"
             android:id="@+id/difficultyItem"
@@ -60,7 +60,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_height="wrap_content">
 
-        </com.fx_trading.lessons.feature_main.ui.custom.DifficultyView>
+        </com.learning.lessons.feature_main.ui.custom.DifficultyView>
 
         <ImageView
             android:id="@+id/iv_like"

@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         android:background="@drawable/onboarding_background"
-        tools:context="com.fx_trading.lessons.features.com.fx_trading.lessons.feature_main.feature_onboarding.main.OnBoardingFirstFragment">
+        tools:context="com.learning.lessons.features.com.fx_trading.lessons.feature_main.feature_onboarding.main.OnBoardingFirstFragment">
 
         <TextView
             android:id="@+id/title_onboarding_first"

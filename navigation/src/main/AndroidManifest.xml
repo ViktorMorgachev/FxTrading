@@ -1,13 +1,13 @@
-<manifest package="com.fx_trading.navigation"
+<manifest package="com.learning.navigation"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <application>
         <activity
-            android:name="com.fx_trading.lessons.features.ui.activities.QuestionActivity"
+            android:name="com.learning.lessons.features.ui.activities.QuestionActivity"
             android:exported="false">
         </activity>
         <activity
-            android:name="com.fx_trading.lessons.features.ui.activities.MainActivity"
+            android:name="com.learning.lessons.features.ui.activities.MainActivity"
             android:exported="false">
         </activity>
     </application>

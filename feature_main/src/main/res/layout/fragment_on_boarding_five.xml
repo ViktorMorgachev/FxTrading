@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/onboarding_background"
-        tools:context="com.fx_trading.lessons.features.com.fx_trading.lessons.feature_main.feature_onboarding.main.OnBoardingFiveFragment">
+        tools:context="com.learning.lessons.features.com.fx_trading.lessons.feature_main.feature_onboarding.main.OnBoardingFiveFragment">
 
         <Button
             android:id="@+id/button_finish"
