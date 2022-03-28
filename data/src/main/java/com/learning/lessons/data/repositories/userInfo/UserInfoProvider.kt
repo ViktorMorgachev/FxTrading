@@ -8,24 +8,24 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class UserInfoProvider @Inject constructor(private val userInfoDataSource: UserInfoDataSource): UserInfoRepository {
+class UserInfoProvider @Inject constructor(private val userInfoDataSource: UserInfoDataSource) {
 
-    override suspend fun getUserInfo(userID: Int): UserInfo? {
+    suspend fun getUserInfo(userID: Int): UserInfo? {
        return userInfoDataSource.getUserInfo(userID)
     }
 
-    override suspend fun updateUserInfoFields(
+    suspend fun updateUserInfoFields(
         userID: Int,
         fieldValue: List<Pair<String, Any>>
     ): Deferred<Boolean> {
         return userInfoDataSource.updateUserInfoFields(userID, fieldValue)
     }
 
-    override suspend fun createNewUserInfo(userID: Int): UserInfo? {
+    suspend fun createNewUserInfo(userID: Int): UserInfo? {
       return userInfoDataSource.createNewUserInfo(userID)
     }
 
-    override suspend fun getUserIDByDeviceID(): Int? {
+    suspend fun getUserIDByDeviceID(): Int? {
         return userInfoDataSource.getUserIDByDeviceID()
     }
 

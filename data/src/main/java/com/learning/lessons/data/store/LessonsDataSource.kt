@@ -4,6 +4,11 @@ import com.learning.lessons.data.mappers.toLesson
 import com.learning.lessons.data.repositories.lessons.LessonsRemoteRepository
 import com.learning.lessons.domain.entities.lesson.Lesson
 import com.learning.lessons.domain.repositories.LessonRepository
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -24,9 +29,16 @@ class LessonsDataSource @Inject constructor(
       return lessonsRemoteRepository.getRemoteLessons().map { it.toLesson() }
     }
 
-    override suspend fun updateLessonField(lesson: Int, fieldValue: Any, field: String): Boolean {
-       return lessonsRemoteRepository.updateLessonField(lesson, fieldValue, field)
+
+
+    override suspend fun updateLessonField(
+        lessonID: Int,
+        fieldValue: Any,
+        field: String
+    ): Deferred<Boolean> = withContext(Dispatchers.IO){
+        return@withContext async { lessonsRemoteRepository.updateLessonField(lessonID, fieldValue, field).first() }
     }
+
 
 
 }

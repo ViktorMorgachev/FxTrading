@@ -60,3 +60,20 @@ fun <T> DocumentSnapshot.toObjectOrDefault(valueType: Class<T>, defaultValue: T?
     }
 }
 
+fun DocumentSnapshot.containsAll(fieldValues: List<Pair<String, Any>>): Boolean {
+    fieldValues.forEach { pair->
+        if (this.contains(pair.first)){
+            val dataFromFirebase = get(pair.first)
+            if(dataFromFirebase is Array<*>){
+                val dataArray = pair.second as Array<*>
+                if (!dataFromFirebase.contains(dataArray))
+                    return false
+
+            } else {
+                if (dataFromFirebase!! != pair.second) return false
+            }
+        } else return false
+    }
+    return true
+}
+

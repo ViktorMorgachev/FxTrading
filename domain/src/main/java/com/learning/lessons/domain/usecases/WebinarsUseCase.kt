@@ -17,7 +17,7 @@ class WebinarsUseCase @Inject constructor(private val webinarsRepository: Webina
         if (!userInfo!!.likesWebinars.contains(webinarID)){
             val webinar = webinarsRepository.getWebinarByID(webinarID)
             if (webinar != null){
-                val success = webinarsRepository.updateWebinarField(webinarID = webinarID, webinar.copy(likes = webinar.likes + 1), "likes")
+                val success = webinarsRepository.updateWebinarField(webinarID = webinarID, webinar.copy(likes = webinar.likes + 1), "likes").await()
                 if (success){
                     val fieldsForUpdate = listOf<Pair<String, Any>>("likes_webinars_ids" to userInfo.likesWebinars.plus(webinarID))
                     return userInfoRepository.updateUserInfoFields(userID = userID, fieldValue = fieldsForUpdate).await()
@@ -32,7 +32,7 @@ class WebinarsUseCase @Inject constructor(private val webinarsRepository: Webina
         if (!userInfo!!.dislikesLessons.contains(webinarID)){
             val webinar = webinarsRepository.getWebinarByID(webinarID)
             if (webinar != null){
-                val success = webinarsRepository.updateWebinarField(webinarID = webinarID, webinar.copy(dislikes = webinar.likes + 1), "dislikes")
+                val success = webinarsRepository.updateWebinarField(webinarID = webinarID, webinar.copy(dislikes = webinar.likes + 1), "dislikes").await()
                 if (success){
                     val fieldsForUpdate = listOf<Pair<String, Any>>("dislikes_webinars_ids" to userInfo.dislikesWebinars.plus(webinarID))
                     return userInfoRepository.updateUserInfoFields(userID = userID, fieldValue = fieldsForUpdate).await()

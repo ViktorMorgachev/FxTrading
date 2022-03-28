@@ -1,12 +1,14 @@
 package com.learning.lessons.data.repositories.userInfo
 
-
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.learning.lessons.data.BuildConfig
 import com.learning.lessons.data.api.user_info.ApiUserInfo
 import com.learning.lessons.data.extentions.await
+import com.learning.lessons.data.extentions.containsAll
 import com.learning.lessons.data.extentions.toObjectOrDefault
 import com.learning.lessons.utils.utils.Logger
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -16,8 +18,24 @@ class UserInfoRemoteRepositoryImpl @Inject constructor(private val firebaseFires
     private val logger_tag = this::class.java.simpleName
     private val documentPath = BuildConfig.DOCUMENT_DB_PATH
 
-    override suspend fun updateUserInfoField(userID: Int, fieldValue: Any, field: String): Boolean {
-        TODO("Not yet implemented")
+    override suspend fun updateUserInfoFields(
+        userID: Int,
+        fieldValues: List<Pair<String, Any>>
+    ) =  flow<Boolean> {
+        try {
+            val firebaseDocumentRef = firebaseFirestore.collection("${documentPath}UsersInfo").document("$userID")
+            fieldValues.forEach { fieldValue->
+               firebaseDocumentRef.update(mapOf(fieldValue.first to fieldValue.second)).await()
+            }
+           val firebaseDocument = firebaseFirestore.collection("${documentPath}UsersInfo").document("$userID").get().await()
+            if (firebaseDocument?.containsAll(fieldValues) == true){
+                emit(true)
+            } else emit(false)
+
+        } catch (e: Exception) {
+            Logger.log(logger_tag, exception = e)
+           emit(false)
+        }
     }
 
     override suspend fun getUserInfo(userID: Int): ApiUserInfo? {

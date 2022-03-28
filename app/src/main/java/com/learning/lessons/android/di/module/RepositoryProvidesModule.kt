@@ -7,9 +7,12 @@ import com.learning.lessons.data.repositories.question.QuestionProvider
 import com.learning.lessons.data.repositories.question.QuestionRemoteRepository
 import com.learning.lessons.data.repositories.user.UserRemoteRepository
 import com.learning.lessons.data.repositories.user.UsersProvider
-import com.learning.lessons.data.store.LessonsDataSource
-import com.learning.lessons.data.store.QuestionsDataSource
-import com.learning.lessons.data.store.UserDataSource
+import com.learning.lessons.data.repositories.userInfo.UserInfoProvider
+import com.learning.lessons.data.repositories.userInfo.UserInfoRemoteRepository
+import com.learning.lessons.data.repositories.webinars.WebinarsProvider
+import com.learning.lessons.data.repositories.webinars.WebinarsRemoteRepository
+import com.learning.lessons.data.store.*
+import com.learning.lessons.domain.repositories.UserInfoRepository
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -25,18 +28,15 @@ class RepositoryProvidesModule() {
 
     @Provides
     @Singleton
-    fun provideLessonDataSource(lessonsMockRepository: LessonsMockRepository, lessonsRemoteRepository: LessonsRemoteRepository): LessonsDataSource{
-        return LessonsDataSource(lessonsRemoteRepository, lessonsMockRepository)
-    }
-
-    // TODO тут бы надо привести к правильному виду
-
-    @Provides
-    @Singleton
     fun provideQuestionProvider(questionRemoteRepository: QuestionRemoteRepository): QuestionProvider {
         return QuestionProvider(QuestionsDataSource(questionRemoteRepository))
     }
 
+    @Provides
+    @Singleton
+    fun provideWebinarProvider(webinarsRemoteRepository: WebinarsRemoteRepository): WebinarsProvider {
+        return WebinarsProvider(WebinarsDataSource(webinarsRemoteRepository))
+    }
 
     @Provides
     @Singleton
@@ -44,6 +44,11 @@ class RepositoryProvidesModule() {
         return UsersProvider(UserDataSource(userRemoteRepository))
     }
 
+    @Provides
+    @Singleton
+    fun provideUsersInfoProvider(userInfoRemoteRepository: UserInfoRemoteRepository): UserInfoProvider {
+        return UserInfoProvider(UserInfoDataSource(userInfoRemoteRepository))
+    }
 
 
 }

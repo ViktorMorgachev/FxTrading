@@ -1,13 +1,17 @@
 package com.learning.lessons.data.repositories.webinars
 
+import com.google.firebase.firestore.FieldValue
 import com.learning.lessons.data.BuildConfig
 import com.learning.lessons.data.api.webinar.ApiWebinar
 import com.learning.lessons.data.extentions.await
 import com.learning.lessons.utils.utils.Logger
 import com.google.firebase.firestore.FirebaseFirestore
 import com.learning.lessons.data.extentions.toObjectOrDefault
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class WebinarsRemoteRepositoryImpl @Inject constructor(private val firebaseFirestore: FirebaseFirestore) : WebinarsRemoteRepository {
@@ -35,17 +39,12 @@ class WebinarsRemoteRepositoryImpl @Inject constructor(private val firebaseFires
     }
 
     override suspend fun getWebinarByID(id: Int): ApiWebinar? {
-        try {
+        return try {
             val firebaseDocument = firebaseFirestore.collection("${documentPath}Webinars").document("$id").get().await()
-            if (firebaseDocument != null && !firebaseDocument.data.isNullOrEmpty()) {
-                return  firebaseDocument.toObject(ApiWebinar::class.java)
-            } else {
-                Logger.log(logger_tag, "Error getting documents.")
-                return null
-            }
+            firebaseDocument?.toObjectOrDefault(ApiWebinar::class.java)
         } catch (e: Exception) {
-            Logger.log(logger_tag, "Error getting documents.", exception = e)
-            return null
+            Logger.log(logger_tag, exception = e)
+            null
         }
     }
 
@@ -57,7 +56,42 @@ class WebinarsRemoteRepositoryImpl @Inject constructor(private val firebaseFires
         }
     }
 
-    override suspend fun updateWebinarField(webinarID: Int, fieldValue: Any, field: String) {
-        TODO("Not yet implemented")
+    override suspend fun updateWebinarField(webinarID: Int, fieldValue: Any, field: String)= flow<Boolean> {
+        try {
+            val firebaseDocumentRef = firebaseFirestore.collection("${documentPath}Webinars").document("$webinarID")
+            if (fieldValue is  Array<*>) {
+                firebaseDocumentRef.update(field, FieldValue.arrayUnion(fieldValue)).addOnSuccessListener {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        emit(true)
+                    }
+                }.addOnFailureListener {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        emit(false)
+                    }
+                }.addOnFailureListener {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        emit(false)
+                    }
+                }
+            }
+            else {
+                firebaseDocumentRef.update(mapOf(field to fieldValue)).addOnSuccessListener {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        emit(true)
+                    }
+                }.addOnFailureListener {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        emit(false)
+                    }
+                }.addOnCanceledListener {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        emit(false)
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Logger.log(logger_tag, exception = e)
+            emit(false)
+        }
     }
 }

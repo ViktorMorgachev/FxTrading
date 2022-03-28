@@ -8,5 +8,5 @@ interface WebinarsRemoteRepository {
     suspend fun getWebinarsFlow(): Flow<List<ApiWebinar>>
     suspend fun getWebinarByID(id: Int): ApiWebinar?
     suspend fun getWebinarByIDFlow(id: Int): Flow<ApiWebinar?>
-    suspend fun updateWebinarField(webinarID: Int, fieldValue: Any, field: String): Boolean
+    suspend fun updateWebinarField(webinarID: Int, fieldValue: Any, field: String): Flow<Boolean>
 }

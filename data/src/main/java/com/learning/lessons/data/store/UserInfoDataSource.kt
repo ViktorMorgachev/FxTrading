@@ -8,6 +8,9 @@ import com.learning.lessons.domain.repositories.UserInfoRepository
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.last
+import kotlinx.coroutines.flow.toCollection
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -23,7 +26,7 @@ class UserInfoDataSource @Inject constructor(private val userInfoRemoteRepositor
         userID: Int,
         fieldValue: List<Pair<String, Any>>
     ): Deferred<Boolean> = withContext(Dispatchers.IO){
-        return@withContext async {userInfoRemoteRepository.updateUserInfoFields(userID, fieldValue)  }
+        return@withContext async {userInfoRemoteRepository.updateUserInfoFields(userID, fieldValue).last() }
     }
 
     override suspend fun createNewUserInfo(userID: Int): UserInfo? {

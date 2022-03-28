@@ -6,8 +6,13 @@ import com.learning.lessons.data.mappers.toWebinar
 import com.learning.lessons.data.repositories.webinars.WebinarsRemoteRepository
 import com.learning.lessons.domain.entities.webinar.Webinar
 import com.learning.lessons.domain.repositories.WebinarRepository
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.last
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -26,8 +31,8 @@ class WebinarsDataSource @Inject constructor(val webinarsRemoteRepository: Webin
         webinarID: Int,
         fieldValue: Any,
         field: String
-    ): Boolean {
-       return webinarsRemoteRepository.updateWebinarField(webinarID, fieldValue, field)
+    ): Deferred<Boolean> = withContext(Dispatchers.IO) {
+        return@withContext async {webinarsRemoteRepository.updateWebinarField(webinarID, fieldValue, field).last() }
     }
 
 }

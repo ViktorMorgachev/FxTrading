@@ -1,65 +1,82 @@
 package com.learning.lessons.data.repositories.lessons
 
+import com.google.firebase.firestore.FieldValue
 import com.learning.lessons.data.BuildConfig
 import com.learning.lessons.data.api.lesson.ApiLesson
 import com.learning.lessons.data.extentions.await
 import com.learning.lessons.utils.utils.Logger
 import com.google.firebase.firestore.FirebaseFirestore
+import com.learning.lessons.data.api.question_group.ApiQuestionGroup
+import com.learning.lessons.data.extentions.toObjectOrDefault
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.asDeferred
 import javax.inject.Inject
 
 class LessonsRemoteRepositoryImpl @Inject constructor(private val firebaseFirestore: FirebaseFirestore): LessonsRemoteRepository {
 
+    private val logger_tag = this::class.java.simpleName
     private val documentPath = BuildConfig.DOCUMENT_DB_PATH
 
     override suspend fun getRemoteLessons(): List<ApiLesson> {
-        try {
-            val firebaseDocuments = firebaseFirestore.collection("${documentPath}Lessons").get().await()
-            if (firebaseDocuments != null && !firebaseDocuments.isEmpty) {
-                    val apiLessons = firebaseDocuments.documents.mapNotNull {
-                        try {
-                            it.toObject(ApiLesson::class.java)
-                        } catch (e: Exception){
-                            Logger.log("LessonsRemoteRepository", ".toObject(ApiLesson::class.java) DocumentID ${it.id}")
-                            Logger.log("LessonsRemoteRepository", exception =  e)
-                            null
-                        }
-                    }
-
-
-                Logger.log("LessonsRemoteRepository", "Data ${firebaseDocuments.documents}")
-                return apiLessons.filter { it.active }
-            } else {
-                Logger.log("LessonsRemoteRepository", "Error getting documents.")
-            }
-            return listOf()
+        return try {
+            val firebaseDocuments =  firebaseFirestore.collection("${documentPath}Lessons").get().await()
+            firebaseDocuments?.mapNotNull { it.toObjectOrDefault(ApiLesson::class.java) } ?: listOf()
         } catch (e: Exception) {
-            Logger.log("LessonsRemoteRepository", "Error getting documents.", exception = e)
-            return listOf()
+            Logger.log(logger_tag, exception = e)
+            listOf()
         }
     }
 
     override suspend fun getRemoteLessonByID(id: Int): ApiLesson? {
-        try {
+        return try {
             val firebaseDocument = firebaseFirestore.collection("${documentPath}Lessons").document("$id").get().await()
-            if (firebaseDocument != null && !firebaseDocument.data.isNullOrEmpty()) {
-                return  firebaseDocument.toObject(ApiLesson::class.java)
-            } else {
-                Logger.log("LessonsRemoteRepository", "Error getting documents.")
-                return null
-            }
+            firebaseDocument?.toObjectOrDefault(ApiLesson::class.java)
         } catch (e: Exception) {
-            Logger.log("LessonsRemoteRepository", "Error getting documents.", exception = e)
-            return null
+            Logger.log(logger_tag, exception = e)
+            null
         }
     }
 
-    override suspend fun updateLesson(lesson: ApiLesson): Boolean {
+    override suspend fun updateLessonField(lessonID: Int, fieldValue: Any, field: String) = flow<Boolean> {
         try {
-            firebaseFirestore.collection("${documentPath}Lessons").document("${lesson.id}").set(lesson).await()
-            return true
+            val firebaseDocumentRef = firebaseFirestore.collection("${documentPath}Lessons").document("$lessonID")
+            if (fieldValue is  Array<*>) {
+                firebaseDocumentRef.update(field, FieldValue.arrayUnion(fieldValue)).addOnSuccessListener {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        emit(true)
+                    }
+                }.addOnFailureListener {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        emit(false)
+                    }
+                }.addOnFailureListener {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        emit(false)
+                    }
+                }
+            }
+            else {
+                firebaseDocumentRef.update(mapOf(field to fieldValue)).addOnSuccessListener {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        emit(true)
+                    }
+                }.addOnFailureListener {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        emit(false)
+                    }
+                }.addOnCanceledListener {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        emit(false)
+                    }
+                }
+            }
         } catch (e: Exception) {
-            Logger.log("LessonsRemoteRepository", "Error getting documents.", exception = e)
-            return false
+            Logger.log(logger_tag, exception = e)
+            emit(false)
         }
     }
+
 }
