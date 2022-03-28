@@ -6,6 +6,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.DocumentSnapshot.ServerTimestampBehavior
 import com.learning.lessons.utils.utils.Logger
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -57,3 +59,4 @@ fun String.formatDateTime(): String {
 fun String.isFuture(): Boolean{
    return Clock.System.now().toEpochMilliseconds() < Instant.parse(this).toEpochMilliseconds()
 }
+

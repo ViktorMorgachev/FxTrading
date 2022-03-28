@@ -5,33 +5,32 @@ import com.learning.lessons.data.api.webinar.ApiWebinar
 import com.learning.lessons.data.extentions.await
 import com.learning.lessons.utils.utils.Logger
 import com.google.firebase.firestore.FirebaseFirestore
+import com.learning.lessons.data.extentions.toObjectOrDefault
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class WebinarsRemoteRepositoryImpl @Inject constructor(private val firebaseFirestore: FirebaseFirestore) : WebinarsRemoteRepository {
 
+    private val logger_tag = this::class.java.simpleName
+
     private val documentPath = BuildConfig.DOCUMENT_DB_PATH
 
     override suspend fun getWebinars(): List<ApiWebinar> {
-        try {
+        return try {
             val firebaseDocuments = firebaseFirestore.collection("${documentPath}Webinars").get().await()
-            if (firebaseDocuments != null && !firebaseDocuments.isEmpty) {
-                val apiLessons = firebaseDocuments.documents.mapNotNull {
-                    try {
-                        it.toObject(ApiWebinar::class.java)
-                    } catch (e: Exception){
-                        Logger.log("WebinarsRemoteRepository", ".toObject(ApiWebinar::class.java)", exception = e)
-                        null
-                    }
-                }
-                Logger.log("WebinarsRemoteRepository", "Data ${firebaseDocuments.documents}")
-                return apiLessons.filter { it.active }
-            } else {
-                Logger.log("WebinarsRemoteRepository", "Error getting documents.")
-            }
-            return listOf()
+            firebaseDocuments?.documents?.mapNotNull { it.toObjectOrDefault(ApiWebinar::class.java) }?: listOf()
         } catch (e : Exception){
-            Logger.log("WebinarsRemoteRepository", "Error getting documents.", exception = e)
-            return listOf()
+            Logger.log(logger_tag,  exception = e)
+            listOf()
+        }
+    }
+
+    override suspend fun getWebinarsFlow() = flow<List<ApiWebinar>> {
+        try {
+           emit(listOf())
+        } catch (e : Exception){
+           Logger.log(logger_tag, exception = e)
         }
     }
 
@@ -41,22 +40,20 @@ class WebinarsRemoteRepositoryImpl @Inject constructor(private val firebaseFires
             if (firebaseDocument != null && !firebaseDocument.data.isNullOrEmpty()) {
                 return  firebaseDocument.toObject(ApiWebinar::class.java)
             } else {
-                Logger.log("WebinarsRemoteRepository", "Error getting documents.")
+                Logger.log(logger_tag, "Error getting documents.")
                 return null
             }
         } catch (e: Exception) {
-            Logger.log("WebinarsRemoteRepository", "Error getting documents.", exception = e)
+            Logger.log(logger_tag, "Error getting documents.", exception = e)
             return null
         }
     }
 
-    override suspend fun updateWebinar(webinar: ApiWebinar): Boolean {
+    override suspend fun getWebinarByIDFlow(id: Int) = flow<ApiWebinar?> {
         try {
-            firebaseFirestore.collection("${documentPath}Webinars").document("${webinar.id}").set(webinar).await()
-            return true
-        } catch (e: Exception) {
-            Logger.log("WebinarsRemoteRepository", "Error update documents.", exception = e)
-            return false
+            emit(null)
+        } catch (e : Exception){
+            Logger.log(logger_tag, exception = e)
         }
     }
 

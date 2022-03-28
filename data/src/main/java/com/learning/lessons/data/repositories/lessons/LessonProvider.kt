@@ -11,29 +11,19 @@ import javax.inject.Singleton
 class LessonProvider @Inject constructor(private val lessonsDataSource: LessonsDataSource): LessonRepository {
 
     override suspend fun getLessons(): List<Lesson> {
-         return lessonsDataSource.getLessons().map { it.toLesson() }
+       return lessonsDataSource.getLessons()
     }
 
-    override suspend fun setLikeToLesson(lessonID: Int): Boolean {
-        return lessonsDataSource.setLikesLesson(lessonID)
-    }
-
-    override suspend fun setDislikeToLesson(lessonID: Int): Boolean {
-        return lessonsDataSource.setDislikeLesson(lessonID)
-    }
 
     override suspend fun getLessonByID(lessonID: Int): Lesson? {
-      return  lessonsDataSource.getLessonByID(lessonID)?.toLesson()
+      return  lessonsDataSource.getLessonByID(lessonID)
     }
 
     override suspend fun getLessonsByTags(tags: List<String>): List<Lesson> {
-        return  lessonsDataSource.getLessons().map { it.toLesson() }.filter {
-            it.tags.forEach {
-                if(tags.contains(it)){
-                    return@filter true
-                }
-            }
-            false
-        }
+        return lessonsDataSource.getLessonsByTags(tags)
+    }
+
+    override suspend fun updateLessonField(lesson: Int, fieldValue: Any, field: String): Boolean {
+       return lessonsDataSource.updateLessonField(lesson, fieldValue, field)
     }
 }

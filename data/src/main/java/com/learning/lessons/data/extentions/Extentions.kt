@@ -1,6 +1,8 @@
 package com.learning.lessons.data.extentions
 
 import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.DocumentSnapshot
+import com.learning.lessons.utils.utils.Logger
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -46,5 +48,15 @@ inline fun <reified T: Any> HashMap<String, Any?>.getField(fieldName: String, de
 inline fun <reified T: Any> HashMap<String, Any?>.getField(fieldName: String): T? {
     if (!this.containsKey(fieldName) || this[fieldName] !is T) return null
     return this[fieldName] as T?
+}
+
+
+fun <T> DocumentSnapshot.toObjectOrDefault(valueType: Class<T>, defaultValue: T? = null, logger: Logger = Logger): T? {
+    return try {
+        toObject(valueType, DocumentSnapshot.ServerTimestampBehavior.NONE)
+    } catch (e: Throwable) {
+        logger.log("DocumentSnapshot.toObject()", exception = e)
+        defaultValue
+    }
 }
 

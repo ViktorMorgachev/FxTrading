@@ -1,8 +1,10 @@
 package com.learning.lessons.data.api.user
 
+import kotlinx.datetime.Clock
+
 data class ApiUser(
-    val date_created: String = "",
-    val date_logined: String = "",
+    val date_created: String = "${Clock.System.now()}",
+    val date_logined: String = "${Clock.System.now()}",
     val email: String = "",
     val language: String = "",
     val name: String = "",
