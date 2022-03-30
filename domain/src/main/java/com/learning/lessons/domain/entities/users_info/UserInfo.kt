@@ -4,9 +4,12 @@ data class UserInfo(
     val questionsIDs: List<Int>,
     val likesLessons: List<Int>,
     val likesWebinars: List<Int>,
+    val likesCourses:  List<Int>,
+    val dislikesCourses:  List<Int>,
     val dislikesWebinars: List<Int>,
     val user_id: Int = 0,
     val dislikesLessons: List<Int>,
     val passedLessons: List<Int>,
+    val passedCourses: List<Int>,
     val devices_ids: List<String>,
 )

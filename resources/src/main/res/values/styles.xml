@@ -10,7 +10,7 @@
         <item name="itemTextColor">@color/primaryTextColor</item>
     </style>
 
-    <style name="onboarding_button_green">
+    <style name="bottom_button_green">
         <item name="android:background">@drawable/onboarding_button_green</item>
         <item name="android:layout_marginHorizontal" tools:ignore="NewApi">16dp</item>
         <item name="android:layout_marginBottom">16dp</item>

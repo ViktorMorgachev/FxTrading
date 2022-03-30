@@ -23,7 +23,7 @@ class LessonsRemoteRepositoryImpl @Inject constructor(private val firebaseFirest
     override suspend fun getRemoteLessons(): List<ApiLesson> {
         return try {
             val firebaseDocuments =  firebaseFirestore.collection("${documentPath}Lessons").get().await()
-            firebaseDocuments?.mapNotNull { it.toObjectOrDefault(ApiLesson::class.java) } ?: listOf()
+            firebaseDocuments?.mapNotNull { it.toObjectOrDefault(ApiLesson::class.java) }?.filter { it.active } ?: listOf()
         } catch (e: Exception) {
             Logger.log(logger_tag, exception = e)
             listOf()

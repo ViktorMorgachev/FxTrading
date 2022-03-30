@@ -29,6 +29,12 @@ class LessonsDataSource @Inject constructor(
       return lessonsRemoteRepository.getRemoteLessons().map { it.toLesson() }
     }
 
+    suspend fun getLessonsByIDS(lessonsIDS: List<Int>): List<Lesson>{
+      val lessons =  lessonsRemoteRepository.getRemoteLessons().map { it.toLesson() }.toMutableList()
+        lessons.removeAll { !lessonsIDS.contains(it.id) }
+        return lessons
+    }
+
      suspend fun updateLessonField(
         lessonID: Int,
         fieldValue: Any,
@@ -36,5 +42,5 @@ class LessonsDataSource @Inject constructor(
     ): Deferred<Boolean> = withContext(Dispatchers.IO){
         return@withContext async { lessonsRemoteRepository.updateLessonField(lessonID, fieldValue, field).first() }
     }
-    
+
 }

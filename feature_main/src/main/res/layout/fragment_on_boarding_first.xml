@@ -178,7 +178,7 @@
 
         <Button
             android:id="@+id/button_next"
-            style="@style/onboarding_button_green"
+            style="@style/bottom_button_green"
             android:text="@string/next"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"

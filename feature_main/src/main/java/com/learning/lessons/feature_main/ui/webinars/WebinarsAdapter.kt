@@ -57,7 +57,7 @@ class WebinarsAdapter(
                 if (webinar.webinar_date.isFuture()) {
                     dateOfWebinar.visible()
                     tvVideoDuration.gone()
-                    likeItemRoot.gone()
+                    likeItemRoot.root.gone()
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         dateOfWebinar.text = webinar.webinar_date.formatDate()
                     }
@@ -65,13 +65,13 @@ class WebinarsAdapter(
                 } else {
                     tvVideoDuration.visible()
                     tvVideoDuration.text = webinar.duration
-                    likeItemRoot.visible()
+                    likeItemRoot.root.visible()
                     dateOfWebinar.gone()
-                    countOfLikes.text = "${webinar.likes}"
-                    likeItemRoot.setOnClickListener{
+                    likeItemRoot.countOfLikes.text = "${webinar.likes}"
+                    likeItemRoot.root.setOnClickListener{
                         onLikeWebinarAction.invoke(webinar.id)
                     }
-                    countOfLikes.setOnClickListener {
+                    likeItemRoot.countOfLikes.setOnClickListener {
                         onLikeWebinarAction.invoke(webinar.id)
                     }
                     webinarTopText.text = root.resources.getString(R.string.webinar)

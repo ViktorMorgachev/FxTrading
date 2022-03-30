@@ -50,4 +50,7 @@
     <string name="webinar">Webinar</string>
     <string name="sign_up">Sign up</string>
     <string name="webinar_signup_bottom_text">This content will appear in “Webinars” section of your Dashboard.</string>
+    <string name="course_category_beginner">Beginners Courses</string>
+    <string name="course_category_intermediate">Intermediate Courses</string>
+    <string name="course_category_advanced">Advanced Courses</string>
 </resources>

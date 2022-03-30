@@ -1,5 +1,8 @@
 package com.learning.lessons.android.di.module
 
+import com.learning.lessons.data.repositories.courses.CourseProvider
+import com.learning.lessons.data.repositories.courses.CourseRemoteRepository
+import com.learning.lessons.data.repositories.courses.CourseRemoteRepositoryImpl
 import com.learning.lessons.data.repositories.lessons.*
 import com.learning.lessons.data.repositories.question.QuestionProvider
 import com.learning.lessons.data.repositories.question.QuestionRemoteRepository
@@ -49,7 +52,11 @@ abstract class RepositoryBindModule() {
     @Binds
     abstract fun bindUserInfoBaseRepository(userInfoProvider: UserInfoProvider): UserInfoRepository
 
+    @Binds
+    abstract fun bindCourseRemoteRepository(courseRemoteRepositoryImpl: CourseRemoteRepositoryImpl): CourseRemoteRepository
 
+    @Binds
+    abstract fun bindCourseBaseRepository(courseProvider: CourseProvider): CourseRepository
 
 
 

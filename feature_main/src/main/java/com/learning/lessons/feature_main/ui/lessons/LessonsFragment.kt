@@ -88,7 +88,7 @@ class LessonsFragment : BaseFragment<FragmentLessonsBinding>() {
                             }
                             CoroutineScope(Dispatchers.Main).launch {
                                 with(binding) {
-                                    customAccordionList.setData(data = accordionDataList)
+                                    customAccordionList.setLessonsData(data = accordionDataList)
                                 }
                             }
                         }

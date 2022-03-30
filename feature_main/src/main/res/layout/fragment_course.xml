@@ -9,7 +9,7 @@
 
         <include
             android:id="@+id/toolbar"
-            layout="@layout/default_toolbar"
+            layout="@layout/course_toolbar"
             app:layout_constraintBottom_toTopOf="@id/scroll_view"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -31,25 +31,26 @@
                     android:id="@+id/video_player_root"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/primaryColor"
-                    android:paddingBottom="40dp"
+                    android:background="@color/course_color"
+                    android:paddingBottom="16dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
 
-                    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                    <ImageView
                         android:id="@+id/youtube_player_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:minHeight="202dp"
-                        app:layout_constraintBottom_toTopOf="@id/tv_video_title"
+                        android:background="@drawable/mock_video_background"
+                        app:layout_constraintBottom_toTopOf="@id/tv_course_title"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/tv_video_title"
+                        android:id="@+id/tv_course_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="16dp"
@@ -57,36 +58,36 @@
                         android:textColor="@color/primaryTextColor"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@id/tv_video_autor"
+                        app:layout_constraintBottom_toTopOf="@id/tv_count_of_lessons"
                         app:layout_constraintHorizontal_bias="0"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_video_title"
+                        app:layout_constraintTop_toBottomOf="@id/tv_course_title"
                         tools:text="13 Kesa" />
 
                     <TextView
-                        android:id="@+id/tv_video_autor"
+                        android:id="@+id/tv_count_of_lessons"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="16dp"
                         android:paddingTop="16dp"
-                        android:textColor="#82B1FF"
+                        android:textColor="@color/primaryTextColor"
                         app:layout_constraintHorizontal_bias="0"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_video_title"
-                        tools:text="Cristopher Martolinsky" />
+                        app:layout_constraintTop_toBottomOf="@id/tv_course_title"
+                        tools:text="11 Lessons" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                 <include
                     android:id="@+id/like_dislike_item"
-                    layout="@layout/like_dislike_item_default"
+                    layout="@layout/like_dislike_item_course"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintVertical_bias="0"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/difficultyName"
                     app:layout_constraintTop_toBottomOf="@id/video_player_root" />
@@ -108,7 +109,7 @@
                     android:gravity="right"
                     android:textColor="@color/secondaryTextColor"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@id/item_timecodes"
+                    app:layout_constraintBottom_toBottomOf="@id/like_dislike_item"
                     app:layout_constraintLeft_toRightOf="@id/like_dislike_item"
                     app:layout_constraintRight_toLeftOf="@id/difficultyItem"
                     app:layout_constraintTop_toBottomOf="@id/video_player_root"
@@ -116,100 +117,20 @@
 
                 </TextView>
 
-                <LinearLayout
-                    android:id="@+id/item_timecodes"
+
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/like_dislike_item">
-
-                    <ImageView
-                        android:id="@+id/iv_arrow_timecodes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="16dp"
-                        android:rotation="-90"
-                        android:src="@drawable/arrow_down" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="16dp"
-                        android:text="@string/timecodes"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_timecodes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/item_timecodes"
-                    tools:itemCount="1"
-                    tools:listitem="@layout/timecode_item">
-
-                </androidx.recyclerview.widget.RecyclerView>
-
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/start_quiz_bottom"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/description"
+                    app:layout_constraintVertical_bias="0"
                     android:layout_marginHorizontal="16dp"
-                    android:layout_marginBottom="30dp"
-                    app:cardBackgroundColor="#E8F5E9"
-                    app:cardCornerRadius="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/like_dislike_item"
+                    tools:text="Description text. Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintBottom_toTopOf="@id/recommended_lessons"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/recycler_timecodes">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="16dp"
-                            android:text="@string/lesson_start_quiz"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <Button
-                            android:id="@+id/start_exam"
-                            style="@style/bottom_button_green"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:drawableEnd="@drawable/arrow_right_white"
-                            android:gravity="start|center"
-                            android:paddingHorizontal="16dp"
-                            android:text="@string/start_quiz" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginBottom="16dp"
-                            android:text="@string/lesson_start_quiz_bottom"
-                            android:textColor="@color/black" />
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
+                    android:paddingVertical="16dp"
+                    android:layout_height="wrap_content" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/recommended_lessons"
+                    android:id="@+id/courses_lessons_root"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="60dp"
@@ -218,28 +139,28 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/start_quiz_bottom">
+                    app:layout_constraintTop_toBottomOf="@id/description">
 
                     <TextView
-                        android:id="@+id/recommended_video_text"
+                        android:id="@+id/courses_lessons"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingVertical="16dp"
-                        android:text="@string/recommended_lessons"
+                        android:text="@string/course_contains_the_folowing_lessons"
                         android:textColor="@color/secondaryTextColor"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintHorizontal_bias="0"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/recycler_recommend_lessons"
+                        app:layout_constraintTop_toBottomOf="@id/recycler_lessons"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_recommend_lessons"
+                        android:id="@+id/recycler_lessons"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/recommended_video_text"
+                        app:layout_constraintTop_toBottomOf="@id/courses_lessons"
                         tools:itemCount="3"
                         tools:listitem="@layout/lesson_item">
 
@@ -250,12 +171,13 @@
                         style="@style/button_bottom_blue_default"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
+                        android:layout_marginVertical="16dp"
+                        android:layout_marginHorizontal="8dp"
                         android:text="@string/show_more"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/recycler_recommend_lessons">
+                        app:layout_constraintTop_toBottomOf="@id/recycler_lessons">
 
                     </Button>
 

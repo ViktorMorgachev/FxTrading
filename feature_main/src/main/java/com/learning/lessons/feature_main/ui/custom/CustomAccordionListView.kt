@@ -56,8 +56,17 @@ class CustomAccordionListView @JvmOverloads constructor(
         }
     }
 
-    fun setData(
+    fun setLessonsData(
         data: List<LessonAccordionData>
+    ) {
+        with(binding) {
+            this.accordionsRecyclerView.layoutManager = LinearLayoutManager(this.root.context)
+            accordionsRecyclerView.adapter = BaseAccordionListAdapter(dataList = data, accCollapsedAction, accordionExpandedAction)
+        }
+    }
+
+    fun setCousesData(
+        data: List<CourseAccordionData>
     ) {
         with(binding) {
             this.accordionsRecyclerView.layoutManager = LinearLayoutManager(this.root.context)

@@ -15,6 +15,9 @@
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#000000</color>
 
+    <color name="course_color">#353535</color>
+    <color name="webinar_color">#4527A0</color>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

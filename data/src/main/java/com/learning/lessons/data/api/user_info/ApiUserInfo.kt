@@ -9,5 +9,8 @@ data class ApiUserInfo(
     val user_id: Int = 0,
     val dislikes_lessons_ids: List<Int> = listOf(),
     val passed_lessons_ids: List<Int> = listOf(),
+    val passed_courses_ids: List<Int> = listOf(),
     val devices_ids: List<String> = listOf(),
+    val likes_courses_ids: List<Int> = listOf(),
+    val dislikes_courses_ids: List<Int> = listOf()
 )

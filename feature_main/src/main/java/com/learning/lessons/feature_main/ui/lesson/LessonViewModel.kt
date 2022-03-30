@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class LessonViewModel @Inject constructor(val lessonsUseCase: LessonsUseCase,val userInfoUseCase: UserInfoUseCase,val  dataStoreHelper: DataStoreHelper) : ViewModel() {
+class LessonViewModel @Inject constructor(val lessonsUseCase: LessonsUseCase, val userInfoUseCase: UserInfoUseCase, val  dataStoreHelper: DataStoreHelper) : ViewModel() {
 
     fun getLesson(lessonID: Int) = flow {
         emit(State.LoadingState)
@@ -27,7 +27,7 @@ class LessonViewModel @Inject constructor(val lessonsUseCase: LessonsUseCase,val
         }
     }
 
-    fun likeLesson(lessonID: Int)= flow{
+    fun likeLesson(lessonID: Int)= flow<State<Lesson>>{
         emit(State.LoadingState)
         try {
             dataStoreHelper.userID().collect {
@@ -43,7 +43,7 @@ class LessonViewModel @Inject constructor(val lessonsUseCase: LessonsUseCase,val
         }
     }
 
-    fun dislikeLesson(lessonID: Int)= flow{
+    fun dislikeLesson(lessonID: Int)= flow<State<Lesson>>{
         emit(State.LoadingState)
         try {
             dataStoreHelper.userID().collect {

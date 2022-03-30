@@ -173,7 +173,7 @@
                             android:textStyle="bold" />
 
                         <Button
-                            style="@style/onboarding_button_green"
+                            style="@style/bottom_button_green"
                             android:id="@+id/sigh_up"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
