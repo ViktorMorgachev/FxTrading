@@ -17,17 +17,17 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class WebinarsDataSource @Inject constructor(val webinarsRemoteRepository: WebinarsRemoteRepository) : WebinarRepository, RepositoryCacheable<ApiWebinar> {
+class WebinarsDataSource @Inject constructor(val webinarsRemoteRepository: WebinarsRemoteRepository): RepositoryCacheable<ApiWebinar> {
 
-    override suspend fun getWebinars(): List<Webinar> {
+     suspend fun getWebinars(): List<Webinar> {
         return webinarsRemoteRepository.getWebinars().map { it.toWebinar() }
     }
 
-    override suspend fun getWebinarByID(id: Int): Webinar? {
+     suspend fun getWebinarByID(id: Int): Webinar? {
       return webinarsRemoteRepository.getWebinarByID(id)?.toWebinar()
     }
 
-    override suspend fun updateWebinarField(
+     suspend fun updateWebinarField(
         webinarID: Int,
         fieldValue: Any,
         field: String

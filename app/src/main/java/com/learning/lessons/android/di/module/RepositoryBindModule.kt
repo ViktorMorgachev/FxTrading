@@ -22,6 +22,7 @@ abstract class RepositoryBindModule() {
 
     @Binds
     abstract fun bindLessonRemoteRepository(lessonsRemoteRepositoryImpl: LessonsRemoteRepositoryImpl): LessonsRemoteRepository
+
     @Binds
     abstract fun bindLessonBaseRepository(lessonProvider: LessonProvider): LessonRepository
 

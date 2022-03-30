@@ -8,17 +8,17 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class WebinarsProvider @Inject constructor(private val webinarsDataSource: WebinarsDataSource){
+class WebinarsProvider @Inject constructor(private val webinarsDataSource: WebinarsDataSource): WebinarRepository{
 
-    suspend fun getWebinars(): List<Webinar> {
+    override suspend fun getWebinars(): List<Webinar> {
         return webinarsDataSource.getWebinars()
     }
 
-    suspend fun getWebinarByID(id: Int): Webinar? {
+    override suspend fun getWebinarByID(id: Int): Webinar? {
         return webinarsDataSource.getWebinarByID(id)
     }
 
-    suspend fun updateWebinarField(
+    override suspend fun updateWebinarField(
         webinarID: Int,
         fieldValue: Any,
         field: String

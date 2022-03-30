@@ -16,24 +16,24 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class UserInfoDataSource @Inject constructor(private val userInfoRemoteRepository: UserInfoRemoteRepository): UserInfoRepository {
+class UserInfoDataSource @Inject constructor(private val userInfoRemoteRepository: UserInfoRemoteRepository) {
 
-    override suspend fun getUserInfo(userID: Int): UserInfo? {
+     suspend fun getUserInfo(userID: Int): UserInfo? {
       return userInfoRemoteRepository.getUserInfo(userID)?.toUserInfo()
     }
 
-    override suspend fun updateUserInfoFields(
+     suspend fun updateUserInfoFields(
         userID: Int,
         fieldValue: List<Pair<String, Any>>
     ): Deferred<Boolean> = withContext(Dispatchers.IO){
         return@withContext async {userInfoRemoteRepository.updateUserInfoFields(userID, fieldValue).last() }
     }
 
-    override suspend fun createNewUserInfo(userID: Int): UserInfo? {
+     suspend fun createNewUserInfo(userID: Int): UserInfo? {
        return userInfoRemoteRepository.createUserInfo(userID = userID, deviceID = pseudoDeviceID)?.toUserInfo()
     }
 
-    override suspend fun getUserIDByDeviceID(): Int? {
+     suspend fun getUserIDByDeviceID(): Int? {
         return userInfoRemoteRepository.getUserIDByDeviceID(deviceID = pseudoDeviceID)
     }
 

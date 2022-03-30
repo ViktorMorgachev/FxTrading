@@ -22,8 +22,8 @@ class RepositoryProvidesModule() {
 
     @Provides
     @Singleton
-    fun provideLessonProvider(lessonsDataSource: LessonsDataSource): LessonProvider {
-        return LessonProvider(lessonsDataSource)
+    fun provideLessonProvider(lessonsRemoteRepository: LessonsRemoteRepository): LessonProvider {
+        return LessonProvider(LessonsDataSource(lessonsRemoteRepository))
     }
 
     @Provides

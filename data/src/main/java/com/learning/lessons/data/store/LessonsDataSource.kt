@@ -15,30 +15,26 @@ import javax.inject.Singleton
 @Singleton
 class LessonsDataSource @Inject constructor(
     private val lessonsRemoteRepository: LessonsRemoteRepository
-): LessonRepository {
+) {
 
-    override suspend fun getLessons(): List<Lesson> {
+     suspend fun getLessons(): List<Lesson> {
         return lessonsRemoteRepository.getRemoteLessons().map { it.toLesson() }
     }
 
-    override suspend fun getLessonByID(lessonID: Int): Lesson? {
+     suspend fun getLessonByID(lessonID: Int): Lesson? {
        return lessonsRemoteRepository.getRemoteLessonByID(lessonID)?.toLesson()
     }
 
-    override suspend fun getLessonsByTags(tags: List<String>): List<Lesson> {
+     suspend fun getLessonsByTags(tags: List<String>): List<Lesson> {
       return lessonsRemoteRepository.getRemoteLessons().map { it.toLesson() }
     }
 
-
-
-    override suspend fun updateLessonField(
+     suspend fun updateLessonField(
         lessonID: Int,
         fieldValue: Any,
         field: String
     ): Deferred<Boolean> = withContext(Dispatchers.IO){
         return@withContext async { lessonsRemoteRepository.updateLessonField(lessonID, fieldValue, field).first() }
     }
-
-
-
+    
 }

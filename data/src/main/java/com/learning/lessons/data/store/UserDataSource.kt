@@ -14,28 +14,28 @@ import javax.inject.Singleton
 
 
 @Singleton
-class UserDataSource @Inject constructor(private val userRemoteRepository: UserRemoteRepository): UserRepository {
+class UserDataSource @Inject constructor(private val userRemoteRepository: UserRemoteRepository) {
 
-    override suspend fun getUserByUserID(userID: Int): User? {
+     suspend fun getUserByUserID(userID: Int): User? {
        return userRemoteRepository.getUserByUserID(userID)?.toUser()
     }
 
-    override suspend fun getUsers(): List<User> {
+     suspend fun getUsers(): List<User> {
         return userRemoteRepository.getUsers()
     }
 
-    override suspend fun updateUserField(
+     suspend fun updateUserField(
         userID: Int,
         fieldValue: List<Pair<String, Any>>
     ): kotlinx.coroutines.Deferred<Boolean> = withContext(Dispatchers.IO){
         return@withContext async { userRemoteRepository.updateUserField(userID, fieldValue).last() }
     }
 
-    override suspend fun createNewUser(userID: Int): User? {
+     suspend fun createNewUser(userID: Int): User? {
        return userRemoteRepository.createNewUser(userID = userID)?.toUser()
     }
 
-    override suspend fun getLastUserID(): Int {
+     suspend fun getLastUserID(): Int {
       return userRemoteRepository.getLastUserID()
     }
 
