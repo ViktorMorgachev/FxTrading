@@ -27,7 +27,7 @@ class TimecodesAdapter(val data: List<Timecode>, val  onItemClickListener: (Long
                 tvTime.text = data.time
                 tvTibeDiscribe.text = data.title
                 this.root.setOnClickListener {
-                    onItemClickListener(data.timeSeconds)
+                    onItemClickListener(data.timeSeconds.toLong())
                 }
             }
         }

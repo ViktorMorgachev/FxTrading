@@ -6,7 +6,7 @@ data class ApiLesson(
     val categories: List<String> = listOf(),
     val comments: List<ApiComment> = listOf(),
     val description: String = "",
-    val difficulty: String = "",
+    val difficulty: Int = 0,
     val difficultyID: Int = 0,
     val dislikes: Int = 0,
     val duration: String = "",

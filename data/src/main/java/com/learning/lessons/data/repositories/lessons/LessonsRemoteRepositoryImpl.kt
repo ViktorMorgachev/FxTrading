@@ -1,24 +1,21 @@
 package com.learning.lessons.data.repositories.lessons
 
 import com.google.firebase.firestore.FieldValue
-import com.learning.lessons.data.BuildConfig
 import com.learning.lessons.data.api.lesson.ApiLesson
 import com.learning.lessons.data.extentions.await
 import com.learning.lessons.utils.utils.Logger
 import com.google.firebase.firestore.FirebaseFirestore
-import com.learning.lessons.data.api.question_group.ApiQuestionGroup
 import com.learning.lessons.data.extentions.toObjectOrDefault
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.asDeferred
 import javax.inject.Inject
 
 class LessonsRemoteRepositoryImpl @Inject constructor(private val firebaseFirestore: FirebaseFirestore): LessonsRemoteRepository {
 
     private val logger_tag = this::class.java.simpleName
-    private val documentPath = BuildConfig.DOCUMENT_DB_PATH
+    private val documentPath = "dev"
 
     override suspend fun getRemoteLessons(): List<ApiLesson> {
         return try {

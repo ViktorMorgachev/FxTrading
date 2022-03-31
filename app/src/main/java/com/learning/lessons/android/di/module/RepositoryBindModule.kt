@@ -25,7 +25,6 @@ abstract class RepositoryBindModule() {
 
     @Binds
     abstract fun bindLessonRemoteRepository(lessonsRemoteRepositoryImpl: LessonsRemoteRepositoryImpl): LessonsRemoteRepository
-
     @Binds
     abstract fun bindLessonBaseRepository(lessonProvider: LessonProvider): LessonRepository
 
@@ -42,7 +41,6 @@ abstract class RepositoryBindModule() {
 
     @Binds
     abstract fun bindUserRemoteRepository(userRemoteRepositoryImpl: UserRemoteRepositoryImpl): UserRemoteRepository
-
     @Binds
     abstract fun bindUserBaseRepository(usersProvider: UsersProvider): UserRepository
 
@@ -54,7 +52,6 @@ abstract class RepositoryBindModule() {
 
     @Binds
     abstract fun bindCourseRemoteRepository(courseRemoteRepositoryImpl: CourseRemoteRepositoryImpl): CourseRemoteRepository
-
     @Binds
     abstract fun bindCourseBaseRepository(courseProvider: CourseProvider): CourseRepository
 

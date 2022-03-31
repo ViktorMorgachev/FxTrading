@@ -5,5 +5,5 @@ import com.learning.lessons.domain.entities.course.Course
 
 
 fun ApiCourse.toCourse(): Course{
-    return Course(description = description, dislikes, id, active, language, lessons_id, likes, difficulty, title,promo_image_url, region)
+    return Course(description = description, dislikes, id, active, language, lessons_ids, likes, difficulty, title,promo_image_url, region)
 }

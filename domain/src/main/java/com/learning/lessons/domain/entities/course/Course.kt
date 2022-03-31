@@ -6,7 +6,7 @@ data class Course(
     val id: Int,
     val is_active: Boolean,
     val language: String,
-    val lessons_id: List<String>,
+    val lessons_id: List<Int>,
     val likes: Int,
     val difficulty: Int,
     val title: String,

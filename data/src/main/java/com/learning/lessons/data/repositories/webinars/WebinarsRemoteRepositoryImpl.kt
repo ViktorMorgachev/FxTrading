@@ -1,7 +1,6 @@
 package com.learning.lessons.data.repositories.webinars
 
 import com.google.firebase.firestore.FieldValue
-import com.learning.lessons.data.BuildConfig
 import com.learning.lessons.data.api.webinar.ApiWebinar
 import com.learning.lessons.data.extentions.await
 import com.learning.lessons.utils.utils.Logger
@@ -18,7 +17,7 @@ class WebinarsRemoteRepositoryImpl @Inject constructor(private val firebaseFires
 
     private val logger_tag = this::class.java.simpleName
 
-    private val documentPath = BuildConfig.DOCUMENT_DB_PATH
+    private val documentPath = "dev"
 
     override suspend fun getWebinars(): List<ApiWebinar> {
         return try {
