@@ -9,6 +9,6 @@ interface UserRemoteRepository {
     suspend fun updateUserField(userID: Int, fieldValues: List<Pair<String, Any>>): Flow<Boolean>
     suspend fun createNewUser(userID: Int): ApiUser?
     suspend fun getLastUserID(): Int
-    suspend fun getUsers(): List<User>
+    suspend fun getUsers(): List<ApiUser>
     suspend fun getUserByUserID(userID: Int): ApiUser?
 }

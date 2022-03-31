@@ -5,6 +5,7 @@ import com.learning.lessons.data.api.user.ApiUser
 import com.learning.lessons.data.extentions.await
 import com.learning.lessons.utils.utils.Logger
 import com.google.firebase.firestore.FirebaseFirestore
+import com.learning.lessons.data.api.lesson.ApiLesson
 import com.learning.lessons.data.extentions.containsAll
 import com.learning.lessons.data.extentions.toObjectOrDefault
 import com.learning.lessons.domain.entities.user.User
@@ -33,7 +34,6 @@ class UserRemoteRepositoryImpl @Inject constructor(
             if (firebaseDocument?.containsAll(fieldValues) == true){
                 emit(true)
             } else emit(false)
-            emit(true)
         }catch (e: Exception){
             Logger.log(logger_tag, exception =  e)
             emit(false)
@@ -56,15 +56,21 @@ class UserRemoteRepositoryImpl @Inject constructor(
         return try {
             val firebaseDocuments = firebaseFirestore.collection("${documentPath}Users").get().await()
             val lastDocumentID = firebaseDocuments?.documents?.map { it.id.toInt() }?.sorted()?.lastOrNull() ?: 0
-            lastDocumentID + 1
+            lastDocumentID
         } catch (e: Exception) {
             Logger.log(logger_tag, exception =  e)
-            1
+            0
         }
     }
 
-    override suspend fun getUsers(): List<User> {
-        TODO("Not yet implemented")
+    override suspend fun getUsers(): List<ApiUser> {
+        return try {
+            val firebaseDocuments =  firebaseFirestore.collection("${documentPath}Users").get().await()
+            firebaseDocuments?.mapNotNull { it.toObjectOrDefault(ApiUser::class.java) } ?: listOf()
+        } catch (e: Exception) {
+            Logger.log(logger_tag, exception = e)
+            listOf()
+        }
     }
 
 

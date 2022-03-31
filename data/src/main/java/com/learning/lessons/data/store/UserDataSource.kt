@@ -21,7 +21,7 @@ class UserDataSource @Inject constructor(private val userRemoteRepository: UserR
     }
 
      suspend fun getUsers(): List<User> {
-        return userRemoteRepository.getUsers()
+        return userRemoteRepository.getUsers().map { it.toUser() }
     }
 
      suspend fun updateUserField(

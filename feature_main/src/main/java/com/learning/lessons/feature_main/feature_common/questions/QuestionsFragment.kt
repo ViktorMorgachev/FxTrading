@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.paris.Paris
@@ -143,7 +142,7 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>() {
     ) {
         with(binding) {
             bottomPanel.setBackgroundColor(Color.WHITE)
-            Paris.style(checkButon).apply(R.style.quiz_bottom_button_disabled)
+            Paris.style(checkButon).apply(R.style.bottom_button_disabled)
             textResult.visibility = View.GONE
             quizToolbar.pbHorizontal.progress = ((viewModel.step / viewModel.questionsSize.toFloat()) * 100).roundToInt()
             quizTitle.text = quiestion.title

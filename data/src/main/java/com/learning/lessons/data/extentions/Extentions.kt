@@ -7,7 +7,6 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resumeWithException
-import kotlin.jvm.Throws
 
 
 @ExperimentalCoroutinesApi
@@ -18,7 +17,8 @@ public suspend fun <T> Task<T>.await(): T? {
         return if (e == null) {
             if (isCanceled) {
                 throw CancellationException(
-                    "Task $this was cancelled normally.")
+                    "Task $this was cancelled normally."
+                )
             } else {
                 result
             }
@@ -40,18 +40,23 @@ public suspend fun <T> Task<T>.await(): T? {
 }
 
 
-inline fun <reified T: Any> HashMap<String, Any?>.getField(fieldName: String, default: T): T {
+inline fun <reified T : Any> HashMap<String, Any?>.getField(fieldName: String, default: T): T {
     if (!this.containsKey(fieldName) || this[fieldName] !is T) return default
     return if (this[fieldName] == null) default
     else this[fieldName] as T
 }
-inline fun <reified T: Any> HashMap<String, Any?>.getField(fieldName: String): T? {
+
+inline fun <reified T : Any> HashMap<String, Any?>.getField(fieldName: String): T? {
     if (!this.containsKey(fieldName) || this[fieldName] !is T) return null
     return this[fieldName] as T?
 }
 
 
-fun <T> DocumentSnapshot.toObjectOrDefault(valueType: Class<T>, defaultValue: T? = null, logger: Logger = Logger): T? {
+fun <T> DocumentSnapshot.toObjectOrDefault(
+    valueType: Class<T>,
+    defaultValue: T? = null,
+    logger: Logger = Logger
+): T? {
     return try {
         toObject(valueType, DocumentSnapshot.ServerTimestampBehavior.NONE)
     } catch (e: Throwable) {
@@ -61,13 +66,26 @@ fun <T> DocumentSnapshot.toObjectOrDefault(valueType: Class<T>, defaultValue: T?
 }
 
 fun DocumentSnapshot.containsAll(fieldValues: List<Pair<String, Any>>): Boolean {
-    fieldValues.forEach { pair->
-        if (this.contains(pair.first)){
+    fieldValues.forEach { pair ->
+        if (this.contains(pair.first)) {
             val dataFromFirebase = get(pair.first)
-            if(dataFromFirebase is Array<*>){
-                val dataArray = pair.second as Array<*>
-                if (!dataFromFirebase.contains(dataArray))
-                    return false
+            if (dataFromFirebase is ArrayList<*>) {
+                val dataArray = pair.second as ArrayList<*>
+                if (dataFromFirebase.size > 1) {
+                    when (dataFromFirebase.firstOrNull()) {
+                        is Int -> {
+                        }
+                        is Long -> {
+
+                        }
+                        is String -> {
+
+                        }
+                        is Boolean -> {
+
+                        }
+                    }
+                }
 
             } else {
                 if (dataFromFirebase!! != pair.second) return false

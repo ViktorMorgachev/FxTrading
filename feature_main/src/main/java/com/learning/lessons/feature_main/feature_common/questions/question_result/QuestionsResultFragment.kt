@@ -43,7 +43,7 @@ class QuestionsResultFragment : BaseFragment<FragmentTotalResultQuestionsBinding
                 val lessonDifficulty = it.getInt("lessonDifficulty")
                 val lessonID = it.getInt("lessonID")
 
-                Paris.style(finishButton).apply(R.style.quiz_bottom_button_disabled)
+                Paris.style(finishButton).apply(R.style.bottom_button_disabled)
                 val percentSuccessAnswering =
                     (successQuestions.toFloat() / totalQuestions.toFloat() * 100).roundToInt()
 

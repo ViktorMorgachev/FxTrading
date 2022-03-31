@@ -136,13 +136,12 @@
 
         <Button
             android:id="@+id/finish_button"
-            style="@style/button_bottom_blue_default"
+            style="@style/bottom_button_disabled"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:layout_marginHorizontal="16dp"
             android:text="@string/finish"
-            android:enabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintLeft_toLeftOf="parent"

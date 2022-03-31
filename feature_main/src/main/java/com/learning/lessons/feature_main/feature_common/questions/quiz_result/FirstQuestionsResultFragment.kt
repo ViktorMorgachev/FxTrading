@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.airbnb.paris.Paris
 import com.learning.lessons.core.BaseFragment
 import com.learning.lessons.core.BaseViewModelFactory
 import com.learning.lessons.feature_main.activities.MainActivity
@@ -28,14 +29,16 @@ class FirstQuestionsResultFragment : BaseFragment<FragmentFirstResultQuestionsBi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        with(binding){
+            Paris.style(finishButton).apply(R.style.bottom_button_disabled)
+        }
         viewModel.uiData.observe(viewLifecycleOwner, {
             if (it is TotalResultAction.EnableMainButton){
                 with(binding){
                     finishButton.setOnClickListener {
                         startActivity(Intent(requireActivity(), MainActivity::class.java))
                     }
-                    finishButton.isEnabled = true
+                    Paris.style(finishButton).apply(R.style.button_bottom_blue_default)
                 }
             }
         })
