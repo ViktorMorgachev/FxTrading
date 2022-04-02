@@ -56,15 +56,13 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>() {
         lifecycleScope.launchWhenResumed {
             val questionID = requireActivity().getIntExtra(key_question_group_id, null) as Int?
 
-            findNavController().navigate(QuestionsFragmentDirections.actionQuestionsFragmentToFirstQuestionsResultFragment(questionGroupID = 1, successQuestion = 3, totalQuestion = 3))
-
-          /*  viewModel.getQuestions(questionID).collect { state ->
+            viewModel.getQuestions(questionID).collect { state ->
                 when (state) {
                     is State.DataState -> {
                         nextQuestion()
                     }
                 }
-            }*/
+            }
         }
     }
 

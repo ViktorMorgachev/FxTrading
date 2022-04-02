@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.learning.common.State
 import com.learning.common.setDifficulty
 import com.learning.lessons.core.BaseFragment
@@ -63,6 +64,11 @@ class CourseFragment : BaseFragment<FragmentCourseBinding>() {
             val course = data.first
             val completedLessons = data.second
             tvCourseTitle.text = course.title
+
+            Glide.with(courseImageView.context)
+                .load(course.promo_image_url).error(R.drawable.mock_video_image)
+                .into(courseImageView)
+
             tvCountOfLessons.text = resources.getString(R.string.count_of_lessons, course.lessons_id.size)
             likeDislikeItem.likeItem.tvLikeText.text = "${course.likes}"
             difficultyName.setDifficulty(course.difficulty)
