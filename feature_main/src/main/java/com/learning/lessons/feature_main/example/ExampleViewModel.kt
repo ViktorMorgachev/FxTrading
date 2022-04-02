@@ -12,7 +12,7 @@ class ExampleViewModel  @Inject constructor(
     private val router: Router
 ) : ViewModel() {
 
-    fun getData() = flow {
+    fun getData() = flow<State<Any>> {
         emit(State.LoadingState)
         try {
             delay(500)

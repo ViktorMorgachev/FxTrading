@@ -6,13 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.airbnb.paris.Paris
+import com.learning.common.State
 import com.learning.lessons.core.BaseFragment
 import com.learning.lessons.core.BaseViewModelFactory
 import com.learning.lessons.feature_main.activities.MainActivity
 import com.learning.lessons.features.R
 import com.learning.lessons.features.databinding.FragmentFirstResultQuestionsBinding
 import com.learning.lessons.utils.utils.Logger
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 class FirstQuestionsResultFragment : BaseFragment<FragmentFirstResultQuestionsBinding>() {
@@ -31,18 +35,8 @@ class FirstQuestionsResultFragment : BaseFragment<FragmentFirstResultQuestionsBi
         super.onViewCreated(view, savedInstanceState)
         with(binding){
             Paris.style(finishButton).apply(R.style.bottom_button_disabled)
+            finishButton.isEnabled = false
         }
-        viewModel.uiData.observe(viewLifecycleOwner, {
-            if (it is TotalResultAction.EnableMainButton){
-                with(binding){
-                    finishButton.setOnClickListener {
-                        startActivity(Intent(requireActivity(), MainActivity::class.java))
-                    }
-                    Paris.style(finishButton).apply(R.style.button_bottom_blue_default)
-                }
-            }
-        })
-
         with(binding) {
             Logger.log("TotalUserLevelResultFragment", "Bundle result ${arguments}")
             arguments?.let {
@@ -68,7 +62,25 @@ class FirstQuestionsResultFragment : BaseFragment<FragmentFirstResultQuestionsBi
                         showExperiencedLevel()
                     }
                 }
-                viewModel.saveUserResultToDatabase(questionGroupID = questionGroupID, level = level)
+                lifecycleScope.launchWhenCreated{
+                    viewModel.saveUserResultToDatabase(questionGroupID = questionGroupID, level = level).collect {
+                       when(it){
+                           is State.DataState->{
+                               if (it.data == true){
+                                   with(binding){
+                                       finishButton.setOnClickListener {
+                                           startActivity(Intent(requireActivity(), MainActivity::class.java))
+                                       }
+                                       Paris.style(finishButton).apply(R.style.button_bottom_blue_default)
+                                       finishButton.isEnabled = true
+
+                                   }
+                               }
+                           }
+                       }
+                    }
+                }
+
             }
 
 

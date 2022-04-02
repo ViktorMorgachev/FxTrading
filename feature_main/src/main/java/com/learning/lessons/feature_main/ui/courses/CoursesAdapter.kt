@@ -1,6 +1,7 @@
 package com.learning.lessons.feature_main.ui.courses
 
 import android.graphics.Color
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +11,10 @@ import com.learning.lessons.domain.entities.lesson.Lesson
 import com.learning.lessons.features.R
 import com.learning.lessons.features.databinding.CourseItemBinding
 import com.learning.lessons.features.databinding.LessonItemBinding
+import com.learning.lessons.utils.utils.gone
+import com.learning.lessons.utils.utils.visible
+import data.formatDate
+import data.isFuture
 
 class CoursesAdapter(var data: List<Course>, val openCourseAction: (Course)->Unit, val likeCourseAction: (Int)->Unit, val completedCoursesIDs: List<Int>):  RecyclerView.Adapter<CoursesAdapter.CourseHolder>() {
 

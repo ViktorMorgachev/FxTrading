@@ -5,10 +5,8 @@ import com.learning.lessons.data.api.user.ApiUser
 import com.learning.lessons.data.extentions.await
 import com.learning.lessons.utils.utils.Logger
 import com.google.firebase.firestore.FirebaseFirestore
-import com.learning.lessons.data.api.lesson.ApiLesson
 import com.learning.lessons.data.extentions.containsAll
 import com.learning.lessons.data.extentions.toObjectOrDefault
-import com.learning.lessons.domain.entities.user.User
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -31,9 +29,7 @@ class UserRemoteRepositoryImpl @Inject constructor(
                 firebaseDocumentRef.update(mapOf(fieldValue.first to fieldValue.second)).await()
             }
            val firebaseDocument = firebaseFirestore.collection("${documentPath}Users").document("$userID").get().await()
-            if (firebaseDocument?.containsAll(fieldValues) == true){
-                emit(true)
-            } else emit(false)
+            emit(firebaseDocument!!.containsAll(fieldValues))
         }catch (e: Exception){
             Logger.log(logger_tag, exception =  e)
             emit(false)

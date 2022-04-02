@@ -24,6 +24,17 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/course_top_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/course_top_item_background"
+            android:padding="4dp"
+            android:text="@string/course"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintLeft_toLeftOf="@id/iv_promo_course"
+            app:layout_constraintTop_toTopOf="@id/iv_promo_course" />
+
+        <TextView
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

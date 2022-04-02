@@ -11,6 +11,10 @@ class LessonsUseCase @Inject constructor(private val lessonRepository: LessonRep
         return lessonRepository.getLessons()
     }
 
+    suspend fun getLessonsByIDs(lessons_ids: List<Int>): List<Lesson>{
+        return lessonRepository.getLessonsByIDS(lessonsIDS = lessons_ids)
+    }
+
     suspend fun getLessonByID(lessonID: Int): Lesson? {
         return lessonRepository.getLessonByID(lessonID)
     }

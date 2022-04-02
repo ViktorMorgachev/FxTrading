@@ -60,11 +60,11 @@ class CoursesFragment : BaseFragment<FragmentCoursesBinding>() {
                                 val accordionDataList = mutableListOf<CourseAccordionData>()
                                 categories.forEach { categoryDifficulty ->
                                     val actualCourses = allCourses.filter { it.difficulty == categoryDifficulty }
+                                    if (actualCourses.isEmpty()) return@forEach
                                     val coursesAdapter = CoursesAdapter(
                                         data = actualCourses,
                                         openCourseAction = { course ->
-                                            NavHostFragment.findNavController(this@CoursesFragment)
-                                            //  .navigate(MainFragmentDirections.actionMainFragmentToLessonFragment(lessonId = lesson.id))
+                                            NavHostFragment.findNavController(this@CoursesFragment).navigate(MainFragmentDirections.actionMainFragmentToCourseFragment(courseId = course.id))
                                         },
                                         likeCourseAction = {
                                             lifecycleScope.launchWhenResumed {

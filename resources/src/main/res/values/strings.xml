@@ -53,4 +53,7 @@
     <string name="course_category_beginner">Beginners Courses</string>
     <string name="course_category_intermediate">Intermediate Courses</string>
     <string name="course_category_advanced">Advanced Courses</string>
+    <string name="count_of_lessons">%d Lessons</string>
+    <string name="all_lessons">All Lessons</string>
+    <string name="course">Course</string>
 </resources>

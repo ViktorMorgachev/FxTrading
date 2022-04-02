@@ -31,7 +31,7 @@ class LessonsViewModel @Inject constructor(
                 emit(State.DataState(Pair(first = lessons, second = completedLessons)))
             }
         } catch (e: Exception) {
-            Logger.log("ExampleViewModel", exception = e)
+            Logger.log("LessonsViewModel", exception = e)
             emit(State.ErrorState(e))
         }
     }

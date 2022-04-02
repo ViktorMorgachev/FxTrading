@@ -14,7 +14,7 @@ data class Lesson(
     val language: String,
     val likes: Int,
     val promo_image_url: String,
-    val question_group: Int,
+    val question_group: Int?,
     val region: String,
     val sort_order: Int,
     val speaker_name: String,

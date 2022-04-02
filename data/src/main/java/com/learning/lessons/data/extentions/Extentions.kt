@@ -66,29 +66,28 @@ fun <T> DocumentSnapshot.toObjectOrDefault(
 }
 
 fun DocumentSnapshot.containsAll(fieldValues: List<Pair<String, Any>>): Boolean {
+    Logger.log("DocumentSnapshot.containsAll", "fieldValues $fieldValues")
     fieldValues.forEach { pair ->
         if (this.contains(pair.first)) {
+            Logger.log("DocumentSnapshot.containsAll", "fieldValueFromDb ${get(pair.first)}")
             val dataFromFirebase = get(pair.first)
             if (dataFromFirebase is ArrayList<*>) {
                 val dataArray = pair.second as ArrayList<*>
-                if (dataFromFirebase.size > 1) {
-                    when (dataFromFirebase.firstOrNull()) {
-                        is Int -> {
-                        }
-                        is Long -> {
-
-                        }
-                        is String -> {
-
-                        }
-                        is Boolean -> {
-
-                        }
+                if (dataFromFirebase.size > 0) {
+                    // Так как Long и Int нельзя сравнивать
+                   if (dataFromFirebase.firstOrNull() !is Long){
+                       if(dataFromFirebase != dataArray)  return false
+                    } else {
+                       if(!(dataFromFirebase.map { (it as Long).toInt() }.equals(dataArray.map { it}))) return false
                     }
                 }
-
             } else {
-                if (dataFromFirebase!! != pair.second) return false
+                if (dataFromFirebase !is Long){
+                    if (dataFromFirebase!! != pair.second) return false
+                } else {
+                    if (dataFromFirebase.toInt() != pair.second) return false
+                }
+
             }
         } else return false
     }

@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.learning.common.State
@@ -59,7 +58,7 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
                         this@LessonFragment.youTubePlayer = youTubePlayer
                         val videoId =  lesson.video_url.substringAfter("v=").substringBefore("&")
                         youTubePlayer.cueVideo(videoId, 0F)
-                        val timecodes = lesson.timecodes.filter { it.is_active && it.timeSeconds > 0 && it.title.isNotEmpty() && it.time.isNotEmpty()}
+                        val timecodes = lesson.timecodes.filter { it.timeSeconds > 0 && it.title.isNotEmpty() && it.time.isNotEmpty()}
                         if (timecodes.isNotEmpty()){
                             itemTimecodes.visible()
                             recyclerTimecodes.adapter = TimecodesAdapter(data = timecodes){
@@ -91,7 +90,7 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
             } else {
                 val videoId = lesson.video_url.substringAfter("v=").substringBefore("&")
                 youTubePlayer?.cueVideo(videoId, 0F)
-                val timecodes = lesson.timecodes.filter { it.is_active && it.timeSeconds > 0 && it.title.isNotEmpty() && it.time.isNotEmpty()}
+                val timecodes = lesson.timecodes.filter { it.timeSeconds > 0 && it.title.isNotEmpty() && it.time.isNotEmpty()}
                 if (timecodes.isNotEmpty()) {
                     itemTimecodes.visible()
                     recyclerTimecodes.adapter = TimecodesAdapter(data = timecodes) {
@@ -108,7 +107,11 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
                     }
                 }
             }
-
+            if (lesson.question_group != null && lesson.question_group!! > 1 ){
+                startQuizBottom.visible()
+            } else {
+                startQuizBottom.gone()
+            }
             startExam.setOnClickListener {
                 val intent = Intent(requireActivity(), QuestionActivity::class.java)
                 intent.putExtra(key_question_group_id, lesson.question_group)
@@ -222,7 +225,6 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
                         when (state) {
                             is State.DataState -> {
                                 LessonsAdapter.actualLessons.add(state.data)
-
                             }
                         }
                     }

@@ -6,7 +6,7 @@ data class ApiWebinar(
     val calendar_url: String = "",
     val categories: List<String> = listOf(),
     val description: String = "",
-    val difficultyID: Int = 0,
+    val difficulty: Int = 0,
     val dislikes: Int = 0,
     val duration: String = "",
     val id: Int = 0,

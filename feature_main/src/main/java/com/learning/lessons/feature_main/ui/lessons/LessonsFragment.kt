@@ -16,6 +16,7 @@ import com.learning.lessons.domain.entities.lesson.Lesson
 import com.learning.lessons.domain.entities.lesson.hasCategory
 import com.learning.lessons.feature_main.ui.custom.LessonAccordionData
 import com.learning.lessons.feature_main.ui.main.MainFragmentDirections
+import com.learning.lessons.features.R
 import com.learning.lessons.features.databinding.FragmentLessonsBinding
 import com.learning.navigation.Router
 import kotlinx.coroutines.CoroutineScope
@@ -64,6 +65,7 @@ class LessonsFragment : BaseFragment<FragmentLessonsBinding>() {
                                 }
                             }
                             val accordionDataList = mutableListOf<LessonAccordionData>()
+
                             categories.forEach { category ->
                                 val actualLessons = mutableListOf<Lesson>()
                                 allLessons.forEach { lesson->
@@ -83,6 +85,22 @@ class LessonsFragment : BaseFragment<FragmentLessonsBinding>() {
                                 )
                                 accordionDataList.add(LessonAccordionData(
                                     accordionTittle = category,
+                                    accordionListAdapter = lessonAdapter
+                                ))
+                            }
+                            if (categories.isEmpty()){
+                                val lessonAdapter = LessonsAdapter(
+                                    data = allLessons,
+                                    openLessonAction = { lesson->
+                                        findNavController(this@LessonsFragment).navigate(MainFragmentDirections.actionMainFragmentToLessonFragment(lessonId = lesson.id))
+                                    },
+                                    likeLessonAction = {
+                                        viewModel.likeLesson(it)
+                                    },
+                                    completedLessonIDs = state.data.second,
+                                )
+                                accordionDataList.add(LessonAccordionData(
+                                    accordionTittle = resources.getString(R.string.all_lessons),
                                     accordionListAdapter = lessonAdapter
                                 ))
                             }

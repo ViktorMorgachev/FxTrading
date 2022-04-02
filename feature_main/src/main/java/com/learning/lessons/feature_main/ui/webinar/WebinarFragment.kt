@@ -78,7 +78,7 @@ class WebinarFragment : BaseFragment<FragmentWebinarBinding>() {
                 override fun onReady(youTubePlayer: YouTubePlayer) {
                     val videoId =  webinar.video_url.substringAfter("v=").substringBefore("&")
                     youTubePlayer.cueVideo(videoId, 0F)
-                    val timecodes = webinar.timecodes.filter { it.is_active && it.timeSeconds > 0 && it.title.isNotEmpty() && it.time.isNotEmpty()}
+                    val timecodes = webinar.timecodes.filter {  it.timeSeconds > 0 && it.title.isNotEmpty() && it.time.isNotEmpty()}
                     if (timecodes.isNotEmpty()){
                         itemTimecodes.visible()
                         recyclerTimecodes.adapter = TimecodesAdapter(data = timecodes){

@@ -15,7 +15,7 @@ fun ApiLesson.toLesson(): Lesson{
     return Lesson(categories = this.categories,
         comments = this.comments.map { it.toComment() },
         description = this.description,
-        difficulty = this.difficultyID,
+        difficulty = this.difficulty,
         dislikes = this.dislikes,
         duration = this.duration,
         id = this.id,
@@ -29,7 +29,7 @@ fun ApiLesson.toLesson(): Lesson{
         speaker_name = this.speaker_name,
         tags = this.tags,
         text_version_link = this.text_version_link,
-        timecodes = this.timeCodes.map { it.toTimeCode() },
+        timecodes = this.timecodes.map { it.toTimeCode() },
         title = this.title,
         video_url = this.video_url,
     )
@@ -37,8 +37,8 @@ fun ApiLesson.toLesson(): Lesson{
 fun ApiComment.toComment(): Comment =  Comment(id = this.id)
 fun ApiQuestionGroupID.toQuestionGroupID(): Questions = Questions(quiz_id = this.id)
 
-fun ApiTimeCode.toTimeCode(): Timecode {
-    val title = time_title.substringAfterLast(" ")
-    val time = time_title.substringBefore(" ")
-    return Timecode(is_active = active, time = time, title = title, timeSeconds = time.toSeconds())
+fun String.toTimeCode(): Timecode {
+    val title = substringAfterLast(" ")
+    val time = substringBefore(" ")
+    return Timecode(time = time, title = title, timeSeconds = time.toSeconds())
 }

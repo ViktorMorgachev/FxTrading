@@ -55,14 +55,16 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>() {
         }
         lifecycleScope.launchWhenResumed {
             val questionID = requireActivity().getIntExtra(key_question_group_id, null) as Int?
-            // Получаем информацию о том что стартовый экзамен или нет, если да,
-            viewModel.getQuestions(questionID).collect { state ->
+
+            findNavController().navigate(QuestionsFragmentDirections.actionQuestionsFragmentToFirstQuestionsResultFragment(questionGroupID = 1, successQuestion = 3, totalQuestion = 3))
+
+          /*  viewModel.getQuestions(questionID).collect { state ->
                 when (state) {
                     is State.DataState -> {
                         nextQuestion()
                     }
                 }
-            }
+            }*/
         }
     }
 

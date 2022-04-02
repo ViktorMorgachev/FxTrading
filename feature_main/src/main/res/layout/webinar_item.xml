@@ -24,15 +24,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:padding="4dp"
             android:id="@+id/webinar_top_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@drawable/webinar_top_item_background"
+            android:padding="4dp"
             android:text="@string/webinar_upcoming"
             android:textColor="@color/primaryTextColor"
-            app:layout_constraintTop_toTopOf="@id/iv_promo_webinar"
             app:layout_constraintLeft_toLeftOf="@id/iv_promo_webinar"
-            android:layout_height="wrap_content">
+            app:layout_constraintTop_toTopOf="@id/iv_promo_webinar">
 
         </TextView>
 
