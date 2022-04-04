@@ -12,5 +12,7 @@ data class ApiUserInfo(
     val passed_courses_ids: List<Int> = listOf(),
     val devices_ids: List<String> = listOf(),
     val likes_courses_ids: List<Int> = listOf(),
-    val dislikes_courses_ids: List<Int> = listOf()
+    val dislikes_courses_ids: List<Int> = listOf(),
+    val passed_articles_ids: List<Int> = listOf(),
+    val readed_articles_ids: List<Int> = listOf()
 )

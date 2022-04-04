@@ -12,6 +12,8 @@ data class UserInfo(
     val passedLessons: List<Int>,
     val passedCourses: List<Int>,
     val devices_ids: List<String>,
+    val passedArticles: List<Int>,
+    val readedArticles: List<Int>,
 )
 
 enum class ApiUserInfoFields(val fieldName: String){
@@ -24,5 +26,7 @@ enum class ApiUserInfoFields(val fieldName: String){
     DislikesLessons("dislikes_lessons_ids"),
     PassedLessons("passed_lessons_ids"),
     PassedCourses("passed_courses_ids"),
-    DevicesIDs("devices_ids")
+    DevicesIDs("devices_ids"),
+    PassedArticles("passed_articles_ids"),
+    ReadedArticles("readed_articles_ids")
 }

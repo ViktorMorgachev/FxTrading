@@ -1,8 +1,7 @@
 package com.learning.lessons.android.di.module
 
-import com.google.firebase.firestore.FirebaseFirestore
-import com.learning.lessons.data.repositories.FieldUpdateableRealisation
-import com.learning.lessons.data.repositories.FieldsUpdateable
+import com.learning.lessons.data.repositories.articles.ArticleProvider
+import com.learning.lessons.data.repositories.articles.ArticleRemoteRepository
 import com.learning.lessons.data.repositories.lessons.LessonProvider
 import com.learning.lessons.data.repositories.lessons.LessonsRemoteRepository
 import com.learning.lessons.data.repositories.question.QuestionProvider
@@ -20,6 +19,13 @@ import javax.inject.Singleton
 
 @Module
 class RepositoryProvidesModule() {
+
+    @Provides
+    @Singleton
+    fun provideArticleProvider(articleRemoteRepository: ArticleRemoteRepository): ArticleProvider {
+        return ArticleProvider(ArticleDataSource(articleRemoteRepository))
+    }
+
 
     @Provides
     @Singleton

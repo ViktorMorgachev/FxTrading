@@ -16,7 +16,9 @@ fun ApiUserInfo.toUserInfo(): UserInfo {
         devices_ids = devices_ids,
         dislikesCourses = dislikes_courses_ids,
         likesCourses = likes_courses_ids,
-        passedCourses = passed_courses_ids
+        passedCourses = passed_courses_ids,
+        passedArticles = passed_articles_ids,
+        readedArticles = readed_articles_ids
     )
 }
 
@@ -32,6 +34,8 @@ fun UserInfo.toApiUserInfo(): ApiUserInfo {
         devices_ids = devices_ids,
         dislikes_courses_ids = dislikesCourses,
         likes_courses_ids = likesCourses,
-        passed_courses_ids = passedCourses
+        passed_courses_ids = passedCourses,
+        passed_articles_ids = passedArticles,
+        readed_articles_ids = readedArticles
     )
 }

@@ -1,5 +1,8 @@
 package com.learning.lessons.android.di.module
 
+import com.learning.lessons.data.repositories.articles.ArticleProvider
+import com.learning.lessons.data.repositories.articles.ArticleRemoteRepository
+import com.learning.lessons.data.repositories.articles.ArticleRemoteRepositoryImpl
 import com.learning.lessons.data.repositories.courses.CourseProvider
 import com.learning.lessons.data.repositories.courses.CourseRemoteRepository
 import com.learning.lessons.data.repositories.courses.CourseRemoteRepositoryImpl
@@ -22,6 +25,11 @@ import dagger.Module
 
 @Module
 abstract class RepositoryBindModule() {
+
+    @Binds
+    abstract fun bindArticleRemoteRepository(articleRemoteRepositoryImpl: ArticleRemoteRepositoryImpl): ArticleRemoteRepository
+    @Binds
+    abstract fun bindArticleBaseRepository(articleProvider: ArticleProvider): ArticleRepository
 
     @Binds
     abstract fun bindLessonRemoteRepository(lessonsRemoteRepositoryImpl: LessonsRemoteRepositoryImpl): LessonsRemoteRepository
