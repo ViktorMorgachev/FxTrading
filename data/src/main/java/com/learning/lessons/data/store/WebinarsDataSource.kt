@@ -27,12 +27,11 @@ class WebinarsDataSource @Inject constructor(val webinarsRemoteRepository: Webin
       return webinarsRemoteRepository.getWebinarByID(id)?.toWebinar()
     }
 
-     suspend fun updateWebinarField(
+    suspend fun updateWebinarFields(
         webinarID: Int,
-        fieldValue: Any,
-        field: String
-    ): Deferred<Boolean> = withContext(Dispatchers.IO) {
-        return@withContext async {webinarsRemoteRepository.updateWebinarField(webinarID, fieldValue, field).last() }
+        fieldValues: List<Pair<String, Any>>
+    ): Deferred<Boolean> = withContext(Dispatchers.IO){
+        return@withContext async {webinarsRemoteRepository.updateFields(webinarID, fieldValues).last() }
     }
 
 }

@@ -13,3 +13,16 @@ data class UserInfo(
     val passedCourses: List<Int>,
     val devices_ids: List<String>,
 )
+
+enum class ApiUserInfoFields(val fieldName: String){
+    PassedQuestionsIDs("passed_questions_ids"),
+    LikesCourses("likes_courses_ids"),
+    DislikesCourses("dislikes_courses_ids"),
+    LikesWebinars("likes_webinars_ids"),
+    DislikesWebinars("dislikes_webinars_ids"),
+    LikesLessons("likes_lessons_ids"),
+    DislikesLessons("dislikes_lessons_ids"),
+    PassedLessons("passed_lessons_ids"),
+    PassedCourses("passed_courses_ids"),
+    DevicesIDs("devices_ids")
+}

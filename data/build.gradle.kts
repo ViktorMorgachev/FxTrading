@@ -40,13 +40,17 @@ dependencies{
     api(project(":domain"))
     implementation(project(":utils"))
 
+    // Firebase
     api(platform("com.google.firebase:firebase-bom:29.0.0"))
-    api("com.google.firebase:firebase-common-ktx:20.0.0")
-    api("com.google.firebase:firebase-firestore-ktx:24.0.1")
+    api("com.google.firebase:firebase-common-ktx")
+    api("com.google.firebase:firebase-firestore-ktx")
     api("com.google.firebase:firebase-analytics-ktx")
+    api("com.google.firebase:firebase-crashlytics-ktx")
     api("com.google.firebase:firebase-storage-ktx")
-    api("com.firebaseui:firebase-ui-storage:7.2.0")
     api("com.google.firebase:firebase-database-ktx")
+    api("com.firebaseui:firebase-ui-storage:7.2.0")
+
+
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.4.1")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.2.0")
     implementation("androidx.datastore:datastore-preferences:1.0.0")

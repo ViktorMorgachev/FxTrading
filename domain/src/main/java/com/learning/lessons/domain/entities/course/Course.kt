@@ -13,3 +13,10 @@ data class Course(
     val promo_image_url: String,
     val region: String
 )
+
+enum class ApiCourseFields(val fieldName: String){
+    Likes("likes"),
+    Description("description"),
+    Dislikes("dislikes"),
+    LessonsIDS("lessons_ids")
+}

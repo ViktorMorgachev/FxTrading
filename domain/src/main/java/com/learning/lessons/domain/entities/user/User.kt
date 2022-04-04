@@ -11,3 +11,11 @@ data class User(
     val user_id: Int,
     val utm: String
 )
+
+enum class ApiUserFields(val fieldName: String){
+    Email("email"),
+    Language("language"),
+    Name("name"),
+    Rank("rank"),
+    Region("region"),
+}

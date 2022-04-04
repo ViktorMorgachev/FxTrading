@@ -14,19 +14,19 @@ class UserInfoProvider @Inject constructor(private val userInfoDataSource: UserI
        return userInfoDataSource.getUserInfo(userID)
     }
 
-    override suspend fun updateUserInfoFields(
-        userID: Int,
-        fieldValue: List<Pair<String, Any>>
-    ): Deferred<Boolean> {
-        return userInfoDataSource.updateUserInfoFields(userID, fieldValue)
-    }
-
     override suspend fun createNewUserInfo(userID: Int): UserInfo? {
       return userInfoDataSource.createNewUserInfo(userID)
     }
 
     override suspend fun getUserIDByDeviceID(): Int? {
         return userInfoDataSource.getUserIDByDeviceID()
+    }
+
+    override suspend fun updateFields(
+        objectID: Int,
+        fieldValue: List<Pair<String, Any>>
+    ): Deferred<Boolean> {
+        return userInfoDataSource.updateUserInfoFields(objectID, fieldValue)
     }
 
 

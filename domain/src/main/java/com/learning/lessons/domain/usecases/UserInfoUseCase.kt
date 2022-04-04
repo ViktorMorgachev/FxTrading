@@ -1,5 +1,8 @@
 package com.learning.lessons.domain.usecases
 
+import com.learning.lessons.domain.entities.lesson.ApiLessonsFields
+import com.learning.lessons.domain.entities.user.ApiUserFields
+import com.learning.lessons.domain.entities.users_info.ApiUserInfoFields
 import com.learning.lessons.domain.repositories.LessonRepository
 import com.learning.lessons.domain.repositories.UserInfoRepository
 import com.learning.lessons.domain.repositories.UserRepository
@@ -18,12 +21,9 @@ class UserInfoUseCase @Inject constructor(
         userInfoRepository.getUserInfo(userID = userID)?.let { userInfo ->
             if (userInfo.likesLessons.contains(lessonID)) return false
             lessonRepository.getLessonByID(lessonID = lessonID)?.let { lesson ->
-                lessonRepository.updateLessonField(lessonID = lesson.id, lesson.likes + 1, "likes")
-                    .await()
-                return userInfoRepository.updateUserInfoFields(
-                    userID,
-                    fieldValue = listOf("likes_lessons_ids" to userInfo.likesLessons.plus(lessonID))
-                ).await()
+                val lessonFieldForUpdate = listOf(ApiLessonsFields.Likes.fieldName to lesson.likes + 1)
+                val userInfoFieldForUpdate = listOf(ApiUserInfoFields.LikesLessons.fieldName to userInfo.likesLessons.plus(lessonID))
+                return awaitAll( lessonRepository.updateFields(objectID = lessonID, lessonFieldForUpdate), userInfoRepository.updateFields(objectID = userID, userInfoFieldForUpdate)).all { it }
             }
         }
         return false
@@ -33,17 +33,9 @@ class UserInfoUseCase @Inject constructor(
         userInfoRepository.getUserInfo(userID = userID)?.let { userInfo ->
             if (userInfo.dislikesLessons.contains(lessonID)) return false
             lessonRepository.getLessonByID(lessonID = lessonID)?.let { lesson ->
-                lessonRepository.updateLessonField(
-                    lessonID = lesson.id,
-                    lesson.likes + 1,
-                    "dislikes"
-                ).await()
-                return userInfoRepository.updateUserInfoFields(
-                    userID,
-                    fieldValue = listOf(
-                        "dislikes_lessons_ids" to userInfo.dislikesLessons.plus(lessonID)
-                    )
-                ).await()
+                val lessonFieldForUpdate = listOf(ApiLessonsFields.Dislikes.fieldName to lesson.dislikes + 1)
+                val userInfoFieldForUpdate = listOf(ApiUserInfoFields.DislikesLessons.fieldName to userInfo.dislikesLessons.plus(lessonID))
+                return awaitAll(lessonRepository.updateFields(objectID = lessonID, lessonFieldForUpdate), userInfoRepository.updateFields(objectID = userID, userInfoFieldForUpdate)).all { it }
             }
         }
         return false
@@ -87,17 +79,13 @@ class UserInfoUseCase @Inject constructor(
                 val user = userRepository.getUserByUserID(userID)
                 if (userInfo != null && user != null) {
                     val fieldsForUpdate = listOf<Pair<String, Any>>(
-                        "passed_questions_ids" to userInfo.questionsIDs.plus(questionGroupID),
-                        "passed_lessons_ids" to userInfo.passedLessons.plus(lessonID)
+                        ApiUserInfoFields.PassedQuestionsIDs.fieldName to userInfo.questionsIDs.plus(questionGroupID),
+                        ApiUserInfoFields.PassedLessons.fieldName to userInfo.passedLessons.plus(lessonID)
                     )
-                    try {
-                        return@withContext userInfoRepository.updateUserInfoFields(
-                            userID = userID,
-                            fieldValue = fieldsForUpdate
-                        ).await()
-                    } catch (e: Throwable) {
-                        return@withContext false
-                    }
+                    return@withContext userInfoRepository.updateFields(
+                        objectID = userID,
+                        fieldValue = fieldsForUpdate
+                    ).await()
                 } else {
                     return@withContext false
                 }
@@ -108,23 +96,12 @@ class UserInfoUseCase @Inject constructor(
         val userInfo = userInfoRepository.getUserInfo(userID)
         val user = userRepository.getUserByUserID(userID)
         if (userInfo != null && user != null) {
-            val fieldsForUpdate = listOf<Pair<String, Any>>(
-                "passed_questions_ids" to userInfo.questionsIDs.plus(questionGroupID)
-            )
-            try {
-                return awaitAll(
-                    userInfoRepository.updateUserInfoFields(
-                        userID = userID,
-                        fieldValue = fieldsForUpdate
-                    ),
-                    userRepository.updateUserField(
-                        userID,
-                        fieldValue = listOf("rank" to rank)
-                    )
-                ).all { it }
-            } catch (e: Throwable) {
-                return false
+            if(user.user_id != userInfo.user_id){
+                throw RuntimeException("UserID ${user.user_id} != UserInfoID ${userInfo.user_id}")
             }
+            val fieldsUserInfoForUpdate = listOf<Pair<String, Any>>(ApiUserInfoFields.PassedQuestionsIDs.fieldName to userInfo.questionsIDs.plus(questionGroupID))
+            val fieldsUserForUpdate = listOf(ApiUserFields.Rank.fieldName to rank)
+            return awaitAll(userInfoRepository.updateFields(objectID = userID, fieldsUserInfoForUpdate), userRepository.updateFields(objectID = userID, fieldsUserForUpdate) ).all { it }
         } else {
             return false
         }

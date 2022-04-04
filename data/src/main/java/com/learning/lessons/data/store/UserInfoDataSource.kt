@@ -26,7 +26,7 @@ class UserInfoDataSource @Inject constructor(private val userInfoRemoteRepositor
         userID: Int,
         fieldValue: List<Pair<String, Any>>
     ): Deferred<Boolean> = withContext(Dispatchers.IO){
-        return@withContext async {userInfoRemoteRepository.updateUserInfoFields(userID, fieldValue).last() }
+        return@withContext async {userInfoRemoteRepository.updateFields(userID, fieldValue).last() }
     }
 
      suspend fun createNewUserInfo(userID: Int): UserInfo? {

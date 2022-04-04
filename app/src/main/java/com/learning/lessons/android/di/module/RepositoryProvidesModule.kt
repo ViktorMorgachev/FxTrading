@@ -1,7 +1,9 @@
 package com.learning.lessons.android.di.module
 
+import com.google.firebase.firestore.FirebaseFirestore
+import com.learning.lessons.data.repositories.FieldUpdateableRealisation
+import com.learning.lessons.data.repositories.FieldsUpdateable
 import com.learning.lessons.data.repositories.lessons.LessonProvider
-import com.learning.lessons.data.repositories.lessons.LessonsMockRepository
 import com.learning.lessons.data.repositories.lessons.LessonsRemoteRepository
 import com.learning.lessons.data.repositories.question.QuestionProvider
 import com.learning.lessons.data.repositories.question.QuestionRemoteRepository
@@ -12,7 +14,6 @@ import com.learning.lessons.data.repositories.userInfo.UserInfoRemoteRepository
 import com.learning.lessons.data.repositories.webinars.WebinarsProvider
 import com.learning.lessons.data.repositories.webinars.WebinarsRemoteRepository
 import com.learning.lessons.data.store.*
-import com.learning.lessons.domain.repositories.UserInfoRepository
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

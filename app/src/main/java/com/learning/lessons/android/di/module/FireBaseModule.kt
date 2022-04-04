@@ -12,6 +12,7 @@ import javax.inject.Singleton
 
 @Module
 class FireBaseModule {
+
     @Singleton
     @Provides
     fun provideFirebaseFirestore(firebaseApp: FirebaseApp): FirebaseFirestore {

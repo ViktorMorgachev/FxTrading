@@ -23,12 +23,11 @@ class CourseDataSource @Inject constructor(private val courseRemoteRepository: C
         return courseRemoteRepository.getCourseByID(id)?.toCourse()
     }
 
-    suspend fun updateCourseField(
+    suspend fun updateCourseFields(
         courseID: Int,
-        fieldValue: Any,
-        field: String
-    ): Deferred<Boolean> = withContext(Dispatchers.IO) {
-        return@withContext async {courseRemoteRepository.updateCourseField(courseID, fieldValue, field).last() }
+        fieldValues: List<Pair<String, Any>>
+    ): Deferred<Boolean> = withContext(Dispatchers.IO){
+        return@withContext async {courseRemoteRepository.updateFields(courseID, fieldValues).last() }
     }
 
 }

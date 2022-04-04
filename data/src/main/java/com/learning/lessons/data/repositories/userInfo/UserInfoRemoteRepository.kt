@@ -1,10 +1,10 @@
 package com.learning.lessons.data.repositories.userInfo
 
 import com.learning.lessons.data.api.user_info.ApiUserInfo
+import com.learning.lessons.data.repositories.FieldsUpdateable
 import kotlinx.coroutines.flow.Flow
 
-interface UserInfoRemoteRepository {
-    suspend fun updateUserInfoFields(userID: Int, fieldValues: List<Pair<String, Any>>): Flow<Boolean>
+interface UserInfoRemoteRepository: FieldsUpdateable {
     suspend fun getUserInfo(userID: Int): ApiUserInfo?
     suspend fun getUsersInfo(): List<ApiUserInfo?>
     suspend fun createUserInfo(userID: Int, deviceID: String): ApiUserInfo?

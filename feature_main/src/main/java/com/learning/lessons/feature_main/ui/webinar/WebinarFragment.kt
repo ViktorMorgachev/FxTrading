@@ -107,6 +107,7 @@ class WebinarFragment : BaseFragment<FragmentWebinarBinding>() {
                 .build())
 
             toolbar.cancelButton.setOnClickListener {
+                throw  RuntimeException("Test Crash"); // Force a crash
                 findNavController().popBackStack()
             }
             tvVideoAutor.text = webinar.speaker_name

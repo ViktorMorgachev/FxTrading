@@ -26,7 +26,10 @@ class LessonProvider @Inject constructor(private val lessonsDataSource: LessonsD
        return lessonsDataSource.getLessonsByIDS(lessonsIDS)
     }
 
-    override suspend fun updateLessonField(lesson: Int, fieldValue: Any, field: String): Deferred<Boolean> {
-       return lessonsDataSource.updateLessonField(lesson, fieldValue, field)
+    override suspend fun updateFields(
+        objectID: Int,
+        fieldValue: List<Pair<String, Any>>
+    ): Deferred<Boolean> {
+        return lessonsDataSource.updateLessonFields(objectID, fieldValue)
     }
 }

@@ -18,11 +18,10 @@ class WebinarsProvider @Inject constructor(private val webinarsDataSource: Webin
         return webinarsDataSource.getWebinarByID(id)
     }
 
-    override suspend fun updateWebinarField(
-        webinarID: Int,
-        fieldValue: Any,
-        field: String
+    override suspend fun updateFields(
+        objectID: Int,
+        fieldValue: List<Pair<String, Any>>
     ): Deferred<Boolean> {
-        return webinarsDataSource.updateWebinarField(webinarID, fieldValue, field)
+        return webinarsDataSource.updateWebinarFields(objectID, fieldValues = fieldValue)
     }
 }

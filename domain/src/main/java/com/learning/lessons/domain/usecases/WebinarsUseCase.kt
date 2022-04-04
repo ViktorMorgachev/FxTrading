@@ -1,9 +1,11 @@
 package com.learning.lessons.domain.usecases
 
+import com.learning.lessons.domain.entities.users_info.ApiUserInfoFields
+import com.learning.lessons.domain.entities.webinar.ApiWebinarFields
 import com.learning.lessons.domain.entities.webinar.Webinar
 import com.learning.lessons.domain.repositories.UserInfoRepository
-import com.learning.lessons.domain.repositories.UserRepository
 import com.learning.lessons.domain.repositories.WebinarRepository
+import kotlinx.coroutines.awaitAll
 import javax.inject.Inject
 
 class WebinarsUseCase @Inject constructor(private val webinarsRepository: WebinarRepository,private val userInfoRepository: UserInfoRepository) {
@@ -17,11 +19,9 @@ class WebinarsUseCase @Inject constructor(private val webinarsRepository: Webina
         if (!userInfo!!.likesWebinars.contains(webinarID)){
             val webinar = webinarsRepository.getWebinarByID(webinarID)
             if (webinar != null){
-                val success = webinarsRepository.updateWebinarField(webinarID = webinarID, webinar.copy(likes = webinar.likes + 1), "likes").await()
-                if (success){
-                    val fieldsForUpdate = listOf<Pair<String, Any>>("likes_webinars_ids" to userInfo.likesWebinars.plus(webinarID))
-                    return userInfoRepository.updateUserInfoFields(userID = userID, fieldValue = fieldsForUpdate).await()
-                }
+                val webinarFieldForUpdate = listOf(ApiWebinarFields.Likes.fieldName to webinar.likes + 1)
+                val userInfofieldsForUpdate = listOf<Pair<String, Any>>(ApiUserInfoFields.LikesWebinars.fieldName to userInfo.likesWebinars.plus(webinarID))
+                return awaitAll(webinarsRepository.updateFields(objectID = webinarID, webinarFieldForUpdate),userInfoRepository.updateFields(objectID = userID, fieldValue = userInfofieldsForUpdate) ).all { it }
             } else return false
         }
         return false
@@ -32,11 +32,9 @@ class WebinarsUseCase @Inject constructor(private val webinarsRepository: Webina
         if (!userInfo!!.dislikesLessons.contains(webinarID)){
             val webinar = webinarsRepository.getWebinarByID(webinarID)
             if (webinar != null){
-                val success = webinarsRepository.updateWebinarField(webinarID = webinarID, webinar.copy(dislikes = webinar.likes + 1), "dislikes").await()
-                if (success){
-                    val fieldsForUpdate = listOf<Pair<String, Any>>("dislikes_webinars_ids" to userInfo.dislikesWebinars.plus(webinarID))
-                    return userInfoRepository.updateUserInfoFields(userID = userID, fieldValue = fieldsForUpdate).await()
-                }
+                val webinarFieldForUpdate = listOf(ApiWebinarFields.Dislikes.fieldName to webinar.dislikes + 1)
+                val userInfofieldsForUpdate = listOf<Pair<String, Any>>(ApiUserInfoFields.DislikesWebinars.fieldName to userInfo.dislikesWebinars.plus(webinarID))
+                return awaitAll(webinarsRepository.updateFields(objectID = webinarID, webinarFieldForUpdate),userInfoRepository.updateFields(objectID = userID, fieldValue = userInfofieldsForUpdate) ).all { it }
             } else return false
         }
         return false

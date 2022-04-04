@@ -18,19 +18,19 @@ class UsersProvider @Inject constructor(private val userDataSource: UserDataSour
         return userDataSource.getUsers()
     }
 
-    override suspend fun updateUserField(
-        userID: Int,
-        fieldValue: List<Pair<String, Any>>
-    ): Deferred<Boolean> {
-        return userDataSource.updateUserField(userID, fieldValue)
-    }
-
     override suspend fun createNewUser(userID: Int): User? {
      return userDataSource.createNewUser(userID)
     }
 
     override suspend fun getLastUserID(): Int {
        return userDataSource.getLastUserID()
+    }
+
+    override suspend fun updateFields(
+        objectID: Int,
+        fieldValue: List<Pair<String, Any>>
+    ): Deferred<Boolean> {
+        return userDataSource.updateUserField(objectID, fieldValue)
     }
 
 

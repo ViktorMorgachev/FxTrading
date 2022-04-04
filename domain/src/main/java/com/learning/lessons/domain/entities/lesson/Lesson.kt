@@ -28,3 +28,8 @@ data class Lesson(
 fun Lesson.hasCategory(category: String): Boolean{
     return categories.contains(category)
 }
+
+enum class ApiLessonsFields(val fieldName: String){
+    Dislikes("dislikes"),
+    Likes("likes"),
+}

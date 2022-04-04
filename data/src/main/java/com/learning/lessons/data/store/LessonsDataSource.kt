@@ -8,6 +8,7 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -35,12 +36,11 @@ class LessonsDataSource @Inject constructor(
         return lessons
     }
 
-     suspend fun updateLessonField(
+    suspend fun updateLessonFields(
         lessonID: Int,
-        fieldValue: Any,
-        field: String
+        fieldValues: List<Pair<String, Any>>
     ): Deferred<Boolean> = withContext(Dispatchers.IO){
-        return@withContext async { lessonsRemoteRepository.updateLessonField(lessonID, fieldValue, field).first() }
+        return@withContext async {lessonsRemoteRepository.updateFields(lessonID, fieldValues).last() }
     }
 
 }

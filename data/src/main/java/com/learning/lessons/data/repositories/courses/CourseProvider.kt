@@ -8,8 +8,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class CourseProvider @Inject constructor(private val courseDataSource: CourseDataSource) :
-    CourseRepository {
+class CourseProvider @Inject constructor(private val courseDataSource: CourseDataSource) : CourseRepository {
     override suspend fun getCourses(): List<Course> {
         return courseDataSource.getCourses()
     }
@@ -18,12 +17,12 @@ class CourseProvider @Inject constructor(private val courseDataSource: CourseDat
         return courseDataSource.getCourseByID(courseID)
     }
 
-    override suspend fun updateCourseField(
-        courseID: Int,
-        fieldValue: Any,
-        field: String
+    override suspend fun updateFields(
+        objectID: Int,
+        fieldValue: List<Pair<String, Any>>
     ): Deferred<Boolean> {
-        return courseDataSource.updateCourseField(courseID, fieldValue, field)
+        return courseDataSource.updateCourseFields(objectID, fieldValue)
     }
+
 
 }

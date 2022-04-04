@@ -23,3 +23,8 @@ data class Webinar(
     val video_url: String,
     val webinar_date: String
 )
+
+enum class ApiWebinarFields(val fieldName: String){
+    Dislikes("dislikes"),
+    Likes("likes")
+}

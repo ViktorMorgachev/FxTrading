@@ -28,7 +28,7 @@ class UserDataSource @Inject constructor(private val userRemoteRepository: UserR
         userID: Int,
         fieldValue: List<Pair<String, Any>>
     ): kotlinx.coroutines.Deferred<Boolean> = withContext(Dispatchers.IO){
-        return@withContext async { userRemoteRepository.updateUserField(userID, fieldValue).last() }
+        return@withContext async { userRemoteRepository.updateFields(userID, fieldValue).last() }
     }
 
      suspend fun createNewUser(userID: Int): User? {
