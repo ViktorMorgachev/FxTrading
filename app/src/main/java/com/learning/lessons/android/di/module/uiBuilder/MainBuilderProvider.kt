@@ -1,6 +1,7 @@
 package com.learning.lessons.android.di.module.uiBuilder
 
 import com.learning.feature_example.example.ExampleFragment
+import com.learning.feature_main.articles.ArticlesFragment
 import com.learning.feature_main.course.CourseFragment
 import com.learning.feature_main.courses.CoursesFragment
 import com.learning.feature_main.different.DifferentFragment
@@ -41,4 +42,7 @@ interface MainBuilderProvider {
 
     @ContributesAndroidInjector
     fun mainFragment(): MainFragment
+
+    @ContributesAndroidInjector
+    fun articlesFragment(): ArticlesFragment
 }

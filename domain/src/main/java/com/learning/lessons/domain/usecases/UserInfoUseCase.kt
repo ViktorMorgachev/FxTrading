@@ -121,6 +121,15 @@ class UserInfoUseCase @Inject constructor(
         return emptyList()
     }
 
+
+    suspend fun getCompletedArticlesIds(userID: Int): List<Int> {
+        userInfoRepository.getUserInfo(userID = userID)?.let { userInfo ->
+            return userInfo.passedArticles
+        }
+        return emptyList()
+    }
+
+
     suspend fun getUserIDByDeviceID(): Int? {
         return userInfoRepository.getUserIDByDeviceID()
     }

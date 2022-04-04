@@ -31,9 +31,10 @@ class FireBaseModule {
     fun provideFirebaseStorage(firebaseApp: FirebaseApp): FirebaseStorage {
         return FirebaseStorage.getInstance(firebaseApp)
     }
+
     @Singleton
     @Provides
-    fun provideFirebaseUtils(firebaseFirestore: FirebaseFirestore, firebaseStorage: FirebaseStorage, firebaseDatabase: FirebaseDatabase): FirebaseUtil {
+    fun proviТdeFirebaseUtils(firebaseFirestore: FirebaseFirestore, firebaseStorage: FirebaseStorage, firebaseDatabase: FirebaseDatabase): FirebaseUtil {
         return FirebaseUtil(firebaseStorage, firebaseFirestore, firebaseDatabase)
     }
 

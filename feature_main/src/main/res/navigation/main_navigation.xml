@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.learning.lessons.feature_main.ui.main.MainFragment"
+        android:name="com.learning.feature_main.main.MainFragment"
         android:label="MainFragment" >
         <action
             android:id="@+id/action_mainFragment_to_lessonFragment"
@@ -36,18 +36,18 @@
 
     <fragment
         android:id="@+id/lessonFragment"
-        android:name="com.learning.lessons.feature_main.ui.lesson.LessonFragment"
+        android:name="com.learning.feature_main.lesson.LessonFragment"
         android:label="LessonFragment" >
     </fragment>
 
 
     <fragment
         android:id="@+id/webinarFragment"
-        android:name="com.learning.lessons.feature_main.ui.webinar.WebinarFragment"
+        android:name="com.learning.feature_main.webinar.WebinarFragment"
         android:label="WebinarFragment" />
     <fragment
         android:id="@+id/courseFragment"
-        android:name="com.learning.lessons.feature_main.ui.course.CourseFragment"
+        android:name="com.learning.feature_main.course.CourseFragment"
         android:label="CourseFragment" >
         <action
             android:id="@+id/action_courseFragment_to_lessonFragment"

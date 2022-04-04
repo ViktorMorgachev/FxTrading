@@ -1,5 +1,6 @@
 package com.learning.feature_main.lessons
 
+import android.content.res.Resources
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -44,7 +45,7 @@ class LessonsAdapter(
                 tvVideoDuration.text = actualLesson.duration
                 title.text = actualLesson.title
                 if (completedLessonIDs.contains(actualLesson.id)) {
-                    lessonItemRoot.setBackgroundColor(Color.parseColor("#C8E6C9"))
+                    lessonItemRoot.setBackgroundColor(itemBinding.root.resources.getColor(R.color.completed_color_identifier))
                 }
                 lessonItemRoot.setOnClickListener {
                     openLessonAction(actualLesson)

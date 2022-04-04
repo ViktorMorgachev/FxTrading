@@ -18,7 +18,7 @@ class ArticleRemoteRepositoryImpl @Inject constructor(private val firebaseFirest
     override suspend fun getRemoteArticles(): List<ApiArticle> {
         return try {
             val firebaseDocuments = firebaseFirestore.collection(documentPath).get().await()
-            firebaseDocuments?.documents?.mapNotNull { it.toObjectOrDefault(ApiArticle::class.java) }?.filter { it.active }?: listOf()
+            firebaseDocuments?.documents?.mapNotNull { it.toObjectOrDefault(ApiArticle::class.java) }?: listOf()
         } catch (e : Exception){
             Logger.log(logger_tag,  exception = e)
             listOf()

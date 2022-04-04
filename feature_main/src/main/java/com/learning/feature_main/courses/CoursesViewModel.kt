@@ -1,6 +1,7 @@
 package com.learning.feature_main.courses
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.learning.common.State
 import com.learning.common.createState
 import com.learning.lessons.domain.entities.course.Course
@@ -9,8 +10,10 @@ import com.learning.lessons.domain.usecases.CourseUseCase
 import com.learning.lessons.domain.usecases.UserInfoUseCase
 import com.learning.lessons.utils.utils.Logger
 import data.DataStoreHelper
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CoursesViewModel @Inject constructor(
@@ -23,9 +26,7 @@ class CoursesViewModel @Inject constructor(
         emit(State.LoadingState)
         try {
             dataStoreHelper.userID().collect {
-                val lessons = courseUseCase.getCourses()
-                val completedLessons = userInfoUseCase.getCompletedCoursesIds(it)
-                emit(State.DataState(Pair(first = lessons, second = completedLessons)))
+                emit(State.DataState(courseUseCase.getCourses()  to userInfoUseCase.getCompletedCoursesIds(it)))
             }
         } catch (e: Exception) {
             Logger.log("CoursesViewModel", exception = e)

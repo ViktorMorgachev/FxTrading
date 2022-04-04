@@ -9,9 +9,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.learning.common.State
+import com.learning.feature_main.main.MainFragmentDirections
 import com.learning.lessons.core.BaseFragment
 import com.learning.lessons.core.BaseViewModelFactory
-import com.learning.lessons.feature_main.ui.main.MainFragmentDirections
 import com.learning.lessons.features.databinding.FragmentWebinarsBinding
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject

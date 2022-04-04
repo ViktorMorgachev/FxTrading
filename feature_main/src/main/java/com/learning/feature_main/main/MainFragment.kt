@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import com.learning.feature_main.articles.ArticlesFragment
 import com.learning.feature_main.courses.CoursesFragment
 import com.learning.feature_main.lessons.LessonsFragment
 import com.learning.feature_main.webinars.WebinarsFragment
@@ -15,7 +16,7 @@ import com.learning.lessons.core.BaseFragment
 import com.learning.lessons.features.R
 import com.learning.lessons.features.databinding.FragmentMainBinding
 
-val tabsNameRes = listOf<Int>(R.string.lessons, R.string.courses, R.string.webinars)
+val tabsNameRes = listOf<Int>(R.string.lessons, R.string.courses, R.string.webinars, R.string.articles)
 
 class MainFragment : BaseFragment<FragmentMainBinding>() {
 
@@ -27,17 +28,14 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
         with(binding) {
             viewPager.adapter = object : FragmentStateAdapter(this@MainFragment) {
-                override fun getItemCount() = 3
+                override fun getItemCount() = tabsNameRes.size
 
                 override fun createFragment(position: Int): Fragment {
                     return when (position) {
-                        0 -> {
-                            LessonsFragment()
-                        }
-                        1 -> {
-                            CoursesFragment()
-                        }
+                        0 -> LessonsFragment()
+                        1 -> CoursesFragment()
                         2 -> WebinarsFragment()
+                        3-> ArticlesFragment()
                         else -> LessonsFragment()
                     }
                 }

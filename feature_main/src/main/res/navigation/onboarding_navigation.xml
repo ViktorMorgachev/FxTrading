@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.learning.lessons.feature_main.ui.splash.SplashFragment"
+        android:name="com.learning.feature_main.splash.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash">
         <action
@@ -55,34 +55,12 @@
     </fragment>
 
     <fragment
-        android:id="@+id/onBoardingFragmentThird"
-        android:name="com.learning.lessons.feature_main.feature_onboarding.main.OnBoardingThirdFragment"
-        android:label="fragment_on_boarding_third"
-        tools:layout="@layout/fragment_on_boarding_third"/>
-
-    <fragment
-        android:id="@+id/onBoardingFragmentFour"
-        android:name="com.learning.lessons.feature_main.feature_onboarding.main.OnBoardingFourFragment"
-        android:label="fragment_on_boarding_four"
-        tools:layout="@layout/fragment_on_boarding_four"/>
-
-    <fragment
-        android:id="@+id/onBoardingFragmentFive"
-        android:name="com.learning.lessons.feature_main.feature_onboarding.main.OnBoardingFiveFragment"
-        android:label="fragment_on_boarding_five"
-        tools:layout="@layout/fragment_on_boarding_four"/>
-
-    <fragment
         android:id="@+id/test_skils_fragment"
-        android:name="com.learning.lessons.feature_main.feature_onboarding.start_test.StartTestFragment"
+        android:name="com.learning.feature_common.questions.question.QuestionsFragment"
         android:label="fragment_test"
-        tools:layout="@layout/fragment_start_test">
+        tools:layout="@layout/fragment_questions">
 
     </fragment>
-<!--    <fragment-->
-<!--        android:id="@+id/testFragment"-->
-<!--        android:name="com.fx_trading.lessons.feature_onboarding.test.TestFragment"-->
-<!--        android:label="TestFragment" />-->
 
 
 </navigation>

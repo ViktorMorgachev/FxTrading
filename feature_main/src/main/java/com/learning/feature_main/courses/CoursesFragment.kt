@@ -11,10 +11,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.learning.common.State
 import com.learning.feature_main.custom.CourseAccordionData
+import com.learning.feature_main.main.MainFragmentDirections
 import com.learning.lessons.core.BaseFragment
 import com.learning.lessons.core.BaseViewModelFactory
 import com.learning.lessons.domain.entities.course.Course
-import com.learning.lessons.feature_main.ui.main.MainFragmentDirections
 import com.learning.lessons.features.R
 import com.learning.lessons.features.databinding.FragmentCoursesBinding
 import com.learning.navigation.Router

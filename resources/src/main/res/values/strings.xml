@@ -56,4 +56,6 @@
     <string name="count_of_lessons">%d Lessons</string>
     <string name="all_lessons">All Lessons</string>
     <string name="course">Course</string>
+    <string name="article">Article</string>
+    <string name="articles">Articles</string>
 </resources>

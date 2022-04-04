@@ -8,17 +8,18 @@
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/webinar_item_root"
+        android:id="@+id/article_item_root"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/iv_promo_webinar"
+            android:id="@+id/iv_promo_article"
             android:layout_width="0dp"
             app:layout_constraintWidth_percent="0.4"
+            android:scaleType="centerCrop"
             app:layout_constraintHorizontal_weight="1"
             android:layout_height="88dp"
-            android:scaleType="centerCrop"
             android:src="@drawable/mock_video_image"
             app:layout_constraintRight_toLeftOf="@id/title"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -26,35 +27,23 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/webinar_top_text"
+            android:id="@+id/article_top_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/webinar_top_item_background"
+            android:background="@drawable/article_top_item_background"
             android:padding="4dp"
-            android:text="@string/webinar_upcoming"
+            android:text="@string/article"
             android:textColor="@color/primaryTextColor"
-            app:layout_constraintLeft_toLeftOf="@id/iv_promo_webinar"
-            app:layout_constraintTop_toTopOf="@id/iv_promo_webinar">
+            app:layout_constraintLeft_toLeftOf="@id/iv_promo_article"
+            app:layout_constraintTop_toTopOf="@id/iv_promo_article">
 
         </TextView>
 
-        <TextView
-            android:id="@+id/tv_video_duration"
-            tools:text="00:00"
-            android:visibility="gone"
-            android:paddingHorizontal="2dp"
-            app:layout_constraintRight_toRightOf="@id/iv_promo_webinar"
-            app:layout_constraintBottom_toBottomOf="@id/iv_promo_webinar"
-            android:layout_width="wrap_content"
-            android:background="@color/secondaryTextColor"
-            android:textColor="@color/primaryTextColor"
-            android:layout_height="wrap_content"/>
 
         <TextView
             android:id="@+id/title"
-
-            app:layout_constraintWidth_percent="0.6"
             android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.6"
             app:layout_constraintHorizontal_weight="1"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16sp"
@@ -62,34 +51,32 @@
             android:textSize="14sp"
             app:layout_constraintVertical_bias="0"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/like_item_root"
-            app:layout_constraintLeft_toRightOf="@id/iv_promo_webinar"
+            app:layout_constraintBottom_toTopOf="@id/date_of_article"
+            app:layout_constraintLeft_toRightOf="@id/iv_promo_article"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/iv_promo_webinar"
+            app:layout_constraintTop_toTopOf="@id/iv_promo_article"
             tools:text="@string/long_text">
         </TextView>
 
-        <include
-            android:id="@+id/like_item_root"
-            android:layout_marginVertical="4dp"
-            android:layout_width="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/iv_promo_webinar"
-            layout="@layout/like_item"/>
 
         <TextView
-            android:id="@+id/date_of_webinar"
+            android:id="@+id/date_of_article"
             tools:text="11 May"
-            android:visibility="gone"
             android:paddingStart="10dp"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/iv_promo_webinar"/>
+            app:layout_constraintLeft_toRightOf="@id/iv_promo_article"/>
 
-
+        <com.learning.feature_main.custom.DifficultyView
+            android:layout_width="wrap_content"
+            android:id="@+id/difficultyItem"
+            android:layout_marginHorizontal="16dp"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintTop_toTopOf="@id/date_of_article"
+            app:layout_constraintBottom_toBottomOf="@id/date_of_article"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_height="wrap_content" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

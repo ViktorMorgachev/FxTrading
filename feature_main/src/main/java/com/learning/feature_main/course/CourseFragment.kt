@@ -17,7 +17,6 @@ import com.learning.lessons.core.BaseFragment
 import com.learning.lessons.core.BaseViewModelFactory
 import com.learning.lessons.domain.entities.course.Course
 import com.learning.lessons.domain.entities.lesson.Lesson
-import com.learning.lessons.feature_main.ui.course.CourseFragmentDirections
 import com.learning.lessons.features.R
 import com.learning.lessons.features.databinding.FragmentCourseBinding
 import com.learning.lessons.utils.utils.gone
@@ -60,9 +59,9 @@ class CourseFragment : BaseFragment<FragmentCourseBinding>() {
 
     }
 
-    private fun showCourse(data: Pair<Course, List<Int>>) {
+    private fun showCourse(data: Pair<Course?, List<Int>>) {
         with(binding){
-            val course = data.first
+            val course = data.first ?: return
             val completedLessons = data.second
             tvCourseTitle.text = course.title
 
