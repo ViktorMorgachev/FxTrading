@@ -1,14 +1,14 @@
 package com.learning.lessons.android.di.module.uiBuilder
 
-import com.learning.lessons.feature_main.example.ExampleFragment
-import com.learning.lessons.feature_main.ui.course.CourseFragment
-import com.learning.lessons.feature_main.ui.courses.CoursesFragment
-import com.learning.lessons.features.ui.different.DifferentFragment
-import com.learning.lessons.feature_main.ui.lesson.LessonFragment
-import com.learning.lessons.feature_main.ui.lessons.LessonsFragment
-import com.learning.lessons.feature_main.ui.main.MainFragment
-import com.learning.lessons.feature_main.ui.webinar.WebinarFragment
-import com.learning.lessons.feature_main.ui.webinars.WebinarsFragment
+import com.learning.feature_example.example.ExampleFragment
+import com.learning.feature_main.course.CourseFragment
+import com.learning.feature_main.courses.CoursesFragment
+import com.learning.feature_main.different.DifferentFragment
+import com.learning.feature_main.lesson.LessonFragment
+import com.learning.feature_main.lessons.LessonsFragment
+import com.learning.feature_main.main.MainFragment
+import com.learning.feature_main.webinar.WebinarFragment
+import com.learning.feature_main.webinars.WebinarsFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

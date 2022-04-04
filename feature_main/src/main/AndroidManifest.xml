@@ -5,15 +5,15 @@
 
     <application>
         <activity
-            android:name="com.learning.lessons.feature_main.activities.MainActivity"
+            android:name="com.learning.feature_main.MainActivity"
             android:theme="@style/Theme.FxTrading"
             android:exported="false"/>
         <activity
-            android:name="com.learning.lessons.feature_main.activities.QuestionActivity"
+            android:name="com.learning.feature_common.questions.QuestionActivity"
             android:theme="@style/Theme.FxTrading"
             android:exported="false"/>
         <activity
-            android:name="com.learning.lessons.feature_main.activities.OnBoardingActivity"
+            android:name="com.learning.feature_onboarding.OnBoardingActivity"
             android:noHistory="true"
             android:theme="@style/Theme.FxTrading"
             tools:replace="android:exported"

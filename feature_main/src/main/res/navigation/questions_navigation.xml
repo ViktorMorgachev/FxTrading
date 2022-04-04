@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/questionsFragment"
-        android:name="com.learning.lessons.feature_main.feature_common.questions.QuestionsFragment"
+        android:name="com.learning.feature_common.questions.question.QuestionsFragment"
         android:label="QuestionsFragment">
 
         <action
@@ -59,13 +59,13 @@
 
     <fragment
         android:id="@+id/questionsResultFragment"
-        android:name="com.learning.lessons.feature_main.feature_common.questions.question_result.QuestionsResultFragment"
+        android:name="com.learning.feature_common.questions.question_result.QuestionsResultFragment"
         android:label="QuestionsResult" />
 
 
     <fragment
         android:id="@+id/firstQuestionsResultFragment"
-        android:name="com.learning.lessons.feature_main.feature_common.questions.quiz_result.FirstQuestionsResultFragment"
+        android:name="com.learning.feature_common.questions.quiz_result.FirstQuestionsResultFragment"
         android:label="FirstQuestionsResult" />
 
 

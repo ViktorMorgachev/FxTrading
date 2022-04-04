@@ -1,8 +1,8 @@
 package com.learning.lessons.android.di.module.uiBuilder
 
-import com.learning.lessons.feature_main.activities.MainActivity
-import com.learning.lessons.feature_main.activities.OnBoardingActivity
-import com.learning.lessons.feature_main.activities.QuestionActivity
+import com.learning.feature_main.MainActivity
+import com.learning.feature_onboarding.OnBoardingActivity
+import com.learning.feature_common.questions.QuestionActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

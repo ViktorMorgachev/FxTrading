@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/onBoardingFragmentFirst"
-        android:name="com.learning.lessons.feature_main.feature_onboarding.main.OnBoardingFirstFragment"
+        android:name="com.learning.feature_onboarding.OnBoardingFirstFragment"
         android:label="fragment_on_boarding_first"
         tools:layout="@layout/fragment_on_boarding_first">
         <action
@@ -41,7 +41,7 @@
 
     <fragment
         android:id="@+id/onBoardingFragmentSecond"
-        android:name="com.learning.lessons.feature_main.feature_onboarding.main.OnBoardingSecondFragment"
+        android:name="com.learning.feature_onboarding.OnBoardingSecondFragment"
         android:label="fragment_on_boarding_second"
         tools:layout="@layout/fragment_on_boarding_second">
         <action

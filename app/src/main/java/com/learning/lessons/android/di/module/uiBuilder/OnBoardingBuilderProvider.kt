@@ -1,7 +1,8 @@
 package com.learning.lessons.android.di.module.uiBuilder
 
-import com.learning.lessons.feature_main.feature_onboarding.main.*
-import com.learning.lessons.feature_main.ui.splash.SplashFragment
+import com.learning.feature_main.splash.SplashFragment
+import com.learning.feature_onboarding.OnBoardingFirstFragment
+import com.learning.feature_onboarding.OnBoardingSecondFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
