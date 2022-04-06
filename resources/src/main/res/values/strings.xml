@@ -4,6 +4,7 @@
     <string name="skip">Skip</string>
     <string name="continues">Continue</string>
     <string name="lesson_start_quiz">Done watching the video? Ready to answer questions?</string>
+    <string name="common_start_quiz">Done watching the material? Ready to answer questions?</string>
     <string name="start">Start</string>
     <string name="check">Check</string>
     <string name="select_right_answers">Выберите что считаете нужным</string>
@@ -31,7 +32,7 @@
     <string name="lets_test_your_skills">Let\'s test your skills</string>
     <string name="onboarding_text_bottom">Please answer a few questions to better understand what content you should pick :)</string>
     <string name="right_answers_count">Right answers</string>
-    <string name="lesson_easy">Easy lesson</string>
+    <string name="lesson_easy">Easy material</string>
     <string name="results">Results</string>
     <string name="lessons">Lessons</string>
     <string name="lesson">Lesson</string>
@@ -42,10 +43,12 @@
     <string name="start_quiz">Start quiz</string>
     <string name="timecodes">Timecodes</string>
     <string name="lesson_start_quiz_bottom">Answer all questions to complete this lesson</string>
+    <string name="common_start_quiz_bottom">Answer all questions to complete this step</string>
     <string name="recommended_lessons">Recommended lessons</string>
     <string name="show_more">Show more</string>
     <string name="out_of_hundred">out of 100</string>
-    <string name="lesson_hard">Hard lesson</string>
+    <string name="lesson_hard">Hard material</string>
+    <string name="lesson_medium">Medium material</string>
     <string name="webinar_upcoming">Upcoming webinar</string>
     <string name="webinar">Webinar</string>
     <string name="sign_up">Sign up</string>

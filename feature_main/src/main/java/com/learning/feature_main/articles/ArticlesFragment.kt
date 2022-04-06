@@ -8,9 +8,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.learning.common.State
 import com.learning.feature_example.example.ExampleViewModel
+import com.learning.feature_main.main.MainFragmentDirections
 import com.learning.lessons.core.BaseFragment
 import com.learning.lessons.core.BaseViewModelFactory
 import com.learning.lessons.features.databinding.FragmentArticlesBinding
@@ -41,6 +43,7 @@ class ArticlesFragment : BaseFragment<FragmentArticlesBinding>() {
                                 val passedArticles = state.data.second
                                 articlesList.layoutManager = LinearLayoutManager(requireContext())
                                 articlesList.adapter = ArticleAdapter(articles, passedArticles){
+                                    NavHostFragment.findNavController(this@ArticlesFragment).navigate(MainFragmentDirections.actionMainFragmentToArticleFragment(articleId = it.id))
                                 }
                             }
                         }

@@ -32,6 +32,14 @@
                 app:argType="integer"
                 app:nullable="false"/>
         </action>
+        <action
+            android:id="@+id/action_mainFragment_to_articleFragment"
+            app:destination="@id/articleFragment">
+            <argument
+                android:name="article_id"
+                app:argType="integer"
+                app:nullable="false"/>
+        </action>
     </fragment>
 
     <fragment
@@ -58,5 +66,9 @@
                 app:nullable="false"/>
         </action>
     </fragment>
+    <fragment
+        android:id="@+id/articleFragment"
+        android:name="com.learning.feature_main.article.ArticleFragment"
+        android:label="ArticleFragment" />
 
 </navigation>

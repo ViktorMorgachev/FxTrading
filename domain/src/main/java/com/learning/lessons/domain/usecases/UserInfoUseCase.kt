@@ -72,7 +72,7 @@ class UserInfoUseCase @Inject constructor(
         return false
     }
 
-    suspend fun saveTesting(questionGroupID: Int, userID: Int, lessonID: Int) =
+    suspend fun saveTestingLesson(questionGroupID: Int, userID: Int, lessonID: Int) =
         withContext(Dispatchers.IO) {
             run {
                 val userInfo = userInfoRepository.getUserInfo(userID)
@@ -81,6 +81,26 @@ class UserInfoUseCase @Inject constructor(
                     val fieldsForUpdate = listOf<Pair<String, Any>>(
                         ApiUserInfoFields.PassedQuestionsIDs.fieldName to userInfo.questionsIDs.plus(questionGroupID),
                         ApiUserInfoFields.PassedLessons.fieldName to userInfo.passedLessons.plus(lessonID)
+                    )
+                    return@withContext userInfoRepository.updateFields(
+                        objectID = userID,
+                        fieldValue = fieldsForUpdate
+                    ).await()
+                } else {
+                    return@withContext false
+                }
+            }
+        }
+
+    suspend fun saveTestingArticle(questionGroupID: Int, userID: Int, articleID: Int) =
+        withContext(Dispatchers.IO) {
+            run {
+                val userInfo = userInfoRepository.getUserInfo(userID)
+                val user = userRepository.getUserByUserID(userID)
+                if (userInfo != null && user != null) {
+                    val fieldsForUpdate = listOf<Pair<String, Any>>(
+                        ApiUserInfoFields.PassedQuestionsIDs.fieldName to userInfo.questionsIDs.plus(questionGroupID),
+                        ApiUserInfoFields.PassedArticles.fieldName to userInfo.passedArticles.plus(articleID)
                     )
                     return@withContext userInfoRepository.updateFields(
                         objectID = userID,

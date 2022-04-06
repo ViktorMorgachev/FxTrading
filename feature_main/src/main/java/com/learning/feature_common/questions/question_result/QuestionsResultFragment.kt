@@ -40,8 +40,9 @@ class QuestionsResultFragment : BaseFragment<FragmentTotalResultQuestionsBinding
                 val totalQuestions = it.getInt("totalQuestions")
                 val questionGroupID = it.getInt("questionGroupID")
                 val correctForSucess = it.getInt("correctForSuccess")
-                val lessonDifficulty = it.getInt("lessonDifficulty")
-                val lessonID = it.getInt("lessonID")
+                val difficulty = it.getInt("difficulty")
+                val id = it.getInt("id")
+                val flag = it.getString("flag") ?: ""
 
                 Paris.style(finishButton).apply(R.style.bottom_button_disabled)
                 val percentSuccessAnswering =
@@ -70,10 +71,10 @@ class QuestionsResultFragment : BaseFragment<FragmentTotalResultQuestionsBinding
                 percentResult.text = "${percentSuccessAnswering}%"
                 countTotalQuestions.text = "$totalQuestions"
                 countResultAnswers.text = "$successQuestions"
-                difficultyItem.setDifficulty(lessonDifficulty)
+                difficultyItem.setDifficulty(difficulty)
 
 
-                when (lessonDifficulty) {
+                when (difficulty) {
                     1 -> {
                         lessonDifficultyDescription.text = resources.getString(R.string.lesson_easy)
                     }
@@ -86,7 +87,7 @@ class QuestionsResultFragment : BaseFragment<FragmentTotalResultQuestionsBinding
 
                 }
              lifecycleScope.launchWhenResumed {
-                 viewModel.saveExamResult(lessonID = lessonID, questionID = questionGroupID).collect{
+                 viewModel.saveExamResult(materialID = id, questionID = questionGroupID, flag = flag).collect{
                      Paris.style(finishButton).apply(R.style.button_bottom_blue_default)
                      finishButton.setOnClickListener {
                          requireActivity().finish()

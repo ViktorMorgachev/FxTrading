@@ -22,6 +22,11 @@ fun Activity.getIntExtra(key: String, defaultValue: Int?): Int?{
     return intent.extras?.get(key) as Int? ?: defaultValue
 }
 
+fun Activity.getStringExtra(key: String, defaultValue: String?): String?{
+    return intent.extras?.get(key) as String? ?: defaultValue
+}
+
+
 fun TextView.setDifficulty(difficulty: Int){
     when(difficulty){
         1 -> {

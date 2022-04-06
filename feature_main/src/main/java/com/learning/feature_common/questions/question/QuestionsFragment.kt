@@ -11,12 +11,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.paris.Paris
-import com.learning.common.FirebaseUtil
-import com.learning.common.State
-import com.learning.common.getIntExtra
-import com.learning.common.loadImage
-import com.learning.feature_common.questions.QuestionActivity.Companion.key_lesson_difficulty
-import com.learning.feature_common.questions.QuestionActivity.Companion.key_lesson_id
+import com.learning.common.*
+import com.learning.feature_common.questions.Flag
+import com.learning.feature_common.questions.QuestionActivity.Companion.key_id
+import com.learning.feature_common.questions.QuestionActivity.Companion.key_object_difficulty
 import com.learning.lessons.core.BaseFragment
 import com.learning.lessons.core.BaseViewModelFactory
 import com.learning.lessons.domain.entities.quiz.Answer
@@ -97,14 +95,15 @@ class QuestionsFragment : BaseFragment<FragmentQuestionsBinding>() {
                         if (requireActivity().getIntExtra(key_question_group_id, 0) as Int == 0) {
                             findNavController().navigate(QuestionsFragmentDirections.actionQuestionsFragmentToFirstQuestionsResultFragment(questionGroupID = viewModel.questionGroupID, successQuestion = viewModel.successAnswers, totalQuestion = viewModel.questionsSize))
                         } else {
-                            val difficultyLesson = requireActivity().getIntExtra(key_lesson_difficulty, 0) as Int
-                            val lessonID = requireActivity().getIntExtra(key_lesson_id, 0) as Int
+                            val flag = requireActivity().getStringExtra("flag", Flag.FirstExam.name) ?: ""
+                            val difficulty = requireActivity().getIntExtra(key_object_difficulty, 0) as Int
+                            val id = requireActivity().getIntExtra(key_id, 0) as Int
                             findNavController().navigate(QuestionsFragmentDirections.actionQuestionsFragmentToQuestionsResultFragment(
                                 questionGroupID = viewModel.questionGroupID,
                                 successQuestions = viewModel.successAnswers,
                                 totalQuestions = viewModel.questionsSize,
                                 correctForSuccess = viewModel.correctForSuccess,
-                                lessonDifficulty = difficultyLesson, lessonID = lessonID))
+                                difficulty = difficulty, id = id, flag = flag))
                         }
                     } catch (e: Exception){
                         Logger.log("QuestionsFragment", exception =  e)

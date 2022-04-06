@@ -29,12 +29,16 @@
                 app:argType="integer"
                 app:nullable="false" />
             <argument
-                android:name="lessonDifficulty"
+                android:name="difficulty"
                 app:argType="integer"
                 app:nullable="false" />
             <argument
-                android:name="lessonID"
+                android:name="id"
                 app:argType="integer"
+                app:nullable="false" />
+            <argument
+                android:name="flag"
+                app:argType="string"
                 app:nullable="false" />
         </action>
         <action

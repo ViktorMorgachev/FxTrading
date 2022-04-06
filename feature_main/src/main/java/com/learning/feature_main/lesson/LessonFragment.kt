@@ -12,12 +12,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.learning.common.State
 import com.learning.common.setDifficulty
+import com.learning.feature_common.questions.Flag
 import com.learning.lessons.core.BaseFragment
 import com.learning.lessons.core.BaseViewModelFactory
 import com.learning.lessons.domain.entities.lesson.Lesson
 import com.learning.feature_common.questions.QuestionActivity
-import com.learning.feature_common.questions.QuestionActivity.Companion.key_lesson_difficulty
-import com.learning.feature_common.questions.QuestionActivity.Companion.key_lesson_id
+import com.learning.feature_common.questions.QuestionActivity.Companion.key_flag
+import com.learning.feature_common.questions.QuestionActivity.Companion.key_id
+import com.learning.feature_common.questions.QuestionActivity.Companion.key_object_difficulty
 import com.learning.feature_common.questions.QuestionActivity.Companion.key_question_group_id
 import com.learning.feature_main.lessons.LessonsAdapter
 import com.learning.lessons.features.R
@@ -107,18 +109,20 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
                     }
                 }
             }
-            if (lesson.question_group != null && lesson.question_group!! > 1 ){
-                startQuizBottom.visible()
+            if (lesson.question_group != null && lesson.question_group!! > 0){
+                startQuizBottomRoot.startQuizBottom.visible()
+                startQuizBottomRoot.startExam.setOnClickListener {
+                    val intent = Intent(requireActivity(), QuestionActivity::class.java)
+                    intent.putExtra(key_question_group_id, lesson.question_group)
+                    intent.putExtra(key_object_difficulty, lesson.difficulty)
+                    intent.putExtra(key_id, lesson.id)
+                    intent.putExtra(key_flag, Flag.Lesson.name)
+                    startActivity(intent)
+                }
             } else {
-                startQuizBottom.gone()
+                startQuizBottomRoot.startQuizBottom.gone()
             }
-            startExam.setOnClickListener {
-                val intent = Intent(requireActivity(), QuestionActivity::class.java)
-                intent.putExtra(key_question_group_id, lesson.question_group)
-                intent.putExtra(key_lesson_difficulty, lesson.difficulty)
-                intent.putExtra(key_lesson_id, lesson.id)
-                startActivity(intent)
-            }
+
             toolbar.cancelButton.setOnClickListener {
                 findNavController().popBackStack()
             }

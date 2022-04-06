@@ -14,7 +14,7 @@ data class ApiLesson(
     val language: String = "",
     val likes: Int = 0,
     val promo_image_url: String = "",
-    val questions_group: Int? = null,
+    val questions_group: Int = 0,
     val region: String = "",
     val sort_order: Int = -1,
     val speaker_name: String = "",
