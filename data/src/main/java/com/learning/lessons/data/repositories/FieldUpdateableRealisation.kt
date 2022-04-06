@@ -12,7 +12,6 @@ class FieldUpdateableRealisation @Inject constructor (private val firebaseFirest
 
      var updateFieldDocumentPath: String =""
 
-
      override suspend fun updateFields(
         objectID: Int,
         fieldValues: List<Pair<String, Any>>

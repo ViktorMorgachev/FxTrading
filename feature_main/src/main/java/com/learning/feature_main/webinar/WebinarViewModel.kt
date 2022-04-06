@@ -7,6 +7,7 @@ import com.learning.lessons.domain.entities.webinar.Webinar
 import com.learning.lessons.domain.usecases.WebinarsUseCase
 import com.learning.lessons.utils.utils.Logger
 import data.DataStoreHelper
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -21,6 +22,10 @@ class WebinarViewModel @Inject constructor(val webinarsUseCase: WebinarsUseCase,
             Logger.log("ExampleViewModel", exception = e)
             emit(State.ErrorState(e))
         }
+    }
+
+    suspend fun subscribeToWebinars(): MutableStateFlow<List<Webinar>> {
+        return  webinarsUseCase.getWebinarsFlow()
     }
 
     fun likeWebinar(webinarID: Int) = flow<State<Webinar>> {

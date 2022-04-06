@@ -1,37 +1,66 @@
 package com.learning.lessons.data.store
 
-import com.learning.lessons.data.api.webinar.ApiWebinar
-import com.learning.lessons.data.mappers.toApiWebinar
 import com.learning.lessons.data.mappers.toWebinar
 import com.learning.lessons.data.repositories.webinars.WebinarsRemoteRepository
 import com.learning.lessons.domain.entities.webinar.Webinar
-import com.learning.lessons.domain.repositories.WebinarRepository
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
+import com.learning.lessons.utils.utils.Logger
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.last
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class WebinarsDataSource @Inject constructor(val webinarsRemoteRepository: WebinarsRemoteRepository): RepositoryCacheable<ApiWebinar> {
+class WebinarsDataSource @Inject constructor(val webinarsRemoteRepository: WebinarsRemoteRepository) {
 
-     suspend fun getWebinars(): List<Webinar> {
-        return webinarsRemoteRepository.getWebinars().map { it.toWebinar() }
+
+    private val webinars: MutableStateFlow<List<Webinar>> = MutableStateFlow(listOf())
+    private val coroutineScope = CoroutineScope(Dispatchers.IO)
+
+    init {
+        subscribe()
     }
 
-     suspend fun getWebinarByID(id: Int): Webinar? {
-      return webinarsRemoteRepository.getWebinarByID(id)?.toWebinar()
+    private fun subscribe() {
+        val update = {
+            Logger.log("WebinarsDataSource", "update.invoke()")
+            coroutineScope.launch {
+                webinars.emit(webinarsRemoteRepository.getWebinars().map { it.toWebinar() })
+            }
+        }
+        coroutineScope.launch {
+            webinars.emit(webinarsRemoteRepository.getWebinars().map { it.toWebinar() })
+            webinarsRemoteRepository.subscribeToChangesCollection() {
+                update.invoke()
+            }
+            webinars.value.forEach {
+                webinarsRemoteRepository.subscribeToChangeDocument(it.id) {
+                    update.invoke()
+                }
+            }
+        }
+    }
+
+    suspend fun getWebinarsFlow(): MutableStateFlow<List<Webinar>> {
+        return webinars
+    }
+
+    suspend fun getWebinars(): List<Webinar> {
+        return if(webinars.value.isNotEmpty()) webinars.value else
+            webinarsRemoteRepository.getWebinars().map { it.toWebinar() }
+    }
+
+    suspend fun getWebinarByID(id: Int): Webinar? {
+        return webinars.value.firstOrNull { it.id == id } ?: webinarsRemoteRepository.getWebinarByID(id)?.toWebinar()
     }
 
     suspend fun updateWebinarFields(
         webinarID: Int,
         fieldValues: List<Pair<String, Any>>
-    ): Deferred<Boolean> = withContext(Dispatchers.IO){
-        return@withContext async {webinarsRemoteRepository.updateFields(webinarID, fieldValues).last() }
+    ): Deferred<Boolean> = withContext(Dispatchers.IO) {
+        return@withContext async {
+            webinarsRemoteRepository.updateFields(webinarID, fieldValues).last()
+        }
     }
 
 }

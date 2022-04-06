@@ -6,12 +6,17 @@ import com.learning.lessons.domain.entities.webinar.Webinar
 import com.learning.lessons.domain.repositories.UserInfoRepository
 import com.learning.lessons.domain.repositories.WebinarRepository
 import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
-class WebinarsUseCase @Inject constructor(private val webinarsRepository: WebinarRepository,private val userInfoRepository: UserInfoRepository) {
+class WebinarsUseCase @Inject constructor(private val webinarsRepository: WebinarRepository, private val userInfoRepository: UserInfoRepository) {
 
     suspend fun getWebinars(): List<Webinar>{
        return webinarsRepository.getWebinars()
+    }
+
+    suspend fun getWebinarsFlow(): MutableStateFlow<List<Webinar>>{
+        return webinarsRepository.getWebinarsFlow()
     }
 
     suspend fun likeWebinar(webinarID: Int, userID: Int): Boolean{
