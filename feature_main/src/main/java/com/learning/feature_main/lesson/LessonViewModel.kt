@@ -11,12 +11,19 @@ import com.learning.lessons.utils.utils.Logger
 import data.DataStoreHelper
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LessonViewModel @Inject constructor(val lessonsUseCase: LessonsUseCase, val userInfoUseCase: UserInfoUseCase, val  dataStoreHelper: DataStoreHelper) : ViewModel() {
+
+    var completedLessons : List<Int> = listOf()
+
+    suspend fun subscribeToLessons(): MutableStateFlow<List<Lesson>> {
+        return  lessonsUseCase.getLessonsFlow()
+    }
 
     fun getLesson(lessonID: Int) = flow {
         emit(State.LoadingState)

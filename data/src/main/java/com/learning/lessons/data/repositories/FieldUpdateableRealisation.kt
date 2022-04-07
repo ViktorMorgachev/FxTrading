@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class FieldUpdateableRealisation @Inject constructor (private val firebaseFirestore: FirebaseFirestore): FieldsUpdateable {
 
-     var updateFieldDocumentPath: String =""
+     var updateFieldDocumentPath: String = ""
 
      override suspend fun updateFields(
         objectID: Int,

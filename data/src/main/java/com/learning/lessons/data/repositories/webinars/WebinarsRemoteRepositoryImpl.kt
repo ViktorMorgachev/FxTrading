@@ -5,6 +5,7 @@ import com.learning.lessons.data.BuildConfig
 import com.learning.lessons.data.api.webinar.ApiWebinar
 import com.learning.lessons.data.extentions.await
 import com.learning.lessons.data.extentions.toObjectOrDefault
+import com.learning.lessons.data.repositories.AutoUpdatableRealiztion
 import com.learning.lessons.data.repositories.FieldUpdateableRealisation
 import com.learning.lessons.utils.utils.Logger
 import kotlinx.coroutines.CoroutineScope
@@ -17,7 +18,8 @@ import javax.inject.Inject
 
 class WebinarsRemoteRepositoryImpl @Inject constructor(
     private val firebaseFirestore: FirebaseFirestore,
-    private val fieldUpdateableRealisation: FieldUpdateableRealisation
+    private val fieldUpdateableRealisation: FieldUpdateableRealisation,
+    private val autoUpdatableRealiztion: AutoUpdatableRealiztion
 ) : WebinarsRemoteRepository {
 
     val logger_tag = this::class.java.simpleName
@@ -25,6 +27,7 @@ class WebinarsRemoteRepositoryImpl @Inject constructor(
 
     init {
         fieldUpdateableRealisation.updateFieldDocumentPath = documentPath
+        autoUpdatableRealiztion.documentPath = documentPath
     }
 
     override suspend fun getWebinars(): List<ApiWebinar> {
@@ -57,43 +60,13 @@ class WebinarsRemoteRepositoryImpl @Inject constructor(
     }
 
     override suspend fun subscribeToChangesCollection(updateAction: () -> Unit) {
-        try {
-            val collectionRef = firebaseFirestore.collection(documentPath)
-            collectionRef.addSnapshotListener { snapshot, error ->
-                CoroutineScope(Dispatchers.IO).launch {
-                    if (error != null) {
-                        Logger.log(logger_tag, exception = error)
-                    }else{
-                        Logger.log(logger_tag, "Collection was chandes")
-                        updateAction.invoke()
-                    }
-                }
-            }
-        } catch (e: Exception) {
-            Logger.log(logger_tag, exception = e)
-        }
+        autoUpdatableRealiztion.subscribeToChangesCollection(updateAction)
     }
 
     override suspend fun subscribeToChangeDocument(
         documentID: Int,
         updateAction: () -> Unit
     ) {
-        try {
-            val documentRef = firebaseFirestore.collection(documentPath).document("$documentID")
-            documentRef.addSnapshotListener { snapshot, error ->
-                CoroutineScope(Dispatchers.IO).launch {
-                    if (error != null) {
-                        Logger.log(logger_tag, exception = error)
-                    }else{
-                        snapshot?.exists()?.let {
-                            updateAction.invoke()
-                        }
-                        Logger.log(logger_tag, "Data was chanded")
-                    }
-                }
-            }
-        } catch (e: Exception) {
-            Logger.log(logger_tag, exception = e)
-        }
+        autoUpdatableRealiztion.subscribeToChangeDocument(documentID, updateAction)
     }
 }

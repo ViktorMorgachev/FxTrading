@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.learning.common.State
@@ -27,10 +29,12 @@ import com.learning.lessons.features.databinding.FragmentLessonBinding
 import com.learning.lessons.utils.utils.gone
 import com.learning.lessons.utils.utils.isGone
 import com.learning.lessons.utils.utils.visible
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -44,6 +48,8 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
     )
 
     var youTubePlayer: YouTubePlayer? = null
+    private var currentPlayerState: PlayerConstants.PlayerState =
+        PlayerConstants.PlayerState.UNKNOWN
 
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentLessonBinding =
         FragmentLessonBinding::inflate
@@ -54,33 +60,19 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
             if (youTubePlayer == null){
                 youtubePlayerView.enableAutomaticInitialization = false
 
-
                 youtubePlayerView.initialize(object : AbstractYouTubePlayerListener() {
                     override fun onReady(youTubePlayer: YouTubePlayer) {
                         this@LessonFragment.youTubePlayer = youTubePlayer
-                        val videoId =  lesson.video_url.substringAfter("v=").substringBefore("&")
-                        youTubePlayer.cueVideo(videoId, 0F)
-                        val timecodes = lesson.timecodes.filter { it.timeSeconds > 0 && it.title.isNotEmpty() && it.time.isNotEmpty()}
-                        if (timecodes.isNotEmpty()){
-                            itemTimecodes.visible()
-                            recyclerTimecodes.adapter = TimecodesAdapter(data = timecodes){
-                                youTubePlayer.loadVideo(videoId, it.toFloat())
-                            }
-                            ivArrowTimecodes.setOnClickListener {
-                                if (recyclerTimecodes.isGone()){
-                                    recyclerTimecodes.visible()
-                                    ivArrowTimecodes.rotation = 0f
-                                } else {
-                                    ivArrowTimecodes.rotation = -90f
-                                    recyclerTimecodes.gone()
-                                }
-                            }
-                        } else {
-                            itemTimecodes.gone()
-                            recyclerTimecodes.gone()
-                        }
-
+                        updateVideoContent(lesson)
                     }
+
+                    override fun onStateChange(
+                        youTubePlayer: YouTubePlayer,
+                        state: PlayerConstants.PlayerState
+                    ) {
+                        this@LessonFragment.currentPlayerState = state
+                    }
+
                 }, false, IFramePlayerOptions.Builder()
                     .controls(1)
                     .rel(0)
@@ -90,26 +82,9 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
 
 
             } else {
-                val videoId = lesson.video_url.substringAfter("v=").substringBefore("&")
-                youTubePlayer?.cueVideo(videoId, 0F)
-                val timecodes = lesson.timecodes.filter { it.timeSeconds > 0 && it.title.isNotEmpty() && it.time.isNotEmpty()}
-                if (timecodes.isNotEmpty()) {
-                    itemTimecodes.visible()
-                    recyclerTimecodes.adapter = TimecodesAdapter(data = timecodes) {
-                        youTubePlayer?.loadVideo(videoId, it.toFloat())
-                    }
-                    ivArrowTimecodes.setOnClickListener {
-                        if (recyclerTimecodes.isGone()) {
-                            recyclerTimecodes.visible()
-                            ivArrowTimecodes.rotation = 0f
-                        } else {
-                            ivArrowTimecodes.rotation = -90f
-                            recyclerTimecodes.gone()
-                        }
-                    }
-                }
+               updateVideoContent(lesson)
             }
-            if (lesson.question_group != null && lesson.question_group!! > 0){
+            if (lesson.question_group > 0){
                 startQuizBottomRoot.startQuizBottom.visible()
                 startQuizBottomRoot.startExam.setOnClickListener {
                     val intent = Intent(requireActivity(), QuestionActivity::class.java)
@@ -186,6 +161,33 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
         }
     }
 
+    private fun updateVideoContent(lesson: Lesson) {
+        with(binding){
+            val videoId =  lesson.video_url.substringAfter("v=").substringBefore("&")
+            if (currentPlayerState == PlayerConstants.PlayerState.UNKNOWN)
+            youTubePlayer?.cueVideo(videoId, 0F)
+            val timecodes = lesson.timecodes.filter { it.timeSeconds > 0 && it.title.isNotEmpty() && it.time.isNotEmpty()}
+            if (timecodes.isNotEmpty()){
+                itemTimecodes.visible()
+                recyclerTimecodes.adapter = TimecodesAdapter(data = timecodes){
+                    youTubePlayer?.loadVideo(videoId, it.toFloat())
+                }
+                ivArrowTimecodes.setOnClickListener {
+                    if (recyclerTimecodes.isGone()){
+                        recyclerTimecodes.visible()
+                        ivArrowTimecodes.rotation = 0f
+                    } else {
+                        ivArrowTimecodes.rotation = -90f
+                        recyclerTimecodes.gone()
+                    }
+                }
+            } else {
+                itemTimecodes.gone()
+                recyclerTimecodes.gone()
+            }
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val lessonID = arguments?.getInt("lesson_id") ?: -1
@@ -196,12 +198,19 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
             recyclerTimecodes.gone()
             itemTimecodes.gone()
         }
-        lifecycleScope.launchWhenResumed {
-            showLessonByLessonID(lessonID = lessonID)
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
+                showLessonByLessonID(lessonID = lessonID)
+            }
+            viewModel.subscribeToLessons().collect {
+                showLessonByLessonID(lessonID)
+            }
+
         }
     }
 
     private suspend fun showLessonByLessonID(lessonID: Int) {
+        assert(lessonID > 0)
         viewModel.getLesson(lessonID = lessonID).collect {
             when (it) {
                 is State.DataState -> {

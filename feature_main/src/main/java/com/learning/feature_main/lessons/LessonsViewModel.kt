@@ -6,11 +6,13 @@ import androidx.lifecycle.viewModelScope
 import com.airbnb.paris.R2.id.async
 import com.learning.common.State
 import com.learning.lessons.domain.entities.lesson.Lesson
+import com.learning.lessons.domain.entities.webinar.Webinar
 import com.learning.lessons.domain.usecases.LessonsUseCase
 import com.learning.lessons.domain.usecases.UserInfoUseCase
 import com.learning.lessons.utils.utils.Logger
 import data.DataStoreHelper
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
@@ -23,6 +25,7 @@ class LessonsViewModel @Inject constructor(
 ) : ViewModel() {
 
     val likedLesson: MutableLiveData<Lesson?> = MutableLiveData(null)
+    var completedLessons : List<Int> = listOf()
 
     fun getData() = flow<State<Pair<List<Lesson>, List<Int>>>> {
         emit(State.LoadingState)
@@ -30,6 +33,7 @@ class LessonsViewModel @Inject constructor(
             dataStoreHelper.userID().collect {
                 val lessons = lessonsUseCase.getLessons()
                 val completedLessons = userInfoUseCase.getCompletedLessonIds(it)
+                this@LessonsViewModel.completedLessons = completedLessons
                 emit(State.DataState(lessons to completedLessons))
 
             }
@@ -37,6 +41,10 @@ class LessonsViewModel @Inject constructor(
             Logger.log("LessonsViewModel", exception = e)
             emit(State.ErrorState(e))
         }
+    }
+
+    suspend fun subscribeToLessons(): MutableStateFlow<List<Lesson>> {
+        return  lessonsUseCase.getLessonsFlow()
     }
 
     fun likeLesson(lessonID: Int) {

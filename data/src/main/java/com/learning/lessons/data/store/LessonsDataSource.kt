@@ -3,13 +3,10 @@ package com.learning.lessons.data.store
 import com.learning.lessons.data.mappers.toLesson
 import com.learning.lessons.data.repositories.lessons.LessonsRemoteRepository
 import com.learning.lessons.domain.entities.lesson.Lesson
-import com.learning.lessons.domain.repositories.LessonRepository
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.first
+import com.learning.lessons.utils.utils.Logger
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.last
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -18,20 +15,53 @@ class LessonsDataSource @Inject constructor(
     private val lessonsRemoteRepository: LessonsRemoteRepository
 ) {
 
-     suspend fun getLessons(): List<Lesson> {
-        return lessonsRemoteRepository.getRemoteLessons().map { it.toLesson() }
+    private val lessons: MutableStateFlow<List<Lesson>> = MutableStateFlow(listOf())
+    private val coroutineScope = CoroutineScope(Dispatchers.IO)
+
+    init {
+        subscribe()
     }
 
-     suspend fun getLessonByID(lessonID: Int): Lesson? {
-       return lessonsRemoteRepository.getRemoteLessonByID(lessonID)?.toLesson()
+    private fun subscribe() {
+        val update = {
+            Logger.log("LessonDataSource", "update.invoke()")
+            coroutineScope.launch {
+                lessons.emit(lessonsRemoteRepository.getRemoteLessons().map { it.toLesson() })
+            }
+        }
+        coroutineScope.launch {
+            lessons.emit(lessonsRemoteRepository.getRemoteLessons().map { it.toLesson() })
+            lessonsRemoteRepository.subscribeToChangesCollection() {
+                update.invoke()
+            }
+            lessons.value.forEach {
+                lessonsRemoteRepository.subscribeToChangeDocument(it.id) {
+                    update.invoke()
+                }
+            }
+        }
     }
 
-     suspend fun getLessonsByTags(tags: List<String>): List<Lesson> {
-      return lessonsRemoteRepository.getRemoteLessons().map { it.toLesson() }
+    suspend fun getLessonsFlow(): MutableStateFlow<List<Lesson>> {
+        return lessons
     }
 
-    suspend fun getLessonsByIDS(lessonsIDS: List<Int>): List<Lesson>{
-      val lessons =  lessonsRemoteRepository.getRemoteLessons().map { it.toLesson() }.toMutableList()
+    suspend fun getLessons(): List<Lesson> {
+        return if (lessons.value.isNotEmpty()) lessons.value else
+            lessonsRemoteRepository.getRemoteLessons().map { it.toLesson() }
+    }
+
+    suspend fun getLessonByID(lessonID: Int): Lesson? {
+        return  lessons.value.firstOrNull { it.id == lessonID } ?: lessonsRemoteRepository.getRemoteLessonByID(lessonID)?.toLesson()
+    }
+
+    suspend fun getLessonsByTags(tags: List<String>): List<Lesson> {
+        return if (lessons.value.isNotEmpty()) lessons.value else
+            lessonsRemoteRepository.getRemoteLessons().map { it.toLesson() }
+    }
+
+    suspend fun getLessonsByIDS(lessonsIDS: List<Int>): List<Lesson> {
+        val lessons = if (lessons.value.isNotEmpty()) lessons.value.toMutableList() else lessonsRemoteRepository.getRemoteLessons().map { it.toLesson() }.toMutableList()
         lessons.removeAll { !lessonsIDS.contains(it.id) }
         return lessons
     }
@@ -39,8 +69,10 @@ class LessonsDataSource @Inject constructor(
     suspend fun updateLessonFields(
         lessonID: Int,
         fieldValues: List<Pair<String, Any>>
-    ): Deferred<Boolean> = withContext(Dispatchers.IO){
-        return@withContext async {lessonsRemoteRepository.updateFields(lessonID, fieldValues).last() }
+    ): Deferred<Boolean> = withContext(Dispatchers.IO) {
+        return@withContext async {
+            lessonsRemoteRepository.updateFields(lessonID, fieldValues).last()
+        }
     }
 
 }

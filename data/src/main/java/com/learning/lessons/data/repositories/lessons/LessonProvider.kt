@@ -2,13 +2,16 @@ package com.learning.lessons.data.repositories.lessons
 
 import com.learning.lessons.data.store.LessonsDataSource
 import com.learning.lessons.domain.entities.lesson.Lesson
+import com.learning.lessons.domain.entities.webinar.Webinar
 import com.learning.lessons.domain.repositories.LessonRepository
 import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class LessonProvider @Inject constructor(private val lessonsDataSource: LessonsDataSource): LessonRepository {
+
 
      override suspend fun getLessons(): List<Lesson> {
        return lessonsDataSource.getLessons()
@@ -24,6 +27,10 @@ class LessonProvider @Inject constructor(private val lessonsDataSource: LessonsD
 
     override suspend fun getLessonsByIDS(lessonsIDS: List<Int>): List<Lesson> {
        return lessonsDataSource.getLessonsByIDS(lessonsIDS)
+    }
+
+    override suspend fun getLessonsFlow(): MutableStateFlow<List<Lesson>> {
+       return lessonsDataSource.getLessonsFlow()
     }
 
     override suspend fun updateFields(

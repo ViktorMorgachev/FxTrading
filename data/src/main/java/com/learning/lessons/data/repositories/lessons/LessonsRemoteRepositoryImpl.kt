@@ -6,11 +6,14 @@ import com.learning.lessons.utils.utils.Logger
 import com.google.firebase.firestore.FirebaseFirestore
 import com.learning.lessons.data.BuildConfig
 import com.learning.lessons.data.extentions.toObjectOrDefault
+import com.learning.lessons.data.repositories.AutoUpdatableRealiztion
 import com.learning.lessons.data.repositories.FieldUpdateableRealisation
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class LessonsRemoteRepositoryImpl @Inject constructor(private val firebaseFirestore: FirebaseFirestore, private val fieldUpdateableRealisation: FieldUpdateableRealisation
+class LessonsRemoteRepositoryImpl @Inject constructor(private val firebaseFirestore: FirebaseFirestore,
+                                                      private val fieldUpdateableRealisation: FieldUpdateableRealisation,
+                                                      private val autoUpdatableRealiztion: AutoUpdatableRealiztion
 ): LessonsRemoteRepository {
 
     private val logger_tag = this::class.java.simpleName
@@ -18,6 +21,7 @@ class LessonsRemoteRepositoryImpl @Inject constructor(private val firebaseFirest
 
     init {
         fieldUpdateableRealisation.updateFieldDocumentPath = documentPath
+        autoUpdatableRealiztion.documentPath = documentPath
     }
 
     override suspend fun getRemoteLessons(): List<ApiLesson> {
@@ -47,6 +51,13 @@ class LessonsRemoteRepositoryImpl @Inject constructor(private val firebaseFirest
      return  fieldUpdateableRealisation.updateFields(objectID, fieldValues)
     }
 
+    override suspend fun subscribeToChangesCollection(updateAction: () -> Unit) {
+       autoUpdatableRealiztion.subscribeToChangesCollection(updateAction)
+    }
+
+    override suspend fun subscribeToChangeDocument(documentID: Int, updateAction: () -> Unit) {
+        autoUpdatableRealiztion.subscribeToChangeDocument(documentID, updateAction)
+    }
 
 
 }
