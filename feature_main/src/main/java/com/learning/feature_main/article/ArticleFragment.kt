@@ -46,7 +46,7 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding>() {
         super.onViewCreated(view, savedInstanceState)
         val articleID = arguments?.getInt("article_id") ?: -1
         lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.getArticleByID(articleID).collect { state->
                     when (state) {
                         is State.DataState -> {

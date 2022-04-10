@@ -199,14 +199,16 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
             itemTimecodes.gone()
         }
         lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
                 showLessonByLessonID(lessonID = lessonID)
             }
-            viewModel.subscribeToLessons().collect {
-                showLessonByLessonID(lessonID)
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED){
+                viewModel.subscribeToLessons().collect {
+                    showLessonByLessonID(lessonID)
+                }
             }
-
         }
+
     }
 
     private suspend fun showLessonByLessonID(lessonID: Int) {

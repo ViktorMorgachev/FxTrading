@@ -34,8 +34,8 @@ class ExampleFragment : BaseFragment<ExampleLayoutBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+        lifecycleScope.launchWhenResumed {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
                 viewModel.getData().collect {
                     when (it) {
                         is State.DataState -> {

@@ -49,7 +49,7 @@ class LessonsFragment : BaseFragment<FragmentLessonsBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
                 viewModel.getData().collect { state ->
                     when (state) {
                         is State.DataState -> {
@@ -57,26 +57,29 @@ class LessonsFragment : BaseFragment<FragmentLessonsBinding>() {
                         }
                     }
                 }
-                viewModel.likedLesson.observe(viewLifecycleOwner) { lesson->
-                    lesson?.let {
-                        with(binding){
-                            LessonsAdapter.actualLessons.add(lesson)
-                            customAccordionList.updateData<LessonsAdapter, Lesson>(lesson)
+            }
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED){
+                launch {
+                    viewModel.subscribeToLessons().collect { lessons->
+                        with(binding) {
+                            showLessons(lessons to viewModel.completedLessons)
+                        }
+                    }
+                }
+
+                launch {
+                    viewModel.likedLesson.observe(viewLifecycleOwner) { lesson->
+                        lesson?.let {
+                            with(binding){
+                                LessonsAdapter.actualLessons.add(lesson)
+                                customAccordionList.updateData<LessonsAdapter, Lesson>(lesson)
+                            }
                         }
                     }
                 }
 
             }
-            lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED){
-                viewModel.subscribeToLessons().collect { lessons->
-                    with(binding) {
-                        showLessons(lessons to viewModel.completedLessons)
-                    }
-                }
-            }
         }
-
-
 
     }
 

@@ -34,7 +34,7 @@ class ArticlesFragment : BaseFragment<FragmentArticlesBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.getData().collect { state->
                     when (state) {
                         is State.DataState -> {

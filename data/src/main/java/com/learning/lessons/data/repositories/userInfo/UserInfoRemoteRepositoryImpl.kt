@@ -50,7 +50,7 @@ class UserInfoRemoteRepositoryImpl @Inject constructor(private val firebaseFires
     override suspend fun createUserInfo(userID: Int, deviceID: String): ApiUserInfo? {
         return try {
             val newUserInfo = ApiUserInfo(user_id = userID, devices_ids = listOf(deviceID))
-            firebaseFirestore.collection("${documentPath}UsersInfo").document("$userID")
+            firebaseFirestore.collection(documentPath).document("$userID")
                 .set(newUserInfo).await()
             newUserInfo
         } catch (e: Exception) {
