@@ -17,7 +17,6 @@ object AppDeps {
     val moxy = "com.arello-mobile:moxy:1.4.5"
     val moxy_android = "com.arello-mobile:moxy-android:1.4.5"
 }
-
 object KaptDependency {
     val dagger_android_processor =  "com.google.dagger:dagger-android-processor:$dagger_android"
     val dagger_android_compiler = "com.google.dagger:dagger-compiler:$dagger_android"

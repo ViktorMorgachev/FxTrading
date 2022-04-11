@@ -28,13 +28,9 @@ class CourseViewModel @Inject constructor(
         emit(State.LoadingState)
         try {
             dataStoreHelper.userID().collect {
-                viewModelScope.launch {
-                    val course = async { courseUseCase.getCourseByID(courseID)}
-                    val passedLessons = async { userInfoUseCase.getCompletedLessonIds(userID = it)}
-                    emit(State.DataState(course.await() to passedLessons.await()))
-                }
-
-
+              val course =   courseUseCase.getCourseByID(courseID)
+                val passedLessons = userInfoUseCase.getCompletedLessonIds(userID = it)
+                emit(State.DataState(course to passedLessons))
             }
         } catch (e: Exception) {
             Logger.log("CourseViewModel", exception = e)

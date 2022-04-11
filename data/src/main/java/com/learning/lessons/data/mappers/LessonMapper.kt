@@ -38,7 +38,7 @@ fun ApiComment.toComment(): Comment =  Comment(id = this.id)
 fun ApiQuestionGroupID.toQuestionGroupID(): Questions = Questions(quiz_id = this.id)
 
 fun String.toTimeCode(): Timecode {
-    val title = substringAfterLast(" ")
+    val title = substringAfter(" ")
     val time = substringBefore(" ")
     return Timecode(time = time, title = title, timeSeconds = time.toSeconds())
 }
