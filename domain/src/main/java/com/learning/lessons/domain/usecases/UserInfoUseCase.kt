@@ -136,7 +136,7 @@ class UserInfoUseCase @Inject constructor(
 
     suspend fun getCompletedCoursesIds(userID: Int): List<Int> {
         userInfoRepository.getUserInfo(userID = userID)?.let { userInfo ->
-            return userInfo.passedLessons
+            return userInfo.passedCourses
         }
         return emptyList()
     }

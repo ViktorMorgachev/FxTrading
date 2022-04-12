@@ -91,7 +91,7 @@ class CourseFragment : BaseFragment<FragmentCourseBinding>() {
                                 }
                             }
                             val openLessonAction: (Lesson)->Unit = { lesson->
-                                NavHostFragment.findNavController(this@CourseFragment).navigate(CourseFragmentDirections.actionCourseFragmentToLessonFragment(lessonId = lesson.id))
+                                NavHostFragment.findNavController(this@CourseFragment).navigate(CourseFragmentDirections.actionCourseFragmentToLessonFragment(lessonId = lesson.id, lessonOrder = course.lessons_id.indexOf(lesson.id)))
                             }
                             val sortedlessons = mutableListOf<Lesson>()
 
@@ -109,7 +109,7 @@ class CourseFragment : BaseFragment<FragmentCourseBinding>() {
 
 
                             showMoreButton.setOnClickListener {
-                                recyclerLessons.adapter = LessonsAdapter(data = sortedlessons, openLessonAction = openLessonAction, likeLessonAction = likeLessonAction, completedLessonIDs = completedLessons)
+                                recyclerLessons.adapter = LessonsAdapter(data = sortedlessons, openLessonAction = openLessonAction, likeLessonAction = likeLessonAction, completedLessonIDs = completedLessons, fromCourse = true)
                                 showMoreButton.gone()
                             }
 

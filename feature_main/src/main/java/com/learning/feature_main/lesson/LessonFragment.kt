@@ -15,17 +15,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.learning.common.State
 import com.learning.common.setDifficulty
 import com.learning.feature_common.questions.Flag
-import com.learning.lessons.core.BaseFragment
-import com.learning.lessons.core.BaseViewModelFactory
-import com.learning.lessons.domain.entities.lesson.Lesson
 import com.learning.feature_common.questions.QuestionActivity
 import com.learning.feature_common.questions.QuestionActivity.Companion.key_flag
 import com.learning.feature_common.questions.QuestionActivity.Companion.key_id
 import com.learning.feature_common.questions.QuestionActivity.Companion.key_object_difficulty
 import com.learning.feature_common.questions.QuestionActivity.Companion.key_question_group_id
 import com.learning.feature_main.lessons.LessonsAdapter
+import com.learning.lessons.core.BaseFragment
+import com.learning.lessons.core.BaseViewModelFactory
+import com.learning.lessons.domain.entities.lesson.Lesson
 import com.learning.lessons.features.R
 import com.learning.lessons.features.databinding.FragmentLessonBinding
+import com.learning.lessons.utils.utils.Logger
 import com.learning.lessons.utils.utils.gone
 import com.learning.lessons.utils.utils.isGone
 import com.learning.lessons.utils.utils.visible
@@ -39,6 +40,8 @@ import javax.inject.Inject
 
 
 class LessonFragment : BaseFragment<FragmentLessonBinding>() {
+
+    private var lessonOrder: Int = -1
 
     @Inject
     lateinit var viewModelFactory: BaseViewModelFactory<LessonViewModel>
@@ -54,37 +57,39 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
     override val inflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentLessonBinding =
         FragmentLessonBinding::inflate
 
-    private fun showLesson(lesson: Lesson) {
+    private fun showLesson(lesson: Lesson, lessonOrder: Int) {
         with(binding) {
 
-            if (youTubePlayer == null){
+            if (youTubePlayer == null) {
                 youtubePlayerView.enableAutomaticInitialization = false
 
-                youtubePlayerView.initialize(object : AbstractYouTubePlayerListener() {
-                    override fun onReady(youTubePlayer: YouTubePlayer) {
-                        this@LessonFragment.youTubePlayer = youTubePlayer
-                        updateVideoContent(lesson)
-                    }
+                youtubePlayerView.initialize(
+                    object : AbstractYouTubePlayerListener() {
+                        override fun onReady(youTubePlayer: YouTubePlayer) {
+                            this@LessonFragment.youTubePlayer = youTubePlayer
+                            showVideoContent(lesson)
+                        }
 
-                    override fun onStateChange(
-                        youTubePlayer: YouTubePlayer,
-                        state: PlayerConstants.PlayerState
-                    ) {
-                        this@LessonFragment.currentPlayerState = state
-                    }
+                        override fun onStateChange(
+                            youTubePlayer: YouTubePlayer,
+                            state: PlayerConstants.PlayerState
+                        ) {
+                            this@LessonFragment.currentPlayerState = state
+                        }
 
-                }, false, IFramePlayerOptions.Builder()
-                    .controls(1)
-                    .rel(0)
-                    .ivLoadPolicy(3)
-                    .ccLoadPolicy(1)
-                    .build())
+                    }, false, IFramePlayerOptions.Builder()
+                        .controls(1)
+                        .rel(0)
+                        .ivLoadPolicy(3)
+                        .ccLoadPolicy(1)
+                        .build()
+                )
 
 
             } else {
-               updateVideoContent(lesson)
+                showVideoContent(lesson)
             }
-            if (lesson.question_group > 0){
+            if (lesson.question_group > 0) {
                 startQuizBottomRoot.startQuizBottom.visible()
                 startQuizBottomRoot.startExam.setOnClickListener {
                     val intent = Intent(requireActivity(), QuestionActivity::class.java)
@@ -157,23 +162,78 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
             difficultyItem.setDifficulty(lesson.difficulty)
             difficultyName.setDifficulty(lesson.difficulty)
             likeDislikeItem.likeItem.tvLikeText.text = "${lesson.likes}"
-            toolbar.toolbarText.text = toolbar.toolbarText.resources.getString(R.string.lesson)
+            val toolbarTitle = if (lessonOrder > 0) "${toolbar.toolbarText.resources.getString(R.string.lesson)} #$lessonOrder" else "${toolbar.toolbarText.resources.getString(R.string.lesson)}"
+            toolbar.toolbarText.text = toolbarTitle
+        }
+    }
+
+    private fun updateLesson(lesson: Lesson, lessonOrder: Int) {
+        with(binding) {
+            updateVideoContent(lesson)
+            if (lesson.question_group > 0) {
+                startQuizBottomRoot.startQuizBottom.visible()
+                startQuizBottomRoot.startExam.setOnClickListener {
+                    val intent = Intent(requireActivity(), QuestionActivity::class.java)
+                    intent.putExtra(key_question_group_id, lesson.question_group)
+                    intent.putExtra(key_object_difficulty, lesson.difficulty)
+                    intent.putExtra(key_id, lesson.id)
+                    intent.putExtra(key_flag, Flag.Lesson.name)
+                    startActivity(intent)
+                }
+            } else {
+                startQuizBottomRoot.startQuizBottom.gone()
+            }
+            tvVideoAutor.text = lesson.speaker_name
+            tvVideoTitle.text = lesson.title
+            difficultyItem.setDifficulty(lesson.difficulty)
+            difficultyName.setDifficulty(lesson.difficulty)
+            likeDislikeItem.likeItem.tvLikeText.text = "${lesson.likes}"
+            val toolbarTitle = if (lessonOrder > 0) "${toolbar.toolbarText.resources.getString(R.string.lesson)} #$lessonOrder" else "${toolbar.toolbarText.resources.getString(R.string.lesson)}"
+            toolbar.toolbarText.text = toolbarTitle
         }
     }
 
     private fun updateVideoContent(lesson: Lesson) {
-        with(binding){
-            val videoId =  lesson.video_url.substringAfter("v=").substringBefore("&")
+        with(binding) {
+            val videoId = lesson.video_url.substringAfter("v=").substringBefore("&")
             if (currentPlayerState == PlayerConstants.PlayerState.UNKNOWN)
-            youTubePlayer?.cueVideo(videoId, 0F)
-            val timecodes = lesson.timecodes.filter { it.timeSeconds > 0 && it.title.isNotEmpty() && it.time.isNotEmpty()}
-            if (timecodes.isNotEmpty()){
+                youTubePlayer?.cueVideo(videoId, 0F)
+            val timecodes =
+                lesson.timecodes.filter { it.timeSeconds > 0 && it.title.isNotEmpty() && it.time.isNotEmpty() }
+            if (timecodes.isNotEmpty()) {
                 itemTimecodes.visible()
-                recyclerTimecodes.adapter = TimecodesAdapter(data = timecodes){
+                recyclerTimecodes.adapter = TimecodesAdapter(data = timecodes) {
                     youTubePlayer?.loadVideo(videoId, it.toFloat())
                 }
                 ivArrowTimecodes.setOnClickListener {
-                    if (recyclerTimecodes.isGone()){
+                    if (recyclerTimecodes.isGone()) {
+                        recyclerTimecodes.visible()
+                        ivArrowTimecodes.rotation = 0f
+                    } else {
+                        ivArrowTimecodes.rotation = -90f
+                        recyclerTimecodes.gone()
+                    }
+                }
+            } else {
+                itemTimecodes.gone()
+                recyclerTimecodes.gone()
+            }
+        }
+    }
+
+    private fun showVideoContent(lesson: Lesson) {
+        with(binding) {
+            val videoId = lesson.video_url.substringAfter("v=").substringBefore("&")
+            youTubePlayer?.cueVideo(videoId, 0F)
+            val timecodes =
+                lesson.timecodes.filter { it.timeSeconds > 0 && it.title.isNotEmpty() && it.time.isNotEmpty() }
+            if (timecodes.isNotEmpty()) {
+                itemTimecodes.visible()
+                recyclerTimecodes.adapter = TimecodesAdapter(data = timecodes) {
+                    youTubePlayer?.loadVideo(videoId, it.toFloat())
+                }
+                ivArrowTimecodes.setOnClickListener {
+                    if (recyclerTimecodes.isGone()) {
                         recyclerTimecodes.visible()
                         ivArrowTimecodes.rotation = 0f
                     } else {
@@ -191,6 +251,7 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val lessonID = arguments?.getInt("lesson_id") ?: -1
+        lessonOrder = arguments?.getInt("lesson_order") ?: -1
         with(binding) {
             recyclerRecommendLessons.layoutManager = LinearLayoutManager(requireContext())
             recyclerTimecodes.layoutManager = LinearLayoutManager(requireContext())
@@ -199,27 +260,51 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
             itemTimecodes.gone()
         }
         lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                showLessonByLessonID(lessonID = lessonID)
+            launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
+                    showLessonByLessonID(lessonID = lessonID, lessonOrder)
+                }
             }
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED){
-                viewModel.subscribeToLessons().collect {
-                    showLessonByLessonID(lessonID)
+            launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                    viewModel.subscribeToLessons().collect {
+                        updateLessonByLessonID(lessonID, lessonOrder)
+                    }
                 }
             }
         }
-
     }
 
-    private suspend fun showLessonByLessonID(lessonID: Int) {
+    private suspend fun showLessonByLessonID(lessonID: Int, lessonOrder: Int) {
         assert(lessonID > 0)
         viewModel.getLesson(lessonID = lessonID).collect {
             when (it) {
                 is State.DataState -> {
-                    showLesson(it.data)
+                    showLesson(it.data, lessonOrder)
                     lifecycleScope.launchWhenResumed {
                         viewModel.getLessonsByTags(it.data.tags).collect {
-                            when(it){
+                            when (it) {
+                                is State.DataState -> {
+                                    showLessons(it.data.first, it.data.second)
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    private suspend fun updateLessonByLessonID(lessonID: Int, lessonOrder: Int) {
+        assert(lessonID > 0)
+        viewModel.getLesson(lessonID = lessonID).collect {
+            when (it) {
+                is State.DataState -> {
+                    updateLesson(it.data, lessonOrder)
+                    lifecycleScope.launchWhenResumed {
+                        viewModel.getLessonsByTags(it.data.tags).collect {
+                            when (it) {
                                 is State.DataState -> {
                                     showLessons(it.data.first, it.data.second)
                                 }
@@ -233,8 +318,8 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
     }
 
     private fun showLessons(data: List<Lesson>, completedLessons: List<Int>) {
-        with(binding){
-            val likeLessonAction: (Int)->Unit = { lessonID->
+        with(binding) {
+            val likeLessonAction: (Int) -> Unit = { lessonID ->
                 lifecycleScope.launchWhenCreated {
                     viewModel.likeLesson(lessonID = lessonID).collect { state ->
                         when (state) {
@@ -245,21 +330,52 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
                     }
                 }
             }
-            val openLessonAction: (Lesson)->Unit = { lesson->
+            val openLessonAction: (Lesson) -> Unit = { lesson ->
                 lifecycleScope.launchWhenResumed {
-                    showLessonByLessonID(lessonID = lesson.id)
+                    showNewLesson(lessonID = lesson.id, lessonOrder)
                 }
             }
-            val dataForList = if (data.size > 3){
+            val dataForList = if (data.size > 3) {
                 showMoreButton.visible()
                 data.take(3)
             } else data
 
             showMoreButton.setOnClickListener {
-                recyclerRecommendLessons.adapter = LessonsAdapter(data = data, openLessonAction = openLessonAction, likeLessonAction = likeLessonAction, completedLessonIDs = completedLessons)
+                recyclerRecommendLessons.adapter = LessonsAdapter(
+                    data = data,
+                    openLessonAction = openLessonAction,
+                    likeLessonAction = likeLessonAction,
+                    completedLessonIDs = completedLessons
+                )
                 showMoreButton.gone()
             }
-            recyclerRecommendLessons.adapter = LessonsAdapter(data = dataForList, openLessonAction = openLessonAction, likeLessonAction = likeLessonAction, completedLessonIDs = completedLessons)
+            recyclerRecommendLessons.adapter = LessonsAdapter(
+                data = dataForList,
+                openLessonAction = openLessonAction,
+                likeLessonAction = likeLessonAction,
+                completedLessonIDs = completedLessons
+            )
+        }
+    }
+
+    private suspend fun showNewLesson(lessonID: Int, lessonOrder: Int) {
+        assert(lessonID > 0)
+        viewModel.getLesson(lessonID = lessonID).collect {
+            when (it) {
+                is State.DataState -> {
+                    showLesson(it.data, lessonOrder)
+                    lifecycleScope.launchWhenResumed {
+                        viewModel.getLessonsByTags(it.data.tags).collect {
+                            when (it) {
+                                is State.DataState -> {
+                                    showLessons(it.data.first, it.data.second)
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
         }
     }
 }
