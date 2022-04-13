@@ -48,7 +48,7 @@ class CustomAccordionListView @JvmOverloads constructor(
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
+
     fun  <A : RecyclerView.Adapter<*>, T> updateData(data: T){
         with(binding){
             val lastAdapter = accordionsRecyclerView.adapter as BaseAccordionListAdapter<*>

@@ -19,13 +19,13 @@ import java.time.format.TextStyle
 import java.util.*
 
 @InternalCoroutinesApi
-fun <T> Flow<T>.launchWhenStarted(lifecycleOwner: LifecycleOwner)= with(lifecycleOwner) {
+inline fun <T> Flow<T>.launchWithLifecycle(lifecycleOwner: LifecycleOwner, whenLifecycleState: Lifecycle.State, crossinline action: suspend (value: T) -> Unit)= with(lifecycleOwner) {
     lifecycleScope.launch {
         repeatOnLifecycle(Lifecycle.State.STARTED){
             try {
-                this@launchWhenStarted.collect()
+                this@launchWithLifecycle.collect(action)
             }catch (t: Throwable){
-                Logger.log("launchWhenStarted", "Error", t)
+                Logger.log("launchWithLifecycle", "Error", t)
             }
         }
     }

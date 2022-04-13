@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,9 +25,12 @@ import com.learning.lessons.utils.utils.gone
 import com.learning.lessons.utils.utils.visible
 import com.learning.navigation.Router
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CourseFragment : BaseFragment<FragmentCourseBinding>() {
+
+    private var courseID: Int = -1
 
     @Inject
     lateinit var viewModelFactory: BaseViewModelFactory<CourseViewModel>
@@ -40,21 +45,33 @@ class CourseFragment : BaseFragment<FragmentCourseBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val courseID = arguments?.getInt("course_id") ?: -1
+        courseID = arguments?.getInt("course_id") ?: -1
         with(binding) {
             recyclerLessons.layoutManager = LinearLayoutManager(requireContext())
             toolbar.cancelButton.setOnClickListener {
                 findNavController().popBackStack()
             }
         }
-        lifecycleScope.launchWhenCreated {
-            viewModel.getCourse(courseID).collect { state->
-                when(state){
-                    is State.DataState ->{
-                        showCourse(state.data)
+        lifecycleScope.launch { 
+            launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                    viewModel.getCourse(courseID).collect { state->
+                        when(state){
+                            is State.DataState ->{
+                                showCourse(state.data)
+                            }
+                        }
                     }
                 }
             }
+            launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED){
+                    viewModel.subscribeToCourses().collect { courses ->
+                        showCourse(courses.firstOrNull { it.id == courseID } to viewModel.passedLessons)
+                    }
+                }
+            }
+           
         }
 
     }

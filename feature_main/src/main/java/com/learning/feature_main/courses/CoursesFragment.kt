@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
 import com.learning.common.State
 import com.learning.feature_main.custom.CourseAccordionData
@@ -42,76 +44,91 @@ class CoursesFragment : BaseFragment<FragmentCoursesBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lifecycleScope.launchWhenResumed {
-            viewModel.getData().collect { state ->
-                with(binding){
-                    when (state) {
-                        is State.DataState -> {
-                            CoroutineScope(Dispatchers.IO).launch {
-                                val allCourses = state.data.first
-
-                                val categories = mutableListOf<Int>(1, 2, 3)
-
-                                val accordionDataList = mutableListOf<CourseAccordionData>()
-                                categories.forEach { categoryDifficulty ->
-                                    val actualCourses = allCourses.filter { it.difficulty == categoryDifficulty }
-                                    if (actualCourses.isEmpty()) return@forEach
-                                    val coursesAdapter = CoursesAdapter(
-                                        data = actualCourses,
-                                        openCourseAction = { course ->
-                                            NavHostFragment.findNavController(this@CoursesFragment).navigate(MainFragmentDirections.actionMainFragmentToCourseFragment(courseId = course.id))
-                                        },
-                                        likeCourseAction = {
-                                            lifecycleScope.launchWhenResumed {
-                                                viewModel.likeCourse(courseID = it).collect {
-                                                    when(it){
-                                                        is State.DataState ->{
-                                                            with(binding) {
-                                                                CoursesAdapter.actualCourses.add(it.data)
-                                                                customAccordionList.updateData<CoursesAdapter, Course>(it.data)
-                                                            }
-
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        },
-                                        completedCoursesIDs = state.data.second,
-                                    )
-                                    val categoryName = when(categoryDifficulty){
-                                        1 -> {
-                                            resources.getString(R.string.course_category_beginner)
-                                        }
-                                        2 -> {
-                                            resources.getString(R.string.course_category_intermediate)
-
-                                        }
-                                        3 -> {
-                                            resources.getString(R.string.course_category_intermediate)
-                                        }
-                                        else ->{
-                                            resources.getString(R.string.course_category_beginner)
-                                        }
-                                    }
-                                    accordionDataList.add(
-                                        CourseAccordionData(
-                                            accordionTittle = categoryName,
-                                            accordionListAdapter = coursesAdapter
-                                        )
-                                    )
-                                }
-                                CoroutineScope(Dispatchers.Main).launch {
-                                    with(binding) {
-                                        customAccordionList.setCousesData(data = accordionDataList)
-                                    }
-                                }
+        lifecycleScope.launch {
+            launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                    viewModel.getData().collect { state ->
+                        when (state) {
+                            is State.DataState -> {
+                                showCourses(state.data)
                             }
                         }
                     }
                 }
-
+            }
+            launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED){
+                    viewModel.subscribeToCourses().collect {
+                        showCourses(it to viewModel.passedCourses)
+                    }
+                }
             }
         }
 
+    }
+
+    private fun showCourses(data: Pair<List<Course>, List<Int>>) {
+        with(binding){
+            CoroutineScope(Dispatchers.IO).launch {
+                val allCourses = data.first
+
+                val categories = mutableListOf<Int>(1, 2, 3)
+
+                val accordionDataList = mutableListOf<CourseAccordionData>()
+                categories.forEach { categoryDifficulty ->
+                    val actualCourses = allCourses.filter { it.difficulty == categoryDifficulty }
+                    if (actualCourses.isEmpty()) return@forEach
+                    val coursesAdapter = CoursesAdapter(
+                        data = actualCourses,
+                        openCourseAction = { course ->
+                            NavHostFragment.findNavController(this@CoursesFragment).navigate(MainFragmentDirections.actionMainFragmentToCourseFragment(courseId = course.id))
+                        },
+                        likeCourseAction = {
+                            lifecycleScope.launchWhenResumed {
+                                // TODO реализовать обновление элемента списка в customAccordionList
+                                viewModel.likeCourse(courseID = it).collect {
+                                    when(it){
+                                        is State.DataState ->{
+                                            with(binding) {
+                                                CoursesAdapter.actualCourses.add(it.data)
+                                                customAccordionList.updateData<CoursesAdapter, Course>(it.data)
+                                            }
+
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        completedCoursesIDs = data.second,
+                    )
+                    val categoryName = when(categoryDifficulty){
+                        1 -> {
+                            resources.getString(R.string.course_category_beginner)
+                        }
+                        2 -> {
+                            resources.getString(R.string.course_category_intermediate)
+
+                        }
+                        3 -> {
+                            resources.getString(R.string.course_category_intermediate)
+                        }
+                        else ->{
+                            resources.getString(R.string.course_category_beginner)
+                        }
+                    }
+                    accordionDataList.add(
+                        CourseAccordionData(
+                            accordionTittle = categoryName,
+                            accordionListAdapter = coursesAdapter
+                        )
+                    )
+                }
+                CoroutineScope(Dispatchers.Main).launch {
+                    with(binding) {
+                        customAccordionList.setCousesData(data = accordionDataList)
+                    }
+                }
+            }
+        }
     }
 }

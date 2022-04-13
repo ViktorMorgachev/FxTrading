@@ -1,7 +1,6 @@
 package com.learning.feature_main.course
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.learning.common.State
 import com.learning.common.createState
 import com.learning.lessons.domain.entities.course.Course
@@ -11,10 +10,9 @@ import com.learning.lessons.domain.usecases.LessonsUseCase
 import com.learning.lessons.domain.usecases.UserInfoUseCase
 import com.learning.lessons.utils.utils.Logger
 import data.DataStoreHelper
-import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CourseViewModel @Inject constructor(
@@ -24,12 +22,15 @@ class CourseViewModel @Inject constructor(
     private val lessonsUseCase: LessonsUseCase
 ) : ViewModel() {
 
+    var passedLessons: List<Int> = listOf()
+        private set
+
     fun getCourse(courseID: Int) = flow<State<Pair<Course?, List<Int>>>> {
         emit(State.LoadingState)
         try {
             dataStoreHelper.userID().collect {
-              val course =   courseUseCase.getCourseByID(courseID)
-                val passedLessons = userInfoUseCase.getCompletedLessonIds(userID = it)
+                val course = courseUseCase.getCourseByID(courseID)
+                passedLessons = userInfoUseCase.getCompletedLessonIds(userID = it)
                 emit(State.DataState(course to passedLessons))
             }
         } catch (e: Exception) {
@@ -38,10 +39,14 @@ class CourseViewModel @Inject constructor(
         }
     }
 
-    fun getCourseLessons(lessonsIDs: List<Int>) = flow<State<List<Lesson>>>{
+    suspend fun subscribeToCourses(): MutableStateFlow<List<Course>> {
+        return courseUseCase.getCoursesFlow()
+    }
+
+    fun getCourseLessons(lessonsIDs: List<Int>) = flow<State<List<Lesson>>> {
         emit(State.LoadingState)
         try {
-           val lessons = lessonsUseCase.getLessonsByIDs(lessonsIDs)
+            val lessons = lessonsUseCase.getLessonsByIDs(lessonsIDs)
             emit(createState(lessons))
         } catch (e: Exception) {
             Logger.log("CourseViewModel", exception = e)
@@ -49,17 +54,17 @@ class CourseViewModel @Inject constructor(
         }
     }
 
-    fun likeLesson(lessonID: Int)= flow<State<Lesson>>{
+    fun likeLesson(lessonID: Int) = flow<State<Lesson>> {
         emit(State.LoadingState)
         try {
             dataStoreHelper.userID().collect {
                 val success = userInfoUseCase.setLikeToLesson(lessonID, it)
-                if (success){
+                if (success) {
                     val lesson = lessonsUseCase.getLessonByID(lessonID)
                     emit(createState(lesson))
                 }
             }
-        } catch (e: Exception){
+        } catch (e: Exception) {
             Logger.log("CourseViewModel", exception = e)
             emit(State.ErrorState(e))
         }

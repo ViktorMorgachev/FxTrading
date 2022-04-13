@@ -35,7 +35,6 @@ open class BaseAccordionListAdapter<A : RecyclerView.Adapter<*>>(
     }
 
     // Определить адаптеры для обновления, обновить в них дату и пересетить
-    @RequiresApi(Build.VERSION_CODES.N)
     fun <A : RecyclerView.Adapter<*>, T> updateData(data: T) {
         if (data is Lesson) {
             val adaptersForUpdate = mutableListOf<Pair<LessonsAdapter, RecyclerView?>>()

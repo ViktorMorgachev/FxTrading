@@ -11,6 +11,7 @@ import com.learning.lessons.domain.usecases.UserInfoUseCase
 import com.learning.lessons.utils.utils.Logger
 import data.DataStoreHelper
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
@@ -22,16 +23,25 @@ class CoursesViewModel @Inject constructor(
     private var dataStoreHelper: DataStoreHelper,
 ) : ViewModel() {
 
+    var passedCourses: List<Int> = listOf()
+        private set
+
     fun getData() = flow<State<Pair<List<Course>, List<Int>>>> {
         emit(State.LoadingState)
         try {
             dataStoreHelper.userID().collect {
-                emit(State.DataState(courseUseCase.getCourses()  to userInfoUseCase.getCompletedCoursesIds(it)))
+                val courses = courseUseCase.getCourses()
+                passedCourses = userInfoUseCase.getCompletedCoursesIds(it)
+                emit(State.DataState(courses to passedCourses))
             }
         } catch (e: Exception) {
             Logger.log("CoursesViewModel", exception = e)
             emit(State.ErrorState(e))
         }
+    }
+
+    suspend fun subscribeToCourses(): MutableStateFlow<List<Course>> {
+        return courseUseCase.getCoursesFlow()
     }
 
     fun likeCourse(courseID: Int) = flow<State<Course>> {

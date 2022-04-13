@@ -162,7 +162,8 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
             difficultyItem.setDifficulty(lesson.difficulty)
             difficultyName.setDifficulty(lesson.difficulty)
             likeDislikeItem.likeItem.tvLikeText.text = "${lesson.likes}"
-            val toolbarTitle = if (lessonOrder > 0) "${toolbar.toolbarText.resources.getString(R.string.lesson)} #$lessonOrder" else "${toolbar.toolbarText.resources.getString(R.string.lesson)}"
+            var toolbarTitle = toolbar.toolbarText.resources.getString(R.string.lesson)
+            if (lessonOrder > 0) toolbarTitle += " #$lessonOrder"
             toolbar.toolbarText.text = toolbarTitle
         }
     }
@@ -188,7 +189,8 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
             difficultyItem.setDifficulty(lesson.difficulty)
             difficultyName.setDifficulty(lesson.difficulty)
             likeDislikeItem.likeItem.tvLikeText.text = "${lesson.likes}"
-            val toolbarTitle = if (lessonOrder > 0) "${toolbar.toolbarText.resources.getString(R.string.lesson)} #$lessonOrder" else "${toolbar.toolbarText.resources.getString(R.string.lesson)}"
+            var toolbarTitle = toolbar.toolbarText.resources.getString(R.string.lesson)
+            if (lessonOrder > 0) toolbarTitle += " #$lessonOrder"
             toolbar.toolbarText.text = toolbarTitle
         }
     }
@@ -259,6 +261,7 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
             recyclerTimecodes.gone()
             itemTimecodes.gone()
         }
+
         lifecycleScope.launch {
             launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {

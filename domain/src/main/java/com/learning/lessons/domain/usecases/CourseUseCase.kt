@@ -11,11 +11,16 @@ import com.learning.lessons.domain.repositories.UserInfoRepository
 import com.learning.lessons.domain.repositories.UserRepository
 import com.learning.lessons.domain.repositories.WebinarRepository
 import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class CourseUseCase @Inject constructor(private val courseRepository: CourseRepository, private val userInfoRepository: UserInfoRepository) {
+
+    suspend fun getCoursesFlow(): MutableStateFlow<List<Course>> {
+        return courseRepository.getCoursesFlow()
+    }
 
     suspend fun getCourses(): List<Course>{
        return courseRepository.getCourses()
