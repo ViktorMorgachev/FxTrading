@@ -10,5 +10,4 @@ class ExampleUseCase @Inject constructor(private val exampleRepository: ExampleR
     suspend fun getData(): List<Any>{
         return exampleRepository.getData()
     }
-
 }

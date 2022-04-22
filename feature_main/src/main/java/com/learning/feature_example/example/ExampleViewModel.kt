@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class ExampleViewModel  @Inject constructor(
-    private val router: Router
 ) : ViewModel() {
 
     fun getData() = flow<State<Any>> {
@@ -22,5 +21,4 @@ class ExampleViewModel  @Inject constructor(
             emit(State.ErrorState(e))
         }
     }
-
 }
